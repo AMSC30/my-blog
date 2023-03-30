@@ -5,6 +5,7 @@ export default defineUserConfig({
     lang: 'zh-CN',
     title: 'AMSC30的笔记',
     description: '这是我记录笔记的地方',
+    base: '/my-blog/',
     theme: defaultTheme({
         Locale: {
             colorMode: 'light',
