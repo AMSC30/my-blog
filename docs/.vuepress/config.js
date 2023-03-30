@@ -1,5 +1,5 @@
-import { defineUserConfig } from 'vuepress'
-import { defaultTheme } from 'vuepress'
+import { defineUserConfig, defaultTheme } from 'vuepress'
+import { backToTopPlugin } from '@vuepress/plugin-back-to-top'
 
 export default defineUserConfig({
     lang: 'zh-CN',
@@ -22,5 +22,6 @@ export default defineUserConfig({
                 ]
             }
         ]
-    })
+    }),
+    plugins: [backToTopPlugin()]
 })
