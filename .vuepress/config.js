@@ -9,7 +9,7 @@ export default defineUserConfig({
         style: '@vuepress-reco/style-default',
         colorMode: 'dark',
         series: {
-            '/docs/Browser/': ['construct', 'strategy']
+            '/docs/Browser/': ['architecture', 'Homologous', 'eventLoop']
         },
         navbar: [
             {
@@ -19,7 +19,7 @@ export default defineUserConfig({
                     { text: 'HTML', link: '/blogs/HTML/html' },
                     { text: 'CSS', link: '/blogs/CSS/css' },
                     { text: 'JavaScript', link: '/blogs/JavaScript/javascript' },
-                    { text: '浏览器', link: '/docs/Browser/construct' }
+                    { text: '浏览器', link: '/docs/Browser/architecture' }
                 ]
             },
             {
