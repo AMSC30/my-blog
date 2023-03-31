@@ -2,37 +2,29 @@ import { defineUserConfig } from 'vuepress'
 import recoTheme from 'vuepress-theme-reco'
 
 export default defineUserConfig({
-    title: 'amsc30',
+    title: 'AMSC30',
     description: '笔记',
     base: '/my-blog/',
     theme: recoTheme({
         style: '@vuepress-reco/style-default',
         colorMode: 'dark',
-        autoSetSeries: true,
         series: {
-            '/blogs/HTML/': [
-                {
-                    text: 'module one',
-                    children: ['home', 'theme']
-                },
-                {
-                    text: 'module two',
-                    children: ['api', 'plugin']
-                }
-            ]
+            '/docs/Browser/': ['construct', 'strategy']
         },
         navbar: [
-            { text: '主页', link: '/' },
             {
                 text: '前端基础',
+                icon: 'Document',
                 children: [
                     { text: 'HTML', link: '/blogs/HTML/html' },
                     { text: 'CSS', link: '/blogs/CSS/css' },
-                    { text: 'JavaScript', link: '/blogs/JavaScript/javascript' }
+                    { text: 'JavaScript', link: '/blogs/JavaScript/javascript' },
+                    { text: '浏览器', link: '/docs/Browser/construct' }
                 ]
             },
             {
                 text: 'Vue2',
+                icon: 'Logo Vue',
                 children: [
                     { text: 'Vue文档', link: 'https://v2.cn.vuejs.org/v2/guide/index.html' },
                     // { text: 'Vue源码', link: '/blogs/CSS/css' },

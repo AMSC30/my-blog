@@ -1,0 +1,5 @@
+@media (min-width: 768px) {
+    .banner-brand__wrapper {
+        height: calc(100vh - 65px) !important;
+    }
+}

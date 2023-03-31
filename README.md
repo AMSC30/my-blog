@@ -5,8 +5,7 @@ modules:
   - MdContent
 bannerBrand:
   bgImage: '/bg.svg'
-  title: AMSC30
-  description: 记录笔记的地方
+  title: Welcome AMSC30!
 actionText: About
 actionLink: /views/other/about
 ---
