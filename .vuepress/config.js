@@ -4,6 +4,7 @@ import recoTheme from 'vuepress-theme-reco'
 export default defineUserConfig({
     title: 'amsc30',
     description: '笔记',
+    base: '/my-blog/',
     theme: recoTheme({
         style: '@vuepress-reco/style-default',
         colorMode: 'dark',
