@@ -138,5 +138,5 @@ Vue.prototype._init = function (options) {
 
 因为我们是要分析`initMixin`整体流程，对于其中某些方法的具体实现逻辑会在后续进行详细的说明，因此我们可以从以上代码得到`initMixin`的整体流程图。
 <div style="text-align: center">
-  <img src="../../images/vueAnalysis/initMixin.png" />
+  <img src="../../images/initMixin.png" />
 </div>
