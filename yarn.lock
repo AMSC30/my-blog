@@ -33,11 +33,6 @@
   "resolved" "https://registry.npmmirror.com/@algolia/cache-common/-/cache-common-4.14.3.tgz"
   "version" "4.14.3"
 
-"@algolia/cache-common@4.16.0":
-  "integrity" "sha512-4iHjkSYQYw46pITrNQgXXhvUmcekI8INz1m+SzmqLX8jexSSy4Ky4zfGhZzhhhLHXUP3+x/PK/c0qPjxEvRwKQ=="
-  "resolved" "https://registry.npmmirror.com/@algolia/cache-common/-/cache-common-4.16.0.tgz"
-  "version" "4.16.0"
-
 "@algolia/cache-in-memory@4.14.3":
   "integrity" "sha512-ES0hHQnzWjeioLQf5Nq+x1AWdZJ50znNPSH3puB/Y4Xsg4Av1bvLmTJe7SY2uqONaeMTvL0OaVcoVtQgJVw0vg=="
   "resolved" "https://registry.npmmirror.com/@algolia/cache-in-memory/-/cache-in-memory-4.14.3.tgz"
@@ -72,14 +67,6 @@
     "@algolia/requester-common" "4.14.3"
     "@algolia/transporter" "4.14.3"
 
-"@algolia/client-common@4.16.0":
-  "integrity" "sha512-QVdR4019ukBH6f5lFr27W60trRxQF1SfS1qo0IP6gjsKhXhUVJuHxOCA6ArF87jrNkeuHEoRoDU+GlvaecNo8g=="
-  "resolved" "https://registry.npmmirror.com/@algolia/client-common/-/client-common-4.16.0.tgz"
-  "version" "4.16.0"
-  dependencies:
-    "@algolia/requester-common" "4.16.0"
-    "@algolia/transporter" "4.16.0"
-
 "@algolia/client-personalization@4.14.3":
   "integrity" "sha512-UCX1MtkVNgaOL9f0e22x6tC9e2H3unZQlSUdnVaSKpZ+hdSChXGaRjp2UIT7pxmPqNCyv51F597KEX5WT60jNg=="
   "resolved" "https://registry.npmmirror.com/@algolia/client-personalization/-/client-personalization-4.14.3.tgz"
@@ -88,15 +75,6 @@
     "@algolia/client-common" "4.14.3"
     "@algolia/requester-common" "4.14.3"
     "@algolia/transporter" "4.14.3"
-
-"@algolia/client-search@>= 4.9.1 < 6":
-  "integrity" "sha512-xsfrAE1jO/JDh1wFrRz+alVyW+aA6qnkzmbWWWZWEgVF3EaFqzIf9r1l/aDtDdBtNTNhX9H3Lg31+BRtd5izQA=="
-  "resolved" "https://registry.npmmirror.com/@algolia/client-search/-/client-search-4.16.0.tgz"
-  "version" "4.16.0"
-  dependencies:
-    "@algolia/client-common" "4.16.0"
-    "@algolia/requester-common" "4.16.0"
-    "@algolia/transporter" "4.16.0"
 
 "@algolia/client-search@4.14.3":
   "integrity" "sha512-I2U7xBx5OPFdPLA8AXKUPPxGY3HDxZ4r7+mlZ8ZpLbI8/ri6fnu6B4z3wcL7sgHhDYMwnAE8Xr0AB0h3Hnkp4A=="
@@ -111,11 +89,6 @@
   "integrity" "sha512-kUEAZaBt/J3RjYi8MEBT2QEexJR2kAE2mtLmezsmqMQZTV502TkHCxYzTwY2dE7OKcUTxi4OFlMuS4GId9CWPw=="
   "resolved" "https://registry.npmmirror.com/@algolia/logger-common/-/logger-common-4.14.3.tgz"
   "version" "4.14.3"
-
-"@algolia/logger-common@4.16.0":
-  "integrity" "sha512-U9H8uCzSDuePJmbnjjTX21aPDRU6x74Tdq3dJmdYu2+pISx02UeBJm4kSgc9RW5jcR5j35G9gnjHY9Q3ngWbyQ=="
-  "resolved" "https://registry.npmmirror.com/@algolia/logger-common/-/logger-common-4.16.0.tgz"
-  "version" "4.16.0"
 
 "@algolia/logger-console@4.14.3":
   "integrity" "sha512-ZWqAlUITktiMN2EiFpQIFCJS10N96A++yrexqC2Z+3hgF/JcKrOxOdT4nSCQoEPvU4Ki9QKbpzbebRDemZt/hw=="
@@ -136,11 +109,6 @@
   "resolved" "https://registry.npmmirror.com/@algolia/requester-common/-/requester-common-4.14.3.tgz"
   "version" "4.14.3"
 
-"@algolia/requester-common@4.16.0":
-  "integrity" "sha512-3Zmcs/iMubcm4zqZ3vZG6Zum8t+hMWxGMzo0/uY2BD8o9q5vMxIYI0c4ocdgQjkXcix189WtZNkgjSOBzSbkdw=="
-  "resolved" "https://registry.npmmirror.com/@algolia/requester-common/-/requester-common-4.16.0.tgz"
-  "version" "4.16.0"
-
 "@algolia/requester-node-http@4.14.3":
   "integrity" "sha512-O5wnPxtDRPuW2U0EaOz9rMMWdlhwP0J0eSL1Z7TtXF8xnUeeUyNJrdhV5uy2CAp6RbhM1VuC3sOJcIR6Av+vbA=="
   "resolved" "https://registry.npmmirror.com/@algolia/requester-node-http/-/requester-node-http-4.14.3.tgz"
@@ -156,15 +124,6 @@
     "@algolia/cache-common" "4.14.3"
     "@algolia/logger-common" "4.14.3"
     "@algolia/requester-common" "4.14.3"
-
-"@algolia/transporter@4.16.0":
-  "integrity" "sha512-H9BVB2EAjT65w7XGBNf5drpsW39x2aSZ942j4boSAAJPPlLmjtj5IpAP7UAtsV8g9Beslonh0bLa1XGmE/P0BA=="
-  "resolved" "https://registry.npmmirror.com/@algolia/transporter/-/transporter-4.16.0.tgz"
-  "version" "4.16.0"
-  dependencies:
-    "@algolia/cache-common" "4.16.0"
-    "@algolia/logger-common" "4.16.0"
-    "@algolia/requester-common" "4.16.0"
 
 "@ampproject/remapping@^2.1.0":
   "integrity" "sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w=="
