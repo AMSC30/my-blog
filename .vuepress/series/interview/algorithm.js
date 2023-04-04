@@ -1,0 +1,21 @@
+export default [
+    'Algorithm',
+    'BinarySearch',
+    'Heap',
+    'Linked List',
+    'bubbleSort',
+    'design1',
+    'design2',
+    'graph',
+    'insertionSort',
+    'mergeSort',
+    'quickSort',
+    'read',
+    'selectionSort',
+    'set',
+    'sort',
+    'stack_queue',
+    'structure',
+    'time_space',
+    'tree'
+]

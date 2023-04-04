@@ -3,41 +3,46 @@ export default [
         text: '前端基础',
         icon: 'Document',
         children: [
-            { text: 'HTML', link: '/blogs/HTML/html' },
-            { text: 'CSS', link: '/blogs/CSS/css' },
-            { text: 'JavaScript', link: '/blogs/JavaScript/javascript' },
-            { text: '浏览器', link: '/docs/Browser/architecture' }
+            { text: 'HTML', link: '/docs/frontend-base/html/html' },
+            { text: 'CSS', link: '/docs/frontend-base/css/css' },
+            { text: 'JavaScript', link: '/docs/frontend-base/javascript/javascript' },
+            { text: '浏览器', link: '/docs/frontend-base/browser/architecture' }
         ]
     },
     {
         text: 'Vue2',
         icon: 'Logo Vue',
         children: [
-            { text: 'Vue文档', link: 'https://v2.cn.vuejs.org/v2/guide/index.html' },
-            // { text: 'Vue源码', link: '/blogs/CSS/css' },
-            { text: 'Vuex文档', link: 'https://v3.vuex.vuejs.org/zh/' },
-            // { text: 'Vuex源码', link: '/blogs/JavaScript/guide' },
-            { text: 'Vue-Router文档', link: 'https://v3.router.vuejs.org/zh/' }
-            // { text: 'Vue-Router源码', link: '/blogs/JavaScript/guide' }
+            { text: 'Vue', link: '/docs/vue2/vue/introduction/introduction.md' },
+            { text: 'Vue-Router', link: '/docs/vue2/vue-router/introduction.md' },
+            { text: 'Vuex', link: '/docs/vue2/vuex/introduction.md' }
         ]
     },
-    {
-        text: 'Vue3',
-        children: [
-            { text: 'Vue文档', link: 'https://cn.vuejs.org/' },
-            // { text: 'Vue源码', link: '/blogs/CSS/css' },
-            { text: 'Vuex文档', link: 'https://vuex.vuejs.org/zh/' },
-            // { text: 'Vuex源码', link: '/blogs/JavaScript/guide' },
-            { text: 'Vue-Router文档', link: 'https://router.vuejs.org/zh/' }
-            // { text: 'Vue-Router源码', link: '/blogs/JavaScript/guide' }
-        ]
-    },
+    // {
+    //     text: 'Vue3',
+    //     children: [
+    //         { text: 'Vue', link: '/docs/vue3/vue/readme.md' },
+    //         { text: 'Vue-Router', link: '/docs/vue3/vue-router/readme.md' },
+    //         { text: 'Vuex', link: '/docs/vue3/vuex/readme.md' }
+    //     ]
+    // },
     {
         text: '面试题',
         children: [
             { text: 'CSS', link: '/docs/interview/css/box.md' },
-            { text: 'JavaScript', link: '/docs/interview/JavaScript/data_type.md' },
-            { text: 'Vue', link: '/docs/interview/vue/base.md' }
+            { text: 'JavaScript', link: '/docs/interview/javascript/data_type.md' },
+            { text: 'TypeScript', link: '/docs/interview/typescript/data_type.md' },
+            { text: 'ES6', link: '/docs/interview/es6/var_let_const.md' },
+            { text: 'HTTP', link: '/docs/interview/http/1.0_1.1_2.0.md' },
+            { text: 'Vue', link: '/docs/interview/vue/base.md' },
+            { text: '小程序', link: '/docs/interview/applet/applet.md' },
+            { text: 'Git', link: '/docs/interview/git/command.md' },
+            { text: 'Linux', link: '/docs/interview/linux/linux.md' },
+            { text: 'Node', link: '/docs/interview/node/nodejs.md' },
+            { text: 'React', link: '/docs/interview/react/React.md' },
+            { text: 'Webpack', link: '/docs/interview/webpack/webpack.md' },
+            { text: '设计模式', link: '/docs/interview/design/design.md' },
+            { text: '算法', link: '/docs/interview/algorithm/Algorithm.md' }
         ]
     },
     {
