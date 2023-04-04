@@ -41,7 +41,7 @@ let result1 = (NaN == NaN ); // false
 
 如果两个操作数都是对象，则比较它们是不是同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回` true `
 
-```
+```js
 let obj1 = {name:"xxx"}
 let obj2 = {name:"xxx"}
 let result1 = (obj1 == obj2 ); // false
