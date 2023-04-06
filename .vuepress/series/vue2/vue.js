@@ -51,7 +51,8 @@ export default [
         children: [
             '/docs/vue2/vue/dom/introduction.md',
             '/docs/vue2/vue/dom/vnode.md',
-            '/docs/vue2/vue/dom/diff.md'
+            '/docs/vue2/vue/dom/diff.md',
+            '/docs/vue2/vue/dom/updatechildren.md'
         ]
     },
     {

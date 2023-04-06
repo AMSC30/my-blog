@@ -1,6 +1,6 @@
 # initGlobalAPI流程
 
-我们会在`src/core/index.js`文件中看到如下精简代码：
+在`src/core/index.js`文件中看到如下代码：
 
 ```js
 import Vue from './instance/index'
