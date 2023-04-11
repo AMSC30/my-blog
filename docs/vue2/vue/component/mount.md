@@ -2,26 +2,15 @@
 
 ## 代码分析
 
-在前面我们已经知道，`Vue`会根据不同的情况去挂载不同的`$mount`方法，其中带`compiler`版本的`$mount`方法是在`src/platforms/web/entry-runtime-with-compiler.js`文件中被重新定义，其代码如下：
+`Vue`会根据不同的情况去挂载不同的`$mount`方法，其中带`compiler`版本的`$mount`方法是在`src/platforms/web/entry-runtime-with-compiler.js`文件中被重新定义，其代码如下：
 
 ```js
 const mount = Vue.prototype.$mount
-Vue.prototype.$mount = function (
-  el?: string | Element,
-  hydrating?: boolean
-): Component {
+Vue.prototype.$mount = function (el,hydrating) {
   el = el && query(el)
 
-  /* istanbul ignore if */
-  if (el === document.body || el === document.documentElement) {
-    process.env.NODE_ENV !== 'production' && warn(
-      `Do not mount Vue to <html> or <body> - mount to normal elements instead.`
-    )
-    return this
-  }
-
   const options = this.$options
-  // resolve template/el and convert to render function
+
   if (!options.render) {
     let template = options.template
     if (template) {
@@ -48,11 +37,6 @@ Vue.prototype.$mount = function (
       template = getOuterHTML(el)
     }
     if (template) {
-      /* istanbul ignore if */
-      if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
-        mark('compile')
-      }
-
       const { render, staticRenderFns } = compileToFunctions(template, {
         outputSourceRange: process.env.NODE_ENV !== 'production',
         shouldDecodeNewlines,
@@ -63,18 +47,14 @@ Vue.prototype.$mount = function (
       options.render = render
       options.staticRenderFns = staticRenderFns
 
-      /* istanbul ignore if */
-      if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
-        mark('compile end')
-        measure(`vue ${this._name} compile`, 'compile', 'compile end')
-      }
+     
     }
   }
   return mount.call(this, el, hydrating)
 }
 ```
 
-我们可以看到，在代码最顶部它首先获取并缓存了`Vue.prototype`上原始的`$mount`方法，然后重新在`Vue.prototype`上定义`$mount`方法，其中在最新的`$mount`方法的最底部，还调用了缓存下来的原始`$mount`方法。
+在代码最顶部它首先获取并缓存了`Vue.prototype`上原始的`$mount`方法，然后重新在`Vue.prototype`上定义`$mount`方法，其中在最新的`$mount`方法的最底部，还调用了缓存下来的原始`$mount`方法。
 
 那么，这个原始的`$mount`方法又在哪里被定义呢，其实它是在`src/core/platforms/web/runtime/index.js`中被定义，其代码如下：
 
