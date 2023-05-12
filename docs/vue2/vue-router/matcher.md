@@ -1,15 +1,6 @@
-# matcher
+# matcher对象
 
-`matcher` 相关的实现都在 `src/create-matcher.js` 中，我们先来看一下 `matcher` 的数据结构：
-
-```js
-export type Matcher = {
-  match: (raw: RawLocation, current?: Route, redirectedFrom?: Location) => Route;
-  addRoutes: (routes: Array<RouteConfig>) => void;
-};
-```
-
-`Matcher` 返回了 2 个方法，`match` 和 `addRoutes`，在上一节我们接触到了 `match` 方法，顾名思义它是做匹配，那么匹配的是什么，在介绍之前，我们先了解路由中重要的 2 个概念，`Loaction` 和 `Route`，它们的数据结构定义在 `flow/declarations.js` 中。
+## location与route对象
 
 - Location
 
@@ -44,17 +35,13 @@ declare type Route = {
 }
 ```
 
-`Route` 表示的是路由中的一条线路，它除了描述了类似 `Loctaion` 的 `path`、`query`、`hash` 这些概念，还有 `matched` 表示匹配到的所有的 `RouteRecord`。`Route` 的其他属性我们之后会介绍。
+## matcher对象创建
 
-## `createMatcher`
-
-在了解了 `Location` 和 `Route` 后，我们来看一下 `matcher` 的创建过程：
+创建matcher对象，在router对象实例化时调用createMatcher方法：
 
 ```js
-export function createMatcher (
-  routes: Array<RouteConfig>,
-  router: VueRouter
-): Matcher {
+export function createMatcher (routes,router) {
+  // 根据routes配置，创建路径列表以及路径对应的路由配置
   const { pathList, pathMap, nameMap } = createRouteMap(routes)
 
   function addRoutes (routes) {
