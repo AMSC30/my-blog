@@ -1,12 +1,13 @@
 export default [
     {
-        text: '前端基础',
-        icon: 'Document',
+        text: '基础',
+        icon: '',
         children: [
             { text: 'HTML', link: '/docs/frontend-base/html/html' },
             { text: 'CSS', link: '/docs/frontend-base/css/css' },
             { text: 'JavaScript', link: '/docs/frontend-base/javascript/javascript' },
-            { text: '浏览器', link: '/docs/frontend-base/browser/architecture' }
+            { text: '浏览器', link: '/docs/frontend-base/browser/architecture' },
+            { text: '正则表达式', link: '/docs/frontend-base/regexp/introduction' }
         ]
     },
     {
