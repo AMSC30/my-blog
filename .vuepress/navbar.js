@@ -28,7 +28,7 @@ export default [
     //     ]
     // },
     {
-        text: '面试题',
+        text: '面试',
         children: [
             { text: 'CSS', link: '/docs/interview/css/box.md' },
             { text: 'JavaScript', link: '/docs/interview/javascript/data_type.md' },

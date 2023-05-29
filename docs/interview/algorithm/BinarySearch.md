@@ -1,7 +1,4 @@
-# 面试官：说说你对二分查找的理解？如何实现？应用场景？
-
- ![](https://static.vue-js.com/d43ca230-2987-11ec-8e64-91fdec0f05a1.png)
-
+# 二分查找
 
 ## 一、是什么
 
@@ -34,7 +31,10 @@
 
 ```js
 function BinarySearch(arr, target) {
-    if (arr.length <= 1) return -1
+    if (arr.length < 1) return -1
+
+    if(arr.length===1) return arr[0] === target ? 0 : -1
+
     // 低位下标
     let lowIndex = 0
     // 高位下标
@@ -141,10 +141,6 @@ function search (nums, target) {
 
 对比普通的二分查找法，为了确定目标数会落在二分后的哪个部分，我们需要更多的判定条件
 
-
-
-
-
 ## 三、应用场景
 
 二分查找法的`O(logn)`让它成为十分高效的算法。不过它的缺陷却也是比较明显，就在它的限定之上：
@@ -157,10 +153,3 @@ function search (nums, target) {
 - 不适合数据量太小的数列；数列太小，直接顺序遍历说不定更快，也更简单
 - 每次元素与元素的比较是比较耗时的，这个比较操作耗时占整个遍历算法时间的大部分，那么使用二分查找就能有效减少元素比较的次数
 - 不适合数据量太大的数列，二分查找作用的数据结构是顺序表，也就是数组，数组是需要连续的内存空间的，系统并不一定有这么大的连续内存空间可以使用
-
-
-
-## 参考文献
-
-- https://zh.wikipedia.org/wiki/%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B%E6%BC%94%E7%AE%97%E6%B3%95#javascript_%E7%89%88%E6%9C%AC
-- https://www.cnblogs.com/ider/archive/2012/04/01/binary_search.html

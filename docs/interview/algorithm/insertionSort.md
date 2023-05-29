@@ -1,8 +1,4 @@
-# 面试官：说说你对插入排序的理解？如何实现？应用场景？
-
- ![](https://static.vue-js.com/912adc10-267f-11ec-a752-75723a64e8f5.png)
-
-
+# 插入排序
 
 ## 一、是什么
 
@@ -69,13 +65,6 @@ function insertionSort(arr) {
 
 通过上面了解，可以看到插入排序是一种稳定的排序方式
 
-
-
 ## 三、应用场景
 
 插入排序时间复杂度是 O(n2)，适用于数据量不大，算法稳定性要求高，且数据局部或整体有序的数列排序
-
-## 参考文献
-
-- https://baike.baidu.com/item/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/7214992
-- http://data.biancheng.net/view/65.html
