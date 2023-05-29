@@ -53,7 +53,7 @@ const rex = new RegExp("pattern");
 ```js
 var regex = /\d{2,5}/g;
 var string = "123 1234 12345 123456";
-console.log( string.match(regex) ); 
+console.log(string.match(regex)); 
 // => ["123", "1234", "12345", "12345"]
 ```
 
@@ -62,7 +62,7 @@ console.log( string.match(regex) );
 ```js
 var regex = /\d{2,5}?/g;
 var string = "123 1234 12345 123456";
-console.log( string.match(regex) ); 
+console.log(string.match(regex)); 
 // => ["12", "12", "34", "12", "34", "12", "34", "56"]
 ```
 
@@ -101,7 +101,7 @@ console.log( string.match(regex) );
 ```js
 var regex = /good|goodbye/g;
 var string = "goodbye";
-console.log( string.match(regex) ); 
+console.log(string.match(regex)); 
 // => ["good"]
 ```
 
@@ -110,7 +110,7 @@ console.log( string.match(regex) );
 ```js
 var regex = /goodbye|good/g;
 var string = "goodbye";
-console.log( string.match(regex) ); 
+console.log(string.match(regex)); 
 // => ["goodbye"]
 ```
 
@@ -153,7 +153,7 @@ $（美元符号）匹配结尾，在多行匹配中匹配行结尾。
 ```js
 var regex = /(\d{4})-(\d{2})-(\d{2})/;
 var string = "2017-06-12";
-console.log( string.match(regex) ); 
+console.log(string.match(regex)); 
 // => ["2017-06-12", "2017", "06", "12", index: 0, input: "2017-06-12"]
 ```
 
@@ -164,7 +164,7 @@ console.log( string.match(regex) );
 ```js
 var regex = /(\d{4})-(\d{2})-(\d{2})/;
 var string = "2017-06-12";
-console.log(regex.exec(string) ); 
+console.log(regex.exec(string)); 
 // => ["2017-06-12", "2017", "06", "12", index: 0, input: "2017-06-12"]
 ```
 
@@ -240,10 +240,10 @@ var string1 = "2017-06-12";
 var string2 = "2017/06/12";
 var string3 = "2017.06.12";
 var string4 = "2016-06/12";
-console.log( regex.test(string1) ); // true
-console.log( regex.test(string2) ); // true
-console.log( regex.test(string3) ); // true
-console.log( regex.test(string4) ); // true
+console.log(regex.test(string1)); // true
+console.log(regex.test(string2)); // true
+console.log(regex.test(string3)); // true
+console.log(regex.test(string4)); // true
 ```
 
 其中/和.需要转义。虽然匹配了要求的情况，但也匹配"2016-06/12"这样的数据。
@@ -256,10 +256,10 @@ var string1 = "2017-06-12";
 var string2 = "2017/06/12";
 var string3 = "2017.06.12";
 var string4 = "2016-06/12";
-console.log( regex.test(string1) ); // true
-console.log( regex.test(string2) ); // true
-console.log( regex.test(string3) ); // true
-console.log( regex.test(string4) ); // false
+console.log(regex.test(string1)); // true
+console.log(regex.test(string2)); // true
+console.log(regex.test(string3)); // true
+console.log(regex.test(string4)); // false
 ```
 
 注意里面的\1，表示的引用之前的那个分组(-|\/|\.)。不管它匹配到什么（比如-），\1都匹配那个同样的具体某个字符。
@@ -271,11 +271,11 @@ console.log( regex.test(string4) ); // false
 ```js
 var regex = /^((\d)(\d(\d)))\1\2\3\4$/;
 var string = "1231231233";
-console.log( regex.test(string) ); // true
-console.log( RegExp.$1 ); // 123
-console.log( RegExp.$2 ); // 1
-console.log( RegExp.$3 ); // 23
-console.log( RegExp.$4 ); // 3
+console.log(regex.test(string)); // true
+console.log(RegExp.$1); // 123
+console.log(RegExp.$2); // 1
+console.log(RegExp.$3); // 23
+console.log(RegExp.$4); // 3
 ```
 
 - 第一个字符是数字，比如说1，
@@ -294,35 +294,33 @@ console.log( RegExp.$4 ); // 3
 
 3. 引用的分组不存在
 
-因为反向引用，是引用前面的分组，但我们在正则里引用了不存在的分组时，此时正则不会报错，只是匹配反向引用的字符本身。例如\2，就匹配"\2"。注意"\2"表示对"2"进行了转意
+因为反向引用，是引用前面的分组，但我们在正则里引用了不存在的分组时，此时正则不会报错，只是匹配反向引用的字符本身。例如\2，就匹配"\2"。注意"\2"表示对"2"进行了转义
 
 ## 正则表达式的拆分
 
-### 结构与操作符
+### 结构
 
-**正则中的结构如下：**
+- 字面量：匹配一个具体字符，包括不用转义的和需要转义的。比如a匹配字符"a"，又比如\n匹配换行符，又比如\.匹配小数点。
+- 字符组：匹配一个字符，可以是多种可能之一，比如[0-9]，表示匹配一个数字。也有\d的简写形式。另外还有反义字符组，表示可以是除了特定字符之外任何一个字符，比如[^0-9]，表示一个非数字字符，也有\D的简写形式。
+- 量词：表示一个字符连续出现，比如a{1,3}表示“a”字符连续出现3次。另外还有常见的简写形式，比如a+表示“a”字符连续出现至少一次。
+- 锚点：匹配一个位置，而不是字符。比如^匹配字符串的开头，又比如\b匹配单词边界，又比如(?=\d)表示数字前面的位置。
+- 分组：用括号表示一个整体，比如(ab)+，表示"ab"两个字符连续出现多次，也可以使用非捕获分组(?:ab)+。
+- 分支：多个子表达式多选一，比如abc|bcd，表达式匹配"abc"或者"bcd"字符子串。
+- 反向引用：比如\2，表示引用第2个分组
 
-- 字面量，匹配一个具体字符，包括不用转义的和需要转义的。比如a匹配字符"a"，又比如\n匹配换行符，又比如\.匹配小数点。
-- 字符组，匹配一个字符，可以是多种可能之一，比如[0-9]，表示匹配一个数字。也有\d的简写形式。另外还有反义字符组，表示可以是除了特定字符之外任何一个字符，比如[^0-9]，表示一个非数字字符，也有\D的简写形式。
-- 量词，表示一个字符连续出现，比如a{1,3}表示“a”字符连续出现3次。另外还有常见的简写形式，比如a+表示“a”字符连续出现至少一次。
-- 锚点，匹配一个位置，而不是字符。比如^匹配字符串的开头，又比如\b匹配单词边界，又比如(?=\d)表示数字前面的位置。
-- 分组，用括号表示一个整体，比如(ab)+，表示"ab"两个字符连续出现多次，也可以使用非捕获分组(?:ab)+。
-- 分支，多个子表达式多选一，比如abc|bcd，表达式匹配"abc"或者"bcd"字符子串。
-- 反向引用，比如\2，表示引用第2个分组
+### 操作符
 
-**涉及的操作符优先级由高到低如下：**
-
-- 转义符 \
-- 括号和方括号 (...)、(?:...)、(?=...)、(?!...)、[...]
-- 量词限定符 {m}、{m,n}、{m,}、?、*、+
-- 位置和序列 ^ 、$、 \元字符、 一般字符
-- 管道符（竖杠）|
+- 转义符： \
+- 括号和方括号： (...)、(?:...)、(?=...)、(?!...)、[...]
+- 量词限定符： {m}、{m,n}、{m,}、?、*、+
+- 位置和序列： ^ 、$、 \元字符、 一般字符
+- 管道符：|
 
 ## 正则表达式编程
 
 ### 正则表达式四种操作
 
-正则表达式是匹配模式，不管如何使用正则表达式，万变不离其宗，都需要先“匹配”，所谓匹配，就是看目标字符串里是否有满足匹配的子串。因此，“匹配”的本质就是“查找”
+正则表达式是匹配模式，不管如何使用正则表达式，万变不离其宗，都需要先`匹配`，所谓匹配，就是看目标字符串里是否有满足匹配的子串。因此，“匹配”的本质就是“查找”
 
  **1. 验证**
 
@@ -331,7 +329,7 @@ console.log( RegExp.$4 ); // 3
 ```js
 var regex = /\d/;
 var string = "abc123";
-console.log( !!~string.search(regex) );
+console.log(!!string.search(regex));
 // => true
 ```
 
@@ -340,7 +338,7 @@ console.log( !!~string.search(regex) );
 ```js
 var regex = /\d/;
 var string = "abc123";
-console.log( !!string.match(regex) );
+console.log(!!string.match(regex));
 // => true
 ```
 
@@ -349,7 +347,7 @@ console.log( !!string.match(regex) );
 ```js
 var regex = /\d/;
 var string = "abc123";
-console.log( regex.test(string) );
+console.log(regex.test(string));
 // => true
 ```
 
@@ -358,7 +356,7 @@ console.log( regex.test(string) );
 ```js
 var regex = /\d/;
 var string = "abc123";
-console.log( !!regex.exec(string) );
+console.log(!!regex.exec(string));
 // => true
 ```
 
@@ -373,7 +371,7 @@ console.log( !!regex.exec(string) );
 ```js
 var regex = /,/;
 var string = "html,css,javascript";
-console.log( string.split(regex) );
+console.log(string.split(regex));
 // => ["html", "css", "javascript"]
 ```
 
@@ -387,9 +385,9 @@ console.log( string.split(regex) );
 
 ```js
 var regex = /\D/;
-console.log( "2017/06/26".split(regex) );
-console.log( "2017.06.26".split(regex) );
-console.log( "2017-06-26".split(regex) );
+console.log("2017/06/26".split(regex));
+console.log("2017.06.26".split(regex));
+console.log("2017-06-26".split(regex));
 // => ["2017", "06", "26"]
 // => ["2017", "06", "26"]
 // => ["2017", "06", "26"]
@@ -408,7 +406,7 @@ console.log( "2017-06-26".split(regex) );
 ```js
 var regex = /^(\d{4})\D(\d{2})\D(\d{2})$/;
 var string = "2017-06-26";
-console.log( string.match(regex) );
+console.log(string.match(regex));
 // =>["2017-06-26", "2017", "06", "26", index: 0, input: "2017-06-26"]
 ```
 
@@ -417,7 +415,7 @@ console.log( string.match(regex) );
 ```js
 var regex = /^(\d{4})\D(\d{2})\D(\d{2})$/;
 var string = "2017-06-26";
-console.log( regex.exec(string) );
+console.log(regex.exec(string));
 // =>["2017-06-26", "2017", "06", "26", index: 0, input: "2017-06-26"]
 ```
 
@@ -427,7 +425,7 @@ console.log( regex.exec(string) );
 var regex = /^(\d{4})\D(\d{2})\D(\d{2})$/;
 var string = "2017-06-26";
 regex.test(string);
-console.log( RegExp.$1, RegExp.$2, RegExp.$3 );
+console.log(RegExp.$1, RegExp.$2, RegExp.$3);
 // => "2017" "06" "26"
 ```
 
@@ -437,7 +435,7 @@ console.log( RegExp.$1, RegExp.$2, RegExp.$3 );
 var regex = /^(\d{4})\D(\d{2})\D(\d{2})$/;
 var string = "2017-06-26";
 string.search(regex);
-console.log( RegExp.$1, RegExp.$2, RegExp.$3 );
+console.log(RegExp.$1, RegExp.$2, RegExp.$3);
 // => "2017" "06" "26"
 ```
 
@@ -462,35 +460,35 @@ String：search、split、match、replace
 
 RegExp：test、exec
 
-**1.search和match的参数问题**
+**1.search和match将字符串参数转为正则**
 
-我们知道字符串实例的那4个方法参数都支持正则和字符串。
-
-但search和match，会把字符串转换为正则的。
+字符串实例的那4个方法参数都支持正则和字符串，但search和match，会把字符串转换为正则的。
 
 ```js
 var string = "2017.06.27";
 
-console.log( string.search(".") );
+console.log(string.search("."));
 // => 0
+
 //需要修改成下列形式之一
-console.log( string.search("\\.") );
-console.log( string.search(/\./) );
+console.log(string.search("\\."));
+console.log(string.search(/\./));
 // => 4
 // => 4
 
-console.log( string.match(".") );
+console.log(string.match("."));
 // => ["2", index: 0, input: "2017.06.27"]
+
 //需要修改成下列形式之一
-console.log( string.match("\\.") );
-console.log( string.match(/\./) );
+console.log(string.match("\\."));
+console.log(string.match(/\./));
 // => [".", index: 4, input: "2017.06.27"]
 // => [".", index: 4, input: "2017.06.27"]
 
-console.log( string.split(".") );
+console.log(string.split("."));
 // => ["2017", "06", "27"]
 
-console.log( string.replace(".", "/") );
+console.log(string.replace(".", "/"));
 // => "2017/06.27"
 ```
 
@@ -502,8 +500,8 @@ match返回结果的格式，与正则对象是否有修饰符g有关。
 var string = "2017.06.27";
 var regex1 = /\b(\d+)\b/;
 var regex2 = /\b(\d+)\b/g;
-console.log( string.match(regex1) );
-console.log( string.match(regex2) );
+console.log(string.match(regex1));
+console.log(string.match(regex2));
 // => ["2017", "2017", index: 0, input: "2017.06.27"]
 // => ["2017", "06", "27"]
 ```
@@ -523,14 +521,14 @@ console.log( string.match(regex2) );
 ```js
 var string = "2017.06.27";
 var regex2 = /\b(\d+)\b/g;
-console.log( regex2.exec(string) );
-console.log( regex2.lastIndex);
-console.log( regex2.exec(string) );
-console.log( regex2.lastIndex);
-console.log( regex2.exec(string) );
-console.log( regex2.lastIndex);
-console.log( regex2.exec(string) );
-console.log( regex2.lastIndex);
+console.log(regex2.exec(string));
+console.log(regex2.lastIndex);
+console.log(regex2.exec(string));
+console.log(regex2.lastIndex);
+console.log(regex2.exec(string));
+console.log(regex2.lastIndex);
+console.log(regex2.exec(string));
+console.log(regex2.lastIndex);
 // => ["2017", "2017", index: 0, input: "2017.06.27"]
 // => 4
 // => ["06", "06", index: 5, input: "2017.06.27"]
@@ -551,17 +549,15 @@ console.log( regex2.lastIndex);
 var string = "2017.06.27";
 var regex2 = /\b(\d+)\b/g;
 var result;
-while ( result = regex2.exec(string) ) {
-    console.log( result, regex2.lastIndex );
+while (result = regex2.exec(string)) {
+    console.log(result, regex2.lastIndex);
 }
 // => ["2017", "2017", index: 0, input: "2017.06.27"] 4
 // => ["06", "06", index: 5, input: "2017.06.27"] 7
 // => ["27", "27", index: 8, input: "2017.06.27"] 10
 ```
 
-**4. 修饰符g，对exex和test的影响**
-
-上面提到了正则实例的lastIndex属性，表示尝试匹配时，从字符串的lastIndex位开始去匹配。
+**4. 修饰符g，对exec和test的影响**
 
 字符串的四个方法，每次匹配时，都是从0开始的，即lastIndex属性始终不变。
 
@@ -569,9 +565,9 @@ while ( result = regex2.exec(string) ) {
 
 ```js
 var regex = /a/g;
-console.log( regex.test("a"), regex.lastIndex );
-console.log( regex.test("aba"), regex.lastIndex );
-console.log( regex.test("ababc"), regex.lastIndex );
+console.log(regex.test("a"), regex.lastIndex);
+console.log(regex.test("aba"), regex.lastIndex);
+console.log(regex.test("ababc"), regex.lastIndex);
 // => true 1
 // => true 3
 // => false 0
@@ -583,9 +579,9 @@ console.log( regex.test("ababc"), regex.lastIndex );
 
 ```js
 var regex = /a/;
-console.log( regex.test("a"), regex.lastIndex );
-console.log( regex.test("aba"), regex.lastIndex );
-console.log( regex.test("ababc"), regex.lastIndex );
+console.log(regex.test("a"), regex.lastIndex);
+console.log(regex.test("aba"), regex.lastIndex);
+console.log(regex.test("ababc"), regex.lastIndex);
 // => true 0
 // => true 0
 // => true 0
@@ -598,11 +594,11 @@ console.log( regex.test("ababc"), regex.lastIndex );
 如果，要整体匹配，正则前后需要添加开头和结尾：
 
 ```js
-console.log( /123/.test("a123b") );
+console.log(/123/.test("a123b"));
 // => true
-console.log( /^123$/.test("a123b") );
+console.log(/^123$/.test("a123b"));
 // => false
-console.log( /^123$/.test("123") );
+console.log(/^123$/.test("123"));
 // => true
 ```
 
@@ -614,7 +610,7 @@ split方法看起来不起眼，但要注意的地方有两个的。
 
 ```js
 var string = "html,css,javascript";
-console.log( string.split(/,/, 2) );
+console.log(string.split(/,/, 2));
 // =>["html", "css"]
 ```
 
@@ -622,13 +618,11 @@ console.log( string.split(/,/, 2) );
 
 ```js
 var string = "html,css,javascript";
-console.log( string.split(/(,)/) );
+console.log(string.split(/(,)/));
 // =>["html", ",", "css", ",", "javascript"]
 ```
 
 **7. replace是很强大的**
-
-《JavaScript权威指南》认为exec是这6个API中最强大的，而我始终认为replace才是最强大的。因为它也能拿到该拿到的信息，然后可以假借替换之名，做些其他事情。
 
 总体来说replace有两种使用形式，这是因为它的第二个参数，可以是字符串，也可以是函数。
 
@@ -685,11 +679,11 @@ console.log(result);
 ```
 var string = "2017-06-27 2017.06.27 2017/06/27";
 var regex = /\d{4}(-|\.|\/)\d{2}\1\d{2}/g;
-console.log( string.match(regex) );
+console.log(string.match(regex));
 // => ["2017-06-27", "2017.06.27", "2017/06/27"]
 
 regex = new RegExp("\\d{4}(-|\\.|\\/)\\d{2}\\1\\d{2}", "g");
-console.log( string.match(regex) );
+console.log(string.match(regex));
 // => ["2017-06-27", "2017.06.27", "2017/06/27"]
 ```
 
@@ -707,9 +701,9 @@ ES5中修饰符，共3个：
 
 ```js
 var regex = /\w/img;
-console.log( regex.global );
-console.log( regex.ignoreCase );
-console.log( regex.multiline );
+console.log(regex.global);
+console.log(regex.ignoreCase);
+console.log(regex.multiline);
 // => true
 // => true
 // => true
@@ -726,7 +720,7 @@ console.log( regex.multiline );
 ```js
 var className = "high";
 var regex = new RegExp("(^|\\s)" + className + "(\\s|$)");
-console.log( regex.source )
+console.log(regex.source)
 // => (^|\s)high(\s|$) 即字符串"(^|\\s)high(\\s|$)"
 ```
 
@@ -746,24 +740,24 @@ var regex = /([abc])(\d)/g;
 var string = "a1b2c3d4e5";
 string.match(regex);
 
-console.log( RegExp.input );
-console.log( RegExp["$_"]);
+console.log(RegExp.input);
+console.log(RegExp["$_"]);
 // => "a1b2c3d4e5"
 
-console.log( RegExp.lastMatch );
-console.log( RegExp["$&"] );
+console.log(RegExp.lastMatch);
+console.log(RegExp["$&"]);
 // => "c3"
 
-console.log( RegExp.lastParen );
-console.log( RegExp["$+"] );
+console.log(RegExp.lastParen);
+console.log(RegExp["$+"]);
 // => "3"
 
-console.log( RegExp.leftContext );
-console.log( RegExp["$`"] );
+console.log(RegExp.leftContext);
+console.log(RegExp["$`"]);
 // => "a1b2"
 
-console.log( RegExp.rightContext );
-console.log( RegExp["$'"] );
+console.log(RegExp.rightContext);
+console.log(RegExp["$'"]);
 // => "d4e5"
 ```
 
