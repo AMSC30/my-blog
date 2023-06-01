@@ -43,17 +43,21 @@
 ```js
 function selectionSort(arr) {
     var len = arr.length;
-    var minIndex, temp;
     for (var i = 0; i < len - 1; i++) {
-        minIndex = i;
+        let  minIndex = i;
+
         for (var j = i + 1; j < len; j++) {
             if (arr[j] < arr[minIndex]) {     // 寻找最小的数
                 minIndex = j;                 // 将最小数的索引保存
             }
         }
-        temp = arr[i];
-        arr[i] = arr[minIndex];
-        arr[minIndex] = temp;
+
+        if (minIndex !== i){
+            temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
+        }
+
     }
     return arr;
 }
@@ -62,10 +66,22 @@ function selectionSort(arr) {
 第一次内循环比较`N - 1`次，然后是`N-2`次，`N-3`次，……，最后一次内循环比较1次
 共比较的次数是 `(N - 1) + (N - 2) + ... + 1`，求等差数列和，得 `(N - 1 + 1)* N / 2 = N^2 / 2`，舍去最高项系数，其时间复杂度为 `O(N^2)`
 
+或者:
+
+```js
+const selectionSort = arr => {
+    let len = arr.length
+    for (let i = 0; i < len - 1; i++) {
+        for (let j = i + 1; j < len; j++) {
+            if (arr[i] > arr[j]) {
+                let temp = arr[i]
+                arr[i] = arr[j]
+                arr[j] = temp
+            }
+        }
+    }
+    return arr
+}
+```
+
 从上述也可以看到，选择排序是一种稳定的排序
-
-## 三、应用场景
-
-和冒泡排序一致，相比其它排序算法，这也是一个相对较高的时间复杂度，一般情况不推荐使用
-
-但是我们还是要掌握冒泡排序的思想及实现，这对于我们的算法思维是有很大帮助的

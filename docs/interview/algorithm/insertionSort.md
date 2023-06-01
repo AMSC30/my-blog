@@ -43,19 +43,24 @@
 用代码表示则如下：
 
 ```js
-function insertionSort(arr) {
-    const len = arr.length;
-    let preIndex, current;
+const insertionSort = arr => {
+    let len = arr.length
+
+    if (len < 2) return arr
+
     for (let i = 1; i < len; i++) {
-        preIndex = i - 1;
-        current = arr[i];
-        while(preIndex >= 0 && arr[preIndex] > current) {
-            arr[preIndex+1] = arr[preIndex];
-            preIndex--;
+        let current = arr[i]
+
+        for (let j = i - 1; j > -1; j--) {
+            if (arr[j] > current) {
+                arr[j + 1] = arr[j]
+                arr[j] = current
+            } else {
+                break
+            }
         }
-        arr[preIndex+1] = current;
     }
-    return arr;
+    return arr
 }
 ```
 

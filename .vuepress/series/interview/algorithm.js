@@ -15,5 +15,6 @@ export default [
     'quickSort',
     'BinarySearch',
     'design1',
-    'design2'
+    'design2',
+    'example_linked_list'
 ]

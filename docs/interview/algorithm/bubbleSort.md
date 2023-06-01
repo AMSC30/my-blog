@@ -75,21 +75,21 @@ function bubbleSort(arr) {
 可以设置一标志性变量`pos`，用于记录每趟排序中最后一次进行交换的位置，由于`pos`位置之后的记录均已交换到位，故在进行下一趟排序时只要扫描到`pos`位置即可，如下：
 
 ```js
-function bubbleSort1(arr){
- const i=arr.length-1;//初始时,最后位置保持不变  
- while(i>0){
-  let pos = 0;//每趟开始时,无记录交换
-  for(let j = 0; j < i; j++){
-   if(arr[j] > arr[j+1]){
-        let tmp = arr[j];
-        arr[j] = arr[j+1];
-        arr[j+1] = tmp;
-    pos = j;//记录最后交换的位置  
-   }   
-  }
-  i = pos;//为下一趟排序作准备
- }
- return arr;
+const bubbleSort = arr => {
+    const len = arr.length
+    for (let i = 0; i < len - 1; i++) {
+        let changed = false
+        for (let j = 0; j < len - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                let temp = arr[j]
+                arr[j] = arr[j + 1]
+                arr[j + 1] = temp
+                changed = true
+            }
+        }
+        if (!changed) return arr
+    }
+    return arr
 }
 ```
 
