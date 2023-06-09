@@ -858,7 +858,7 @@ Hook 是一些可以让你在函数组件里“钩入” React state 及生命�
 - Hook 不能在 class 组件中使用,只能在函数组件中使用
 - 只能在函数最外层调用 Hook。不要在循环、条件判断或者子函数中调用
 
-#### stateHook
+#### useState
 
 stateHook是允许向函数组件内添加state的hook，通过useState函数进行创建,本质上是在函数调用时保存状态的一种方式，无论是普通函数还是函数组件
 
@@ -885,9 +885,19 @@ setState(prevState => {
 更新过程
 调用更新函数，传入一个值或者一个返回新的state的函数，更新函数将通过object.is比较前后的两个状态，如果不相等，那么将组件的更新放入下一次执行的队列中，如果相等，跳过子组件的更新和effet的执行
 
-#### effectHook
+#### useDeferredValue
+
+在组件的顶层调用 useDeferredValue 以获得该值的延迟版本，允许您延迟更新 UI 的一部分，在初始渲染期间，返回的延迟值将与初始值相同。在更新期间，React 将首先尝试使用旧值重新渲染(因此它将返回旧值) ，然后尝试在后台使用新值重新渲染(因此它将返回更新的值)
+
+#### useEffect
 
 effectHook用于定义react组件在特定生命周期时刻执行相应的副作用，它接收一个副作用函数作为参数，默认情况下，在每次dom更新渲染后都会执行副作用函数
+
+使用步骤：
+
+1. 声明一个effect
+2. 指定依赖项。大多数效果应该只在需要的时候重新运行，而不是在每次渲染之后
+3. 如果需要，添加清理函数
 
 ```js
 import React, { useState, useEffect } from 'react';
@@ -915,7 +925,7 @@ function Example() {
 
 返回值
 
-返回值为一个清除函数，在组件卸载和依赖值发生改变的时候会执行清除函数，相当于在class组件中componentWillUnmount的生命周期中执行的函数
+返回值为一个清除函数，在组件卸载和依赖值发生改变的时候会执行清除函数
 
 阻止执行
 
@@ -924,9 +934,36 @@ function Example() {
 > Tips：如果想执行只运行一次的 effect（仅在组件挂载和卸载时执行），可以传递一个空数组（[]）作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行。这并不属于特殊情况 —— 它依然遵循依赖数组的工作方式。
 如果你传入了一个空数组（[]），effect 内部的 props 和 state 就会一直拥有其初始值
 
+#### useInsertionEffect
+
+useInsertionEffect是useEffect的一个版本，在任何DOM突变之前触发，允许我们在dom更新前做一些事情
+
+```js
+import { useInsertionEffect } from 'react';
+
+// Inside your CSS-in-JS library
+function useCSS(rule) {
+  useInsertionEffect(() => {
+    // ... inject <style> tags here ...
+  });
+  return rule;
+}
+```
+
+#### useLayoutEffect
+
+其函数签名与 useEffect 相同，但它会在所有的 DOM 变更之后同步调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新
+>useLayoutEffect(setup, dependencies?)
+
+- setup：带有Effect逻辑的函数。您的setup函数也可以选择返回一个cleanup函数。在你的组件被添加到DOM之前，React会运行你的setup函数。在每次使用更改的依赖项重新渲染之后，React将首先使用旧值运行cleanup函数（如果您提供了它），然后使用新值运行setup函数。在你的组件从DOM中移除之前，React会运行你的清理函数。
+
+- 可选dependencies：setup代码中引用的依赖项。反应性值包括props、state以及所有直接在组件主体中声明的变量和函数。如果你的linter被配置为React，它将验证每个reactive值都被正确指定为依赖项。依赖项列表必须有固定数量的项，并像[dep1, dep2, dep3]一样内联编写。React将使用Object.is比较将每个依赖项与其先前的值进行比较。如果省略此参数，则每次重新渲染组件后，都会重新运行Effect
+
+useLayoutEffect中的代码和所有从它调度的状态更新都会阻止浏览器重新绘制屏幕。当过度使用时，这会使您的应用程序变慢
+
 #### useContext
 
-接收一个 context 对象（React.createContext 的返回值）并返回该 context 的当前值，使组件能够读取 context 的值以及订阅 context 的变化。当前的 context 值由上层组件中距离当前组件最近的 `<MyContext.Provider>`的 value prop 决定
+接收一个 context 对象（createContext 的返回值）并返回该 context 的当前值，使组件能够读取 context 的值以及订阅 context 的变化。当前的 context 值由上层组件中距离当前组件最近的 `<MyContext.Provider>`的 value prop 决定
 
 触发渲染
 
@@ -985,13 +1022,39 @@ const memoizedCallback = useCallback(
 );
 ```
 
+在react组件更新时，该组件中的子组件也会递归得更新，出于对性能的考虑，结合memo与useCallback可以对组件进行缓存，使用memo定义的组件，如果所有的props都相同，那么作为子组件不会更新
+
+```js
+import { memo，useCallback } from 'react';
+
+const ShippingForm = memo(function ShippingForm({ onSubmit }) {
+  // ...
+});
+
+function ProductPage({ productId, referrer, theme }) {
+  // Tell React to cache your function between re-renders...
+  const handleSubmit = useCallback((orderDetails) => {
+    post('/product/' + productId + '/buy', {
+      referrer,
+      orderDetails,
+    });
+  }, [productId, referrer]); // ...so as long as these dependencies don't change...
+
+  return (
+    <div className={theme}>
+      {/* ...ShippingForm will receive the same props and can skip re-rendering */}
+      <ShippingForm onSubmit={handleSubmit} />
+    </div>
+  );
+}
+```
+
 #### useMemo
 
-把“创建”函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。
-记住，传入 useMemo 的函数会在渲染期间执行。请不要在这个函数内部执行与渲染无关的操作，诸如副作用这类的操作属于 useEffect 的适用范畴，而不是 useMemo。
+把`创建函数`和`依赖项数组`作为参数传入`useMemo`，它仅会在某个依赖项改变时才重新计算`memoized`值。这种优化有助于避免在每次渲染时都进行高开销的计算。
+记住，传入 useMemo 的函数会在渲染期间执行。请不要在这个函数内部执行与渲染无关的操作，诸如副作用这类的操作属于`useEffect`的适用范畴，而不是useMemo。
 如果没有提供依赖项数组，useMemo 在每次渲染时都会计算新的值。
-你可以把 useMemo 作为性能优化的手段，但不要把它当成语义上的保证。将来，React 可能会选择“遗忘”以前的一些 memoized 值，并在下次渲染时重新计算它们，比如为离屏组件释放内存。先编写在没有 useMemo 的情况下也可以执行的代码 —— 之后再在你的代码中添加 useMemo，以达到优化性能的目的。
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+你可以把`useMemo`作为性能优化的手段，但不要把它当成语义上的保证。
 
 #### useRef
 
@@ -1018,222 +1081,517 @@ function TextInputWithFocusButton() {
 
 > useRef() 和自建一个 {current: ...} 对象的唯一区别是，useRef 会在每次渲染时返回同一个 ref 对象
 
-#### useLayoutEffect
+**管理ref列表**
 
-其函数签名与 useEffect 相同，但它会在所有的 DOM 变更之后同步调用 effect。可以使用它来读取 DOM 布局并同步触发重渲染。在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新
+在jsx中使用列表循环，由于hook只能在组件的顶层调用，不能在循环语句、条件语句和map之类的函数中使用，看以下代码
+
+```js
+<ul>
+  {items.map((item) => {
+    // 行不通！
+    const ref = useRef(null);
+    return <li ref={ref} />;
+  })}
+</ul>
+```
+
+一种方法是用一个 ref 引用其父元素，然后用 DOM 操作方法如 querySelectorAll 来寻找它的子节点。然而，这种方法很脆弱，如果 DOM 结构发生变化，可能会失效或报错
+
+我们看下第二种方法，将函数传递给 ref 属性。这称为 ref 回调。当需要设置 ref 时，React 将传入 DOM 节点来调用你的 ref 回调，并在需要清除它时传入 null
+
+```js
+import { useRef } from 'react';
+
+export default function CatFriends() {
+  const itemsRef = useRef(null);
+
+  function scrollToId(itemId) {
+    const map = getMap();
+    const node = map.get(itemId);
+    node.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
+  }
+
+  function getMap() {
+    if (!itemsRef.current) {
+      // 首次运行时初始化 Map。
+      itemsRef.current = new Map();
+    }
+    return itemsRef.current;
+  }
+
+  return (
+    <>
+      <nav>
+        <button onClick={() => scrollToId(0)}>
+          Tom
+        </button>
+        <button onClick={() => scrollToId(5)}>
+          Maru
+        </button>
+        <button onClick={() => scrollToId(9)}>
+          Jellylorum
+        </button>
+      </nav>
+      <div>
+        <ul>
+          {catList.map(cat => (
+            <li
+              key={cat.id}
+              ref={(node) => {
+                const map = getMap();
+                if (node) {
+                  map.set(cat.id, node);
+                } else {
+                  map.delete(cat.id);
+                }
+              }}
+            >
+              <img
+                src={cat.imageUrl}
+                alt={'Cat #' + cat.id}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+}
+
+const catList = [];
+for (let i = 0; i < 10; i++) {
+  catList.push({
+    id: i,
+    imageUrl: 'https://placekitten.com/250/200?image=' + i
+  });
+}
+
+```
+
+**访问另一个组件的DOM节点**
+
+将ref放在浏览器原生组件上时，react会将ref的current属性设置为相应的dom节点，但是就爱那个ref放在自定义组件上时，不会有这种效果，要访问组件的dom，首先目标组件需要使用forwardRef创建，参数为组件函数，组件函数接收两个参数，一个是props，一个是父组件传过来的ref，子组件将接收到的ref传递到自身内部
+
+app.js
+
+```js
+import { useRef } from 'react';
+
+const MyInput = forwardRef((props, ref) => {
+  return <input {...props} ref={ref} />;
+});
+
+export default function MyForm() {
+  const inputRef = useRef(null);
+
+  function handleClick() {
+    inputRef.current.focus();
+  }
+
+  return (
+    <>
+      <MyInput ref={inputRef} />
+      <button onClick={handleClick}>
+        聚焦输入框
+      </button>
+    </>
+  );
+}
+```
+
+#### useImperativeHandle
+
+在组件顶层通过调用 useImperativeHandle 来自定义 ref 暴露出来的句柄
+
+假设你不想暴露出整个 <input> DOM 节点，但你想要它其中两个方法：focus 和 scrollIntoView。为此，用单独额外的 ref 来指向真实的浏览器 DOM。然后使用 useImperativeHandle 来暴露一个句柄，它只返回你想要父组件去调用的方法：
+
+```js
+import { forwardRef, useRef, useImperativeHandle } from 'react';
+
+const MyInput = forwardRef(function MyInput(props, ref) {
+  const inputRef = useRef(null);
+
+  useImperativeHandle(ref, () => {
+    return {
+      focus() {
+        inputRef.current.focus();
+      },
+      scrollIntoView() {
+        inputRef.current.scrollIntoView();
+      },
+    };
+  }, []);
+
+  return <input {...props} ref={inputRef} />;
+});
+```
+
+#### useTransition
+
+在组件的顶层调用 useTransition，将某些状态更新标记为转换状态。
+
+**返回值**
+
+- isPending 标志，告诉你是否存在待处理的转换。
+- startTransition 函数 允许你将状态更新标记为转换状态。
 
 #### 自定义Hook
 
 自定义 Hook 是一个函数，其名称以 “use” 开头，函数内部可以调用其他的 Hook
 
-API
-React
-Component
-Component用于创建class组件
+## 内置组件
 
-生命周期图
+### Fragment
 
-render方法
-render方法是class组件中唯一必须实现的方法
-当 render 被调用时，它会检查 this.props 和 this.state 的变化并返回以下类型之一：
+使用Fragment或等效的`<>...</>`语法将多个元素组合在一起。可以使用它将多个元素放置在单个元素可以放置的任何位置
 
-- React 元素。通常通过 JSX 创建。例如，`<div />`会被 React 渲染为 DOM 节点，`<MyComponent />`会被 React 渲染为自定义组件，无论是 `<div />` 还是 `<MyComponent />`均为 React 元素。
-- 数组或 fragments。 使得 render 方法可以返回多个元素。欲了解更多详细信息，请参阅 fragments 文档。
-- Portals。可以渲染子节点到不同的 DOM 子树中。欲了解更多详细信息，请参阅有关 portals 的文档
-- 字符串或数值类型。它们在 DOM 中会被渲染为文本节点
-- 布尔类型或 null。什么都不渲染。（主要用于支持返回 test && `<Child />`的模式，其中 test 为布尔类型。)
-如果 shouldComponentUpdate() 返回 false，则不会调用 render()。
+如果你想把key传递给一个Fragment，你不能使用`<>...</>`语法。必须显式导入Fragment并渲染`<Fragment key={yourKey}>...</Fragment>`。
 
-constructor
-构造函数，用来初始化实例的state和事件方法绑定，如果是继承自React.Component，需要在构造函数中调用super方法，否则可能会出现this.props无法访问的情况
+当从渲染`<><Child /></>`转到`[<Child />]`返回时，或者从渲染`<><Child /></>`转到`<Child />`并返回时，React不会重置状态。这只适用于一个级别的深度：例如，从`<><><Child /></></>`到`<Child />`重置状态
 
-componentDidMount
-componentDidMount() 会在组件挂载后（插入 DOM 树中）立即调用。依赖于 DOM 节点的初始化应该放在这里。如需通过网络请求获取数据，此处是实例化请求的好地方。
+**用途**
 
-getSnapshotBeforeUpdate
-getSnapshotBeforeUpdate() 在最近一次渲染输出（提交到 DOM 节点）之前调用。它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。此生命周期方法的任何返回值将作为参数传递给 componentDidUpdate()。
+1. 返回多个元素
 
 ```js
-class ScrollingList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.listRef = React.createRef();
-  }
-
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    // 我们是否在 list 中添加新的 items ？
-    // 捕获滚动位置以便我们稍后调整滚动位置。
-    if (prevProps.list.length < this.props.list.length) {
-      const list = this.listRef.current;
-      return list.scrollHeight - list.scrollTop;
-    }
-    return null;
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // 如果我们 snapshot 有值，说明我们刚刚添加了新的 items，
-    // 调整滚动位置使得这些新 items 不会将旧的 items 推出视图。
-    //（这里的 snapshot 是 getSnapshotBeforeUpdate 的返回值）
-    if (snapshot !== null) {
-      const list = this.listRef.current;
-      list.scrollTop = list.scrollHeight - snapshot;
-    }
-  }
-
-  render() {
-    return (
-      <div ref={this.listRef}>{/*...contents...*/}</div>
-    );
-  }
-}
-```
-
-componentDidUpdate
-componentDidUpdate() 会在更新后会被立即调用。首次渲染不会执行此方法。、
-你也可以在 componentDidUpdate() 中直接调用 setState()，但请注意它必须被包裹在一个条件语句里，正如上述的例子那样进行处理，否则会导致死循环。它还会导致额外的重新渲染，虽然用户不可见，但会影响组件性能
-componentDidUpdate(prevProps, prevState, snapshot)
-
-componentWillUnmount
-componentWillUnmount() 会在组件卸载及销毁之前直接调用。
-
-static getDerivedStateFromError
-此生命周期会在后代组件抛出错误后被调用。 它将抛出的错误作为参数，并返回一个值以更新 state
-
-```js
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {    // 更新 state 使下一次渲染可以显降级 UI    return { hasError: true };  }
-  render() {
-    if (this.state.hasError) {      // 你可以渲染任何自定义的降级  UI      return <h1>Something went wrong.</h1>;    }
-    return this.props.children;
-  }
-}
-```
-
-componentDidCatch
-此生命周期在后代组件抛出错误后被调用。 它接收两个参数：
-
-1. error —— 抛出的错误。
-2. info —— 带有 componentStack key 的对象，其中包含有关组件引发错误的栈信息。
-componentDidCatch() 会在“提交”阶段被调用，因此允许执行副作用
-
-```js
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    // 更新 state 使下一次渲染可以显示降级 UI
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, info) {    // "组件堆栈" 例子:    //   in ComponentThatThrows (created by App)    //   in ErrorBoundary (created by App)    //   in div (created by App)    //   in App    logComponentStackToMyService(info.componentStack);  }
-  render() {
-    if (this.state.hasError) {
-      // 你可以渲染任何自定义的降级 UI
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return this.props.children;
-  }
-}
-```
-
-在开发模式下，错误会冒泡至 window，这意味着任何 window.onerror 或 window.addEventListener('error', callback) 会中断这些已经被 componentDidCatch() 捕获的错误。
-相反，在生产模式下，错误不会冒泡，这意味着任何根错误处理器只会接受那些没有显式地被 componentDidCatch() 捕获的错误。
-
-如果发生错误，你可以通过调用 setState 使用 componentDidCatch() 渲染降级 UI，但在未来的版本中将不推荐这样做。 可以使用静态 getDerivedStateFromError() 来处理降级渲染。
-
-PureComponent
-React.PureComponent 与 React.Component 很相似。两者的区别在于 React.Component 并未实现 shouldComponentUpdate()，而 React.PureComponent 中以浅层对比 prop 和 state 的方式来实现了该函数，如果对象中包含复杂的数据结构，则有可能因为无法检查深层的差别，产生错误的比对结果。
-
-使用该方法的情景
-
-1. 仅在你的 props 和 state 较为简单时
-2. 在深层数据结构发生变化时调用 forceUpdate() 来确保组件被正确地更新
-
-对子组件的影响
-React.PureComponent 中的 shouldComponentUpdate() 将跳过所有子组件树的 prop 更新，因此，请确保所有子组件也都是“纯”的组件
-Memo
-memo通过记忆组件渲染结果的方式来提高组件的性能表现，memo只会对props作浅层比较，如果memo包裹的是一个函数组件并且使用了useState、useReducer、useContext，当状态值发生变化时也会更新组件
-
-```js
-const MyComponent = React.memo(function MyComponent(props) {
-  /*使用 props 渲染*/
-});
-```
-
-想要自定义比较逻辑，memo第二个参数接受一个比较函数，比较函数的参数分别为prevProps，curProps，当比较函数返回true时，表示前后两个props相等，不做更新，否则更新组件，这与shouldComponentUpdate相反
-
-Children
-React.Children方法用于处理this.props.children
-
-map与each
-对每个child调用方法，如果children不是一个null或者undefined，map方法会返回一个新的数组，如果是，则返回null或者undefined
-React.Children.map(children, function[(thisArg)])
-
-count
-返回children中子组件数量，等同于调用map或者each方法的次数
-
-toArray
-将 children 这个复杂的数据结构以数组的方式扁平展开并返回，并为每个子节点分配一个 key。当你想要在渲染函数中操作子节点的集合时，它会非常实用，特别是当你想要在向下传递 this.props.children 之前对内容重新排序或获取子集时。
-
-Lazy
-lazy接口用于懒加载组件，结合suspense组件使用，可以实现优雅的降级，lazy接收一个返回promise对象的函数，组件作为promise值的default进行暴露
-
-```js
-import React, { Suspense } from 'react';
-
-const OtherComponent = React.lazy(() => import('./OtherComponent'));
-
-function MyComponent() {
+export default function Blog() {
   return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <OtherComponent />
-      </Suspense>
-    </div>
+    <>
+      <Post title="An update" body="It's been a while since I posted..." />
+      <Post title="My new blog" body="I am starting a new blog!" />
+    </>
+  )
+}
+```
+
+2. 将多个元素返给变量
+
+```js
+function CloseDialog() {
+  const buttons = (
+    <>
+      <OKButton />
+      <CancelButton />
+    </>
+  );
+  return (
+    <AlertDialog buttons={buttons}>
+      Are you sure you want to leave this page?
+    </AlertDialog>
   );
 }
 ```
 
-suspense组件可以置于懒加载组件之上的任何位置，同时可以包含多个懒加载组件
-React dom
-render
-将react元素渲染到容器中，第一次渲染时，会替换掉容器元素的所有子元素，后续的渲染后会根据diff算法高效地更新
-ReactDOM.render(element, container[, callback])
+3. 渲染列表片段
 
-unmountComponentAtNode
-从 DOM 中卸载组件，会将其事件处理器（event handlers）和 state 一并清除。如果指定容器上没有对应已挂载的组件，这个函数什么也不会做。如果组件被移除将会返回 true，如果没有组件可被移除将会返回 false
-对复用的思考
-组件复用大概经历了以下几个过程：mixin->HOC->render props ->hook
+```js
+function Blog() {
+  return posts.map(post =>
+    <Fragment key={post.id}>
+      <PostTitle title={post.title} />
+      <PostBody body={post.body} />
+    </Fragment>
+  );
+}
+```
 
-1. mixin：mixin是最早实现状态和逻辑复用的方式，其实现时将class中公共的方法抽取成一个对象，在需要用到mixin中逻辑的组件中通过mixin属性进行混入
+### Profiler
 
- 缺陷：
+将组件树包装在`<Profiler>`中以测量其渲染性能,允许以编程方式测量React树的渲染性能
 
-- 隐式依赖导致关系不透明
-- 命名可能发生冲突
+**参数**
 
-2. HOC：hoc的使用思路是将公共的状态和逻辑抽取成一个组件，并返回一个接受组件的函数，在函数中定义可复用的组件，并将传入的组件与共用组件进行组合，返回新的组件
+- id：一个字符串，标识您正在测量的UI部分。
+- onRender：一个onRender回调，React每次更新配置树中的组件时都会调用。它接收有关渲染内容和所用时间的信息
 
-缺陷：
-扩展性不能完全代替mixin，比如生命周期
+```js
+<Profiler id="App" onRender={onRender}>
+  <App />
+</Profiler>
+```
 
-- wrapper hell导致代码难以理解和维护
-- ref传递问题
+**onRender**
 
-4. render props：将公共的状态和逻辑通过组件的方式封装起来，将需要定义的渲染结果通过props的方式传入到组件中，props可以是一个组件也可以是一个返回react元素的函数
+React将调用onRender回调函数，并提供有关渲染内容的信息。
 
-缺陷
+```js
+function onRender(id, phase, actualDuration, baseDuration, startTime, commitTime) {
+  // Aggregate or log render timings...
+}
+```
 
-- 使用繁琐: HOC使用只需要借助装饰器语法通常一行代码就可以进行复用,Render Props无法做到如此简单
-- 嵌套过深: Render Props虽然摆脱了组件多层嵌套的问题,但是转化为了函数回调的嵌套
+- id：刚刚提交的id树的字符串`<Profiler>`prop。如果使用多个分析器，能够识别树的哪个部分被提交。
+- phase："mount"、"update"或"nested-update"。这可以知道树是第一次被挂载还是由于props、state或hook的更改而被重新渲染。
+- actualDuration：为当前更新渲染`<Profiler>`及其后代所花费的毫秒数。这指示子树如何利用记忆化（例如memo和useMemo）。理想情况下，这个值应该在初始挂载后显著降低，因为许多后代只需要在其特定道具更改时重新渲染。
+- baseDuration：估计在没有任何优化的情况下重新渲染整个`<Profiler>`子树所需的时间的毫秒数。它是通过对树中每个组件的最近渲染持续时间求和来计算的。该值估计渲染的最坏情况成本（例如，初始安装或没有记忆的树）。将actualDuration与它进行比较，看看记忆化是否有效。
+- startTime：React开始渲染当前更新的时间戳。
+- endTime：React提交当前更新的时间戳。此值在提交中的所有分析器之间共享，从而使它们能够根据需要进行分组
 
-4. hook：因为组件本质上是由状态、逻辑和渲染组成的，而如果一个组件不同，往往渲染是不同的，但存在相同的状态和逻辑，hook就是通过闭包的方式，将公共的状态和逻辑进行抽离
+> 使用Profiler组件，会有一定的性能损耗，所以在生产环境上最好禁用
+
+### StrictMode
+
+为应用开启严格模式，使在开发过程中尽早发现错误，使用StrictMode为内部的组件树启用其他开发行为和警告
+
+严格模式启用以下仅开发行为：
+
+- 组件将重新呈现额外的时间，以查找由不纯呈现引起的错误。
+- 组件将重新运行effect一段额外的时间，以查找由于缺少效果清理而导致的错误。
+- 将检查您的组件是否使用了已弃用的API。
+
+> 使用严格模式将为所有包裹的组件及子组件使用
+>
+### Suspense
+
+使用Suspense组件，在子组件未加载前，允许提供一个降级处理
+
+**参数**
+
+- children：您打算渲染的实际UI。如果渲染时children挂起，则“挂起”边界将切换到渲染fallback
+- fallback：如果实际UI尚未完成加载，则呈现替代UI。任何有效的React节点都被接受，尽管在实践中，回退是一个轻量级的占位符视图，例如加载微调器或骨架。当fallback挂起时，Suspense将自动切换到children，当数据就绪时，Suspense将自动切换回children。如果fallback在渲染时挂起，它将激活最近的父级“挂起”边界
+
+**注意事项**
+
+- React不会为第一次挂载之前挂起的渲染保留任何状态。当组件加载完毕后，React会重新尝试渲染挂起的树。
+- 如果Suspense正在显示树的内容，但随后再次挂起，则将再次显示fallback，除非导致该内容的更新是由startTransition或useDeferredValue引起的。
+- 如果React需要隐藏已经可见的内容，因为它再次挂起，它将清理内容树中的布局效果。当内容准备好再次显示时，React将再次触发布局效果。这可以确保测量DOM布局的Effects不会在内容隐藏时尝试执行此操作。
+React包括底层优化，
+
+**用途**
+
+1. 加载内容时显示回退，直到子节点所需要的所有代码和数据都加载完毕
+2. 默认情况下，Suspense中的整个树被视为一个单元，当它们都准备好被显示时，它们将同时出现在屏幕上
+
+```js
+<Suspense fallback={<Loading />}>
+  <Biography />
+  <Panel>
+    <Albums />
+  </Panel>
+</Suspense>
+```
+
+3. 加载嵌套内容时显示内容
+
+```js
+<Suspense fallback={<BigSpinner />}>
+  <Biography />
+  <Suspense fallback={<AlbumsGlimmer />}>
+    <Panel>
+      <Albums />
+    </Panel>
+  </Suspense>
+</Suspense>
+```
+
+显示逻辑为：
+
+a.如果Biography尚未加载，则显示BigSpinner以代替整个内容区域。
+
+b. 一旦Biography完成加载，BigSpinner将被内容替换。
+
+c. 如果Albums尚未加载，则显示AlbumsGlimmer以代替Albums及其父项Panel。
+
+d. 最后，一旦Albums完成加载，它将替换AlbumsGlimmer。
+
+## API
+
+### createContext
+
+创建一个 context 以便组件能够提供和读取
+
+在组件外创建一个上下文对象
+
+```js
+import { createContext } from 'react';
+
+const ThemeContext = createContext('light');
+```
+
+createContext接收一个参数作为默认值，如果provider没有提供value，将返回这个默认值
+
+使用context.Provider包裹组件，为所有的子组件提供一个上下文
+
+```js
+ <ThemeContext.Provider value={theme}>
+    <Page />
+  </ThemeContext.Provider>
+```
+
+`theme`为这个上下文对应的值
+
+在子组件中使用useContext来使用创建的上下文
+
+```js
+const theme = useContext(ThemeContext);
+return <button className={theme} />;
+```
+
+### forwardRef
+
+forwardRef让你的组件通过引用向父组件公开一个DOM节点
+
+```js
+import { forwardRef } from 'react';
+
+const MyInput = forwardRef(function MyInput(props, ref) {
+  // ...
+});
+```
+
+接收组件的render函数，使子组件可以使用父组件派发的ref，达到向父组件暴露子组件dom或其他数据(命令式句柄)的目的
+
+**公开DOM节点**
+
+```js
+import { forwardRef } from 'react';
+
+const MyInput = forwardRef(function MyInput(props, ref) {
+  const { label, ...otherProps } = props;
+  return (
+    <label>
+      {label}
+      <input {...otherProps} />
+    </label>
+  );
+});
+```
+
+**公开命令式句柄**
+
+```js
+import { forwardRef, useRef, useImperativeHandle } from 'react';
+
+const MyInput = forwardRef(function MyInput(props, ref) {
+  const inputRef = useRef(null);
+
+  useImperativeHandle(ref, () => {
+    return {
+      focus() {
+        inputRef.current.focus();
+      },
+      scrollIntoView() {
+        inputRef.current.scrollIntoView();
+      },
+    };
+  }, []);
+
+  return <input {...props} ref={inputRef} />;
+});
+```
+
+### lazy
+
+使用lazy可以实现按需加载
+
+通过lazy创建一个组件
+
+```js
+import { lazy } from 'react';
+
+const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
+```
+
+在组件中使用
+
+```js
+  <div>
+    <h2>Preview</h2>
+    <MarkdownPreview />
+  </div>
+ ```
+
+结合suspense可以实现懒加载效果
+
+```js
+  <Suspense fallback={<Loading />}>
+    <h2>Preview</h2>
+    <MarkdownPreview />
+  </Suspense>
+ ```
+
+### memo
+
+允许您在组件的props未更改时跳过重新渲染组件
+
+当父组件被重新渲染时，只要它的属性没有改变，这个组件的备忘录化版本通常不会被重新渲染。但是React仍然可以重新渲染它：记忆化是性能优化，而不是保证
+
+memo(Component, arePropsEqual?)
+
+```js
+import { memo } from 'react';
+
+const SomeComponent = memo(function SomeComponent(props) {
+  // ...
+});
+```
+
+**参数**
+
+- Component：您要记忆的组件。memo不会修改这个组件，而是返回一个新的、记忆化的组件。任何有效的React组件，包括函数和forwardRef组件，都可以接受。
+
+- 可选arePropsEqual：接受两个参数的函数：组件以前的props和它的新props。如果新旧props相等，它应该返回true：也就是说，如果组件将呈现相同的输出，并且以与旧的相同的方式使用新的道具。否则它应该返回false。通常，您不会指定此函数。默认情况下，React会将每个prop与Object.is进行比较。
+
+### createPortal
+
+调用 createPortal 创建 portal，并传入 JSX 与实际渲染的目标 DOM 节点， 允许你将一些子元素渲染到 DOM 的不同部分
+
+```js
+// createPortal(children, domNode, key?)
+
+import { createPortal } from 'react-dom';
+
+// ...
+
+<div>
+  <p>This child is placed in the parent div.</p>
+  {createPortal(
+    <p>This child is placed in the document body.</p>,
+    document.body
+  )}
+</div>
+```
+
+createPortal 返回一个 React 节点，该节点可以包含在 JSX 中或从 React 组件中返回。如果 React 在渲染输出中遇见它，它将把提供的 children 放入提供的 domNode
+
+> portal 中的事件传播遵循 React 树而不是 DOM 树。例如点击 `<div onClick>` 内部的 portal，将触发 onClick 处理程序
+
+### flushSync
+
+flushSync允许你强制React同步刷新提供的回调中的任何更新。这确保DOM立即更新
+
+当与浏览器API或UI库等第三方代码集成时，可能需要强制React刷新更新。使用flushSync强制React同步刷新回调中的任何状态更新
+
+```js
+import { flushSync } from 'react-dom';
+
+flushSync(() => {
+  setSomething(123);
+})
+```
+
+### createRoot
+
+createRoot允许您创建一个root，以在浏览器DOM节点中显示React组件
+
+```js
+const root = createRoot(domNode, options?)
+```
+
+React将为domNode创建一个根目录，并接管管理其中的DOM。创建根目录后，需要调用root.render来显示其中的React组件
+
+```js
+root.render(<App />);
+```
+
+React将在<App />中显示root，并接管其中的DOM管理
+
+```js
+root.unmount();
+```
+
+调用root.unmount销毁React根目录中的渲染树
