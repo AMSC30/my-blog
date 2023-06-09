@@ -9,8 +9,9 @@ export default defineUserConfig({
     base: '/my-blog/',
     theme: recoTheme({
         style: '@vuepress-reco/style-default',
-        colorMode: 'dark',
+        colorMode: 'light',
         series: series,
-        navbar: navbar
+        navbar: navbar,
+        catalogTitle: '目录'
     })
 })
