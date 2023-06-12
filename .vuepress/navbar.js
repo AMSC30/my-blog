@@ -54,6 +54,24 @@ export default [
         ]
     },
     {
+        text: '工具',
+        children: [
+            {
+                text: '转换工具',
+                link: 'https://www.bejson.com/'
+            },
+            {
+                text: '在线流程图',
+                link: 'https://app.diagrams.net'
+            },
+            ,
+            {
+                text: '代码图片生成',
+                link: 'https://carbon.now.sh'
+            }
+        ]
+    },
+    {
         text: '配置',
         link: 'http://v2.vuepress-reco.recoluan.com/docs/theme/series.html'
     }
