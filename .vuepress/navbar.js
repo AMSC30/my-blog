@@ -29,7 +29,10 @@ export default [
     // },
     {
         text: 'React18',
-        children: [{ text: 'React语法', link: '/docs/React18/react/grammar.md' }]
+        children: [
+            { text: 'React语法', link: '/docs/React18/react/grammar.md' },
+            { text: 'ReactRouter6', link: '/docs/React18/react/router.md' }
+        ]
     },
     {
         text: '面试',
