@@ -64,7 +64,6 @@ export default [
                 text: '在线流程图',
                 link: 'https://app.diagrams.net'
             },
-            ,
             {
                 text: '代码图片生成',
                 link: 'https://carbon.now.sh'
