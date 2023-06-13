@@ -12,21 +12,20 @@ export default [
     },
     {
         text: 'Vue2',
-        icon: 'Logo Vue',
         children: [
             { text: 'Vue', link: '/docs/vue2/vue/introduction/introduction.md' },
             { text: 'Vue-Router', link: '/docs/vue2/vue-router/introduction.md' },
             { text: 'Vuex', link: '/docs/vue2/vuex/introduction.md' }
         ]
     },
-    // {
-    //     text: 'Vue3',
-    //     children: [
-    //         { text: 'Vue', link: '/docs/vue3/vue/readme.md' },
-    //         { text: 'Vue-Router', link: '/docs/vue3/vue-router/readme.md' },
-    //         { text: 'Vuex', link: '/docs/vue3/vuex/readme.md' }
-    //     ]
-    // },
+    {
+        text: 'Vue3',
+        children: [
+            { text: 'Vue3语法', link: '/docs/vue3/vue/grammar.md' }
+            // { text: 'Vue-Router', link: '/docs/vue3/vue-router/readme.md' },
+            // { text: 'Vuex', link: '/docs/vue3/vuex/readme.md' }
+        ]
+    },
     {
         text: 'React18',
         children: [
