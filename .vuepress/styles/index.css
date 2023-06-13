@@ -3,3 +3,24 @@
         height: calc(100vh - 65px) !important;
     }
 }
+
+/* 页面目录 */
+
+.page-catalog-container ul .page-catalog-menu-depth_3 {
+    text-indent: 0.5em;
+}
+.page-catalog-container ul .page-catalog-menu-depth_4 {
+    text-indent: 1em;
+}
+.page-catalog-container ul .page-catalog-menu-depth_5 {
+    text-indent: 1.5em;
+}
+.page-catalog-container ul .page-catalog-menu-depth_3.active {
+    padding-left: 0.2em;
+}
+.page-catalog-container ul .page-catalog-menu-depth_4.active {
+    padding-left: 0.2em;
+}
+.page-catalog-container ul .page-catalog-menu-depth_5.active {
+    padding-left: 0.2em;
+}
