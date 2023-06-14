@@ -80,6 +80,88 @@ onMounted(() => {
 应用根组件的内容将会被渲染在容器元素里面。容器元素自己将不会被视为应用的一部分。
 `mount`方法应该始终在整个应用配置和资源注册完成后被调用。同时请注意，不同于其他资源注册方法，它的返回值是根组件实例而非应用实例
 
+### setup函数
+
+setup() 钩子是在组件中使用组合式 API 的入口，通常只在以下情况下使用：
+
+- 需要在非单文件组件中使用组合式 API 时。
+- 需要在基于选项式 API 的组件中集成基于组合式 API 的代码时
+
+在 setup() 函数中返回的对象会暴露给模板和组件实例，setup()自身并不含对组件实例的访问权，即在 setup()中访问this会是 undefined，其他的选项也可以通过组件实例(this)来获取 setup() 暴露的属性
+
+**1. 参数**
+
+**1.）props**
+
+props 是响应式的，并且会在传入新的 props 时同步更新，如果解构了 props 对象，解构出的变量将会丢失响应性，所以通过props.xxx进行访问属性
+
+```js
+export default {
+  props: {
+    title: String
+  },
+  setup(props) {
+    console.log(props.title)
+  }
+}
+```
+
+**2.)context**
+
+上下文对象暴露了其他一些在 setup 中可能会用到的值
+
+```js
+export default {
+  setup(props, context) {
+    // 透传 Attributes（非响应式的对象，等价于 $attrs）
+    console.log(context.attrs)
+
+    // 插槽（非响应式的对象，等价于 $slots）
+    console.log(context.slots)
+
+    // 触发事件（函数，等价于 $emit）
+    console.log(context.emit)
+
+    // 暴露公共属性（函数）
+    console.log(context.expose)
+  }
+}
+```
+
+**2. 返回值**
+
+setup一般返回一个对象提供给模板和选项使用，特殊情况下，可以返回一个渲染函数，可以在渲染函数中使用同一作用域下声明的响应式状态
+
+```js
+import { h, ref } from 'vue'
+
+export default {
+  setup() {
+    const count = ref(0)
+    return () => h('div', count.value)
+  }
+}
+```
+
+这时候在父组件中通过模板引用就会出现问题，可以利用`expose`api解决
+
+```js
+import { h, ref } from 'vue'
+
+export default {
+  setup(props, { expose }) {
+    const count = ref(0)
+    const increment = () => ++count.value
+
+    expose({
+      increment
+    })
+
+    return () => h('div', count.value)
+  }
+}
+```
+
 ## 响应式
 
 ### 声明
