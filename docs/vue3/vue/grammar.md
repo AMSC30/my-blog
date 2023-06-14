@@ -333,6 +333,160 @@ defineExpose({
 </script>
 ```
 
+**3. readonly**
+
+接受一个对象 (不论是响应式还是普通的) 或是一个 ref，返回一个原值的只读代理，只读代理是深层的，想要避免深层的转换行为，可以使用shadowReadonly
+
+```js
+const original = reactive({ count: 0 })
+
+const copy = readonly(original)
+
+watchEffect(() => {
+  // 用来做响应性追踪
+  console.log(copy.count)
+})
+
+// 更改源属性会触发其依赖的侦听器
+original.count++
+
+// 更改该只读副本将会失败，并会得到一个警告
+copy.count++ // warning!
+```
+
+**4. shallowRef**
+
+ref() 的浅层作用形式，常常用于对大型数据结构的性能优化或是与外部的状态管理系统集成，浅层 ref 的内部值将会原样存储和暴露，并且不会被深层递归地转为响应式。只有对 .value 的访问是响应式的
+
+```js
+const state = shallowRef({ count: 1 })
+
+// 不会触发更改
+state.value.count = 2
+
+// 会触发更改
+state.value = { count: 2 }
+```
+
+**5. triggerRef**
+
+强制触发依赖于一个浅层ref的副作用，由于深层的属性更新不会触发视图的更新，可以通过这个api解决
+
+**6. shallowReactive**
+
+reactive() 的浅层作用形式，一个浅层响应式对象里只有根级别的属性是响应式的。属性的值会被原样存储和暴露，这也意味着值为 ref 的属性不会被自动解包了
+
+**7. shallowReadonly**
+
+readonly() 的浅层作用形式
+
+**8. toRaw**
+
+返回由 reactive()、readonly()、shallowReactive() 或者 shallowReadonly() 创建的代理对应的原始对象
+
+**9.markRaw**
+
+将一个对象标记为不可被转为代理。返回该对象本身
+
+**10. effectScope**
+
+创建一个 effect 作用域，可以捕获其中所创建的响应式副作用 (即计算属性和侦听器)，这样捕获到的副作用可以一起处理
+
+```js
+const scope = effectScope()
+
+scope.run(() => {
+  const doubled = computed(() => counter.value * 2)
+
+  watch(doubled, () => console.log(doubled.value))
+
+  watchEffect(() => console.log('Count: ', doubled.value))
+})
+
+// 处理掉当前作用域内的所有 effect
+scope.stop()
+```
+
+### 工具
+
+**1. isRef**
+
+检查某个值是否为 ref
+
+**2. unref**
+
+如果参数是 ref，则返回内部值，否则返回参数本身。这是 val = isRef(val) ? val.value : val 计算的一个语法糖
+
+**3. toRef**
+
+可以将值、refs 或 getters 规范化为 refs (3.3+)，也可以基于响应式对象上的一个属性，创建一个对应的 ref。这样创建的 ref 与其源属性保持同步：改变源属性的值将更新 ref 的值，反之亦然
+
+```js
+// 按原样返回现有的 ref
+toRef(existingRef)
+
+// 创建一个只读的 ref，当访问 .value 时会调用此 getter 函数
+toRef(() => props.foo)
+
+// 从非函数的值中创建普通的 ref
+// 等同于 ref(1)
+toRef(1)
+
+const state = reactive({
+  foo: 1,
+  bar: 2
+})
+
+// 双向 ref，会与源属性同步
+const fooRef = toRef(state, 'foo')
+
+// 更改该 ref 会更新源属性
+fooRef.value++
+console.log(state.foo) // 2
+
+// 更改源属性也会更新该 ref
+state.foo++
+console.log(fooRef.value) // 3
+```
+
+**4. toRefs**
+
+将一个响应式对象转换为一个普通对象，这个普通对象的每个属性都是指向源对象相应属性的 ref。每个单独的 ref 都是使用 toRef() 创建的，对于解构时很有用
+
+```js
+const state = reactive({
+  foo: 1,
+  bar: 2
+})
+
+const stateAsRefs = toRefs(state)
+/*
+stateAsRefs 的类型：{
+  foo: Ref<number>,
+  bar: Ref<number>
+}
+*/
+
+// 这个 ref 和源属性已经“链接上了”
+state.foo++
+console.log(stateAsRefs.foo.value) // 2
+
+stateAsRefs.foo.value++
+console.log(state.foo) // 3
+```
+
+**5. isProxy**
+
+检查一个对象是否是由 reactive()、readonly()、shallowReactive() 或 shallowReadonly() 创建的代理
+
+**6. isReactive**
+
+检查一个对象是否是由 reactive() 或 shallowReactive() 创建的代理
+
+**7. isReadonly**
+
+检查传入的值是否为只读对象。只读对象的属性可以更改，但他们不能通过传入的对象直接赋值
+
 ## 模板语法
 
 ### 文本插值
