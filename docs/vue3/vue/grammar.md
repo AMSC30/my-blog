@@ -2,7 +2,7 @@
 
 Vue (发音为 /vjuː/，类似 view) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript 构建，并提供了一套声明式的、组件化的编程模型。[官方文档](https://cn.vuejs.org/)
 
-## 选项式API与组合式API
+## 基本语法
 
 ### 选项式API
 
@@ -67,7 +67,13 @@ onMounted(() => {
 </template>
 ```
 
-## 应用创建
+### 组合式函数
+
+组合式函数是一个利用 Vue 的`组合式 API`来封装和复用`有状态`逻辑的函数，一个组合式函数可以调用一个或多个其他的组合式函数，通常以“use”作为开头
+
+组合式函数在`<script setup>`或`setup()`钩子中，应始终被同步地调用
+
+### 应用创建
 
 每个 Vue 应用都是通过 createApp 函数创建一个新的应用实例，传入 createApp 的对象实际上是一个组件，这个组件将作为应用的根组件，其他所有的组件都是这个组件的子组件
 应用实例必须在调用`mount`方法后才能渲染出来，该方法接收一个“容器”参数，可以是一个实际的 DOM 元素或是一个 CSS 选择器字符串。
@@ -585,6 +591,116 @@ function greet(event) {
 
 .left/ .right/ .middle
 
+### 自定义指令
+
+**1. Vue中重用代码的方式**
+
+在Vue中有常用的三种重用代码的方式：组件、组合式函数和自定义指令。
+
+- 组件是主要的构建模块，包含重用的界面结构和交互逻辑
+
+- 组合式函数侧重于有状态的逻辑。
+
+- 自定义指令主要是为了重用涉及普通元素的底层`DOM`访问的逻辑
+
+一个自定义指令由一个包含类似组件生命周期钩子的对象来定义。钩子函数会接收到指令所绑定元素作为其参数
+
+**2. 指令注册**
+
+**1）全局注册**
+
+将一个自定义指令全局注册到应用层级
+
+```js
+const app = createApp({})
+
+// 使 v-focus 在所有组件中都可用
+app.directive('focus', {
+  /* ... */
+})
+```
+
+**2）局部注册**
+
+在没有使用`<script setup>`的情况下，自定义指令需要通过 directives 选项注册
+
+```js
+export default {
+  setup() {
+    /*...*/
+  },
+  directives: {
+    // 在模板中启用 v-focus
+    focus: {
+      /* ... */
+    }
+  }
+}
+```
+
+使用`<script setup>`的情况下，指令名称需要以`小写v`开头并通过cameCase的方式进行命名
+
+```vue
+<script setup>
+// 在模板中启用 v-focus
+const vFocus = {
+  mounted: (el) => el.focus()
+}
+</script>
+
+<template>
+  <input v-focus />
+</template>
+```
+
+**3. 指令钩子**
+
+```js
+const myDirective = {
+  // 在绑定元素的 attribute 前
+  // 或事件监听器应用前调用
+  created(el, binding, vnode, prevVnode) {
+    // 下面会介绍各个参数的细节
+  },
+
+  // 在元素被插入到 DOM 前调用
+  beforeMount(el, binding, vnode, prevVnode) {},
+
+  // 在绑定元素的父组件
+  // 及他自己的所有子节点都挂载完成后调用
+  mounted(el, binding, vnode, prevVnode) {},
+
+  // 绑定元素的父组件更新前调用
+  beforeUpdate(el, binding, vnode, prevVnode) {},
+
+  // 在绑定元素的父组件
+  // 及他自己的所有子节点都更新后调用
+  updated(el, binding, vnode, prevVnode) {},
+
+  // 绑定元素的父组件卸载前调用
+  beforeUnmount(el, binding, vnode, prevVnode) {},
+
+  // 绑定元素的父组件卸载后调用
+  unmounted(el, binding, vnode, prevVnode) {}
+}
+```
+
+**4.钩子参数**
+
+- el：指令绑定到的元素。这可以用于直接操作 DOM。
+
+- binding：一个对象，包含以下属性。
+  - value：传递给指令的值。例如在 v-my-directive="1 + 1" 中，值是 2。
+  - oldValue：之前的值，仅在 beforeUpdate 和 updated 中可用。无论值是否更改，它都可用。
+  - arg：传递给指令的参数 (如果有的话)。例如在 v-my-directive:foo 中，参数是 "foo"。
+  - modifiers：一个包含修饰符的对象 (如果有的话)。例如在 v-my-directive.foo.bar 中，修饰符对象是 { foo: true, bar: true }。
+  - instance：使用该指令的组件实例。
+  - dir：指令的定义对象。
+- vnode：代表绑定元素的底层 VNode。
+- prevNode：之前的渲染中代表指令所绑定元素的 VNode。仅在 beforeUpdate 和 updated 钩子中可用。
+
+当在组件上使用自定义指令时，它会始终应用于组件的根节点
+
 ## 组件化
 
 ### 组件注册
@@ -1083,7 +1199,7 @@ v-slot 有对应的简写 #，因此`<template v-slot:header>`可以简写为`<t
 </MyComponent>
 ```
 
-具名作用域插槽
+**5.具名作用域插槽**
 
 ```vue
 <MyComponent>
