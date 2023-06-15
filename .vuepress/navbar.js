@@ -6,8 +6,9 @@ export default [
             { text: 'HTML', link: '/docs/frontend-base/html/html' },
             { text: 'CSS', link: '/docs/frontend-base/css/css' },
             { text: 'JavaScript', link: '/docs/frontend-base/javascript/javascript' },
-            { text: '浏览器', link: '/docs/frontend-base/browser/architecture' },
-            { text: '正则表达式', link: '/docs/frontend-base/regexp/introduction' }
+            { text: 'TypeScript', link: '/docs/frontend-base/typescript/grammar' },
+            { text: 'Browser', link: '/docs/frontend-base/browser/architecture' },
+            { text: 'RegExp', link: '/docs/frontend-base/regexp/introduction' }
         ]
     },
     {
@@ -23,7 +24,8 @@ export default [
         children: [
             { text: 'Vue语法', link: '/docs/vue3/vue/grammar.md' },
             { text: 'Router4语法', link: '/docs/vue3/vue-router/grammar.md' },
-            { text: 'Pinia语法', link: '/docs/vue3/pinia/grammar.md' }
+            { text: 'Pinia语法', link: '/docs/vue3/pinia/grammar.md' },
+            { text: 'Vite', link: '/docs/vue3/vite/vite.md' }
         ]
     },
     {
