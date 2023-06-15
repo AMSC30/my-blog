@@ -14,7 +14,7 @@ export default [
         text: 'Vue2',
         children: [
             { text: 'Vue源码', link: '/docs/vue2/vue/introduction/introduction.md' },
-            { text: 'Router源码', link: '/docs/vue2/vue-router/introduction.md' },
+            { text: 'Router3源码', link: '/docs/vue2/vue-router/introduction.md' },
             { text: 'Vuex源码', link: '/docs/vue2/vuex/introduction.md' }
         ]
     },
@@ -22,8 +22,8 @@ export default [
         text: 'Vue3',
         children: [
             { text: 'Vue语法', link: '/docs/vue3/vue/grammar.md' },
-            { text: 'Router语法', link: '/docs/vue3/vue-router/grammar.md' }
-            // { text: 'Vuex', link: '/docs/vue3/vuex/readme.md' }
+            { text: 'Router4语法', link: '/docs/vue3/vue-router/grammar.md' },
+            { text: 'Pinia语法', link: '/docs/vue3/pinia/grammar.md' }
         ]
     },
     {
