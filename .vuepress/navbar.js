@@ -13,16 +13,16 @@ export default [
     {
         text: 'Vue2',
         children: [
-            { text: 'Vue', link: '/docs/vue2/vue/introduction/introduction.md' },
-            { text: 'Vue-Router', link: '/docs/vue2/vue-router/introduction.md' },
-            { text: 'Vuex', link: '/docs/vue2/vuex/introduction.md' }
+            { text: 'Vue源码', link: '/docs/vue2/vue/introduction/introduction.md' },
+            { text: 'Router源码', link: '/docs/vue2/vue-router/introduction.md' },
+            { text: 'Vuex源码', link: '/docs/vue2/vuex/introduction.md' }
         ]
     },
     {
         text: 'Vue3',
         children: [
-            { text: 'Vue3语法', link: '/docs/vue3/vue/grammar.md' }
-            // { text: 'Vue-Router', link: '/docs/vue3/vue-router/readme.md' },
+            { text: 'Vue语法', link: '/docs/vue3/vue/grammar.md' },
+            { text: 'Router语法', link: '/docs/vue3/vue-router/grammar.md' }
             // { text: 'Vuex', link: '/docs/vue3/vuex/readme.md' }
         ]
     },
@@ -30,7 +30,7 @@ export default [
         text: 'React18',
         children: [
             { text: 'React语法', link: '/docs/React18/react/grammar.md' },
-            { text: 'ReactRouter6', link: '/docs/React18/react/router.md' }
+            { text: 'Router6语法', link: '/docs/React18/react/router.md' }
         ]
     },
     {
