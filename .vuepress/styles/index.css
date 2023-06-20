@@ -24,7 +24,16 @@
 .page-catalog-container ul .page-catalog-menu-depth_5.active {
     padding-left: 0.2em;
 }
-
+.page-catalog-container ul li {
+    margin-top: 0rem !important;
+    margin-bottom: 0rem !important;
+    line-height: 1rem !important;
+}
+.dropdown-link__container li {
+    margin-top: 0rem !important;
+    margin-bottom: 0rem !important;
+    line-height: 1.8rem !important;
+}
 p,
 ol,
 ul,
