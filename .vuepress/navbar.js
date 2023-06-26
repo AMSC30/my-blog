@@ -8,7 +8,8 @@ export default [
             { text: 'JavaScript', link: '/docs/frontend-base/javascript/javascript' },
             { text: 'TypeScript', link: '/docs/frontend-base/typescript/grammar' },
             { text: 'Browser', link: '/docs/frontend-base/browser/architecture' },
-            { text: 'RegExp', link: '/docs/frontend-base/regexp/introduction' }
+            { text: 'RegExp', link: '/docs/frontend-base/regexp/introduction' },
+            { text: '前端项目架构', link: '/docs/frontend-base/project-architecture/introduction' }
         ]
     },
     {
