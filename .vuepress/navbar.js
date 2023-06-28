@@ -5,6 +5,7 @@ export default [
         children: [
             { text: 'HTML', link: '/docs/frontend-base/html/html' },
             { text: 'CSS', link: '/docs/frontend-base/css/css' },
+            { text: 'Less', link: '/docs/frontend-base/less/introduction' },
             { text: 'JavaScript', link: '/docs/frontend-base/javascript/javascript' },
             { text: 'TypeScript', link: '/docs/frontend-base/typescript/grammar' },
             { text: 'Browser', link: '/docs/frontend-base/browser/architecture' },
