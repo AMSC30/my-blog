@@ -4,11 +4,7 @@
     }
 }
 
-div[class*='language-'] pre[class*='language-'] {
-    line-height: 1.5rem !important;
-}
 /* 页面目录 */
-
 .page-catalog-container ul .page-catalog-menu-depth_3 {
     text-indent: 0.5em;
 }
