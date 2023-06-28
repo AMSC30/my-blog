@@ -13,6 +13,8 @@ import react from './interview/react'
 import ts from './interview/ts'
 import webpack from './interview/webpack'
 import browser from './frontend-base/browser'
+import baseJs from './frontend-base/javascript'
+import advanceJs from './frontend-advanced/javascript'
 import vue2 from './vue2/vue'
 import vue2Router from './vue2/vue-router'
 import vuex2 from './vue2/vuex'
@@ -33,6 +35,8 @@ export default {
     '/docs/interview/typescript/': ts,
     '/docs/interview/webpack/': webpack,
     '/docs/frontend-base/browser/': browser,
+    '/docs/frontend-base/javascript/': baseJs,
+    '/docs/frontend-advanced/javascript/': advanceJs,
     '/docs/vue2/vue/': vue2,
     '/docs/vue2/vue-router/': vue2Router,
     '/docs/vue2/vuex/': vuex2

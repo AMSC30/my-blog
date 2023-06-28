@@ -6,7 +6,7 @@ export default [
             { text: 'HTML', link: '/docs/frontend-base/html/html' },
             { text: 'CSS', link: '/docs/frontend-base/css/css' },
             { text: 'Less', link: '/docs/frontend-base/less/introduction' },
-            { text: 'JavaScript', link: '/docs/frontend-base/javascript/javascript' },
+            { text: 'JavaScript', link: '/docs/frontend-base/javascript/grammar' },
             { text: 'TypeScript', link: '/docs/frontend-base/typescript/grammar' },
             { text: 'Browser', link: '/docs/frontend-base/browser/architecture' },
             { text: 'RegExp', link: '/docs/frontend-base/regexp/introduction' },
@@ -17,8 +17,15 @@ export default [
         text: '进阶',
         icon: '',
         children: [
-            { text: 'JS手写实现', link: '/docs/frontend-base/js-implement/implement' },
-            { text: '前端项目架构', link: '/docs/frontend-base/project-architecture/introduction' }
+            { text: 'JS概念深入', link: '/docs/frontend-advanced/javascript/function' },
+            { text: 'JS手写实现', link: '/docs/frontend-advanced/js-implement/implement' },
+            { text: 'ES6', link: '/docs/frontend-advanced/es6/grammar' },
+            { text: 'Webpack5', link: '/docs/frontend-advanced/webpack/config' },
+
+            {
+                text: '前端项目架构',
+                link: '/docs/frontend-advanced/project-architecture/introduction'
+            }
         ]
     },
     {
@@ -83,6 +90,6 @@ export default [
     },
     {
         text: '配置',
-        link: 'http://v2.vuepress-reco.recoluan.com/docs/theme/series.html'
+        link: 'https://vuepress-theme-reco.recoluan.com/docs/guide/introduce.html'
     }
 ]
