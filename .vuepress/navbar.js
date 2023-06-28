@@ -14,6 +14,14 @@ export default [
         ]
     },
     {
+        text: '进阶',
+        icon: '',
+        children: [
+            { text: 'JS手写实现', link: '/docs/frontend-base/js-implement/implement' },
+            { text: '前端项目架构', link: '/docs/frontend-base/project-architecture/introduction' }
+        ]
+    },
+    {
         text: 'Vue2',
         children: [
             { text: 'Vue源码', link: '/docs/vue2/vue/introduction/introduction.md' },
