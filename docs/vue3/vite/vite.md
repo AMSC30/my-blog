@@ -920,3 +920,262 @@ plugins 与 Vite 的 dep 插件合并
 默认： 'build'
 
 禁用依赖优化，值为 true 将在构建和开发期间均禁用优化器。传 'build' 或 'dev' 将仅在其中一种模式下禁用优化器。默认情况下，仅在开发阶段启用依赖优化。
+
+## 插件
+
+若要使用一个插件，需要将它添加到项目的 devDependencies 并在 vite.config.js 配置文件中的 plugins 数组中引入它，接受包含多个插件作为单个元素的预设，数组在内部被扁平化
+
+通常创建一个插件是一个返回对象的的工厂函数，这样可以接受允许用户自定义插件行为的选项
+
+### 约定
+
+插件不使用 Vite 特有的钩子，可以作为兼容 Rollup 的插件来实现，Rollup 插件应该有一个带`rollup-plugin-`前缀，Vite插件应该有一个带`vite-plugin-`前缀
+
+如果只适用于特定的框架，它的名字应该遵循以下前缀格式：
+
+- vite-plugin-vue- 前缀作为 Vue 插件
+- vite-plugin-react- 前缀作为 React 插件
+- vite-plugin-svelte- 前缀作为 Svelte 插件
+
+### 插件获取
+
+获取插件有以下几种方式：
+
+- [官方插件](https://cn.vitejs.dev/plugins/)
+- [社区插件](https://github.com/vitejs/awesome-vite#plugins)
+- [兼容rollup插件](https://vite-rollup-plugins.patak.dev/)
+- [npm搜索vite插件](https://www.npmjs.com/search?q=vite-plugin&ranking=popularity)
+- [npm搜索rollup插件](https://www.npmjs.com/search?q=rollup-plugin&ranking=popularity)
+
+### 按需应用
+
+默认情况下插件在开发 (serve) 和生产 (build) 模式中都会调用。如果插件在服务或构建期间按需使用，请使用 apply 属性指明它们仅在 'build' 或 'serve' 模式时调用：
+
+```js
+// vite.config.js
+import typescript2 from 'rollup-plugin-typescript2'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    {
+      ...typescript2(),
+      apply: 'build',
+    },
+  ],
+})
+```
+
+### 插件调用顺序
+
+一个 Vite 插件可以额外指定一个 enforce 属性（类似于 webpack 加载器）来调整它的应用顺序。enforce 的值可以是pre 或 post。解析后的插件将按照以下顺序排列
+
+- Alias
+- 带有 enforce: 'pre' 的用户插件
+- Vite 核心插件
+- 没有 enforce 值的用户插件
+- Vite 构建用的插件
+- 带有 enforce: 'post' 的用户插件
+- Vite 后置构建插件（最小化，manifest，报告）
+
+### 虚拟模块
+
+虚拟模块是一种在插件中定义导入内容的方式，在 Vite（以及 Rollup）中都以 virtual: 为前缀，使用了虚拟模块的插件在解析时应该将模块 ID 加上前缀 \0，这一约定来自 rollup 生态
+
+### 插件钩子
+
+**通用钩子**
+
+在启动服务器时调用：
+
+- [options](https://rollupjs.org/plugin-development/#options)
+
+类型： (options: InputOptions) => InputOptions | null
+
+替换或操作传递给 rollup.rollup 的选项对象。返回 null 不会替换任何内容。如果只需要读取选项，则建议使用 buildStart 钩子，因为该钩子可以访问所有 options 钩子的转换考虑后的选项
+
+- [buildStart](https://rollupjs.org/plugin-development/#buildstart)
+
+类型： (options: InputOptions) => void
+
+此钩子考虑了所有 options 钩子的转换，并且还包含未设置选项的正确默认值
+
+在每个传入模块请求时调用：
+
+- [resolveId](https://rollupjs.org/plugin-development/#resolveid)
+
+类型: ResolveIdHook
+
+定义一个自定义解析器，可以用于定位第三方依赖项等
+
+类型定义:
+
+```ts
+type ResolveIdHook = (
+ source: string, // 路径
+ importer: string | undefined, // 完整路径
+ options: {
+  assertions: Record<string, string>;
+  custom?: { [plugin: string]: any };
+  isEntry: boolean;
+ }
+) => ResolveIdResult;
+
+type ResolveIdResult = string | null | false | PartialResolvedId;
+
+interface PartialResolvedId {
+ id: string;
+ external?: boolean | 'absolute' | 'relative';
+ assertions?: Record<string, string> | null;
+ meta?: { [plugin: string]: any } | null;
+ moduleSideEffects?: boolean | 'no-treeshake' | null;
+ resolvedBy?: string | null;
+ syntheticNamedExports?: boolean | string | null;
+}
+```
+
+- [load](https://rollupjs.org/plugin-development/#load)
+
+类型： (id: string) => LoadResult
+
+定义自定义加载器。返回 null 将延迟到其他 load 函数（最终默认从文件系统加载）。为了避免额外的解析开销，例如由于某些原因该钩子已经使用 this.parse 生成 AST，该钩子可以选择返回一个 { code, ast, map } 对象。ast 必须是一个具有每个节点的 start 和 end 属性的标准 ESTree AST。如果转换不移动代码，则可以通过将 map 设置为 null 来保留现有的源码映射
+
+moduleSideEffects：如果为false，并且没有其他模块从该模块中导入任何内容，将永远不会进行打包；如果为true，将进行打包；如果为no-treeshak，即使内容为空，也会生成对应内容
+
+- [transform](https://rollupjs.org/plugin-development/#transform)
+
+类型：(code: string, id: string) => TransformResult
+
+用于转换模块
+
+类型定义：
+
+```ts
+type TransformResult = string | null | Partial<SourceDescription>;
+
+interface SourceDescription {
+ code: string;
+ map?: string | SourceMap;
+ ast?: ESTree.Program;
+ assertions?: { [key: string]: string } | null;
+ meta?: { [plugin: string]: any } | null;
+ moduleSideEffects?: boolean | 'no-treeshake' | null;
+ syntheticNamedExports?: boolean | string | null;
+}
+```
+
+在服务器关闭时调用：
+
+- [buildEnd](https://rollupjs.org/plugin-development/#buildend)
+
+类型： (error?: Error) => void
+
+在 Rollup 完成产物但尚未调用 generate 或 write 之前调用；也可以返回一个 Promise。如果在构建过程中发生错误，则将其传递给此钩子
+
+- [closeBundle](https://rollupjs.org/plugin-development/#closebundle)
+
+类型: closeBundle: () => Promise\<void\> | void
+
+可用于清理可能正在运行的任何外部服务。Rollup 的 CLI 将确保在每次运行后调用此钩子，但是 JavaScript API 的用户有责任在生成产物后手动调用 bundle.close()。因此，任何依赖此功能的插件都应在其文档中仔细提到这一点
+
+**vite钩子**
+
+- config
+
+类型：(config: UserConfig, env: { mode: string, command: string }) => UserConfig | null | void
+
+允许是一个异步函数
+
+在解析配置前调用，获得配置文件和命令行参数合并过的原始配置，同时接受运行的环境参数mode和command，可以直接在配置对象上进行修改而不返回任何东西，也可以翻译一个处理后的配置对象
+
+> 用户插件在运行这个钩子之前会被解析，因此在 config 钩子中注入其他插件不会有任何效果
+
+- configResolved
+
+类型：(config: ResolvedConfig) => void | Promise\<void\>
+
+允许是一个异步函数
+
+在解析vite配置后调用，用于存储和读取config
+
+```js
+const examplePlugin = () => {
+  let config
+
+  return {
+    name: 'read-config',
+
+    configResolved(resolvedConfig) {
+      // 存储最终解析的配置
+      config = resolvedConfig
+    },
+
+    // 在其他钩子中使用存储的配置
+    transform(code, id) {
+      if (config.command === 'serve') {
+        // dev: 由开发服务器调用的插件
+      } else {
+        // build: 由 Rollup 调用的插件
+      }
+    },
+  }
+}
+```
+
+- configureServer
+
+类型： (server: ViteDevServer) => (() => void) | void | Promise\<(() => void) | void\>
+
+是用于配置开发服务器的钩子。最常见的用例是在内部 connect 应用程序中添加自定义中间件，钩子默认在内置中间件前调用，如果需要在后调用可以返回一个函数
+
+- transformIndexHtml
+
+类型： IndexHtmlTransformHook | { order?: 'pre' | 'post', handler: IndexHtmlTransformHook }
+
+可以是一个异步钩子
+
+转换 index.html 的专用钩子，钩子接收当前的 HTML 字符串和转换上下文。钩子默认在html被转换前进行调用，与order为pre效果相同，如果指定了order为post，钩子将在所有未定义order的钩子被应用后进行调用
+
+上下文在开发期间暴露ViteDevServer实例，在构建期间暴露 Rollup 输出的包。
+
+钩子返回值可以是以下几种形式：
+
+1. 经过转换的 HTML 字符串
+2. 注入到现有 HTML 中的标签描述符对象数组（{ tag, attrs, children }）。每个标签也可以指定它应该被注入到哪里（默认是在 \<head\> 之前）
+3. 一个包含 { html, tags } 的对象
+
+钩子签名：
+
+```ts
+type IndexHtmlTransformHook = (
+  html: string,
+  ctx: {
+    path: string
+    filename: string
+    server?: ViteDevServer
+    bundle?: import('rollup').OutputBundle
+    chunk?: import('rollup').OutputChunk
+  },
+) =>
+  | IndexHtmlTransformResult
+  | void
+  | Promise<IndexHtmlTransformResult | void>
+
+  type IndexHtmlTransformResult =
+  | string
+  | HtmlTagDescriptor[]
+  | {
+      html: string
+      tags: HtmlTagDescriptor[]
+    }
+
+  interface HtmlTagDescriptor {
+    tag: string
+    attrs?: Record<string, string>
+    children?: string | HtmlTagDescriptor[]
+    /**
+     * 默认： 'head-prepend'
+     */
+    injectTo?: 'head' | 'body' | 'head-prepend' | 'body-prepend'
+  }
+```
