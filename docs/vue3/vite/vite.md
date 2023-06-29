@@ -986,6 +986,8 @@ export default defineConfig({
 
 **通用钩子**
 
+<br>
+
 在启动服务器时调用：
 
 - [options](https://rollupjs.org/plugin-development/#options)
@@ -994,6 +996,8 @@ export default defineConfig({
 
 替换或操作传递给 rollup.rollup 的选项对象。返回 null 不会替换任何内容。如果只需要读取选项，则建议使用 buildStart 钩子，因为该钩子可以访问所有 options 钩子的转换考虑后的选项
 
+<br>
+
 - [buildStart](https://rollupjs.org/plugin-development/#buildstart)
 
 类型： (options: InputOptions) => void
@@ -1001,6 +1005,8 @@ export default defineConfig({
 此钩子考虑了所有 options 钩子的转换，并且还包含未设置选项的正确默认值
 
 在每个传入模块请求时调用：
+
+<br>
 
 - [resolveId](https://rollupjs.org/plugin-development/#resolveid)
 
@@ -1034,6 +1040,8 @@ interface PartialResolvedId {
 }
 ```
 
+<br>
+
 - [load](https://rollupjs.org/plugin-development/#load)
 
 类型： (id: string) => LoadResult
@@ -1041,6 +1049,8 @@ interface PartialResolvedId {
 定义自定义加载器。返回 null 将延迟到其他 load 函数（最终默认从文件系统加载）。为了避免额外的解析开销，例如由于某些原因该钩子已经使用 this.parse 生成 AST，该钩子可以选择返回一个 { code, ast, map } 对象。ast 必须是一个具有每个节点的 start 和 end 属性的标准 ESTree AST。如果转换不移动代码，则可以通过将 map 设置为 null 来保留现有的源码映射
 
 moduleSideEffects：如果为false，并且没有其他模块从该模块中导入任何内容，将永远不会进行打包；如果为true，将进行打包；如果为no-treeshak，即使内容为空，也会生成对应内容
+
+<br>
 
 - [transform](https://rollupjs.org/plugin-development/#transform)
 
@@ -1066,11 +1076,15 @@ interface SourceDescription {
 
 在服务器关闭时调用：
 
+<br>
+
 - [buildEnd](https://rollupjs.org/plugin-development/#buildend)
 
 类型： (error?: Error) => void
 
 在 Rollup 完成产物但尚未调用 generate 或 write 之前调用；也可以返回一个 Promise。如果在构建过程中发生错误，则将其传递给此钩子
+
+<br>
 
 - [closeBundle](https://rollupjs.org/plugin-development/#closebundle)
 
@@ -1079,6 +1093,8 @@ interface SourceDescription {
 可用于清理可能正在运行的任何外部服务。Rollup 的 CLI 将确保在每次运行后调用此钩子，但是 JavaScript API 的用户有责任在生成产物后手动调用 bundle.close()。因此，任何依赖此功能的插件都应在其文档中仔细提到这一点
 
 **vite钩子**
+
+<br>
 
 - config
 
@@ -1089,6 +1105,8 @@ interface SourceDescription {
 在解析配置前调用，获得配置文件和命令行参数合并过的原始配置，同时接受运行的环境参数mode和command，可以直接在配置对象上进行修改而不返回任何东西，也可以翻译一个处理后的配置对象
 
 > 用户插件在运行这个钩子之前会被解析，因此在 config 钩子中注入其他插件不会有任何效果
+
+<br>
 
 - configResolved
 
@@ -1122,11 +1140,65 @@ const examplePlugin = () => {
 }
 ```
 
+<br>
+
 - configureServer
 
 类型： (server: ViteDevServer) => (() => void) | void | Promise\<(() => void) | void\>
 
 是用于配置开发服务器的钩子。最常见的用例是在内部 connect 应用程序中添加自定义中间件，钩子默认在内置中间件前调用，如果需要在后调用可以返回一个函数
+
+<br>
+
+- handleHotUpdate
+
+类型： (ctx: HmrContext) => Array\<ModuleNode\> | void | Promise<Array\<ModuleNode\> | void>
+
+执行自定义 HMR 更新处理。钩子接收一个带有以下签名的上下文对象：
+
+```ts
+interface HmrContext {
+  file: string
+  timestamp: number
+  modules: Array<ModuleNode>
+  read: () => string | Promise<string>
+  server: ViteDevServer
+}
+```
+
+modules: 是受更改文件影响的模块数组。它是一个数组，因为单个文件可能映射到多个服务模块（例如 Vue 单文件组件）。
+
+read: 这是一个异步读函数，它返回文件的内容。之所以这样做，是因为在某些系统上，文件更改的回调函数可能会在编辑器完成文件更新之前过快地触发，并 fs.readFile 直接会返回空内容。传入的 read 函数规范了这种行为。
+
+<br>
+钩子可以选择:
+
+1. 过滤和缩小受影响的模块列表，使 HMR 更准确。
+
+2. 返回一个空数组，并通过向客户端发送自定义事件来执行完整的自定义 HMR 处理:
+
+```js
+handleHotUpdate({ server }) {
+  server.ws.send({
+    type: 'custom',
+    event: 'special-update',
+    data: {}
+  })
+  return []
+}
+```
+
+客户端代码应该使用 HMR API 注册相应的处理器（这应该被相同插件的 transform 钩子注入）：
+
+```js
+if (import.meta.hot) {
+  import.meta.hot.on('special-update', (data) => {
+    // 执行自定义更新
+  })
+}
+```
+
+<br>
 
 - transformIndexHtml
 
