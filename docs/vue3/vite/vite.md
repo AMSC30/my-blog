@@ -988,13 +988,13 @@ export default defineConfig({
 
 <br>
 
-在启动服务器时调用：
+1. 在启动服务器时调用：
 
 - [options](https://rollupjs.org/plugin-development/#options)
 
 类型： (options: InputOptions) => InputOptions | null
 
-替换或操作传递给 rollup.rollup 的选项对象。返回 null 不会替换任何内容。如果只需要读取选项，则建议使用 buildStart 钩子，因为该钩子可以访问所有 options 钩子的转换考虑后的选项
+替换或操作传递给 rollup.rollup 的选项对象。返回 null 不会替换任何内容。如果只需要读取选项，则建议使用 buildStart 钩子，因为该钩子可以访问所有 options 钩子的转换过滤后的选项
 
 <br>
 
@@ -1002,11 +1002,11 @@ export default defineConfig({
 
 类型： (options: InputOptions) => void
 
-此钩子考虑了所有 options 钩子的转换，并且还包含未设置选项的正确默认值
-
-在每个传入模块请求时调用：
+此钩子过滤了所有 options 钩子的转换，并且还包含未设置选项的正确默认值
 
 <br>
+
+2. 在每个传入模块请求时调用：
 
 - [resolveId](https://rollupjs.org/plugin-development/#resolveid)
 
@@ -1048,7 +1048,23 @@ interface PartialResolvedId {
 
 定义自定义加载器。返回 null 将延迟到其他 load 函数（最终默认从文件系统加载）。为了避免额外的解析开销，例如由于某些原因该钩子已经使用 this.parse 生成 AST，该钩子可以选择返回一个 { code, ast, map } 对象。ast 必须是一个具有每个节点的 start 和 end 属性的标准 ESTree AST。如果转换不移动代码，则可以通过将 map 设置为 null 来保留现有的源码映射
 
-moduleSideEffects：如果为false，并且没有其他模块从该模块中导入任何内容，将永远不会进行打包；如果为true，将进行打包；如果为no-treeshak，即使内容为空，也会生成对应内容
+moduleSideEffects：如果为false，并且没有其他模块从该模块中导入任何内容，将永远不会进行打包；如果为true，将进行打包；如果为`no-treeshake`，即使内容为空，也会生成对应内容
+
+类型定义：
+
+```ts
+type LoadResult = string | null | SourceDescription;
+
+interface SourceDescription {
+ code: string;
+ map?: string | SourceMap;
+ ast?: ESTree.Program;
+ assertions?: { [key: string]: string } | null;
+ meta?: { [plugin: string]: any } | null;
+ moduleSideEffects?: boolean | 'no-treeshake' | null;
+ syntheticNamedExports?: boolean | string | null;
+}
+```
 
 <br>
 
@@ -1088,7 +1104,7 @@ interface SourceDescription {
 
 - [closeBundle](https://rollupjs.org/plugin-development/#closebundle)
 
-类型: closeBundle: () => Promise\<void\> | void
+类型:  () => Promise\<void\> | void
 
 可用于清理可能正在运行的任何外部服务。Rollup 的 CLI 将确保在每次运行后调用此钩子，但是 JavaScript API 的用户有责任在生成产物后手动调用 bundle.close()。因此，任何依赖此功能的插件都应在其文档中仔细提到这一点
 
@@ -1146,7 +1162,7 @@ const examplePlugin = () => {
 
 类型： (server: ViteDevServer) => (() => void) | void | Promise\<(() => void) | void\>
 
-是用于配置开发服务器的钩子。最常见的用例是在内部 connect 应用程序中添加自定义中间件，钩子默认在内置中间件前调用，如果需要在后调用可以返回一个函数
+适用于配置开发服务器的钩子。最常见的用例是在内部 connect 应用程序中添加自定义中间件，钩子中定义的中间件默认在内置中间件前调用，如果需要在后调用可以返回一个函数
 
 <br>
 
