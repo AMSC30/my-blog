@@ -842,11 +842,12 @@ export default defineConfig({
 构建为库。entry 是必需的，因为库不能使用 HTML 作为入口。name 则是暴露的全局变量，并且在 formats 包含 'umd' 或 'iife' 时是必需的。默认 formats 是 ['es', 'umd']，如果使用了多个配置入口，则是 ['es', 'cjs']。fileName 是输出的包文件名，默认 fileName 是 package.json 的 name 选项，同时，它还可以被定义为参数为 format 和 entryAlias 的函数
 
 **build.minify**
+
 类型： boolean | 'terser' | 'esbuild'
 
 默认： 'esbuild'
 
-设置为 false 可以禁用最小化混淆，或是用来指定使用哪种混淆器。默认为 Esbuild，它比 terser 快 20-40 倍，压缩率只差 1%-2%。Benchmarks
+设置为 false 可以禁用最小化混淆，或是用来指定使用哪种混淆器。默认为 Esbuild，它比 terser 快 20-40 倍，压缩率只差 1%-2%。
 
 在 lib 模式下使用 'es' 时，build.minify 选项不会缩减空格，因为会移除掉 pure 标注，导致破坏 tree-shaking。
 
@@ -862,7 +863,7 @@ export default defineConfig({
 
 默认： 500
 
-规定触发警告的 chunk 大小。（以 kbs 为单位）。它将与未压缩的 chunk 大小进行比较，因为 JavaScript 大小本身与执行时间相关
+规定触发警告的 chunk 大小（以kb为单位）。它将与未压缩的 chunk 大小进行比较，因为 JavaScript 大小本身与执行时间相关
 
 ### 依赖优化配置
 
@@ -876,11 +877,9 @@ export default defineConfig({
 
 类型： string[]
 
-在预构建中强制排除的依赖项。
+在预构建中强制排除的依赖项，CommonJS 的依赖不应该排除在优化外。
 
-CommonJS
-
-CommonJS 的依赖不应该排除在优化外。如果一个 ESM 依赖被排除在优化外，但是却有一个嵌套的 CommonJS 依赖，则应该为该 CommonJS 依赖添加 optimizeDeps.include。例如：
+如果一个 ESM 依赖被排除在优化外，但是却有一个嵌套的 CommonJS 依赖，则应该为该 CommonJS 依赖添加 optimizeDeps.include。例如：
 
 ```js
 export default defineConfig({
