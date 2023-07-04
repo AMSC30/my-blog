@@ -16,11 +16,11 @@ export default [
         text: '进阶',
         icon: '',
         children: [
+            { text: 'npm/yarn/pnpm', link: '/docs/frontend-advanced/pkg-manage/instruction' },
             { text: 'JS概念深入', link: '/docs/frontend-advanced/javascript/function' },
             { text: 'JS手写实现', link: '/docs/frontend-advanced/js-implement/implement' },
             { text: 'ES6', link: '/docs/frontend-advanced/es6/grammar' },
             { text: 'Webpack5', link: '/docs/frontend-advanced/webpack/config' },
-
             {
                 text: '前端项目架构',
                 link: '/docs/frontend-advanced/project-architecture/introduction'
