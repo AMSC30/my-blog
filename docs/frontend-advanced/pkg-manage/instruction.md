@@ -1,5 +1,7 @@
 # 前端包管理工具
 
+[npm中文文档](https://www.npmrc.cn/)
+
 ## NPM包认识
 
 ### NPM包范围及可见性
@@ -210,78 +212,198 @@ npm start --workspaces --if-present
 
 #### .npmrc配置
 
-npmrc配置生效的优先级如下
+.npmrc配置生效的优先级如下：
 
 1. 每个项目的配置文件（/path/to/my/project/.npmrc）
 2. 每用户配置文件（默认为$HOME/.npmrc;可通过CLI选项--userconfig或环境变量配置$NPM_CONFIG_USERCONFIG）
 3. 全局配置文件（默认为$PREFIX/etc/npmrc;可通过CLI选项--globalconfig或环境变量配置$NPM_CONFIG_GLOBALCONFIG）
 4. npm 的内置配置文件（/path/to/npm/npmrc）
 
-获取配置文件信息
+<br/>
+
+.npmrc配置项：
+
+- access：\<null|public|restricted\>
+
+设置包的权限，默认为public，非作用域的包不可以设置为restricted，更改配置后，不会改变现有包的访问权限，在publish后生效
+
+- all: \<boolean\>
+
+运行npm outdated和npm ls时，设置--all将显示所有 过时的或已安装的软件包，而不仅仅是那些直接依赖的软件包 目前的项目
+
+- bin-links: \<boolean\>
+
+控制在执行npm install时是否创建符号链接，可解决一些文件系统不支持符号链接的问题
+
+- cache：\<string\>
+
+缓存目录路径
+
+- commit-hooks: \<boolean\>
+
+执行npm version命令时运行git commit hook
+
+- depth：\<number|null\>
+
+如果设置了all，默认为infinity，否则默认为1；
+
+设置执行npm ls时的包需要到达的深度
+
+- engine-strict: \<boolean\>
+
+默认值为false，是否严格匹配当前node的版本，如果包中声明的node版本与当前系统版本不符合并且该选项为true，npm会停止安装对应的包
+
+- force: \<boolean\>
+
+消除保护措施，防止不好的副作用、常见错误等发生，主要体现在以下几点：
+
+1. 允许全局安装非npm文件
+2. 允许使用npm cache clean删除缓存文件夹
+3. 允许安装具有engine声明并且与环境node不匹配的包，即使engine-strict已启用
+
+- format-package-lock: \<boolean\>
+
+格式化package-lock.json为人类可读文件
+
+- include: \<prod|dev|optional|peer\>
+
+定义要安装的依赖类型
+
+- init-version: \<string\>
+
+使用npm init时指定的初始版本号，默认为'1.0.0'
+
+- install-strategy: \<hoisted|nested|shallow|linked>
+
+指定安装包时在node_modules中的策略，hoisted：在顶层非重复安装，并根据需要在目录结构中重复；nested：安装在每个包中，不提升到顶层；shallow：只安装在dep顶层的包
+
+- json: \<boolean\>
+
+是否输出为json数据，而不是正常输出
+
+- legacy-peer-deps: \<boolean\>
+
+指定包是否忽略peer依赖，false表示忽略，如v3-v6，从v7开始默认安装
+
+- lockfile-version: \<number\>
+
+锁文件版本。在v5和v6中，使用1版本，缺少一些数据导致安装速度较慢
+
+- loglevel：\<silent|error|warn|notice|http|info|verbose\>
+
+默认值为notice，将显示更高级别的日志
+
+- logs-dir: \<path\>
+
+npm的log目录位置，默认为缓存中的_logs目录
+
+- logs-max: \<number\>
+
+日志文件的最大存储数量，超过数量后将按照生成时间删除，默认为10，如果设置为0，不会有日志写入文件当中
+
+- message：\<string\>
+
+使用npm version创建版本时要提交的git信息，信息中的“%s”将会替换为版本号
+
+- package-lock: \<boolean\>
+
+如果设置为false，安装时将忽略package-lock.json文件，如果为true，将会阻止写入package-lock.json文件
+
+- package-lock-only: \<boolean\>
+
+如果设置为true，则当前操作将仅使用package-lock.json， 忽略node_modules
+
+对于update，这意味着仅更新package-lock.json， 而不是检查node_modules和下载依赖项
+
+对于list，这意味着输出将基于 package-lock.json，而不是node_modules的内容
+
+- prefix：\<string\>
+
+全局包安装的路径
+
+- progress：\<boolean\>
+
+是否在控制台显示进度条
+
+- registry: \<string\>
+
+注册表地址
+
+- scope：\<string\>
+
+将操作限定在作用域内进行，安装包时将安装作用域包，使用npm init也将创建一个作用域包
+
+- usage: \<boolean\>
+
+显示有关命令的简短用法输出
+
+- workspace：\<string\>
+
+指定命令执行的工作空间，如果使用workspaces表示在所有工作区中执行
+
+#### config命令
+
+config命令用于通过子命令在命令行配置.npmrc文件
+
+获取配置文件信息：
 
 ```bash
-npm config ls -l
+npm config ls -l [--json]
+
+# 用户配置
+npm config list [--json]
 ```
 
-修改配置文件
+修改配置文件：
 
 ```bash
 npm config set <key> <value> [-g|--global]
-npm config get <key>
-npm config delete <key>
-npm config list [-l] [--json]
-npm config edit
-npm get <key>
+npm config set key=value [-g|--global]
+
 npm set <key> <value> [-g|--global]
+
+npm config get <key>
+npm get <key>
+
+npm config delete <key>
+
+npm config edit
 ```
 
-#### 日志文件
+config选项：
 
-所有日志都将写入调试日志，如果命令执行失败，将会打印日志文件路径
+- json：使用json格式输出，非原始格式
+- location：global/user/project 配置文件目标对象
 
-logs目录的默认位置是npm缓存中名为_logs的目录。这可以通过logs-dir配置选项进行更改，如果目录不存在将会创建
+### npm命令
 
-- 指定日志路径
+#### 用户操作
 
-```bash
-npm <command> --logs-dir=c
-```
-
-- 指定日志数量
-
-当日志文件数量超过`logs-max`时，将从`logs-dir`中删除日志文件，最旧的日志将首先被删除
-
-```bash
-npm <command> --logs-max=1
-```
-
-### 用户操作
-
-#### 登录
+- 登录
 
 ```bash
 npm login
 ```
 
-#### 查看当前注册表登录用户
+- 查看当前注册表登录用户
 
 ```bash
 npm whoami
 ```
 
-#### 配置用户信息
+- 配置用户信息
 
 ```bash
 npm profile get
 ```
 
-#### 设置用户信息
+- 设置用户信息
 
 ```bash
 npm profile set <prop> <value>
 ```
 
-#### 添加用户
+- 添加用户
 
 在注册表中创建一个新用户，并将凭据保存到.npmrc文件，如果未指定注册表，则使用默认注册表
 
@@ -289,71 +411,67 @@ npm profile set <prop> <value>
 npm adduser
 ```
 
-### npm包操作
-
 #### 安装包
 
-安装包的来源可以是npm官方的注册表、本地包、git仓库中的包，使用npm官方注册表中的包，可以对包指定范围，因此使用install命令安装包是可能会存在以下情况
+安装包的来源可以是npm官方的注册表、本地包、git仓库中的包，使用npm官方注册表中的包，可以对包指定范围
 
-npm注册表中的包：
+**npm包类型**
+
+使用install命令安装包是可能会存在以下情况：
 
 ```text
+# npm注册表中的包：
 [<@scope>/]<pkg>
 [<@scope>/]<pkg>@<tag>
 [<@scope>/]<pkg>@<version>
 [<@scope>/]<pkg>@<version range>
-```
 
-本地包：
-
-```text
+# 本地包：
 ./my-package
 /opt/npm/my-package
-```
 
-git仓库的包:
-
-```text
-https://github.com/npm/cli.git
+# git仓库的包:
 git@github.com:npm/cli.git
 git+ssh://git@github.com/npm/cli#v6.0.0
 github:npm/cli#HEAD
 npm/cli#c12ea07
 ```
 
-- 本地安装
+**安装命令**
 
 ```bash
+# 本地安装
 npm install <package>
-```
 
-- 全局安装
-
-```bash
+# 全局安装
 npm install -g <package>
-```
 
-- 安装为开发依赖
-
-```bash
+#安装为开发依赖
 npm install --save-dev <package>
+npm install -D <package>
+
+# 安装为生产依赖
+npm install --save-prod <package>
+npm install -P <package>
 ```
 
-- 安装为生产依赖
+如果本地package.js中没有安装包的信息，默认安装最新版本，否则按照package.js中版本规则进行安装；如果包有一个 package-lock，或一个 npm shrinkwrap 文件，或一个 yarn lock 文件，依赖项的安装将由该文件驱动，并遵循shrinkwrap、package-lock、yarn-lock的优先级进行
 
 ```bash
-npm install --save-prod <package>
+npm install <folder>
 ```
 
-如果本地package.js中没有安装包的信息，默认安装最新版本，否则按照package.js中版本规则进行安装
+如果 \<folder\> 位于项目的根目录中，那么它的依赖项将被安装，并可能像其他类型的依赖项一样被提升到顶级 node_modules。如果 \<folder\> 位于项目的根目录之外，npm 不会将包依赖项安装在 \<folder\> 目录中，但它会创建一个指向 \<folder\> 的符号链接
 
-- npm ci
+**npm ci**
 
-Npm ci的功能类似于npm install，但是前者更快更严格，常用于生产环境的持续集成，使用npm ci安装依赖，有以下几个特点
+npm ci的功能类似于npm install，但是前者更快更严格，常用于生产环境的持续集成，使用npm ci安装依赖，有以下几个特点：
 
-1. 缓存优先
-2. 必须存在package-lock.json
-3. 自动删除node_modules
+1. 必须存在package-lock.json
+2. 如果package.json中的版本与package-lock.json中的版本不符，将会报错
+3. 单次执行只能安装项目所有包，不能用于安装单个包
+4. 执行前，会主动删除node_modules文件夹，如果存在的话
+5. npm ci会优先从缓存中取
 
 #### 更新包
 
@@ -372,6 +490,10 @@ npm update
 ```bash
 npm outdated
 ```
+
+此命令将检查注册表以查看当前是否有任何（或特定）已安装的已过时的软件包。
+
+默认情况下，仅显示根项目的直接依赖项和配置的工作区的直接依赖项。也用于 --all 查找所有过时的元依赖项
 
 - 更新全局包
 
@@ -421,7 +543,7 @@ npm publish [<tarball>|<folder>] [--tag <tag>] [--access <public|restricted>] [-
 - 更新版本号
 
 ```bash
-npm version <version_number>
+npm version <version_number | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git>
 ```
 
 > 该操作会更新package.json中的版本号
@@ -451,9 +573,9 @@ npm dist-tag add <package>@<version> [<tag>]
 npm publish --tag beta
 ```
 
-### 常用功能
+#### 其他命令
 
-#### 访问-access
+- access
 
 设置已发布包的访问级别
 
@@ -478,7 +600,7 @@ npm access list packages [<user>|<scope>|<scope:team> [<package>]
 npm access list collaborators [<package> [<user>]]
 ```
 
-#### 缓存
+- cache
 
 清除缓存
 
@@ -486,25 +608,83 @@ npm access list collaborators [<package> [<user>]]
 npm cache clean --force
 ```
 
-- 打开包文档
+- docs
 
 ```bash
 npm docs <package>
 ```
 
-- 链接
+- exec
+
+该命令可以在npm包中执行命令，就和执行npm run一样，格式如下
+
+```bash
+npm exec -- <pkg>[@<version>] [args...]
+npm exec --package=<pkg>[@<version>] -- <cmd> [args...]
+npm exec -c '<cmd> [args...]'
+npm exec --package=foo -c '<cmd> [args...]'
+```
+
+--package 选项指定的任何包将在被执行命令的 PATH 中提供，以及任何本地安装的包可执行文件,如果任何被请求的包没有出现在本地项目依赖项中，那么它们会被安装到 npm 缓存中的一个文件夹中
+，如果没有提供 -c 或 --call 选项，则使用位置参数生成命令字符串；如果没有提供 --package 选项，那么 npm 将尝试从package.json中的bin字段获取
+
+- explain
+
+```bash
+npm explain <package-spec>
+
+alias: why
+```
+
+打印当前安装包的依赖链
+
+- init
+
+```bash
+npm init <initializer>
+```
+
+initializer会被转换为create-initializer，然后使用npm exec安装并执行相应的bin，等同于npx initializer，命令行参数也将传递给初始化包，用例如下：
+
+```bash
+npm init foo --yes -> npm exec create-foo -- --yes
+npm init @usr/foo -> npm exec @usr/create-foo
+npm init @usr -> npm exec @usr/create
+npm init @usr@2.0.0 -> npm exec @usr/create@2.0.0
+npm init @usr/foo@2.0.0 -> npm exec @usr/create-foo@2.0.0
+```
+
+如果省略了initializer，将会执行init行为
+
+- link
+
+用于安装本地包，不带参数的包文件夹中的 npm link 将在全局文件夹 {prefix}/lib/node_modules/\<package\> 中创建一个符号链接，该符号链接链接到执行 npm link 命令的包。它还会将包中的任何 bins 链接到 {prefix}/bin/{name}，带参数的包文件夹执行npm link package-name将创建一个从全局安装的package-name(取自 package.json)到当前文件夹 node_modules/ 的符号链接
 
 ```bash
 npm link <package>
 ```
 
-- Ping注册表
+> 也可以在使用包的地方使用npm link package-path的方式
+
+- ping
 
 ```bash
 npm ping [--registry <registry>]
 ```
 
-- 本地前缀
+- pkg
+
+用于检索和设置字段的语法是可以在 package.json 中找到的嵌套对象属性的点分隔表示，它与 npm view 中用于从注册表中检索信息的符号相同
+
+```bash
+npm pkg set <key>=<value> [<key>=<value> ...]
+npm pkg get [<key> [<key> ...]]
+npm pkg delete <key> [<key> ...]
+npm pkg set [<array>[<index>].<key>=<value> ...]
+npm pkg set [<array>[].<key>=<value> ...]
+```
+
+- prefix
 
 ```bash
 npm prefix [-g]
@@ -512,28 +692,46 @@ npm prefix [-g]
 
 - git仓库
 
+此命令尝试猜测指定包的源码仓库的 URL ，然后再使用 --browser 配置参数打开它。 如果没有提供包名称，它将在当前文件夹中搜索package.json 文件， 并使用其 name 属性的值
+
 ```bash
 npm repo [<pkg>]
 ```
 
-> 此命令尝试猜测指定包的源码仓库的 URL ，然后再使用 --browser 配置参数打开它。 如果没有提供包名称，它将在当前文件夹中搜索package.json 文件， 并使用其 name 属性的值
+- search
 
-- 搜索与查看
+在注册中心中搜索与搜索词匹配的包。npm search 通过包元数据对注册表中的所有文件执行线性、增量、按词法顺序的搜索
 
 ```bash
 npm search <pkg-keyword>
 
+```
+
+- view
+
+查询包的详细信息
+
+```bash
 npm view <pkg>
 ```
 
-### npx与npm
+### npx
 
-npx：npx 是一个本地或远程命令执行器，用于调用项目内部模块，执行时会在当前目录和全局安装目录寻找安装的可执行文件，同时如果执行命令的依赖包没有安装到局部和全局，npx会将依赖包下载安装到一个临时目录，在使用完成后对依赖包进行删除
+npx主要解决了调用非全局的内部模块的问题，运行时，会到node_modules/.bin路径下和$PATH环境变量中检查命令是否存在，如果执行命令的依赖包没有安装到局部和全局，npx会将依赖包下载安装到一个临时目录，在使用完成后对依赖包进行删除
 
-- --no-install：强制使用本地模块，如果项目目录和全局都不存在，将报错
-- --ignore-exist：忽略本地已有的模块
+```bash
+npx -- <pkg>[@<version>] [args...]
+npx --package=<pkg>[@<version>] -- <cmd> [args...]
+npx -c '<cmd> [args...]'
+npx --package=foo -c '<cmd> [args...]'
+npx gitUrl
+```
 
-### instal过程
+--no-install：强制使用本地模块，如果项目目录和全局都不存在，将报错
+
+--ignore-exist：忽略本地已有的模块
+
+### install过程
 
 - 第一版：嵌套结构
 npm按package中的定义顺序递归的安装依赖包
