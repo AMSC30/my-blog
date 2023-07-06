@@ -1,6 +1,6 @@
 # 前端包管理工具
 
-[npm中文文档](https://www.npmrc.cn/)
+[npm中文文档](https://www.npmrc.cn/)&nbsp;[pnpm中文文档](https://pnpm.io/zh/motivation)
 
 ## NPM包认识
 
@@ -800,3 +800,530 @@ npm按package中的定义顺序安装包，如果node_modules下不存在，则�
 依赖存储方式
 pnpm将依赖包统一存储在硬盘上的一个位置，项目中安装依赖的时候会将使用的包硬链接到这个位置
 pnpm不会对相同包的不同版本分别处理，只会存储相同依赖包的不同文件
+
+### 命令执行
+
+#### 环境变量
+
+与 npm 不同的是，pnpm 会校验所有的参数。 比如，pnpm install --target_arch x64 会执行失败，因为 --target_arch x64 不是 pnpm install 的有效参数
+
+如果某些依赖需要使用环境变量，可以通过`npm_config_xxx`从cli选项中填充：
+
+1. 设置明确的环境变量：npm_config_target_arch=x64 pnpm install
+2. 使用 --config.xx 来强制使用未知选项：pnpm install --config.target_arch=x64
+
+#### 工作目录
+
+通过配置项，可以指定命令运行的不同工作目录，默认当前工作目录
+
+1. -C \<path\>, --dir \<path\>
+
+在 \<path\> 中启动 pnpm ，而不是当前的工作目录。
+
+<br/>
+
+2. -w, --workspace-root
+
+在工作空间的根目录中启动 pnpm ，而不是当前的工作目录
+
+#### 未知命令
+
+当使用一个未知命令时，pnpm 会查找一个具有指定名称的脚本，所以 pnpm run lint 和 pnpm lint 等价。
+
+如果没有指定名称的脚本，那么 pnpm 将以 shell 脚本的形式执行该命令，所以pnpm eslint和eslint等级
+
+### pnpm命令
+
+#### 依赖管理
+
+1. 安装包
+
+```bash
+pnpm add <pkg>
+```
+
+安装软件包及其依赖，支持的包地址：
+
+- 从npm安装
+- 从workspace安装，会从已配置的源处进行安装，当然取决于是否设置了 link-workspace-packages，以及是否使用了 workspace: range protocol
+- 从本地安装，本地安装可以使用源码文件压缩包和本地目录，如果使用本地目录，将会在node_modules中生成一个symlink，与pnpm link的行为一致
+- 从远端安装tar包
+- 从git安装
+
+安装的软件包可以指定安装的位置类型：
+
+- --save-prod -P：安装到常规的dependencies
+- --save-dev -D：安装到devDependencies
+- --save-optional -O：安装到optionalDependencies
+- --save-peer：安装到peerDependencies
+- --save-exact -E：安装一个确切的版本
+- --global -g：安装到全局
+- --workspace：仅添加在workspace中找到的依赖
+
+<br/>
+
+2. 安装项目所有依赖
+
+```bash
+pnpm install
+pnpm i
+```
+
+在CI环境中, 如果存在需要更新的 lockfile 会安装失败
+
+在 workspace内, pnpm install 下载项目所有依赖. 如果想禁用这个行为, 将 recursive-install 设置为 false
+
+支持以下配置项：
+
+- --force
+
+强制重新安装依赖：重新获取并修改缓存中的包，由pnpm重新创建不兼容版本的lock文件和（或）模块目录。 安装所有 optionalDependencies，即使它们不满足当前环境（cpu、os、arch）
+
+- --offline \<boolean\>
+
+为 true时，pnpm会仅使用已经在缓存中的包。 如果缓存中没有找不到这个包，那么就会安装失败
+
+- --prefer-offline \<Boolean\>
+
+如果为 true，缺失的数据将会从服务器获取，并绕过缓存数据的过期检查。 想强制使用离线模式, 请使用 --offline.
+
+- --prod, -P
+
+如果环境变量中NODE_ENV被设置为 production，那么pnpm 不会安装任何属于 devDependencies 的包，如果有相关的包已经被安装了，则会清除这些包。 使用这个指令pnpm会忽略NODE_ENV ，强制pnpm以production的方式执行install命令。
+
+- --dev, -D
+
+仅安装devDependencies并删除已安装的dependencies，无论 NODE_ENV是什么。
+
+- --no-optional
+
+不安装 optionalDependencies 依赖
+
+- --lockfile-only \<Boolean\>
+
+使用时，只更新 pnpm-lock.yaml 和 package.json。 不写入 node_modules 目录。
+
+- --fix-lockfile
+
+自动修复损坏的 lock 文件。
+
+- --frozen-lockfile \<Boolean\>
+
+如果设置 true, pnpm 不会生成 lockfile，且如果 lockfile 跟 manifest 不同步、文件需要更新或不存在 lockfile 则会安装失败.
+
+- --reporter=\<name\>
+
+类型：default, append-only, ndjson, silent
+
+silent - 不会向控制台记录任何信息，也不包含致命错误
+
+default - 标准为 TTY 的默认输出
+
+append-only - 始终向末尾追加输出。 没有光标操作
+
+ndjson - 最详细报告. 打印所有ndjson 格式日志
+
+- --shamefully-hoist \<Boolean\>
+
+创建一个扁平node_modules 目录结构, 类似于npm 或 yarn. WARNING: 这是非常不推荐的.
+
+- --ignore-scripts \<Boolean\>
+
+不执行项目中`package.json`和它的依赖项中定义的任何脚本
+
+<br/>
+
+3. 更新包
+
+```bash
+npm update/up/upgrade [<pkg-name>]
+```
+
+更新项目中的依赖包，如果不带包名称，则更新所有依赖
+
+可以使用以下参数：
+
+- --recursive -r
+
+同时更新所有子目录
+
+- --latest -L
+
+忽略package.json中的版本范围进行升级，可能出现跨主版本的升级，更新后会更新package.json文件
+
+- --global -g
+
+更新全局安装的依赖包
+
+- --workspace
+
+尝试链接工作区中所有的包。 版本将更新至与工作区内的包匹配的版本。
+
+如果更新了特定的包，而在工作区内也找不到任何可更新的依赖项，则命令将会失败。
+
+例如，如果 Express 不是工作区内的包，那么以下 命令将失败:
+
+```bash
+pnpm up -r --workspace express
+```
+
+- --prod, -P
+
+仅更新在 dependencies 和 optionalDependencies 中的依赖项。
+
+- --dev, -D
+
+仅更新在 devDependencies中的依赖项。
+
+- --no-optional
+
+忽略在 optionalDependencies 中的依赖项。
+
+- --interactive, -i
+
+显示过时的依赖项并选择要更新的依赖项
+
+<br/>
+
+4. 删除包
+
+```bash
+pnpm remove/rm/un/uninstall <pkg-name>
+```
+
+从 node_modules 和项目的 package.json 中删除相关 packages。
+
+可选择的配置项：
+
+- --recursive, -r
+
+当在工作区中使用此命令时，将从每个工作区的包中移除相关依赖(或 多个依赖)。
+
+当不在工作区内使用时，将删除相关依赖项 (或多个依赖), 也包含子目录中对应的包 。
+
+- --global, -g
+
+从全局删除一个依赖包。
+
+- --save-dev, -D
+
+仅删除开发环境 devDependencies 中的依赖项。
+
+- --save-optional, -O
+
+仅移除 optionalDependencies 中的依赖项。
+
+- --save-prod, -P
+
+仅从 dependencies 中删除相关依赖项
+
+<br/>
+
+5. 链接包
+
+```bash
+pnpm link/ln
+```
+
+使当前本地包可在系统范围内或其他位置访问。
+
+```bash
+pnpm link <dir>
+pnpm link --global
+pnpm link --global <pkg>
+```
+
+可选择的配置项：
+
+- --dir \<dir\>, -C
+
+将link位置改为\<dir\>.
+
+- pnpm link \<dir\>
+
+从执行此命令的路径或通过\<dir\>指定的文件夹，链接package到node_modules中。
+
+- pnpm link --global
+
+从执行此命令的路径或通过\<dir\> 选项指定的文件夹，链接package到全局的node_modules中，所以使其可以被另一个使用pnpm link --global \<pkg\> 的package引用。
+
+- pnpm link --global \<pkg\>
+
+将指定的包（\<pkg\>）从全局 node_modules 链接到 package 的 node_modules，从该 package 中执行或通过 --dir 选项指定
+
+- pnpm unlink
+
+取消连接到系统的包
+
+<br/>
+
+6. 添加补丁
+
+pnpm patch \<pkg name\>@\<version\>会将指定的包提取到一个可以随时编辑的临时目录当中，完成修改后, 运行 pnpm patch-commit \<path\> (\<path\> 是之前提取的临时目录) 以生成一个补丁文件，并提供 patchedDependencies 字段注册到你的项目中
+
+可选的配置项：
+
+- --edit-dir
+
+指定包的解压目录
+
+- --ignore-existing
+
+忽略已有的补丁文件
+
+#### 查看依赖
+
+1. 检查问题
+
+```bash
+npm audit
+```
+
+检查已安装包的已知安全问题。
+
+如果发现安全问题，请尝试通过 pnpm update 更新您的依赖项。 如果简单的更新不能解决所有问题，请使用 overrides 来强制使用 不易受攻击的版本或者运行npm audit --fix。 例如，如果 lodash@<2.1.0 易受攻击，可用这个overrides来强制使用 lodash@^2.1.0
+
+```json
+{
+    "pnpm": {
+        "overrides": {
+            "lodash@<2.1.0": "^2.1.0"
+        }
+    }
+}
+```
+
+可选的参数：
+
+- --audit-level \<low|moderate|high|critical\>
+
+仅打印大于设定等级的警告
+
+- --fix
+
+强制将不易受攻击的版本添加到package.json文件当中
+
+- --json
+
+使用json格式输出
+
+- --dev
+
+仅审查开发依赖项
+
+- --prod
+
+仅审查生产依赖项
+
+<br/>
+
+2. 依赖列表
+
+```bash
+pnpm list/ls
+```
+
+以一个树形结构输出所有的已安装package的版本及其依赖
+
+<br/>
+
+3. 查看过期依赖
+
+```bash
+npm outdated
+```
+
+<br/>
+
+4. 查看依赖链
+
+```bash
+pnpm why <pkg name>
+```
+
+显示依赖于指定package的所有 package。
+
+可选的配置项:
+
+- --recursive, -r
+
+在子目录所有package 中，或者如果在一个工作空间执行时，在工作空间的所有package中，显示指定 package的依赖关系树。
+
+- --json
+
+以 JSON 格式显示信息。
+
+- --long
+
+输出详细信息。
+
+- --parseable
+
+显示可解析的输出而不是树形视图。
+
+- --global, -g
+
+列出在全局安装目录的package，而不是在当前项目中。
+
+- --prod, -P
+
+仅仅显示在dependencies中的 package的依赖关系树。
+
+- --dev, -D
+
+仅仅显示在devDependencies中的 package的依赖关系树。
+
+- --only-projects
+
+仅显示同时也在工作区内的依赖项
+
+### pnpm配置
+
+pnpm大部分配置与npm相同，以下是pnpm独有的配置：
+
+- hoist \<boolean\>
+
+当 hoist 为 true 时，所有依赖项都会被提升到 node_modules/.pnpm/node_modules。 这使得 node_modules所有包都可以访问 未列出的依赖项
+
+- shamefully-hoist \<boolean\>
+
+默认情况下，pnpm 创建一个半严格的 node_modules，这意味着依赖项可以访问未声明的依赖项，但 node_modules 之外的模块不行。 通过这种布局，生态系统中的大多数的包都可以正常工作。 但是，如果某些工具仅在提升的依赖项位于根目录的 node_modules 时才有效，您可以将其设置为 true 来为您提升它们
+
+- store-dir
+
+包保存在磁盘上的位置
+
+- modules-dir
+
+全局包的安装位置
+
+### 工作空间
+
+一个 workspace 的根目录下必须有 pnpm-workspace.yaml 文件
+
+默认情况下，如果可用的 packages 与已声明的可用范围相匹配，pnpm 将从工作区链接这些 packages。 例如, 如果bar引用"foo": "^1.0.0"并且foo@1.0.0存在工作区，那么pnpm会从工作区将foo@1.0.0链接到bar。 但是，如果 bar 的依赖项中有 "foo": "2.0.0"，而 foo@2.0.0 在工作空间中并不存在，则将从 npm registry 安装 foo@2.0.0 。 这种行为带来了一些不确定性。当 link-workspace-packages 选项被设置为 false 时，仅当使用 workspace: 协议声明依赖，pnpm 才会从此 workspace 链接所需的包
+
+#### 工作区协议
+
+pnpm 支持workspace协议`workspace:`。 当使用此协议时，pnpm 将拒绝解析除本地 workspace 包含的 package 之外的任何内容。 因此，如果设置为 "foo": "workspace:2.0.0" 时，安装将会失败，因为 "foo@2.0.0" 不存在于此 workspace 中
+
+#### 发布workspace包
+
+发布npm包时，如果包通过工作区写实使用了工作空间的包，这些包将会被动态替换
+
+```json
+{
+    "dependencies": {
+        "foo": "workspace:*",
+        "bar": "workspace:~",
+        "qar": "workspace:^",
+        "zoo": "workspace:^1.5.0"
+    }
+}
+```
+
+转换后为：
+
+```json
+{
+    "dependencies": {
+        "foo": "1.5.0",
+        "bar": "~1.5.0",
+        "qar": "^1.5.0",
+        "zoo": "^1.5.0"
+    }
+}
+```
+
+### node_modules结构
+
+#### node_modules生成
+
+pnpm 的 node_modules 布局使用符号链接来创建依赖项的嵌套结构，node_modules 中每个包的每个文件都是来自内容可寻址存储的硬链接
+假设安装了依赖于 bar@1.0.0 的 foo@1.0.0。 pnpm 会将两个包硬链接到 node_modules 如下所示：
+
+```text
+node_modules
+└── .pnpm
+    ├── bar@1.0.0
+    │   └── node_modules
+    │       └── bar -> <store>/bar
+    │           ├── index.js
+    │           └── package.json
+    └── foo@1.0.0
+        └── node_modules
+            └── foo -> <store>/foo
+                ├── index.js
+                └── package.json
+```
+
+这两个包都硬链接到一个 node_modules 文件夹（foo@1.0.0/node_modules/foo）内的子文件夹中。 这必要的：
+
+1. 允许包自行导入自己。 foo 应该能够 require('foo/package.json') 或者 import * as package from "foo/package.json"。
+2. 避免循环符号链接。 依赖以及需要依赖的包被放置在一个文件夹下。 对于 Node.js 来说，依赖是在包的内部 node_modules 中或在任何其它在父目录 node_modules 中是没有区别的
+
+安装的下一阶段是符号链接依赖项。 bar 将被符号链接到 foo@1.0.0/node_modules 文件夹：
+
+```text
+node_modules
+└── .pnpm
+    ├── bar@1.0.0
+    │   └── node_modules
+    │       └── bar -> <store>/bar
+    └── foo@1.0.0
+        └── node_modules
+            ├── foo -> <store>/foo
+            └── bar -> ../../bar@1.0.0/node_modules/bar
+````
+
+接下来，处理直接依赖关系。 foo 将被符号链接至根目录的 node_modules 文件夹，因为 foo 是项目的依赖项：
+
+```text
+node_modules
+├── foo -> ./.pnpm/foo@1.0.0/node_modules/foo
+└── .pnpm
+    ├── bar@1.0.0
+    │   └── node_modules
+    │       └── bar -> <store>/bar
+    └── foo@1.0.0
+        └── node_modules
+            ├── foo -> <store>/foo
+            └── bar -> ../../bar@1.0.0/node_modules/bar
+
+```
+
+无论依赖项的数量和依赖关系图的深度如何，布局都会保持这种结构，它与 Node 的模块解析算法完全兼容
+
+#### peers处理
+
+peer 依赖项（peer dependencies）会从依赖图中更高的已安装的依赖项中解析（resolve），因为它们与父级共享相同的版本。 这意味着，如果 foo@1.0.0 有两个peers依赖（bar@^1 和 baz@^1），那么它可能在一个项目中有多个不同的依赖项集合。
+
+```text
+- foo-parent-1
+  - bar@1.0.0
+  - baz@1.0.0
+  - foo@1.0.0
+- foo-parent-2
+  - bar@1.0.0
+  - baz@1.1.0
+  - foo@1.0.0
+  ```
+
+## npm/pnpm/yarn比较
+
+|功能 |pnpm |Yarn| npm|
+|----|----|----|----|
+|工作空间支持（monorepo）| ✔️ |✔️| ✔️|
+|隔离的node_modules |✔️ - 默认| ✔️ |✔️|
+|提升的node_modules| ✔️| ✔️| ✔️ - 默认|
+|自动安装peers| ✔️| ❌| ✔️|
+|Plug'n'Play |✔️| ✔️ - 默认| ❌|
+|零安装| ❌ |✔️ |❌|
+|修补依赖项| ✔️ |✔️ |❌|
+|管理Node.js 版本| ✔️ |❌| ❌|
+|有锁文件| ✔️ - pnpm-lock.yaml| ✔️ - yarn.lock| ✔️ - package-lock.json|
+|支持覆盖 |✔️| ✔️ - 通过 resolutions| ✔️|
+|内容可寻址存储| ✔️ |❌| ❌|
+|动态包执行| ✔️-通过pnpm dlx |✔️-通过yarn dlx |✔️-通过npx|
+|Side-effects cache |✔️ |❌ |❌|
+|Listing licenses| ✔️-Via pnpm licenses list| ✔️-Via a plugin |❌|
