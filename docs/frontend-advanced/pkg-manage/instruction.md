@@ -1,6 +1,6 @@
 # 前端包管理工具
 
-[npm中文文档](https://www.npmrc.cn/)&nbsp;[pnpm中文文档](https://pnpm.io/zh/motivation)
+[npm中文文档](https://www.npmrc.cn/)&nbsp;[pnpm中文文档](https://pnpm.io/zh/motivation)&nbsp;[yarn中文文档](https://yarn.bootcss.com/docs.html)
 
 ## NPM包认识
 
@@ -1308,6 +1308,8 @@ peer 依赖项（peer dependencies）会从依赖图中更高的已安装的依�
   - baz@1.1.0
   - foo@1.0.0
   ```
+
+## yarn
 
 ## npm/pnpm/yarn比较
 
