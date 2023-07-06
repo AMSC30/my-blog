@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-23c54d00","path":"/docs/vue2/vue/expand/transition.html","title":"Transition","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1680592401000,"updatedTime":1680592401000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/vue2/vue/expand/transition.md"}');export{e as data};
