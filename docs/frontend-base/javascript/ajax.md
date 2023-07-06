@@ -1,5 +1,6 @@
 # AJAX
 
+```text
 XMLHttpRequest 对象
 简介
 浏览器与服务器之间，采用 HTTP 协议通信。用户在浏览器地址栏键入一个网址，或者通过网页表单向服务器提交内容，这时浏览器就会向服务器发出 HTTP 请求。
@@ -541,3 +542,4 @@ function analytics(state) {
   var data = 'state=' + state + '&location=' + window.location;
   navigator.sendBeacon(URL, data);
 }
+```
