@@ -1309,7 +1309,471 @@ peer 依赖项（peer dependencies）会从依赖图中更高的已安装的依�
   - foo@1.0.0
   ```
 
-## yarn
+## yarn_v2
+
+### 约束
+
+### yarn命令
+
+1. install
+
+安装项目所有依赖
+
+支持的选项：
+
+- --json
+
+将输出格式化为json
+
+- --immutable
+
+如果安装过程中要修改锁文件，使用错误代码终止安装
+
+- --immutable-cache
+
+如果安装过程中要修改高速缓冲文件夹，使用错误代码终止安装
+
+- --refresh-lockfile
+
+安装过程中刷新锁文件的元数据
+
+- --check-cache
+
+总是重新获取包并保证校验和一致
+
+- check-resolutions
+
+验证软件包解析方案是否一致
+
+<br/>
+
+2. add
+
+安装单个包，支持从github进行安装
+
+```bash
+yarn add ...
+yarn add lodash
+yarn add lodash@1.2.3
+yarn add lodash@https://github.com/lodash/lodash
+```
+
+选项：
+
+- --json
+
+将输出格式化为json
+
+- -E,--exact
+
+不要使用任何semver修饰符
+
+- -T,--tilde
+
+对解析的范围使用~修饰符
+
+- -C,--caret
+
+对解析的范围使用^修饰符
+
+- -D,--dev
+
+添加包作为开发依赖项
+
+- -P,--peer
+
+添加包作为对等依赖项
+
+- -O,--optional
+
+将包添加/升级到可选的常规/对等依赖项
+
+- --prefer-dev
+
+将包添加/升级到开发依赖项
+
+- --cached
+
+重用项目内某个地方已使用的最高版本
+
+<br/>
+
+3. bin
+
+获取项目中可用脚本命令的路径
+
+选项：
+
+- --json
+
+以json的格式输出
+
+<br/>
+
+4. cache clean
+
+删除缓存文件
+
+```bash
+yarn cache clean
+```
+
+删除本地缓存文件
+
+选项：
+
+- --mirror
+
+删除全局缓存文件
+
+- --all
+
+删除全局和本地缓存文件
+
+<br/>
+
+5. constraints
+
+检查是否满足项目约束
+
+```bash
+yarn constraints
+
+ # 自动修复
+ yarn constraints --fix
+```
+
+query：查询约束事实，将输出所有匹配到给定的prolog查询
+
+```bash
+# 列出整个工作区所有依赖项
+yarn constraints query 'workspace_has_dependency(_, DependencyName, _, _).'
+```
+
+source：打印事实数据库源代码
+
+```bash
+yarn constraints source
+```
+
+<br/>
+
+6. dedupe
+
+执行重复数据清除
+
+清除所有重复包数据
+
+```bash
+yarn dedupe
+```
+
+清除特定程序包重复数据
+
+```bash
+yarn dedupe <pkg-name>
+```
+
+清除特定范围内的包的重复数据
+
+```bash
+yarn dedupe @<scope>/*
+```
+
+执行重复数据检查，发现重复时退出
+
+```bash
+yarn dedupe --check
+```
+
+<br/>
+
+7. dlx
+
+将在临时环境中安装软件包，并运行其 二进制脚本（如果包含）。二进制文件将在当前cwd中运行。默认情况下，Yarn将下载名为command的包，但这可以是 通过使用-p,--package标志进行更改，该标志将指示Yarn 仍然运行相同的命令，但来自不同的包
+
+使用create-react-app创建一个新的React应用 ：
+
+```bash
+yarn dlx create-react-app ./my-app
+```
+
+为单个命令安装多个软件包 ：
+
+```bash
+yarn dlx -p typescript -p ts-node ts-node --transpile-only -e "console.log('hello!')"
+```
+
+<br/>
+
+8. exec
+
+执行shell命令
+
+<br/>
+
+9. info
+
+查看安装软件包的信息
+
+```bash
+yarn info <pkg-name>
+```
+
+选项：
+
+- --all,-A
+
+打印整个项目依赖包的版本
+
+- --recursive，-R
+
+递归打印所有依赖的包信息
+
+- --cache
+
+打印包的缓存信息
+
+<br/>
+
+10. init
+
+初始化工作区
+
+选项：
+
+- -p,--private
+
+初始化私有包
+
+- -w,--workspace
+
+使用packages/目录初始化工作区根目录
+
+- -i,--install
+
+初始化具有将在项目中锁定的特定捆绑包的包
+
+- -n,--name
+
+初始化具有给定名称的包
+
+<br/>
+
+11. tag
+
+此命令将为包的特定版本向npm注册表添加一个标记。如果标记已经存在，它将被覆盖
+
+添加tag：
+
+```bash
+yarn npm tag add my-pkg@2.3.4-beta.4 beta
+```
+
+列出所有tag：
+
+```bash
+yarn npm tag list <pkg-name>
+```
+
+删除tag：
+
+```bash
+yarn npm tag remove <pkg-name> <tag>
+```
+
+<br/>
+
+12. patch
+
+为包打补丁，用法同npm
+
+<br/>
+
+13. set version
+
+为项目指定yarn的版本
+
+从Yarn存储库下载最新版本 ：
+
+```bash
+yarn set version latest
+```
+
+从Yarn存储库下载最新的Canary版本 ：
+
+```bash
+yarn set version canary
+```
+
+从Yarn存储库下载最新的经典版本 ：
+
+```bash
+yarn set version classic
+```
+
+下载最新的Yarn 3版本 ：
+
+```bash
+yarn set version 3.x
+```
+
+下载特定的Yarn 2构建 ：
+
+```bash
+yarn set version 2.0.0-rc.30
+```
+
+切换回特定的Yarn 1版本 ：
+
+```bash
+yarn set version 1.22.1
+```
+
+使用本地文件系统的版本 ：
+
+```bash
+yarn set version ./yarn.cjs
+```
+
+使用来自URL的发布 ：
+
+```bash
+yarn set version <https://repo.yarnpkg.com/3.1.0/packages/yarnpkg-cli/bin/yarn.js>
+```
+
+下载用于调用命令的版本 ：
+
+```bash
+yarn set version self
+```
+
+<br/>
+
+14. up
+
+升级所有工作区的包
+
+<br/>
+
+15. workspace
+
+在指定工作区执行命令
+
+```bash
+yarn workspace <workspace-name> <command>
+```
+
+列出所有工作区
+
+```bash
+yarn workspaces list
+```
+
+指定工作区安装依赖
+
+```bash
+yarn workspace focus ...
+```
+
+在每个工作区执行命令
+
+```bash
+yarn workspace foreach <command>
+```
+
+### .yarnrc.yml
+
+Yarnrc文件（这样命名是因为它们必须被称为.yarnrc.yml）是一个可以配置Yarn内部设置的地方。虽然Yarn会自动在父目录中找到它们，但它们通常应该保存在项目的根目录中（通常是存储库）。从v2开始，它们必须用有效的Yaml编写，并具有正确的扩展名（简单地调用文件.yarnrc是不行的）。
+
+环境变量可以通过在定义值时使用${NAME}语法从设置定义中访问。默认情况下，Yarn将要求变量存在，但这可以通过使用${NAME-fallback}（如果没有设置fallback，则返回NAME）或${NAME:-fallback}（如果没有设置fallback，则返回NAME，或者是空字符串）来关闭。
+
+最后，请注意，大多数设置也可以通过环境变量来定义（至少对于较简单的设置;目前还不支持数组和对象）。要做到这一点，只需在名称前面加上前缀，并将其写入snake case：YARN_CACHE_FOLDER将设置该高速缓存文件夹（这些值将覆盖RC文件中可能定义的任何内容-请谨慎使用）
+
+#### cacheFolder
+
+cacheFolder: "./.yarn/cache"
+
+下载的软件包在系统上的存储路径。它们将被规范化、压缩，并以具有标准化名称的zip存档的形式保存。该高速缓存被认为是由多个项目共享的相对安全的，即使多个Yarn实例在不同的项目上同时运行
+
+#### compressionLevel
+
+compressionLevel: "mixed"
+
+压缩级别，0表示“无压缩，速度更快”，9表示“重度压缩，速度更慢”
+
+#### defaultSemverRangePrefix
+
+defaultSemverRangePrefix: "^"
+
+语义版本依赖项范围的默认前缀，用于安装到清单的新依赖项。可能的值为"^"（默认值）、"~"或""
+
+#### enableGlobalCache
+
+enableGlobalCache: false
+
+如果为true，Yarn将忽略cacheFolder设置，并将该高速缓存文件存储到共享相同配置的所有本地项目共享的文件夹中
+
+#### enableImmutableCache
+
+enableImmutableCache: false
+
+如果为true，Yarn将在运行yarn install时拒绝以任何方式更改该高速缓存（无论是添加文件还是删除文件）
+
+#### enableMirror
+
+enableMirror: true
+
+如果为true（默认值），Yarn将使用全局文件夹作为网络和实际缓存之间的间接连接。这使得那些还没有从零安装中受益的项目的安装速度更快
+
+#### enableNetwork
+
+enableNetwork: true
+
+如果为false，Yarn将永远不会自己向网络发出任何请求，并且将抛出异常。对于CI来说，这是一个非常有用的设置，CI通常希望确保它们不会错误地从网络加载依赖项
+
+#### globalFolder
+
+globalFolder: "./.yarn/global"
+
+存储所有系统全局文件的路径
+
+#### installStatePath
+
+installStatePath: “./. yarn/install-state.gz”
+
+将保存安装状态的文件的路径
+
+#### lockfileFilename
+
+lockfileFilename: "yarn.lock"
+定义将由Yarn生成的锁文件的名称
+
+#### NodeLinker
+
+NodeLinker: “pnp”
+
+定义应该使用哪个链接器来安装Node包（用于启用node-modules插件），其中之一：pnp、pnpm和node-modules
+
+### 安装过程
+
+#### 解析
+
+1. 加载存储在lockfile中的条目，然后根据这些数据和项目的当前状态（package.json），运行一个内部核心算法来找出缺少的条目
+
+2. 对于这些缺失的条目中的每一个，它使用查询插件Resolver接口，询问它们是否知道与给定描述符（supportsDescriptor）及其确切标识（getCandidates）和传递依赖列表（resolve）匹配的包。
+
+3. 一旦获得了包元数据的新列表，核心就开始对新添加的包的传递依赖性进行新的解析传递。这将重复进行，直到它发现依赖关系树中的所有包现在都将其元数据存储在锁文件中。
+
+4. 一旦依赖关系树中的每个包范围都被解析为元数据，内核就在内存中最后一次构建树，以生成我们所说的“虚拟包”。简而言之，这些虚拟包是同一个基本包的拆分实例--我们使用它们来消除所有列出对等依赖关系的包的歧义，这些包的依赖关系集会根据它们在依赖关系树中的位置而变化（请参阅本词典条目以获取更多信息）。
+
+#### fetch
+
+有了组成依赖关系树的确切的包集，我们迭代它，并为每个启动一个新的缓存请求，以了解是否可以找到该包。如果不是，我们就像我们在上一步中所做的那样，我们询问我们的插件（通过Fetcher接口）他们是否知道这个包（supports），如果是，就从它的远程位置检索它（fetch）。
+
+#### 链接
+
+使用的软件包必须以某种方式安装在磁盘上。例如，对于原生Node应用程序，您的包必须安装到一组node_modules目录中，以便解释器可以定位它们。这就是链接器的作用。通过Linker和Installer接口，Yarn核心将与注册的插件进行通信，让它们知道依赖关系树中列出的包，并描述它们的关系（例如，它会告诉它们tapable是webpack的依赖关系）。然后，插件可以决定以他们认为合适的任何方式对这些信息做什么。
 
 ## npm/pnpm/yarn比较
 
@@ -1329,3 +1793,21 @@ peer 依赖项（peer dependencies）会从依赖图中更高的已安装的依�
 |动态包执行| ✔️-通过pnpm dlx |✔️-通过yarn dlx |✔️-通过npx|
 |Side-effects cache |✔️ |❌ |❌|
 |Listing licenses| ✔️-Via pnpm licenses list| ✔️-Via a plugin |❌|
+
+<br/>
+
+1. 空间占用
+
+不管是使用npm或者是yarn，安装依赖时一般是下载该依赖的tar包到本地离线镜像，然后解压到本地缓存，最后再将其拷贝到项目的node_modules中，所以多个项目依赖同一个版本的包，那么这个包就是在硬盘上存在多份，而pnpm安装依赖时，依赖包会被存放在统一的位置（store），然后使用该依赖的项目会硬链接对应的依赖位置
+
+<br/>
+
+2. node_module结构
+
+pnpm项目根目录下的node_modules文件夹下的各个依赖文件夹都是软链接，而 .pnpm 文件夹下有所有依赖的扁平化结构，以依赖名加版本号命名目录名，其目录下的node_modules下有个相同依赖名的目录，是硬链接，除了相同依赖名的目录，如果该依赖还有其他的依赖，也会展示在同级下，是软链接，它们的真正位置也是扁平在.pnpm项目下的对应位置的硬链接，npm和yarn都使用了扁平结构处理，避免了相同版本包的重复安装，在安装依赖包时，npm/yarn会对所有依赖先进行一次排序
+
+<br/>
+
+3. 安全性
+
+由于npm和yarn的扁平化处理，会出现幽灵依赖的问题，即并没有在清单中声明但是项目中可以引用
