@@ -1,6 +1,6 @@
 # 前端包管理工具
 
-[npm中文文档](https://www.npmrc.cn/)&nbsp;[pnpm中文文档](https://pnpm.io/zh/motivation)&nbsp;[yarn中文文档](https://yarn.bootcss.com/docs.html)
+[npm中文文档](https://www.npmrc.cn/)&nbsp;[pnpm中文文档](https://pnpm.io/zh/motivation)&nbsp;[yarn中文文档](https://www.yarnpkg.cn/)
 
 ## NPM包认识
 
@@ -1312,6 +1312,26 @@ peer 依赖项（peer dependencies）会从依赖图中更高的已安装的依�
 ## yarn_v2
 
 ### 约束
+
+约束是对所有的工作区中自动执行某种规则，通过在项目（存储库）的根目录添加constraints.pro文件来创建约束
+
+Prolog是一个基于事实的引擎。它以一个总是为真的事实列表和一个基本上读作“如果f(X)和u(X)都为真，则谓词v(X)为真”的谓词列表开始。通过计算u(X)和v(X)哪些X的值为真，Prolog能够自动计算f(X)为真的值列表
+
+### PnP
+
+#### 使用node_modules存在的问题
+
+1. node_modules目录通常包含大量的文件，在有缓存的情况下也非常的耗时
+
+2. node_modules生成是一个I/O繁重的操作，即使它可以在可能的情况下使用硬链接或写时复制，它仍然需要在操作磁盘之前进行一系列系统调用来区分文件系统的当前状态。
+
+3. Node解析也必须进行一系列stat和readdir调用，以确定从哪里加载每个所需的文件。
+
+4. node_modules文件夹的设计是不切实际的，因为它不允许包管理器正确地删除重复的包。
+
+yarn通过pnp来管理依赖包和版本，并通知node解释器依赖包在磁盘上的位置，因为yarn已经知道关于依赖树的一起
+
+Yarn生成一个.pnp.cjs文件，而不是通常的包含各种软件包副本的node_modules文件夹。.pnp.cjs文件包含各种映射：一个将包名称和版本链接到它们在磁盘上的位置，另一个将包名称和版本链接到它们的依赖项列表。有了这些查找表，Yarn可以立即告诉Node在哪里找到它需要访问的任何包，只要它们是依赖关系树的一部分，并且只要这个文件在你的环境中加载（
 
 ### yarn命令
 
