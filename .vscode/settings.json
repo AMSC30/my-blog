@@ -1,3 +1,11 @@
 {
-    "cSpell.words": ["Pinia", "typeof", "updatechildren", "vuex"]
+    "cSpell.words": [
+        "globalconfig",
+        "npmrc",
+        "Pinia",
+        "typeof",
+        "updatechildren",
+        "userconfig",
+        "vuex"
+    ]
 }

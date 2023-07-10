@@ -215,9 +215,9 @@ npm start --workspaces --if-present
 .npmrc配置生效的优先级如下：
 
 1. 每个项目的配置文件（/path/to/my/project/.npmrc）
-2. 每用户配置文件（默认为$HOME/.npmrc;可通过CLI选项--userconfig或环境变量配置$NPM_CONFIG_USERCONFIG）
-3. 全局配置文件（默认为$PREFIX/etc/npmrc;可通过CLI选项--globalconfig或环境变量配置$NPM_CONFIG_GLOBALCONFIG）
-4. npm 的内置配置文件（/path/to/npm/npmrc）
+2. 每用户配置文件（默认为$HOME/.npmrc;可通过CLI选项--userconfig或环境变量$NPM_CONFIG_USERCONFIG配置）
+3. 全局配置文件（默认为$PREFIX/etc/.npmrc;可通过CLI选项--globalconfig或环境变量$NPM_CONFIG_GLOBALCONFIG配置）
+4. npm 的内置配置文件（/path/to/npm/.npmrc）
 
 <br/>
 
@@ -229,7 +229,7 @@ npm start --workspaces --if-present
 
 - all: \<boolean\>
 
-运行npm outdated和npm ls时，设置--all将显示所有 过时的或已安装的软件包，而不仅仅是那些直接依赖的软件包 目前的项目
+运行npm outdated和npm ls时，设置--all将显示所有过时的或已安装的软件包，而不仅仅是那些直接依赖的软件包
 
 - bin-links: \<boolean\>
 
@@ -461,7 +461,7 @@ npm install -P <package>
 npm install <folder>
 ```
 
-如果 \<folder\> 位于项目的根目录中，那么它的依赖项将被安装，并可能像其他类型的依赖项一样被提升到顶级 node_modules。如果 \<folder\> 位于项目的根目录之外，npm 不会将包依赖项安装在 \<folder\> 目录中，但它会创建一个指向 \<folder\> 的符号链接
+如果 \<folder\> 位于项目的根目录中，那么它的依赖项将被安装，并可能像其他类型的依赖项一样被提升到顶级node_modules。如果 \<folder\> 位于项目的根目录之外，npm 不会将包依赖项安装在node_modules中，但它会创建一个指向 \<folder\> 的符号链接
 
 **npm ci**
 
@@ -658,7 +658,7 @@ npm init @usr/foo@2.0.0 -> npm exec @usr/create-foo@2.0.0
 
 - link
 
-用于安装本地包，不带参数的包文件夹中的 npm link 将在全局文件夹 {prefix}/lib/node_modules/\<package\> 中创建一个符号链接，该符号链接链接到执行 npm link 命令的包。它还会将包中的任何 bins 链接到 {prefix}/bin/{name}，带参数的包文件夹执行npm link package-name将创建一个从全局安装的package-name(取自 package.json)到当前文件夹 node_modules/ 的符号链接
+用于安装本地包，在包文件夹中执行不带参数的 npm link 将在全局文件夹`{prefix}/lib/node_modules/<package>`中创建一个符号链接，该符号链接链接到执行 npm link 命令的包，它还会将包中的任何`bins`链接到`{prefix}/bin/{name}`，执行带包文件夹参数的`npm link package-name`将创建一个从全局安装的package-name(取自 package.json)到当前文件夹 node_modules 的符号链接
 
 ```bash
 npm link <package>
@@ -771,10 +771,10 @@ npm按package中的定义顺序安装包，如果node_modules下不存在，则�
   1）从 npm 远程仓库获取包信息
 
   2）根据 package.json 构建逻辑依赖树：
-  - 不管其是直接依赖还是子依赖的依赖，优先将其放置在 node_modules 根目录。
+  - 不管其是直接依赖还是依赖的子依赖，优先将其放置在 node_modules 根目录。
   - 当遇到相同模块时，判断已放置在依赖树的模块版本是否符合新模块的版本范围，如果符合则跳过，不符合则在当前模块的 node_modules 下放置该模块。
 
-  3）根据逻辑依赖书在缓存中依次查找每个包
+  3）根据逻辑依赖树在缓存中依次查找每个包
   - 不存在缓存：
     - 从 npm 远程仓库下载包
     - 校验包的完整性
@@ -797,9 +797,7 @@ npm按package中的定义顺序安装包，如果node_modules下不存在，则�
 
 ## pnpm
 
-依赖存储方式
-pnpm将依赖包统一存储在硬盘上的一个位置，项目中安装依赖的时候会将使用的包硬链接到这个位置
-pnpm不会对相同包的不同版本分别处理，只会存储相同依赖包的不同文件
+pnpm将依赖包统一存储在硬盘上的一个位置，项目中安装依赖的时候会将使用的包硬链接到这个位置，pnpm不会对相同包的不同版本分别处理，只会存储相同依赖包的不同文件
 
 ### 命令执行
 
@@ -826,11 +824,11 @@ pnpm不会对相同包的不同版本分别处理，只会存储相同依赖包�
 
 在工作空间的根目录中启动 pnpm ，而不是当前的工作目录
 
-#### 未知命令
+#### 命令执行
 
-当使用一个未知命令时，pnpm 会查找一个具有指定名称的脚本，所以 pnpm run lint 和 pnpm lint 等价。
+当使用一个命令时，pnpm首先会查找自身有无该命令，如`npm install`，如果没有会在当前路径下的`package.json`的scripts中查找一个具有指定名称的脚本（所以 pnpm run lint 和 pnpm lint 等价），
 
-如果没有指定名称的脚本，那么 pnpm 将以 shell 脚本的形式执行该命令，所以pnpm eslint和eslint等级
+如果没有指定名称的脚本，那么 pnpm 将以 shell 脚本的形式执行该命令，所以pnpm eslint和eslint等价
 
 ### pnpm命令
 
@@ -844,8 +842,8 @@ pnpm add <pkg>
 
 安装软件包及其依赖，支持的包地址：
 
-- 从npm安装
-- 从workspace安装，会从已配置的源处进行安装，当然取决于是否设置了 link-workspace-packages，以及是否使用了 workspace: range protocol
+- 从注册表安装
+- 从workspace安装，会从已配置的源处进行安装，当然取决于是否设置了 link-workspace-packages，以及是否使用了 workspace: 协议
 - 从本地安装，本地安装可以使用源码文件压缩包和本地目录，如果使用本地目录，将会在node_modules中生成一个symlink，与pnpm link的行为一致
 - 从远端安装tar包
 - 从git安装
@@ -1130,7 +1128,7 @@ pnpm list/ls
 3. 查看过期依赖
 
 ```bash
-npm outdated
+pnpm outdated
 ```
 
 <br/>
