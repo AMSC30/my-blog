@@ -17,6 +17,7 @@ export default [
         icon: '',
         children: [
             { text: 'npm/yarn/pnpm', link: '/docs/frontend-advanced/pkg-manage/instruction' },
+            { text: 'ESM/CJS', link: '/docs/frontend-advanced/module/module' },
             { text: 'JS概念深入', link: '/docs/frontend-advanced/javascript/function' },
             { text: 'JS手写实现', link: '/docs/frontend-advanced/js-implement/implement' },
             { text: 'ES6', link: '/docs/frontend-advanced/es6/grammar' },
