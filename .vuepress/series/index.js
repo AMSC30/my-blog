@@ -18,6 +18,7 @@ import advanceJs from './frontend-advanced/javascript'
 import vue2 from './vue2/vue'
 import vue2Router from './vue2/vue-router'
 import vuex2 from './vue2/vuex'
+import nodejs from './node/node'
 
 export default {
     '/docs/interview/vue/': vue,
@@ -37,6 +38,7 @@ export default {
     '/docs/frontend-base/browser/': browser,
     '/docs/frontend-base/javascript/': baseJs,
     '/docs/frontend-advanced/javascript/': advanceJs,
+    '/docs/frontend-advanced/node/': nodejs,
     '/docs/vue2/vue/': vue2,
     '/docs/vue2/vue-router/': vue2Router,
     '/docs/vue2/vuex/': vuex2

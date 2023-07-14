@@ -21,6 +21,7 @@ export default [
             { text: 'JS概念深入', link: '/docs/frontend-advanced/javascript/function' },
             { text: 'JS手写实现', link: '/docs/frontend-advanced/js-implement/implement' },
             { text: 'ES6', link: '/docs/frontend-advanced/es6/grammar' },
+            { text: 'Node.js', link: '/docs/frontend-advanced/node/path' },
             { text: 'Webpack5', link: '/docs/frontend-advanced/webpack/config' },
             {
                 text: '前端项目架构',
