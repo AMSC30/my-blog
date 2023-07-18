@@ -69,6 +69,7 @@ function Avatar({ person, size = 100 }) {
 ```
 
 **3. 使用展开运算符传递props**
+
 有时候，传递 props 会变得非常重复
 
 ```js
@@ -397,7 +398,8 @@ export default function Counter() {
 **3. state更新**
 
 React会等到事件处理函数中的所有代码都运行完毕再处理你的state更新，这就保证在组件内多次更新state，不会多次进行渲染
-如果需要再一次渲染中多次根据前值更新state，可以在setter函数中传入一个函数(更新函数)，这是一种告诉react做某件事，而不是执行更新的操作
+
+如果需要在一次渲染中多次根据前值更新state，可以在setter函数中传入一个函数(更新函数)，这是一种告诉react做某件事，而不是执行更新的操作
 
 ```js
 import { useState } from 'react';
@@ -419,12 +421,14 @@ export default function Counter() {
 ```
 
 React会将此函数加入队列，以便在事件处理函数中的所有其他代码运行后进行处理。在下一次渲染期间，React 会遍历队列并给你更新之后的最终 state
+
 在替换state后更新state，会先执行替换，再用新的值调用更新函数
+
 在更新state后替换state，会先执行更新，得到新的值，在执行替换，最终的值为替换的新值，与更新函数返回的state没有关系了
 
-事件处理函数执行完成后，React将触发重新渲染。在重新渲染期间，React 将处理队列。更新函数会在渲染期间执行，因此 更新函数必须是 纯函数 并且只 返回 结果
+事件处理函数执行完成后，React将触发重新渲染。在重新渲染期间，React 将处理队列。更新函数会在渲染期间执行，因此更新函数必须是`纯函数`并且只返回结果
 
-**!对象更新!**
+**对象更新!**
 
 状态可以保存任何类型的 JavaScript 值，包括对象。但是不应该直接更改保持在 React 状态的对象。需要创建一个新的对象(或者创建一个现有对象的副本) ，然后设置使用该副本的状态
 
@@ -513,7 +517,7 @@ export default function Form() {
 }
 ```
 
-**!数组更新!**
+**数组更新!**
 
 同对象一样，当你想要更新存储于 state 中的数组时，你需要创建一个新的数组（或者创建一份已有数组的拷贝值），并使用新数组设置 state
 
@@ -818,15 +822,16 @@ useReducer 钩子接受 2 个参数：
 
 使用步骤：
 
-1. 创建 一个 context。
+1. 创建一个context。
 
 ```js
+// LevelContext.js
 import { createContext } from 'react';
 
 export const LevelContext = createContext(1);
 ```
 
-2. 在需要数据的组件内 使用 刚刚创建的 context。
+2. 在需要数据的组件内使用刚刚创建的context。
 
 ```js
 import { useContext } from 'react';
@@ -835,7 +840,7 @@ import { LevelContext } from './LevelContext.js';
 const level = useContext(LevelContext);
 ```
 
-3. 在指定数据的组件中 提供这个 context。
+3. 在指定数据的组件中提供这个 context。
 
 ```js
 import { LevelContext } from './LevelContext.js';
@@ -860,7 +865,7 @@ Hook 是一些可以让你在函数组件里“钩入” React state 及生命�
 
 #### useState
 
-stateHook是允许向函数组件内添加state的hook，通过useState函数进行创建,本质上是在函数调用时保存状态的一种方式，无论是普通函数还是函数组件
+stateHook是允许向函数组件内添加state的hook，通过useState函数进行创建，本质上是在函数调用时保存状态的一种方式，无论是普通函数还是函数组件
 
 参数
 
@@ -883,6 +888,7 @@ setState(prevState => {
 ```
 
 更新过程
+
 调用更新函数，传入一个值或者一个返回新的state的函数，更新函数将通过object.is比较前后的两个状态，如果不相等，那么将组件的更新放入下一次执行的队列中，如果相等，跳过子组件的更新和effet的执行
 
 #### useDeferredValue
@@ -1061,6 +1067,7 @@ function ProductPage({ productId, referrer, theme }) {
 当 ref 对象内容发生变化时，useRef 并不会通知你。变更 .current 属性不会引发组件重新渲染。如果想要在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码，则需要使用回调 ref 来实现
 
 **ref与DOM**
+
 useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内持续存在。
 
 ```js
@@ -1207,7 +1214,7 @@ export default function MyForm() {
 
 在组件顶层通过调用 useImperativeHandle 来自定义 ref 暴露出来的句柄
 
-假设你不想暴露出整个 <input> DOM 节点，但你想要它其中两个方法：focus 和 scrollIntoView。为此，用单独额外的 ref 来指向真实的浏览器 DOM。然后使用 useImperativeHandle 来暴露一个句柄，它只返回你想要父组件去调用的方法：
+假设你不想暴露出整个 \<input\> DOM 节点，但你想要它其中两个方法：focus 和 scrollIntoView。为此，用单独额外的 ref 来指向真实的浏览器 DOM。然后使用 useImperativeHandle 来暴露一个句柄，它只返回你想要父组件去调用的方法：
 
 ```js
 import { forwardRef, useRef, useImperativeHandle } from 'react';
@@ -1301,7 +1308,7 @@ function Blog() {
 
 ### Profiler
 
-将组件树包装在`<Profiler>`中以测量其渲染性能,允许以编程方式测量React树的渲染性能
+将组件树包装在`<Profiler>`中以测量其渲染性能，允许以编程方式测量React树的渲染性能
 
 **参数**
 
@@ -1339,7 +1346,7 @@ function onRender(id, phase, actualDuration, baseDuration, startTime, commitTime
 
 严格模式启用以下仅开发行为：
 
-- 组件将重新呈现额外的时间，以查找由不纯呈现引起的错误。
+- 组件将重新渲染额外的时间，以查找由不纯渲染引起的错误。
 - 组件将重新运行effect一段额外的时间，以查找由于缺少效果清理而导致的错误。
 - 将检查您的组件是否使用了已弃用的API。
 
