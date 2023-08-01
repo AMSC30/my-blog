@@ -4,7 +4,7 @@
 
 js是一门动态类型语言，许多错误在代码运行时才会体现出来，TS是js的一个超集，提供了一套静态类型检测系统，在编写代码时就提前报告错误
 
-## 基本类型使用
+## 基本类型
 
 ### null、undefined
 
@@ -38,6 +38,7 @@ let sb: string = `template`
 ### 数组类型
 
 **1. 普通数组类型定义**
+
 普通数组是定义若干个同一类型值，数组中的成员类型是相同的
 
 ```ts
@@ -46,10 +47,20 @@ let aa: Array<string> = [] // 不推荐 jsx中有冲突
 ```
 
 **2. 元祖类型**
+
 元组类型允许表示一个已知元素数量和类型的数组，各元素的类型不必相同
 
 ```ts
 type StringNumberPair = [string, number];
+```
+
+当访问一个越界的元素，会使用联合类型替代
+
+```ts
+type StringNumberPair = [string, number];
+let x = ['hello', 10]
+x[3] = 'world'; // OK, 字符串可以赋值给(string | number)类型
+x[6] = true; // Error, 布尔不是(string | number)类型
 ```
 
 在元组类型中，可以写一个可选属性，但可选元素必须在最后面，而且也会影响类型的 length
@@ -58,13 +69,11 @@ type StringNumberPair = [string, number];
 type Either2dOr3d = [number, number, number?];
 ```
 
-剩余属性也是可用的
+剩余属性也是可用的，当使用剩余属性，元祖不会设置length属性
 
 ```ts
 type Either2dOr3d = [number, number, ...number[]];
 ```
-
-当使用剩余属性，元祖不会设置length属性
 
 ### 函数
 
@@ -148,15 +157,18 @@ function printId(id: number | string) {
 ```
 
 **2. 使用联合类型**
-联合类型的使用需要满足每个类型
+
+只能访问此联合类型的所有类型里共有的成员
 
 ```ts
 function printId(id: number | string) {
-  console.log(id);
+  console.log(id.toString());
 }
 ```
 
-**3. 当传入的值的类型不适合所有使用时，可以使用类型收缩**
+**3. 类型收缩**
+
+当传入的值的类型不适合所有使用时，可以使用类型收缩
 
 ```ts
 function printId(id: number | string) {
@@ -183,9 +195,9 @@ interface Bar {
 }
 ```
 
-联合类型 A | B 表示一个集合，该集合是与类型A关联的一组值和与类型 B 关联的一组值的并集，拥有A和B的部分属性。交叉类型 A & B 表示一个集合，该集合是与类型 A 关联的一组值和与类型 B 关联的一组值的交集，同时拥有A和B的所有属性。
-因此，Foo | Bar 表示有 foo 和 name 属性的对象集和有 bar 和 name 属性的对象集的并集。属于这类集合的对象都含有 name 属性。有些有 foo 属性，有些有 bar 属性。
-而 Foo & Bar 表示具有 foo 和 name 属性的对象集和具有 bar 和 name 属性的对象集的交集。换句话说，集合包含了属于由 Foo 和 Bar 表示的集合的对象。只有具有这三个属性（foo、bar 和 name）的对象才属于交集。
+联合类型 A | B 表示一个集合，该集合是与类型A关联的一组值和与类型 B 关联的一组值的交集，拥有A和B的部分属性。交叉类型 A & B 表示一个集合，该集合是与类型 A 关联的一组值和与类型 B 关联的一组值的并集，同时拥有A和B的所有属性。
+因此，Foo | Bar 表示有 foo 和 name 属性的对象集和有 bar 和 name 属性的对象集的交集。属于这类集合的对象都含有 name 属性。有些有 foo 属性，有些有 bar 属性。
+而 Foo & Bar 表示具有 foo 和 name 属性的对象集和具有 bar 和 name 属性的对象集的并集。换句话说，集合包含了属于由 Foo 和 Bar 表示的集合的对象。只有具有这三个属性（foo、bar 和 name）的对象才属于交集。
 在交集中，如果属性名相同但是类型不同，编译器会报错
 
 ### 类型断言
@@ -216,7 +228,7 @@ function liveDangerously(x?: number | null) {
 interface Person {
   name: string | number;
   setTime(d: Date)?: void; // 属性值为函数
-  (start: number): string; //函数签名, 可以作为一个函数调用
+  calc(start: number): string; //函数签名, 可以作为一个函数调用
   new (name:string):obj;//构造签名 可以作为构造函数使用
 }
 
@@ -262,6 +274,7 @@ let myStr: string = myArray[0];
 ### 属性修饰符
 
 **1. 属性类型**
+
 属性名称后面添加冒号跟上类型，标识属性值的类型
 
 ```ts
@@ -280,6 +293,7 @@ interface SomeType {
 ```
 
 **2. 可选属性**
+
 `:`前加上`?`标识是可选属性
 
 ```ts
@@ -295,6 +309,7 @@ function doSomething(obj: SomeType) {
 ```
 
 **3. 只读属性**
+
 属性名前增加关键字readonly标识属性值的不可变
 
 ```ts
@@ -314,7 +329,7 @@ function doSomething(obj: SomeType) {
 
 ### 索引签名
 
-有的时候，你不能提前知道一个类型里的所有属性的名字，但是你知道这些值的特征，你就可以用一个索引签名 (index signature) 来描述可能的值的类型
+有的时候，你不能提前知道一个类型里的所有属性的名字，但是你知道这些值的特征，你就可以用一个索引签名来描述可能的值的类型
 
 - 一个索引签名值的属性类型必须是 string 或者是 number
 
@@ -392,6 +407,7 @@ let boxA: Box<string> = { contents: "hello" };
 **相同点：**
 
 1. type和interface都可以用来定义函数或者对象
+
 2. type和interface都是可以扩展的，type可以扩展interface，interface可以扩展type
 
 **不同点：**
@@ -407,10 +423,10 @@ type fish = {
   age:number
 }
 
-interface Bear extends Animal {
+interface Bear1 extends Animal {
   honey: boolean
 }
-interface Bear extends fish {
+interface Bear2 extends fish {
   honey: boolean
 }
 
@@ -436,8 +452,7 @@ interface Window {
 }
 ```
 
-接口的非函数成员必须是唯一的，如果不是唯一的，那他们的类型必须相同
-接口的相同函数成员会被当做重载，后面的优先级会高于前面的优先级
+接口的非函数成员必须是唯一的，如果不是唯一的，那他们的类型必须相同，接口的相同函数成员会被当做重载，后面的优先级会高于前面的优先级
 
 3. type可以进行typeof操作
 
@@ -553,7 +568,7 @@ function identity<Type>(arg: Type): Type {
 
 ## Class
 
-## 属性
+### 属性
 
 声明一个class时，可以声明该类的属性，并对其进行类型注解和初始化，构造函数运行时，会初始化声明的属性
 
