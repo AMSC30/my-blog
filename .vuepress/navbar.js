@@ -26,7 +26,8 @@ export default [
             {
                 text: '前端项目架构',
                 link: '/docs/frontend-advanced/project-architecture/introduction'
-            }
+            },
+            { text: '算法', link: '/docs/frontend-advanced/algorithm/Algorithm.md' }
         ]
     },
     {
@@ -69,8 +70,16 @@ export default [
             { text: 'Node', link: '/docs/interview/node/nodejs.md' },
             { text: 'React', link: '/docs/interview/react/React.md' },
             { text: 'Webpack', link: '/docs/interview/webpack/webpack.md' },
-            { text: '设计模式', link: '/docs/interview/design/design.md' },
-            { text: '算法', link: '/docs/interview/algorithm/Algorithm.md' }
+            { text: '设计模式', link: '/docs/interview/design/design.md' }
+        ]
+    },
+    {
+        text: '价值网站',
+        children: [
+            {
+                text: '代码随想录(算法)',
+                link: 'https://programmercarl.com/'
+            }
         ]
     },
     {

@@ -1,7 +1,7 @@
 import vue from './interview/vue'
 import css from './interview/css'
 import js from './interview/javascript'
-import algorithm from './interview/algorithm'
+import algorithm from './frontend-advanced/algorithm'
 import design from './interview/design'
 import es6 from './interview/es6'
 import applet from './interview/applet'
@@ -24,7 +24,6 @@ export default {
     '/docs/interview/vue/': vue,
     '/docs/interview/css/': css,
     '/docs/interview/javascript/': js,
-    '/docs/interview/algorithm/': algorithm,
     '/docs/interview/design/': design,
     '/docs/interview/es6/': es6,
     '/docs/interview/applet/': applet,
@@ -39,6 +38,7 @@ export default {
     '/docs/frontend-base/javascript/': baseJs,
     '/docs/frontend-advanced/javascript/': advanceJs,
     '/docs/frontend-advanced/node/': nodejs,
+    '/docs/frontend-advanced/algorithm/': algorithm,
     '/docs/vue2/vue/': vue2,
     '/docs/vue2/vue-router/': vue2Router,
     '/docs/vue2/vuex/': vuex2
