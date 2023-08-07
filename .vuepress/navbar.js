@@ -50,7 +50,8 @@ export default [
         text: 'React18',
         children: [
             { text: 'React语法', link: '/docs/React18/react/grammar.md' },
-            { text: 'Router6语法', link: '/docs/React18/react/router.md' }
+            { text: 'Router6语法', link: '/docs/React18/react/router.md' },
+            { text: 'Redux语法', link: '/docs/React18/react/redux.md' }
         ]
     },
     {
