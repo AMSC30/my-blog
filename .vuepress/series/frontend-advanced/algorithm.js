@@ -16,5 +16,6 @@ export default [
     'BinarySearch',
     'design1',
     'design2',
-    'example_linked_list'
+    'array',
+    'linked-list'
 ]

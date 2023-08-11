@@ -30,7 +30,7 @@
 基于二分查找的实现，如果数据是有序的，并且不存在重复项，实现代码如下：
 
 ```js
-function BinarySearch(arr, target) {
+function binarySearch(arr, target) {
     if (arr.length < 1) return -1
 
     if(arr.length===1) return arr[0] === target ? 0 : -1

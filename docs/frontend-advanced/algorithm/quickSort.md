@@ -34,23 +34,25 @@
 用代码表示则如下：
 
 ```js
-function quickSort (arr) {
-  const rec = (arr) => {
-    if (arr.length <= 1) { return arr; }
-    const left = [];
-    const right = [];
-    const mid = arr[0]; // 基准元素
-    for (let i = 1; i < arr.length; i++){
-      if (arr[i] < mid) {
-        left.push(arr[i]);
-      } else {
-        right.push(arr[i]);
-      }
+const quickSort = arr => {
+    if (arr.length < 2) return arr
+    
+    const mid = [arr[0]]
+    const left = []
+    const right = []
+
+    for (let i = 1; i < arr.length; i++) {
+        const current = arr[i]
+        if (current > arr[0]) {
+            right.push(current)
+        } else if (current < arr[0]) {
+            left.push(current)
+        } else {
+            mid.push(current)
+        }
     }
-    return [...rec(left), mid, ...rec(right)]
-  }
-  return res(arr)
-};
+    return [...quickSort(left), ...mid, ...quickSort(right)]
+}
 ```
 
 快速排序是冒泡排序的升级版，最坏情况下每一次基准元素都是数组中最小或者最大的元素，则快速排序就是冒泡排序
