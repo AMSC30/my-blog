@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-452bdb5e","path":"/docs/frontend-base/javascript/operator.html","title":"操作符","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1687943022000,"updatedTime":1687943022000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/frontend-base/javascript/operator.md"}');export{e as data};

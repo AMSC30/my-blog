@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-6da57275","path":"/docs/vue2/vue/entry/render.html","title":"renderMixin流程","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1680592401000,"updatedTime":1680592401000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/vue2/vue/entry/render.md"}');export{e as data};
