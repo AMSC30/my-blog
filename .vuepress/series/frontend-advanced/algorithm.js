@@ -18,5 +18,6 @@ export default [
   'design2',
   'array',
   'linked-list',
-  'string'
+  'string',
+  'tree-example'
 ]
