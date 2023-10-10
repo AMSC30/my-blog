@@ -336,3 +336,173 @@ var binaryTreePaths = function(root) {
     return res
 };
 ```
+
+## 左叶子之和
+
+链接：<https://leetcode.cn/problems/sum-of-left-leaves/description/>
+
+代码示例：
+
+```js
+var sumOfLeftLeaves = function(root) {
+    let total = 0
+
+    if(!root) return total
+
+    const calc = (node, isLeft = false)=>{
+        if(isLeft && !node.left && !node.right) {
+            console.log(node.val)
+            total += node.val
+        } else {
+            node.left && calc(node.left, true)
+            node.right && calc(node.right, false)
+        }
+    }
+
+    calc(root)
+
+    return total
+};
+```
+
+## 找树左下角的值
+
+链接：<https://leetcode.cn/problems/find-bottom-left-tree-value/>
+
+代码示例：
+
+```js
+var findBottomLeftValue = function(root) {
+    let result  = null
+
+    const stack = [root]
+
+    while(stack.length){
+        result = stack[0]
+        
+        let length = stack.length
+
+        for(let i = 0; i<length;i++){
+            const node  = stack.shift()
+            
+            node.left && stack.push(node.left)
+            node.right && stack.push(node.right)
+        }
+
+    }
+    return result.val
+};
+```
+
+## 合并二叉树
+
+链接：<https://leetcode.cn/problems/merge-two-binary-trees/>
+
+代码示例：
+
+```js
+var mergeTrees = function(root1, root2) {
+    let root = null
+
+    const walkTree = (parent,node1, node2)=>{
+        const value1 = node1?node1.val:0
+        const value2 = node2?node2.val:0
+
+        parent.val = value1+value2
+        
+        if((node1&&node1.left) || (node2&&node2.left)){
+            parent.left = new TreeNode()
+            walkTree(parent.left,node1?node1.left:null,node2?node2.left:null)
+        }
+        if(node1&&node1.right || node2&&node2.right){
+            parent.right = new TreeNode()
+            walkTree(parent.right,node1?node1.right:null,node2?node2.right:null)
+        }
+
+        
+    }
+
+    if(root1||root2){
+        root = new TreeNode()
+        walkTree(root,root1,root2)
+    }
+
+    return root
+};
+```
+
+## 二叉搜索树中的搜索
+
+链接：<https://leetcode.cn/problems/search-in-a-binary-search-tree/description/>
+
+代码示例：
+
+```js
+var searchBST = function(root, val) {
+    const search = (node,target)=>{
+        if(!node) return null
+        if(node.val===target) return node
+        if(node.val>target) return search(node.left,target)
+        if(node.val<target) return search(node.right,target)
+    }
+    return search(root,val)
+};
+```
+
+## 验证二叉搜索树
+
+链接：<https://leetcode.cn/problems/validate-binary-search-tree/description/>
+
+代码示例：
+
+```js
+var isValidBST = function(root) {
+    const result = []
+
+    const walk = (node)=>{
+        if(!node) return
+        node.left && walk(node.left)
+        result.push(node.val)
+        node.right && walk(node.right)
+    }
+
+    walk(root)
+
+    return result.every((item,index)=>{
+
+        if(index===result.length-1) return true
+
+        return item<result[index+1]
+    })
+};
+```
+
+## 二叉搜索树的最小绝对差
+
+链接：<https://leetcode.cn/problems/minimum-absolute-difference-in-bst/description/>
+
+代码示例：
+
+```js
+var getMinimumDifference = function(root) {
+    const result = []
+
+    const walk = (node)=>{
+        if(!node) return
+        node.left && walk(node.left)
+        result.push(node.val)
+        node.right && walk(node.right)
+    }
+
+    walk(root)
+    
+    let min = Math.abs(result[0]-result[1]) 
+
+    result.forEach((item,index)=>{
+        if(index===0) return 
+        min = Math.min(min,Math.abs(item-result[index-1])) 
+    })
+
+    return min
+};
+```
