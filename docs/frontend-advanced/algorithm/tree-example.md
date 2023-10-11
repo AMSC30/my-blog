@@ -506,3 +506,26 @@ var getMinimumDifference = function(root) {
     return min
 };
 ```
+
+## 二叉树的最近公共祖先
+
+链接：<https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/>
+
+代码示例：
+
+```js
+var lowestCommonAncestor = function(root, p, q) {
+    const walkTree = (node, p, q)=>{
+        if(node===null || node===p || node===q) return node
+
+        const left = walkTree(node.left,p,q)
+        const right = walkTree(node.right,p,q)
+
+        if(left&&right) return node
+
+        return left?left:right
+
+    }
+    return walkTree(root, p, q)
+};
+```
