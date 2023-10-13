@@ -1,15 +1,17 @@
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {boolean}
- */
-var isSymmetric = function (root) {
-  if (!root) return false
+var permute = function (nums) {
+  const result = []
+  const path = []
+  const backTrace = () => {
+    if (path.length === nums.length) {
+      return result.push([...path])
+    }
+    for (let i = 0; i < nums.length; i++) {
+      if (path.includes(nums[i])) continue
+      path.push(nums[i])
+      backTrace()
+      path.pop()
+    }
+  }
+  backTrace()
+  return result
 }

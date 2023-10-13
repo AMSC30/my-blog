@@ -19,5 +19,6 @@ export default [
   'array',
   'linked-list',
   'string',
-  'tree-example'
+  'tree-example',
+  'back-trace'
 ]
