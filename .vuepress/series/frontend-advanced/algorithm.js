@@ -20,5 +20,6 @@ export default [
   'linked-list',
   'string',
   'tree-example',
-  'back-trace'
+  'back-trace',
+  'greedy'
 ]
