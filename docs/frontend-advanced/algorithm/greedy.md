@@ -124,3 +124,54 @@ var jump = function(nums) {
     return steps
 };
 ```
+
+### K 次取反后最大化的数组和
+
+链接：<https://leetcode.cn/problems/maximize-sum-of-array-after-k-negations/description/>
+
+代码示例：
+
+```js
+var largestSumAfterKNegations = function(nums, k) {
+    nums.sort((a, b) => Math.abs(b) - Math.abs(a)); // 排序
+    let sum = 0;
+    for(let i = 0; i < nums.length; i++) {
+        if(nums[i] < 0 && k-- > 0) { // 负数取反（k 数量足够时）
+            nums[i] = -nums[i];
+        }
+        sum += nums[i]; // 求和
+    }
+    if(k % 2 > 0) { // k 有多余的（k若消耗完则应为 -1）
+        sum -= 2 * nums[nums.length - 1]; // 减去两倍的最小值（因为之前加过一次）
+    }
+    return sum;
+};
+```
+
+### 加油站
+
+链接：<https://leetcode.cn/problems/gas-station/description/>
+
+代码示例：
+
+```js
+var canCompleteCircuit = function(gas, cost) {
+   const gasLen = gas.length
+    let start = 0
+    let curSum = 0
+    let totalSum = 0
+
+    for(let i = 0; i < gasLen; i++) {
+        curSum += gas[i] - cost[i]
+        totalSum += gas[i] - cost[i]
+        if(curSum < 0) {
+            curSum = 0
+            start = i + 1
+        }
+    }
+
+    if(totalSum < 0) return -1
+
+    return start
+};
+```
