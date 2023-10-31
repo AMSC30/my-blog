@@ -175,3 +175,205 @@ var canCompleteCircuit = function(gas, cost) {
     return start
 };
 ```
+
+### 分发糖果
+
+链接：<https://leetcode.cn/problems/candy/description/>
+
+代码示例：
+
+```js
+var candy = function(ratings) {
+    let candys = new Array(ratings.length).fill(1)
+
+    for(let i = 1; i < ratings.length; i++) {
+        if(ratings[i] > ratings[i - 1]) {
+            candys[i] = candys[i - 1] + 1
+        }
+    }
+
+    for(let i = ratings.length - 2; i >= 0; i--) {
+        if(ratings[i] > ratings[i + 1]) {
+            candys[i] = Math.max(candys[i], candys[i + 1] + 1)
+        }
+    }
+
+    let count = candys.reduce((a, b) => {
+        return a + b
+    })
+
+    return count
+};
+```
+
+### 柠檬水找零
+
+链接：<https://leetcode.cn/problems/lemonade-change/description/>
+
+代码示例：
+
+```js
+var lemonadeChange = function(bills) {
+    let fiveCount = 0
+    let tenCount = 0
+    for(let i = 0 ; i < bills.length; i++){
+        let currentMoney = bills[i]
+        let needMoney = currentMoney - 5
+
+        if(needMoney === 0){
+            fiveCount++
+        }else if(needMoney === 5 ){
+            if(fiveCount > 0){
+                fiveCount--
+                tenCount++
+            }else {
+                return false
+            }
+        }else{
+            if(tenCount>0&&fiveCount>0){
+                tenCount--
+                fiveCount--
+            }else if(fiveCount>2){
+                fiveCount -= 3
+            }else{
+                return false
+            }
+        }
+    }
+    return true
+};
+```
+
+### 用最少数量的箭引爆气球
+
+链接：<https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons/description/>
+
+代码示例：
+
+```js
+var findMinArrowShots = function(points) {
+    points = points.sort((a, b) => a[0] - b[0])
+    let result = 1
+
+    for(let i = 1; i < points.length; i++){
+        const [start] = points[i]
+        if(start > points[i-1][1]){
+            result++
+        }else {
+            points[i][1]= Math.min(points[i-1][1],points[i][1])
+        }
+    }
+
+    return result
+};
+```
+
+### 无重叠区间
+
+链接：<https://leetcode.cn/problems/non-overlapping-intervals/description/>
+
+代码示例：
+
+```js
+var eraseOverlapIntervals = function(intervals) {
+    intervals = intervals.sort((a, b)=>a[0] - b[0])
+    let min = intervals[0][1]
+    let result = 0
+    for(let i = 1; i < intervals.length; i++){
+        const item = intervals[i]
+        // 重叠
+        if(item[0] < min){
+            min = Math.min(min,item[1])
+            result++
+        }else{
+            // 不重叠，重置min
+            min = item[1]
+        }
+    }
+    return result
+};
+```
+
+### 划分字母区间
+
+链接：<https://leetcode.cn/problems/partition-labels/description/>
+
+代码示例：
+
+```js
+var partitionLabels = function(s) {
+    // 记录字符的最远位置
+    const positionMap = {}
+    for(let i = 0 ; i < s.length; i++){
+        positionMap[s[i]]=i
+    }
+
+    let prePosition = -1
+    let result = []
+    let maxPosition = positionMap[s[0]]
+    for(let i = 0; i < s.length; i++){
+        maxPosition = Math.max(maxPosition,positionMap[s[i]])
+        if(i === maxPosition){
+            result.push(maxPosition - prePosition)
+            prePosition = maxPosition
+        }
+    }
+    return result
+};
+```
+
+### 合并区间
+
+链接：<https://leetcode.cn/problems/merge-intervals/description/>
+
+代码示例：
+
+```js
+var merge = function(intervals) {
+    // 排序
+    intervals = intervals.sort((a, b)=>a[0] - b[0])
+
+    let result = []
+    for(let i = 0; i < intervals.length; i++){
+        const intervalItem = intervals[i]
+        const lastResult = result[result.length-1]
+        // 重叠
+        if(lastResult && intervalItem[0] <= lastResult[1]){
+           lastResult[1] = Math.max(intervalItem[1],lastResult[1])
+        }else{
+            result.push(intervalItem)
+        }
+    }
+    return result
+};
+```
+
+### 单调递增的数字
+
+链接：<https://leetcode.cn/problems/monotone-increasing-digits/description/>
+
+代码示例：
+
+```js
+var monotoneIncreasingDigits = function(n) {
+    n = n.toString().split('').map(item => {
+        return item * 1
+    })
+    
+    let flag = Infinity
+    for(let i = n.length - 1; i > 0; i--) {
+        if(n [i - 1] > n[i]) {
+            flag = i
+            n[i - 1] = n[i - 1] - 1
+            n[i] = 9
+        }
+    }
+
+    for(let i = flag; i < n.length; i++) {
+        n[i] = 9
+    }
+
+    n = n.join('')
+    return +n
+};
+```
