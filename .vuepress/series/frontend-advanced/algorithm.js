@@ -21,5 +21,6 @@ export default [
   'string',
   'tree-example',
   'back-trace',
-  'greedy'
+  'greedy',
+  'dynamic-programming'
 ]

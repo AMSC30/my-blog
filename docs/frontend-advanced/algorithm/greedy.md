@@ -39,7 +39,7 @@ var findContentChildren = function(g, s) {
 };
 ```
 
-## 最大子数组和
+### 最大子数组和
 
 链接：<https://leetcode.cn/problems/maximum-subarray/description/>
 
@@ -62,7 +62,7 @@ var maxSubArray = function(nums) {
 };
 ```
 
-## 买卖股票的最佳时机 II
+### 买卖股票的最佳时机 II
 
 链接：<https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/description/>
 
@@ -359,7 +359,7 @@ var monotoneIncreasingDigits = function(n) {
     n = n.toString().split('').map(item => {
         return item * 1
     })
-    
+
     let flag = Infinity
     for(let i = n.length - 1; i > 0; i--) {
         if(n [i - 1] > n[i]) {
