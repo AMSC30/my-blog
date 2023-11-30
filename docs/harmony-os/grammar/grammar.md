@@ -210,3 +210,335 @@ struct MyComponent {
 支持从父组件中@State、@Link、@Prop、@Provide、@Consume、@ObjectLink、@StorageLink、@StorageProp、@LocalStorageLink和@LocalStorageProp装饰变量对子组件初始化并可用于初始化子组件的子组件常规变量、@State、@Link、@Prop、@Provide
 
 父组件使用@State装饰的变量需要使用$语法，如this.name -> $name
+
+### 深层传递-@Provide&@Consume
+
+@Provide和@Consume，应用于与后代组件的双向数据同步，应用于状态数据在多个层级之间传递的场景。不同于上文提到的父子组件之间通过命名参数机制传递，@Provide和@Consume摆脱参数传递机制的束缚，实现跨层级传递
+
+@Provide和@Consume可以通过相同的变量名或者相同的变量别名绑定，变量类型必须相同
+
+```js
+// 通过相同的变量名绑定
+@Provide a: number = 0;
+@Consume a: number;
+
+// 通过相同的变量别名绑定
+@Provide('a') b: number = 0;
+@Consume('a') c: number;
+```
+
+@Provide和@Consume支持装饰Object、class、string、number、boolean、enum类型，以及这些类型的数组，不支持any，不支持简单类型和复杂类型的联合类型，不允许使用undefined和null，并必须指定初始值
+
+### 嵌套监测-@Observed&@ObjectLink
+
+上文所述的装饰器仅能观察到第一层的变化，对于多层嵌套的情况，比如二维数组，或者数组项class，或者class的属性是class，他们的第二层的属性变化是无法观察到的。@ObjectLink和@Observed类装饰器可用于在涉及嵌套对象或数组的场景中进行双向数据同步。
+
+@Observed装饰class类，必须指定类型，可以被观察到实例属性的变化
+
+@ObjectLink装饰器装饰的状态变量用于接收@Observed装饰的类的实例，相当于指向数据源的指针,和父组件中对应的状态变量建立双向数据绑定，装饰的实例属性是可以改变的，但是变量的分配是不允许的，也就是说这个装饰器装饰变量是只读的，不能被改变，不支持简单类型，简单类型可以使用@Prop。需要搭配@ObjectLink或者@Prop使用
+
+> 使用@Observed装饰class会改变class原始的原型链，@Observed和其他类装饰器装饰同一个class可能会带来问题
+>
+### 页面级状态-localStorage
+
+LocalStorage是页面级的UI状态存储，应用程序可以创建多个LocalStorage实例在页面内共享，@Entry装饰的@Component，可以被分配一个LocalStorage实例，此组件的所有子组件实例(组件树)将自动获得对该LocalStorage实例的访问权限
+
+@Component装饰的组件最多可以访问一个LocalStorage实例，只能接受父组件通过@Entry传递来的LocalStorage实例
+
+当应用释放最后一个指向LocalStorage的引用时，比如销毁最后一个自定义组件，LocalStorage将被JS Engine垃圾回收
+
+**@LocalStorageProp**
+
+自定义组件初始化的时候，@LocalStorageProp(key)/@LocalStorageLink(key)装饰的变量会通过给定的key，绑定LocalStorage对应的属性，完成初始化。本地初始化是必要的，因为无法保证LocalStorage一定存在给定的key
+
+@LocalStorageProp(key)是和LocalStorage中key对应的属性建立单向数据同步，我们允许本地改变的发生，但是对于@LocalStorageProp，本地的修改永远不会同步回LocalStorage中，相反，如果LocalStorage给定key的属性发生改变，改变会被同步给@LocalStorageProp，并覆盖掉本地的修改
+
+@LocalStorageProp允许装饰Object、class、string、number、boolean、enum类型，以及这些类型的数组，不支持any，不允许使用undefined和null，不支持从父节点初始化，可用于初始化子组件@State、@Link、@Prop、@Provide
+
+当装饰的数据类型为boolean、string、number类型时，可以观察到数值的变化。当装饰的数据类型为class或者Object时，可以观察到赋值和属性赋值的变化，即Object.keys(observedObject)返回的所有属性。当装饰的对象是array时，可以观察到数组添加、删除、更新数组单元的变化
+
+**@LocalStorageLink**
+
+@LocalStorageLink用于将自定义组件的状态变量的更新同步回LocalStorage
+
+使用逻辑同@LocalStorageProp
+
+**应用逻辑使用LocalStorage**
+
+```js
+let storage = new LocalStorage({ 'PropA': 47 }); // 创建新实例并使用给定对象初始化
+let propA = storage.get('PropA') // propA == 47
+let link1 = storage.link('PropA'); // link1.get() == 47
+let link2 = storage.link('PropA'); // link2.get() == 47
+let prop = storage.prop('PropA'); // prop.get() = 47
+link1.set(48); // two-way sync: link1.get() == link2.get() == prop.get() == 48
+prop.set(1); // one-way sync: prop.get()=1; but link1.get() == link2.get() == 48
+link1.set(49); // two-way sync: link1.get() == link2.get() == prop.get() == 49
+```
+
+**从UI内部使用LocalStorage**
+
+```js
+// 创建新实例并使用给定对象初始化
+let storage = new LocalStorage({ 'PropA': 47 });
+
+@Component
+struct Child {
+  // @LocalStorageLink变量装饰器与LocalStorage中的'PropA'属性建立双向绑定
+  @LocalStorageLink('PropA') storLink2: number = 1;
+
+  build() {
+    Button(`Child from LocalStorage ${this.storLink2}`)
+      // 更改将同步至LocalStorage中的'PropA'以及Parent.storLink1
+      .onClick(() => this.storLink2 += 1)
+  }
+}
+// 使LocalStorage可从@Component组件访问
+@Entry(storage)
+@Component
+struct CompA {
+  // @LocalStorageLink变量装饰器与LocalStorage中的'PropA'属性建立双向绑定
+  @LocalStorageLink('PropA') storLink1: number = 1;
+  build() {
+    Column({ space: 15 }) {
+      Button(`Parent from LocalStorage ${this.storLink1}`) // initial value from LocalStorage will be 47, because 'PropA' initialized already
+        .onClick(() => this.storLink1 += 1)
+      // @Component子组件自动获得对CompA LocalStorage实例的访问权限。
+      Child()
+    }
+  }
+}
+```
+
+**将LocalStorage实例从UIAbility共享到一个或多个视图**
+
+```js
+// EntryAbility.ts
+import UIAbility from '@ohos.app.ability.UIAbility';
+import window from '@ohos.window';
+
+export default class EntryAbility extends UIAbility {
+  storage: LocalStorage = new LocalStorage({
+    'PropA': 47
+  });
+
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    windowStage.loadContent('pages/Index', this.storage);
+  }
+}
+```
+
+```js
+// 通过GetShared接口获取stage共享的LocalStorage实例
+let storage = LocalStorage.GetShared()
+
+@Entry(storage)
+@Component
+struct CompA {
+  // can access LocalStorage instance using 
+  // @LocalStorageLink/Prop decorated variables
+  @LocalStorageLink('PropA') varA: number = 1;
+
+  build() {
+    Column() {
+      Text(`${this.varA}`).fontSize(50)
+    }
+  }
+}
+```
+
+### 全局状态-AppStorage
+
+AppStorage是在应用启动的时候会被创建的单例。它的目的是为了提供应用状态数据的中心存储，这些状态数据在应用级别都是可访问的。AppStorage将在应用运行过程保留其属性。属性通过唯一的键字符串值访问。
+
+AppStorage可以和UI组件同步，且可以在应用业务逻辑中被访问
+
+AppStorage的使用方式同LocalStorage
+
+**从应用逻辑使用AppStorage和LocalStorage**
+
+```js
+AppStorage.SetOrCreate('PropA', 47);
+
+let storage: LocalStorage = new LocalStorage({ 'PropA': 17 });
+let propA: number = AppStorage.Get('PropA') // propA in AppStorage == 47, propA in LocalStorage == 17
+var link1: SubscribedAbstractProperty<number> = AppStorage.Link('PropA'); // link1.get() == 47
+var link2: SubscribedAbstractProperty<number> = AppStorage.Link('PropA'); // link2.get() == 47
+var prop: SubscribedAbstractProperty<number> = AppStorage.Prop('PropA'); // prop.get() == 47
+
+link1.set(48); // two-way sync: link1.get() == link2.get() == prop.get() == 48
+prop.set(1); // one-way sync: prop.get() == 1; but link1.get() == link2.get() == 48
+link1.set(49); // two-way sync: link1.get() == link2.get() == prop.get() == 49
+
+storage.get('PropA') // == 17 
+storage.set('PropA', 101);
+storage.get('PropA') // == 101
+
+AppStorage.Get('PropA') // == 49
+link1.get() // == 49
+link2.get() // == 49
+prop.get() // == 49
+```
+
+**从UI内部使用AppStorage和LocalStorage**
+
+```js
+AppStorage.SetOrCreate('PropA', 47);
+let storage = new LocalStorage({ 'PropA': 48 });
+
+@Entry(storage)
+@Component
+struct CompA {
+  @StorageLink('PropA') storLink: number = 1;
+  @LocalStorageLink('PropA') localStorLink: number = 1;
+
+  build() {
+    Column({ space: 20 }) {
+      Text(`From AppStorage ${this.storLink}`)
+        .onClick(() => this.storLink += 1)
+      Text(`From LocalStorage ${this.localStorLink}`)
+        .onClick(() => this.localStorLink += 1)
+    }
+  }
+}
+```
+
+### 持久化存储-PersistentStorage
+
+PersistentStorage是应用程序中的可选单例对象。此对象的作用是持久化存储选定的AppStorage属性，以确保这些属性在应用程序重新启动时的值与应用程序关闭时的值相同
+
+PersistentStorage将选定的AppStorage属性保留在设备磁盘上。应用程序通过API，以决定哪些AppStorage属性应借助PersistentStorage持久化。UI和业务逻辑不直接访问PersistentStorage中的属性，所有属性访问都是对AppStorage的访问，AppStorage中的更改会自动同步到PersistentStorage
+
+PersistentStorage的持久化变量最好是小于2kb的数据，不要大量的数据持久化，因为PersistentStorage写入磁盘的操作是同步的，大量的数据本地化读写会同步在UI线程中执行，影响UI渲染性能
+
+**从AppStorage中访问PersistentStorage初始化的属性**
+
+```js
+PersistentStorage.PersistProp('aProp', 47);
+
+@Entry
+@Component
+struct Index {
+  @State message: string = 'Hello World'
+  @StorageLink('aProp') aProp: number = 48
+
+  build() {
+    Row() {
+      Column() {
+        Text(this.message)
+        // 应用退出时会保存当前结果。重新启动后，会显示上一次的保存结果
+        Text(`${this.aProp}`)
+          .onClick(() => {
+            this.aProp += 1;
+          })
+      }
+    }
+  }
+}
+```
+
+- 新应用安装后首次启动运行：
+
+a)调用PersistProp初始化PersistentStorage，首先查询在PersistentStorage本地文件中是否存在“aProp”，查询结果为不存在，因为应用是第一次安装。
+
+b)接着查询属性“aProp”在AppStorage中是否存在，依旧不存在。
+
+c)在AppStorge中创建名为“aProp”的number类型属性，属性初始值是定义的默认值47。
+
+d)PersistentStorage将属性“aProp”和值47写入磁盘，AppStorage中“aProp”对应的值和其后续的更改将被持久化。
+
+e)在Index组件中创建状态变量@StorageLink('aProp') aProp，和AppStorage中“aProp”双向绑定，在创建的过程中会在AppStorage中查找，成功找到a)“aProp”，所以使用其在AppStorage找到的值47。
+
+- 触发点击事件后：
+
+a)状态变量@StorageLink('aProp') aProp改变，触发Text组件重新刷新。
+
+b)@StorageLink装饰的变量是和AppStorage中建立双向同步的，所以@StorageLink('aProp') aProp的变化会被同步回AppStorage中。
+
+c)AppStorage中“aProp”属性的改变会同步到所有绑定该“aProp”的单向或者双向变量，在本示例中没有其他的绑定“aProp”的变量。
+
+d)因为“aProp”对应的属性已经被持久化，所以在AppStorage中“aProp”的改变会触发PersistentStorage将新的改变写会本地磁盘。
+
+- 后续启动应用：
+
+a)执行PersistentStorage.PersistProp('aProp', 47)，在首先查询在PersistentStorage本地文件查询“aProp”属性，成功查询到。
+
+b)将在PersistentStorage查询到的值写入AppStorage中。
+
+c)在Index组件里，@StorageLink绑定的“aProp”为PersistentStorage写入AppStorage中的值，即为上一次退出引用存入的值
+
+### 设备环境-Environment
+
+Environment是ArkUI框架在应用程序启动时创建的单例对象。它为AppStorage提供了一系列描述应用程序运行状态的属性。Environment的所有属性都是不可变的（即应用不可写入），所有的属性都是简单类型
+
+**应用逻辑使用Environment**
+
+```js
+// 使用Environment.EnvProp将设备运行languageCode存入AppStorage中；
+Environment.EnvProp('languageCode', 'en');
+// 从AppStorage获取单向绑定的languageCode的变量
+const lang: SubscribedAbstractProperty<string> = AppStorage.Prop('languageCode');
+
+if (lang.get() === 'zh') {
+  console.info('你好');
+} else {
+  console.info('Hello!');
+}
+```
+
+**从UI中访问Environment参数**
+
+```js
+// 将设备languageCode存入AppStorage中
+Environment.EnvProp('languageCode', 'en');
+let enable = AppStorage.Get('languageCode');
+
+@Entry
+@Component
+struct Index {
+  @StorageProp('languageCode') languageCode: string = 'en';
+
+  build() {
+    Row() {
+      Column() {
+        // 输出当前设备的languageCode
+        Text(this.languageCode)
+      }
+    }
+  }
+}
+```
+
+### 监听器-@Watch
+
+@Watch应用于对状态变量的监听，当状态变量变化时，@Watch的回调方法将被调用。@Watch在ArkUI框架内部判断数值有无更新使用的是严格相等（===），回调的函数类型为`(changedPropertyName? : string) => void`，changedPropertyName是被watch的属性名。在多个状态变量绑定同一个@Watch的回调方法的时候，可以通过changedPropertyName进行不同的逻辑处理
+
+在第一次初始化的时候，@Watch装饰的方法不会被调用，方法在自定义组件的属性变更之后同步执行
+
+### 内置组件双向绑定-$$语法
+
+$$运算符为系统内置组件提供TS变量的引用，使得TS变量和系统内置组件的内部状态保持同步,当前$$支持基础类型变量，以及@State、@Link和@Prop装饰的变量。
+当前$$仅支持bindPopup属性方法的show参数，Radio组件的checked属性，Refresh组件的refreshing参数。
+$$绑定的变量变化时，会触发UI的同步刷新
+
+```js
+// xxx.ets
+@Entry
+@Component
+struct bindPopupPage {
+  @State customPopup: boolean = false;
+
+  build() {
+    Column() {
+      Button('Popup')
+        .margin(20)
+        .onClick(() => {
+          this.customPopup = !this.customPopup
+        })
+        .bindPopup($$this.customPopup, {
+          message: 'showPopup'
+        })
+    }
+  }
+}
+```
