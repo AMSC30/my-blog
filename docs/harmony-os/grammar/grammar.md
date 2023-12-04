@@ -241,7 +241,7 @@ struct MyComponent {
 >
 ### 页面级状态-localStorage
 
-LocalStorage是页面级的UI状态存储，应用程序可以创建多个LocalStorage实例在页面内共享，@Entry装饰的@Component，可以被分配一个LocalStorage实例，此组件的所有子组件实例(组件树)将自动获得对该LocalStorage实例的访问权限
+LocalStorage是页面级的UI状态存储，应用程序可以创建多个LocalStorage实例在页面内共享，@Entry装饰的组件，可以被分配一个LocalStorage实例，此组件的所有子组件实例(组件树)将自动获得对该LocalStorage实例的访问权限
 
 @Component装饰的组件最多可以访问一个LocalStorage实例，只能接受父组件通过@Entry传递来的LocalStorage实例
 

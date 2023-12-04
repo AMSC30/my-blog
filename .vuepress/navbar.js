@@ -59,7 +59,8 @@ export default [
     text: 'harmonyOS',
     children: [
       { text: '程序包基础', link: '/docs/harmony-os/package/package.md' },
-      { text: 'ArkTS语言', link: '/docs/harmony-os/grammar/grammar.md' }
+      { text: 'ArkTS语言', link: '/docs/harmony-os/grammar/grammar.md' },
+      { text: '开发', link: '/docs/harmony-os/develop/develop.md' }
     ]
   },
 
