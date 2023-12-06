@@ -702,6 +702,225 @@ export default class EntryFormAbility extends FormExtensionAbility {
 
 ## 进程模型
 
+HarmonyOS的进程模型，应用中（同一包名）的所有UIAbility运行在同一个独立进程中，WebView拥有独立的渲染进程
+
+### 公共事件
+
+HarmonyOS通过CES（Common Event Service，公共事件服务）为应用程序提供订阅、发布、退订公共事件的能力。这些公共事件可能来自系统、其他应用和应用自身
+
+- 公共事件从系统角度可分为：系统公共事件和自定义公共事件。
+
+1. 系统公共事件：CES内部定义的公共事件，只有系统应用和系统服务才能发布，例如HAP安装，更新，卸载等公共事件。目前支持的系统公共事件详见系统公共事件列表。
+
+2. 自定义公共事件：应用自定义一些公共事件用来实现跨进程的事件通信能力。
+
+- 公共事件按发送方式可分为：无序公共事件、有序公共事件和粘性公共事件。
+
+1. 无序公共事件：CES转发公共事件时，不考虑订阅者是否接收到，且订阅者接收到的顺序与其订阅顺序无关。
+
+2. 有序公共事件：CES转发公共事件时，根据订阅者设置的优先级等级，优先将公共事件发送给优先级较高的订阅者，等待其成功接收该公共事件之后再将事件发送给优先级较低的订阅者。如果有多个订阅者具有相同的优先级，则他们将随机接收到公共事件。
+
+3. 粘性公共事件：能够让订阅者收到在订阅前已经发送的公共事件就是粘性公共事件。普通的公共事件只能在订阅后发送才能收到，而粘性公共事件的特殊性就是可以先发送后订阅。发送粘性事件必须是系统应用或系统服务，且需要申请ohos.permission.COMMONEVENT_STICKY权限，配置方式请参阅访问控制授权申请指导。
+
+#### 动态订阅公共事件
+
+动态订阅是指当应用在运行状态时对某个公共事件进行订阅，在运行期间如果有订阅的事件发布那么订阅了这个事件的应用将会收到该事件及其传递的参数。例如，某应用希望在其运行期间收到电量过低的事件，并根据该事件降低其运行功耗，那么该应用便可动态订阅电量过低事件，收到该事件后关闭一些非必要的任务来降低功耗。订阅部分系统公共事件需要先申请权限
+
+步骤如下：
+
+```js
+// 导入CommonEvent模块。
+import commonEvent from '@ohos.commonEventManager';
+
+// 创建订阅者信息,用于保存创建成功的订阅者对象，后续使用其完成订阅及退订的动作
+let subscriber = null;
+// 订阅者信息
+let subscribeInfo = {
+    events: ["usual.event.SCREEN_OFF"], // 订阅灭屏公共事件
+}
+
+// 创建订阅者回调，保存返回的订阅者对象subscriber，用于执行后续的订阅、退订等操作
+commonEvent.createSubscriber(subscribeInfo, (err, data) => {
+    if (err) {
+        console.error(`[CommonEvent] CreateSubscriberCallBack err=${JSON.stringify(err)}`);
+    } else {
+        console.info(`[CommonEvent] CreateSubscriber success`);
+        subscriber = data;
+        // 订阅公共事件回调
+    }
+})
+
+// 订阅公共事件回调
+if (subscriber !== null) {
+    commonEvent.subscribe(subscriber, (err, data) => {
+        if (err) {
+            console.error(`[CommonEvent] SubscribeCallBack err=${JSON.stringify(err)}`);
+        } else {
+            console.info(`[CommonEvent] SubscribeCallBack data=${JSON.stringify(data)}`);
+        }
+    })
+} else {
+    console.error(`[CommonEvent] Need create subscriber`);
+}
+```
+
+#### 取消动态订阅公共事件
+
+动态订阅者完成业务需要时，需要主动取消订阅，订阅者通过调用unsubscribe()方法取消订阅事件。
+
+开发步骤：
+
+```js
+// 导入CommonEvent模块。
+import commonEvent from '@ohos.commonEventManager';
+
+// subscriber为订阅事件时创建的订阅者对象
+if (subscriber !== null) {
+    commonEvent.unsubscribe(subscriber, (err) => {
+        if (err) {
+            console.error(`[CommonEvent] UnsubscribeCallBack err=${JSON.stringify(err)}`)
+        } else {
+            console.info(`[CommonEvent] Unsubscribe`)
+            subscriber = null
+        }
+    })
+}
+```
+
+#### 公共事件发布
+
+步骤如下：
+
+```js
+// 导入CommonEvent模块。
+import commonEvent from '@ohos.commonEventManager';
+
+// 公共事件相关信息
+let options = {
+    code: 1, // 公共事件的初始代码
+    data: "initial data", // 公共事件的初始数据
+}
+
+// 发布公共事件
+commonEvent.publish("usual.event.SCREEN_OFF", options, (err) => {
+    if (err) {
+        console.error('[CommonEvent] PublishCallBack err=' + JSON.stringify(err));
+    } else {
+        console.info('[CommonEvent] Publish success')
+    }
+})
+```
+
 ## 线程模型
+
+HarmonyOS应用中每个进程都会有一个主线程，主线程有如下职责：
+
+- 执行UI绘制；
+- 管理主线程的ArkTS引擎实例，使多个UIAbility组件能够运行在其之上；
+- 管理其他线程（例如Worker线程）的ArkTS引擎实例，例如启动和终止其他线程；
+- 分发交互事件；
+- 处理应用代码的回调，包括事件处理和生命周期管理；
+- 接收Worker线程发送的消息；
+
+除主线程外，还有一类与主线程并行的独立线程Worker，主要用于执行耗时操作，但不可以直接操作UI。Worker线程在主线程中创建，与主线程相互独立。最多可以创建8个Worker
+
+### 使用Emitter进行线程间通信
+
+Emitter主要提供线程间发送和处理事件的能力，包括对持续订阅事件或单次订阅事件的处理、取消订阅事件、发送事件到事件队列等。
+
+Emitter的开发步骤如下：
+
+1. 订阅事件
+
+```js
+import emitter from "@ohos.events.emitter";
+
+// 定义一个eventId为1的事件
+let event = {
+    eventId: 1
+};
+
+// 收到eventId为1的事件后执行该回调
+let callback = (eventData) => {
+    console.info('event callback');
+};
+// 订阅eventId为1的事件
+emitter.on(event, callback);
+```
+
+2. 发送事件
+
+```js
+import emitter from "@ohos.events.emitter";
+
+// 定义一个eventId为1的事件，事件优先级为Low
+let event = {
+    eventId: 1,
+    priority: emitter.EventPriority.LOW
+};
+
+let eventData = {
+    data: {
+        "content": "c",
+        "id": 1,
+        "isEmpty": false,
+    }
+};
+
+// 发送eventId为1的事件，事件内容为eventData
+emitter.emit(event, eventData);
+```
+
+### 使用Worker进行线程间通信
+
+Worker是与主线程并行的独立线程。创建Worker的线程被称为宿主线程，Worker工作的线程被称为Worker线程。创建Worker时传入的脚本文件在Worker线程中执行，通常在Worker线程中处理耗时的操作，需要注意的是，Worker中不能直接更新Page。
+
+Worker的开发步骤如下：
+
+1. 在工程的模块级build-profile.json5文件的buildOption属性中添加配置信息
+
+```js
+  "buildOption": {
+    "sourceOption": {
+      "workers": [
+        "./src/main/ets/workers/worker.ts"
+      ]
+    }
+  }
+```
+
+2. 根据build-profile.json5中的配置创建对应的worker.ts文件
+
+```js
+import worker from '@ohos.worker';
+
+let parent = worker.workerPort;
+
+// 处理来自主线程的消息
+parent.onmessage = function(message) {
+    console.info("onmessage: " + message)
+    // 发送消息到主线程
+    parent.postMessage("message from worker thread.")
+}
+```
+
+3. 初始化和使用worker
+
+```js
+import worker from '@ohos.worker';
+
+let wk = new worker.ThreadWorker("entry/ets/workers/worker.ts");
+
+// 发送消息到worker线程
+wk.postMessage("message from main thread.")
+
+// 处理来自worker线程的消息
+wk.onmessage = function(message) {
+    console.info("message from worker: " + message)
+
+    // 根据业务按需停止worker线程
+    wk.terminate()
+}
+```
 
 ## UI开发
