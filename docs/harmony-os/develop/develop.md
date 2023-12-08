@@ -924,3 +924,432 @@ wk.onmessage = function(message) {
 ```
 
 ## UI开发
+
+### 页面路由
+
+#### 页面跳转
+
+Router模块提供了两种跳转模式，分别是router.pushUrl()和router.replaceUrl()。这两种模式决定了目标页是否会替换当前页。
+
+- router.pushUrl()：目标页不会替换当前页，而是压入页面栈。这样可以保留当前页的状态，并且可以通过返回键或者调用router.back()方法返回到当前页。
+- router.replaceUrl()：目标页会替换当前页，并销毁当前页
+
+> 页面栈的最大容量为32个页面。如果超过这个限制，可以调用router.clear()方法清空历史页面栈，释放内存空间
+
+Router模块提供了两种实例模式，分别是Standard和Single。这两种模式决定了目标url是否会对应多个实例。
+
+- Standard：标准实例模式，也是默认情况下的实例模式。每次调用该方法都会新建一个目标页，并压入栈顶。
+- Single：单实例模式。即如果目标页的url在页面栈中已经存在同url页面，则离栈顶最近的同url页面会被移动到栈顶，并重新加载；如果目标页的url在页面栈中不存在同url页面，则按照标准模式跳转
+
+使用语法：
+
+```js
+ router.replaceUrl({
+    url: 'pages/SearchDetail' // 目标url
+  }, router.RouterMode.Single, (err) => {
+    if (err) {
+      console.error(`Invoke replaceUrl failed, code is ${err.code}, message is ${err.message}`);
+      return;
+    }
+    console.info('Invoke replaceUrl succeeded.');}
+```
+
+如果需要在跳转时传递一些数据给目标页，则可以在调用Router模块的方法时，添加一个params属性，并指定一个对象作为参数，在目标页中，可以通过调用Router模块的getParams()方法来获取传递过来的参数
+
+#### 页面返回
+
+当用户在一个页面完成操作后，通常需要返回到上一个页面或者指定页面，这就需要用到页面返回功能。在返回的过程中，可能需要将数据传递给目标页，这就需要用到数据传递功能，可以使用以下几种方式进行页面返回：
+
+- 返回到上一个页面。
+
+```js
+router.back();
+```
+
+- 返回到指定页面，目标页必须存在于页面栈中才能够返回
+
+```js
+router.back({
+  url: 'pages/Home'
+});
+```
+
+- 返回到指定页面，并传递自定义参数信息，参数信息可以在目标页中通过调用router.getParams()方法进行获取和解析
+
+```js
+router.back({
+  url: 'pages/Home',
+  params: {
+    info: '来自Home页'
+  }
+});
+
+// 目标页
+onPageShow() {
+  const params = router.getParams(); // 获取传递过来的参数对象
+  const info = params['info']; // 获取info属性的值
+}
+```
+
+> 当使用router.back()方法返回到指定页面时，该页面会被重新压入栈顶，而原栈顶页面（包括）到指定页面（不包括）之间的所有页面栈都将被销毁。
+>
+#### 返回确认
+
+- 系统默认询问框
+
+Router模块提供的两个方法：router.showAlertBeforeBackPage()和router.back()来实现这个功能，需要在调用router.back()方法之前，通过调用router.showAlertBeforeBackPage()方法设置返回询问框的信息
+
+```js
+// 定义一个返回按钮的点击事件处理函数
+function onBackClick(): void {
+  // 调用router.showAlertBeforeBackPage()方法，设置返回询问框的信息
+  try {
+    router.showAlertBeforeBackPage({
+      message: '您还没有完成支付，确定要返回吗？' // 设置询问框的内容
+    });
+  } catch (err) {
+    console.error(`Invoke showAlertBeforeBackPage failed, code is ${err.code}, message is ${err.message}`);
+  }
+
+  // 调用router.back()方法，返回上一个页面
+  router.back();
+}
+```
+
+- 自定义询问框
+
+自定义询问框的方式，可以使用弹窗或者自定义弹窗实现。这样可以让应用界面与系统默认询问框有所区别，提高应用的用户体验度
+
+```js
+function onBackClick() {
+  // 弹出自定义的询问框
+  promptAction.showDialog({
+    message: '您还没有完成支付，确定要返回吗？',
+    buttons: [
+      {
+        text: '取消',
+        color: '#FF0000'
+      },
+      {
+        text: '确认',
+        color: '#0099FF'
+      }
+    ]
+  }).then((result) => {
+    if (result.index === 0) {
+      // 用户点击了“取消”按钮
+      console.info('User canceled the operation.');
+    } else if (result.index === 1) {
+      // 用户点击了“确认”按钮
+      console.info('User confirmed the operation.');
+      // 调用router.back()方法，返回上一个页面
+      router.back();
+    }
+  }).catch((err) => {
+    console.error(`Invoke showDialog failed, code is ${err.code}, message is ${err.message}`);
+  })
+}
+```
+
+### 显示图形
+
+#### 显示图片
+
+Image支持加载存档图、多媒体像素图两种类型
+
+存档图类型的数据源可以分为本地资源、网络资源、Resource资源、媒体库资源和base64
+
+```js
+// 本地资源
+Image('images/view.jpg')
+.width(200)
+
+// 网络资源
+// 引入网络图片需申请权限ohos.permission.INTERNET，Image组件的src参数为网络图片的链接。
+Image('https://www.example.com/example.JPG') 
+
+// Resource资源
+// resources文件夹下的图片都可以通过$r资源接口读取到并转换到Resource格式。
+Image($r('app.media.icon'))
+//还可以将图片放在rawfile文件夹下。
+Image($rawfile('snap'))
+
+
+// 媒体库file://data/storage
+// 支持file://路径前缀的字符串，用于访问通过媒体库提供的图片路径。
+
+Image('file://media/Photos/5')
+.width(200)
+
+// base64
+路径格式为data:image/[png|jpeg|bmp|webp];base64,[base64 data]，其中[base64 data]为Base64字符串数据。
+```
+
+PixelMap是图片解码后的像素图
+
+```js
+import http from '@ohos.net.http';
+import ResponseCode from '@ohos.net.http';
+import image from '@ohos.multimedia.image';
+
+@State image: PixelMap = undefined;
+
+http.createHttp().request("https://www.example.com/xxx.png",
+  (error, data) => {
+    if (error){
+      console.error(`http reqeust failed with. Code: ${error.code}, message: ${error.message}`);
+    } else {
+      let code = data.responseCode;
+      if (ResponseCode.ResponseCode.OK === code) {
+      let res: any = data.result  
+      let imageSource = image.createImageSource(res);
+      let options = {
+        alphaType: 0,                     // 透明度
+        editable: false,                  // 是否可编辑
+        pixelFormat: 3,                   // 像素格式
+        scaleMode: 1,                     // 缩略值
+        size: { height: 100, width: 100}
+      }  // 创建图片大小
+        imageSource.createPixelMap(options).then((pixelMap) => {
+        this.image = pixelMap
+      })
+  }
+    }
+  }
+)
+
+Button("获取网络图片")
+  .onClick(() => {
+    this.httpRequest()
+  })
+Image(this.image).height(100).width(100)
+```
+
+#### 显示矢量图
+
+Image组件可显示矢量图（svg格式的图片），支持的svg标签为：svg、rect、circle、ellipse、path、line、polyline、polygon和animate。
+
+svg格式的图片可以使用fillColor属性改变图片的绘制颜色。
+
+```js
+Image($r('app.media.cloud')).width(50)
+.fillColor(Color.Blue)
+```
+
+#### 图片插值
+
+当原图分辨率较低并且放大显示时，图片会模糊出现锯齿。这时可以使用interpolation属性对图片进行插值，使图片显示得更清晰
+
+```js
+Image($r('app.media.grass'))
+    .width('40%')
+    .interpolation(ImageInterpolation.Low)
+    .borderWidth(1)
+    .overlay("Interpolation.Low", { align: Alignment.Bottom, offset: { x: 0, y: 20 } })
+    .margin(10)
+```
+
+### 绘制几何图形
+
+绘制组件用于在页面绘制图形，Shape组件是绘制组件的父组件，父组件中会描述所有绘制组件均支持的通用属性，绘制类型支持Circle（圆形）、Ellipse（椭圆形）、Line（直线）、Polyine（折线）、Polygon（多边形）、Path（路径）、Rect（矩形）七种
+
+形状视口viewport指定用户空间中的一个矩形，该矩形映射到为关联的 SVG 元素建立的视区边界。viewport属性的值包含x、y、width和height四个可选参数，x 和 y 表示视区的左上角坐标，width和height表示其尺寸。通过viewport可以实现几何图形在父组件Shape中平移、缩小、放大
+
+### 动画
+
+如果按照基础能力分，可分为属性动画、显式动画、转场动画三部分
+
+#### 显式动画
+
+闭包内的变化均会触发动画，包括由数据变化引起的组件的增删、组件属性的变化等，可以做较为复杂的动画
+
+显式动画使用`animateTo(value: AnimateParam, event: () => void)`，第一个参数指定动画参数，第二个参数为动画的闭包函数
+
+```js
+@Entry
+@Component
+struct LayoutChange {
+  // 用于控制Column的alignItems属性
+  @State itemAlign: HorizontalAlign = HorizontalAlign.Start;
+  allAlign: HorizontalAlign[] = [HorizontalAlign.Start, HorizontalAlign.Center, HorizontalAlign.End];
+  alignIndex: number = 0;
+
+  build() {
+    Column() {
+      Column({ space: 10 }) {
+        Button("1").width(100).height(50)
+        Button("2").width(100).height(50)
+        Button("3").width(100).height(50)
+      }
+      .margin(20)
+      .alignItems(this.itemAlign)
+      .borderWidth(2)
+      .width("90%")
+      .height(200)
+
+      Button("click").onClick(() => {
+        // 动画时长为1000ms，曲线为EaseInOut
+        animateTo({ duration: 1000, curve: Curve.EaseInOut }, () => {
+          this.alignIndex = (this.alignIndex + 1) % this.allAlign.length;
+          // 在闭包函数中修改this.itemAlign参数，使Column容器内部孩子的布局方式变化，使用动画过渡到新位置
+          this.itemAlign = this.allAlign[this.alignIndex];
+        });
+      })
+    }
+    .width("100%")
+    .height("100%")
+  }
+}
+```
+
+#### 属性动画
+
+显式动画把要执行动画的属性的修改放在闭包函数中触发动画，而属性动画则无需使用闭包，把animation属性加在要做属性动画的组件的属性后即可
+
+属性动画使用`animation(value: AnimateParam)`，其入参为动画参数。想要组件随某个属性值的变化而产生动画，此属性需要加在animation属性之前。有的属性变化不希望通过animation产生属性动画，可以放在animation之后
+
+```js
+@Entry
+@Component
+struct LayoutChange2 {
+  @State myWidth: number = 100;
+  @State myHeight: number = 50;
+  @State flag: boolean = false;
+  @State myColor: Color = Color.Blue;
+
+  build() {
+    Column({ space: 10 }) {
+      Button("text")
+        .type(ButtonType.Normal)
+        .width(this.myWidth)
+        .height(this.myHeight)
+        // animation只对其上面的type、width、height属性生效，时长为1000ms，曲线为Ease
+        .animation({ duration: 1000, curve: Curve.Ease })
+        // animation对下面的backgroundColor、margin属性不生效
+        .backgroundColor(this.myColor)
+        .margin(20)
+        
+
+      Button("area: click me")
+        .fontSize(12)
+        .onClick(() => {
+          // 改变属性值，配置了属性动画的属性会进行动画过渡
+          if (this.flag) {
+            this.myWidth = 100;
+            this.myHeight = 50;
+            this.myColor = Color.Blue;
+          } else {
+            this.myWidth = 200;
+            this.myHeight = 100;
+            this.myColor = Color.Pink;
+          }
+          this.flag = !this.flag;
+        })
+    }
+  }
+}
+```
+
+#### 组件专场动画
+
+组件的插入、删除过程即为组件本身的转场过程，组件的插入、删除动画称为组件内转场动画。通过组件内转场动画，可定义组件出现、消失的效果。
+
+组件内转场动画的接口为：`transition(value: TransitionOptions)`，可以定义平移、透明度、旋转、缩放这几种转场样式的单个或者组合的转场效果
+
+```js
+@Entry
+@Component
+struct IfElseTransition {
+  @State flag: boolean = true;
+  @State show: string = 'show';
+
+  build() {
+    Column() {
+      Button(this.show).width(80).height(30).margin(30)
+        .onClick(() => {
+          if (this.flag) {
+            this.show = 'hide';
+          } else {
+            this.show = 'show';
+          }
+          
+          animateTo({ duration: 1000 }, () => {
+            // 动画闭包内控制Image组件的出现和消失
+            this.flag = !this.flag;
+          })
+        })
+      if (this.flag) {
+        // Image的出现和消失配置为不同的过渡效果
+        Image($r('app.media.mountain')).width(200).height(200)
+          .transition({ type: TransitionType.Insert, translate: { x: 200, y: -200 } })
+          .transition({ type: TransitionType.Delete, opacity: 0, scale: { x: 0, y: 0 } })
+      }
+    }.height('100%').width('100%')
+  }
+}
+```
+
+#### 页面专场动画
+
+两个页面间发生跳转，一个页面消失，另一个页面出现，这时可以配置各自页面的页面转场参数实现自定义的页面转场效果。页面转场效果写在pageTransition函数中，通过PageTransitionEnter和PageTransitionExit指定页面进入和退出的动画效果。可通过slide、translate、scale、opacity属性定义不同的页面转场效果。对于PageTransitionEnter而言，这些效果表示入场时起点值，对于PageTransitionExit而言，这些效果表示退场的终点值
+
+PageTransitionEnter的接口为：
+
+```js
+PageTransitionEnter({type?: RouteType,duration?: number,curve?: Curve | string,delay?: number})
+```
+
+PageTransitionExit的接口为：
+
+```js
+PageTransitionExit({type?: RouteType,duration?: number,curve?: Curve | string,delay?: number})
+```
+
+```js
+// PageTransitionSrc1
+import router from '@ohos.router';
+@Entry
+@Component
+struct PageTransitionSrc1 {
+  build() {
+    Column() {
+      Image($r('app.media.mountain'))
+        .width('90%')
+        .height('80%')
+        .objectFit(ImageFit.Fill)
+        .syncLoad(true) // 同步加载图片，使页面出现时图片已经加载完成
+        .margin(30)
+
+      Row({ space: 10 }) {
+        Button("pushUrl")
+          .onClick(() => {
+            // 路由到下一个页面，push操作
+            router.pushUrl({ url: 'pages/myTest/pageTransitionDst1' });
+          })
+        Button("back")
+          .onClick(() => {
+            // 返回到上一页面，相当于pop操作
+            router.back();
+          })
+      }.justifyContent(FlexAlign.Center)
+    }
+    .width("100%").height("100%")
+    .alignItems(HorizontalAlign.Center)
+  }
+
+  pageTransition() {
+    // 定义页面进入时的效果，从右侧滑入，时长为1000ms，页面栈发生push操作时该效果才生效
+    PageTransitionEnter({ type: RouteType.Push, duration: 1000 })
+      .slide(SlideEffect.Right)
+    // 定义页面进入时的效果，从左侧滑入，时长为1000ms，页面栈发生pop操作时该效果才生效
+    PageTransitionEnter({ type: RouteType.Pop, duration: 1000 })
+      .slide(SlideEffect.Left)
+    // 定义页面退出时的效果，向左侧滑出，时长为1000ms，页面栈发生push操作时该效果才生效
+    PageTransitionExit({ type: RouteType.Push, duration: 1000 })
+      .slide(SlideEffect.Left)
+    // 定义页面退出时的效果，向右侧滑出，时长为1000ms，页面栈发生pop操作时该效果才生效
+    PageTransitionExit({ type: RouteType.Pop, duration: 1000 })
+      .slide(SlideEffect.Right)
+  }
+}
+```
