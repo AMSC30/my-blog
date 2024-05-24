@@ -73,13 +73,13 @@ export default [
       { text: 'ES6', link: '/docs/interview/es6/var_let_const.md' },
       { text: 'HTTP', link: '/docs/interview/http/1.0_1.1_2.0.md' },
       { text: 'Vue', link: '/docs/interview/vue/base.md' },
-      { text: '小程序', link: '/docs/interview/applet/applet.md' },
+      { text: 'React', link: '/docs/interview/react/React.md' },
       { text: 'Git', link: '/docs/interview/git/command.md' },
       { text: 'Linux', link: '/docs/interview/linux/linux.md' },
       { text: 'Node', link: '/docs/interview/node/nodejs.md' },
-      { text: 'React', link: '/docs/interview/react/React.md' },
       { text: 'Webpack', link: '/docs/interview/webpack/webpack.md' },
-      { text: '设计模式', link: '/docs/interview/design/design.md' }
+      { text: '设计模式', link: '/docs/interview/design/design.md' },
+      { text: '小程序', link: '/docs/interview/applet/applet.md' },
     ]
   },
   {
