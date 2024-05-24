@@ -1,29 +1,17 @@
-# 面试官：谈谈你对BFC的理解？
-
-![](https://static.vue-js.com/c3d68290-9511-11eb-85f6-6fac77c0c9b3.png)
+# 对BFC的理解
 
 ## 一、是什么
 
-我们在页面布局的时候，经常出现以下情况：
-
-- 这个元素高度怎么没了？
-- 这两栏布局怎么没法自适应？
-- 这两个元素的间距怎么有点奇怪的样子？
-- ......
-
-原因是元素之间相互的影响，导致了意料之外的情况，这里就涉及到`BFC`概念
-
-`BFC`（Block Formatting Context），即块级格式化上下文，它是页面中的一块渲染区域，并且有一套属于自己的渲染规则：
+`BFC`（Block Formatting Context），即块级格式化上下文，是页面中一块有自己的渲染规则渲染区域：
 
 - 内部的盒子会在垂直方向上一个接一个的放置
-- 对于同一个BFC的俩个相邻的盒子的margin会发生重叠，与方向无关。
+- 对于同一个BFC的两个相邻的盒子的margin会发生重叠，与方向无关。
 - 每个元素的左外边距与包含块的左边界相接触（从左到右），即使浮动元素也是如此
 - BFC的区域不会与float的元素区域重叠
 - 计算BFC的高度时，浮动子元素也参与计算
 - BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然
 
 `BFC`目的是形成一个相对于外界完全独立的空间，让内部的子元素不会影响到外部的元素
-
 
 ## 二、触发条件
 
@@ -34,8 +22,6 @@
 - overflow值不为 visible，为 auto、scroll、hidden
 - display的值为inline-block、inltable-cell、table-caption、table、inline-table、flex、inline-flex、grid、inline-grid
 - position的值为absolute或fixed
-
-
 
 ## 三、应用场景
 
@@ -189,13 +175,11 @@
 
  ![](https://static.vue-js.com/0a5f2690-9512-11eb-ab90-d9ae814b240d.png)
 
-
-
 ### 小结
 
 可以看到上面几个案例，都体现了`BFC`实际就是页面一个独立的容器，里面的子元素不影响外面的元素
 
 ## 参考文献
 
-- https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context
-- https://github.com/zuopf769/notebook/blob/master/fe/BFC%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md
+- <https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context>
+- <https://github.com/zuopf769/notebook/blob/master/fe/BFC%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/README.md>
