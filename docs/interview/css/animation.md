@@ -1,8 +1,4 @@
-# 面试官：css3动画有哪些？
-
- ![](https://static.vue-js.com/d12e2380-9c0a-11eb-ab90-d9ae814b240d.png)
-
-
+# css3动画
 
 ## 一、是什么
 
@@ -17,7 +13,6 @@ CSS动画（CSS Animations）是为层叠样式表建议的允许可扩展标记
 - transition 实现渐变动画
 - transform 转变动画
 - animation 实现自定义动画
-
 
 ## 二、实现方式
 
@@ -119,8 +114,6 @@ CSS动画（CSS Animations）是为层叠样式表建议的允许可扩展标记
 
 可以看到盒子发生了旋转，倾斜，平移，放大
 
-
-
 ### animation 实现自定义动画
 
 `animation`是由 8 个属性的简写，分别如下：
@@ -177,10 +170,6 @@ CSS动画（CSS Animations）是为层叠样式表建议的允许可扩展标记
 animation: rotate 2s;
 ```
 
-
-
-
-
 ## 三、总结
 
 | 属性               | 含义                                                         |
@@ -190,10 +179,8 @@ animation: rotate 2s;
 | translate（移动）  | 只是transform的一个属性值，即移动                            |
 | animation（动画）  | 用于设置动画属性，他是一个简写的属性，包含6个属性            |
 
-
-
 ## 参考文献
 
-- https://segmentfault.com/a/1190000022540857
-- https://zh.m.wikipedia.org/wiki/CSS%E5%8A%A8%E7%94%BB
-- https://vue3js.cn/interview
+- <https://segmentfault.com/a/1190000022540857>
+- <https://zh.m.wikipedia.org/wiki/CSS%E5%8A%A8%E7%94%BB>
+- <https://vue3js.cn/interview>
