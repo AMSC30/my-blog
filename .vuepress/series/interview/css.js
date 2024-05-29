@@ -13,7 +13,6 @@ export default [
     'hide_attributes',
     'layout_painting',
     'less_12px',
-    'read',
     'responsive_layout',
     'sass_less_stylus',
     'selector',

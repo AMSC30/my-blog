@@ -1,6 +1,4 @@
-# 面试官：说说设备像素、css像素、设备独立像素、dpr、ppi 之间的区别？
-
- ![](https://static.vue-js.com/c4d9bfd0-91f2-11eb-85f6-6fac77c0c9b3.png)
+# 设备像素、css像素、设备独立像素、dpr、ppi 之间的区别？
 
 ## 一、背景
 
@@ -40,7 +38,6 @@ px会受到下面的因素的影响而变化：
 - 每英寸像素（PPI）
 - 设备像素比（DPR）
 
-
 ### 设备像素
 
 设备像素（device pixels），又称为物理像素
@@ -52,8 +49,6 @@ px会受到下面的因素的影响而变化：
  ![](https://static.vue-js.com/cffc6570-91f2-11eb-ab90-d9ae814b240d.png)
 
 从屏幕在工厂生产出的那天起，它上面设备像素点就固定不变了，单位为`pt`
-
-
 
 ### 设备独立像素
 
@@ -77,7 +72,6 @@ iPhone 3GS 和 iPhone 4/4s 的尺寸都是 3.5 寸，但 iPhone 3GS 的分辨率
 
 至于 1 个虚拟像素被换算成几个物理像素，这个数值我们称之为设备像素比，也就是下面介绍的`dpr`
 
-
 ### dpr
 
 dpr（device pixel ratio），设备像素比，代表设备独立像素到设备像素的转换关系，在`JavaScript`中可以通过 `window.devicePixelRatio` 获取
@@ -98,8 +92,6 @@ dpr（device pixel ratio），设备像素比，代表设备独立像素到设�
 
 当`dpr`为3，那么`1px`的`CSS`像素宽度对应`3px`的物理像素的宽度，1px的`CSS`像素高度对应`3px`的物理像素高度
 
-
-
 ### ppi
 
 ppi （pixel per inch），每英寸像素，表示每英寸所包含的像素点数目，更确切的说法应该是像素密度。数值越高，说明屏幕能以更高密度显示图像
@@ -107,8 +99,6 @@ ppi （pixel per inch），每英寸像素，表示每英寸所包含的像素�
 计算公式如下：
 
  ![](https://static.vue-js.com/f734adf0-91f2-11eb-ab90-d9ae814b240d.png)
-
-
 
 ## 三、总结
 
@@ -124,9 +114,7 @@ PC端中，1个设备独立像素 = 1个设备像素 （在100%，未缩放的�
 
 每英寸像素（ppi），值越大，图像越清晰
 
-
-
 ## 参考文献
 
-- https://developer.mozilla.org/zh-CN/docs/Glossary/CSS_pixel
-- https://hijiangtao.github.io/2017/07/09/Device-Viewport-and-Pixel-Introduction/
+- <https://developer.mozilla.org/zh-CN/docs/Glossary/CSS_pixel>
+- <https://hijiangtao.github.io/2017/07/09/Device-Viewport-and-Pixel-Introduction/>

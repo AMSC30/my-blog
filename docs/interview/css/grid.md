@@ -1,7 +1,4 @@
-# 面试官：介绍一下grid网格布局
-
- ![](https://static.vue-js.com/4d73e3d0-9a94-11eb-85f6-6fac77c0c9b3.png)
-
+# grid网格布局
 
 ## 一、是什么
 
@@ -19,7 +16,7 @@
 <div class="container">
     <div class="item item-1">
         <p class="sub-item"></p >
- </div>
+    </div>
     <div class="item item-2"></div>
     <div class="item item-3"></div>
 </div> 
@@ -35,15 +32,12 @@
 
 上图是一个 2 x 3 的网格，共有3根水平网格线和4根垂直网格线
 
-
 ## 二、属性
 
 同样，`Grid` 布局属性可以分为两大类：
 
 - 容器属性，
 - 项目属性
-
-
 
 关于容器属性有如下：
 
@@ -54,8 +48,6 @@
 - display：grid 则该容器是一个块级元素
 
 - display: inline-grid 则容器元素为行内元素
-
-
 
 ### grid-template-columns 属性，grid-template-rows 属性
 
@@ -92,7 +84,7 @@
 
 除了上述的`repeact`关键字，还有：
 
-- auto-fill：示自动填充，让一行（或者一列）中尽可能的容纳更多的单元格
+- auto-fill：表示自动填充，让一行（或者一列）中尽可能的容纳更多的单元格
 
 >`grid-template-columns: repeat(auto-fill, 200px)` 表示列宽是 200 px，但列的数量是不固定的，只要浏览器能够容纳得下，就可以放置元素
 
@@ -108,8 +100,6 @@
 
 >`grid-template-columns: 100px auto 100px` 表示第一第三列为 100px，中间由浏览器决定长度
 
-
-
 ### grid-row-gap 属性， grid-column-gap 属性， grid-gap 属性
 
 `grid-row-gap` 属性、`grid-column-gap` 属性分别设置行间距和列间距。`grid-gap` 属性是两者的简写形式
@@ -119,8 +109,6 @@
 `grid-column-gap: 20px` 表示列间距是 20px
 
 `grid-gap: 10px 20px` 等同上述两个属性
-
-
 
 ### grid-template-areas 属性
 
@@ -151,8 +139,6 @@
 
 如果某些区域不需要利用，则使用"点"（`.`）表示
 
-
-
 ### grid-auto-flow 属性
 
 划分网格以后，容器的子元素会按照顺序，自动放置在每一个网格。
@@ -164,8 +150,6 @@
 当修改成`column`后，放置变为如下：
 
 ![](https://static.vue-js.com/7c26ffa0-9a94-11eb-ab90-d9ae814b240d.png)
-
-
 
 ### justify-items 属性， align-items 属性， place-items 属性
 
@@ -188,8 +172,6 @@
 - stretch：拉伸，占满单元格的整个宽度（默认值）
 
 `place-items`属性是`align-items`属性和`justify-items`属性的合并简写形式
-
-
 
 ### justify-content 属性， align-content 属性， place-content 属性
 
@@ -220,8 +202,6 @@
 
  ![](https://static.vue-js.com/a620b210-9a94-11eb-85f6-6fac77c0c9b3.png)
 
-
-
 ### grid-auto-columns 属性和 grid-auto-rows 属性
 
 有时候，一些项目的指定位置，在现有网格的外部，就会产生显示网格和隐式网格
@@ -230,12 +210,7 @@
 
 而`grid-auto-rows`与`grid-auto-columns`就是专门用于指定隐式网格的宽高
 
-
-
-
-
 关于项目属性，有如下：
-
 
 ### grid-column-start 属性、grid-column-end 属性、grid-row-start 属性以及grid-row-end 属性
 
@@ -272,10 +247,6 @@
 
  ![](https://static.vue-js.com/b7925530-9a94-11eb-ab90-d9ae814b240d.png)
 
-
-
-
-
 ### grid-area 属性
 
 `grid-area` 属性指定项目放在哪一个区域
@@ -289,8 +260,6 @@
 意思为将1号项目位于`e`区域
 
 与上述讲到的`grid-template-areas`搭配使用
-
-
 
 ### justify-self 属性、align-self 属性以及 place-self 属性
 
@@ -307,12 +276,10 @@
 
 这两个属性都可以取下面四个值。
 
- - start：对齐单元格的起始边缘。
-  - end：对齐单元格的结束边缘。
- - center：单元格内部居中。
- - stretch：拉伸，占满单元格的整个宽度（默认值）
-
-
+- start：对齐单元格的起始边缘。
+- end：对齐单元格的结束边缘。
+- center：单元格内部居中。
+- stretch：拉伸，占满单元格的整个宽度（默认值）
 
 ## 三、应用场景
 
@@ -326,10 +293,8 @@
 
 目前，`Grid`布局在手机端支持还不算太友好
 
-
-
 ## 参考文献
 
-- https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Grid_Layout
-- https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
-- https://juejin.cn/post/6854573220306255880#heading-2
+- <https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Grid_Layout>
+- <https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html>
+- <https://juejin.cn/post/6854573220306255880#heading-2>

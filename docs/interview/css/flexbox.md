@@ -1,8 +1,4 @@
-# 面试官：说说flexbox（弹性盒布局模型）,以及适用场景？
-
- ![](https://static.vue-js.com/ef25b0a0-9837-11eb-ab90-d9ae814b240d.png)
-
-
+# flex弹性布局
 
 ## 一、是什么
 
@@ -18,8 +14,6 @@
 
 每根轴都有起点和终点，这对于元素的对齐非常重要
 
-
-
 ## 二、属性
 
 关于`flex`常用的属性，我们可以划分为容器属性和容器成员属性
@@ -32,8 +26,6 @@
 - justify-content
 - align-items
 - align-content
-
-
 
 ### flex-direction
 
@@ -56,8 +48,6 @@
 
  ![](https://static.vue-js.com/0c9abc70-9838-11eb-ab90-d9ae814b240d.png)
 
-
-
 ### flex-wrap
 
 弹性元素永远沿主轴排列，那么如果主轴排不下，通过`flex-wrap`决定容器内项目是否可换行
@@ -76,8 +66,6 @@
 
 默认情况是不换行，但这里也不会任由元素直接溢出容器，会涉及到元素的弹性伸缩
 
-
-
 ### flex-flow
 
 是`flex-direction`属性和`flex-wrap`属性的简写形式，默认值为`row nowrap`
@@ -87,8 +75,6 @@
   flex-flow: <flex-direction> || <flex-wrap>;
 }
 ```
-
-
 
 ### justify-content
 
@@ -112,8 +98,6 @@
 
  ![](https://static.vue-js.com/2d5ca950-9838-11eb-85f6-6fac77c0c9b3.png)
 
-
-
 ### align-items
 
 定义项目在交叉轴上如何对齐
@@ -131,8 +115,6 @@
 - center：交叉轴的中点对齐
 - baseline: 项目的第一行文字的基线对齐
 - stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度
-
-
 
 ### align-content
 
@@ -157,8 +139,6 @@
 
  ![](https://static.vue-js.com/39bcb0f0-9838-11eb-ab90-d9ae814b240d.png)
 
-
-
 容器成员属性如下：
 
 - `order`
@@ -167,8 +147,6 @@
 - `flex-basis`
 - `flex`
 - `align-self`
-
-
 
 ### order
 
@@ -179,8 +157,6 @@
     order: <integer>;
 }
 ```
-
-
 
 ### flex-grow
 
@@ -206,8 +182,6 @@
 
 弹性容器的宽度正好等于元素宽度总和，无多余宽度，此时无论`flex-grow`是什么值都不会生效
 
-
-
 ### flex-shrink
 
 定义了项目的缩小比例（容器宽度<元素总宽度时如何收缩），默认为1，即如果空间不足，该项目将缩小
@@ -226,10 +200,6 @@
 
 在容器宽度有剩余时，`flex-shrink`也是不会生效的
 
-
-
-
-
 ### flex-basis
 
 设置的是元素在主轴上的初始尺寸，所谓的初始尺寸就是元素在`flex-grow`和`flex-shrink`生效前的尺寸
@@ -245,8 +215,6 @@
 当设置为0的是，会根据内容撑开
 
 它可以设为跟`width`或`height`属性一样的值（比如350px），则项目将占据固定空间
-
-
 
 ### flex
 
@@ -265,8 +233,6 @@
 - flex: auto = flex: 1 1 auto
 - flex: none = flex: 0 0 auto，常用于固定尺寸不伸缩
 
-
-
 `flex:1` 和 `flex:auto` 的区别，可以归结于`flex-basis:0`和`flex-basis:auto`的区别
 
 当设置为0时（绝对弹性元素），此时相当于告诉`flex-grow`和`flex-shrink`在伸缩的时候不需要考虑我的尺寸
@@ -274,8 +240,6 @@
 当设置为`auto`时（相对弹性元素），此时则需要在伸缩时将元素尺寸纳入考虑
 
 注意：建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值
-
-
 
 ### align-self
 
@@ -293,16 +257,13 @@
 
  ![](https://static.vue-js.com/6f8304a0-9838-11eb-85f6-6fac77c0c9b3.png)
 
-
-
 ## 三、应用场景
 
 在以前的文章中，我们能够通过`flex`简单粗暴的实现元素水平垂直方向的居中，以及在两栏三栏自适应布局中通过`flex`完成，这里就不再展开代码的演示
 
 包括现在在移动端、小程序这边的开发，都建议使用`flex`进行布局
 
-
-
 ## 参考文献
-- https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex
-- http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+
+- <https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex>
+- <http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html>
