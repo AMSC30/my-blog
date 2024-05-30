@@ -1,16 +1,10 @@
-# 面试官：数组的常用方法有哪些？
-
- ![](https://static.vue-js.com/5842e560-67b6-11eb-85f6-6fac77c0c9b3.png)
-
-
+# 6. 数组的常用方法
 
 ## 一、操作方法
 
-数组基本操作可以归纳为 增、删、改、查，需要留意的是哪些方法会对原数组产生影响，哪些方法不会
+数组基本操作可以归纳为增、删、改、查，需要留意的是哪些方法会对原数组产生影响，哪些方法不会
 
-下面对数组常用的操作方法做一个归纳
-
-### 增 
+### 增
 
 下面前三种是对原数组产生影响的增添方法，第四种则不会对原数组产生影响
 
@@ -18,7 +12,6 @@
 - unshift()
 - splice()
 - concat()
-
 
 #### push()
 
@@ -30,8 +23,6 @@ let count = colors.push("red", "green"); // 推入两项
 console.log(count) // 2
 ```
 
-
-
 #### unshift()
 
 unshift()在数组开头添加任意多个值，然后返回新的数组长度
@@ -41,8 +32,6 @@ let colors = new Array(); // 创建一个数组
 let count = colors.unshift("red", "green"); // 从数组开头推入两项
 alert(count); // 2
 ```
-
-
 
 #### splice
 
@@ -55,7 +44,6 @@ console.log(colors) // red,yellow,orange,green,blue
 console.log(removed) // []
 ```
 
-
 #### concat()
 
 首先会创建一个当前数组的副本，然后再把它的参数添加到副本末尾，最后返回这个新构建的数组，不会影响原始数组
@@ -67,8 +55,6 @@ console.log(colors); // ["red", "green","blue"]
 console.log(colors2); // ["red", "green", "blue", "yellow", "black", "brown"]
 ```
 
-
-
 ### 删
 
 下面三种都会影响原数组，最后一项不影响原数组：
@@ -78,11 +64,9 @@ console.log(colors2); // ["red", "green", "blue", "yellow", "black", "brown"]
 - splice()
 - slice()
 
-
-
 #### pop()
 
- `pop()` 方法用于删除数组的最后一项，同时减少数组的` length` 值，返回被删除的项
+ `pop()` 方法用于删除数组的最后一项，同时减少数组的`length` 值，返回被删除的项
 
 ```js
 let colors = ["red", "green"]
@@ -91,11 +75,9 @@ console.log(item) // green
 console.log(colors.length) // 1
 ```
 
-
-
 #### shift()
 
-` shift() `方法用于删除数组的第一项，同时减少数组的` length` 值，返回被删除的项
+`shift()`方法用于删除数组的第一项，同时减少数组的`length` 值，返回被删除的项
 
 ```js
 let colors = ["red", "green"]
@@ -103,8 +85,6 @@ let item = colors.shift(); // 取得第一项
 console.log(item) // red
 console.log(colors.length) // 1
 ```
-
-
 
 #### splice()
 
@@ -116,8 +96,6 @@ let removed = colors.splice(0,1); // 删除第一项
 console.log(colors); // green,blue
 console.log(removed); // red，只有一个元素的数组
 ```
-
-
 
 ### slice()
 
@@ -132,11 +110,11 @@ concole.log(colors2); // green,blue,yellow,purple
 concole.log(colors3); // green,blue,yellow
 ```
 
+### 改
 
-
-#### 改
 即修改原来数组的内容，常用`splice`
-#### splice() 
+
+#### splice()
 
 传入三个参数，分别是开始位置，要删除元素的数量，要插入的任意多个元素，返回删除元素的数组，对原数组产生影响
 
@@ -147,9 +125,7 @@ console.log(colors); // red,red,purple,blue
 console.log(removed); // green，只有一个元素的数组
 ```
 
-
-
-#### 查
+### 查
 
 即查找元素，返回元素坐标或者元素值
 
@@ -165,8 +141,6 @@ console.log(removed); // green，只有一个元素的数组
 let numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
 numbers.indexOf(4) // 3
 ```
-
-
 
 #### includes()
 
@@ -195,13 +169,11 @@ const people = [
 people.find((element, index, array) => element.age < 28) // // {name: "Matt", age: 27}
 ```
 
-
-
 ## 二、排序方法
 
 数组有两个方法可以用来对元素重新排序：
 
-- reverse() 
+- reverse()
 - sort()
 
 ### reverse()
@@ -213,8 +185,6 @@ let values = [1, 2, 3, 4, 5];
 values.reverse();
 alert(values); // 5,4,3,2,1
 ```
-
-
 
 ### sort()
 
@@ -235,8 +205,6 @@ values.sort(compare);
 alert(values); // 0,1,5,10,15
 ```
 
-
-
 ## 三、转换方法
 
 常见的转换方法有：
@@ -251,21 +219,9 @@ alert(colors.join(",")); // red,green,blue
 alert(colors.join("||")); // red||green||blue
 ```
 
-
-
-
-
 ## 四、迭代方法
 
 常用来迭代数组的方法（都不改变原数组）有如下：
-
-- some()
-- every()
-- forEach()
-- filter()
-- map()
-
-
 
 ### some()
 
@@ -277,8 +233,6 @@ let someResult = numbers.some((item, index, array) => item > 2);
 console.log(someResult) // true
 ```
 
-
-
 ### every()
 
 对数组每一项都运行传入的测试函数，如果所有元素都返回 true ，则这个方法返回 true
@@ -288,8 +242,6 @@ let numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
 let everyResult = numbers.every((item, index, array) => item > 2);
 console.log(everyResult) // false
 ```
-
-
 
 ### forEach()
 
@@ -302,8 +254,6 @@ numbers.forEach((item, index, array) => {
 });
 ```
 
-
-
 ### filter()
 
 对数组每一项都运行传入的函数，函数返回 `true` 的项会组成数组之后返回
@@ -313,8 +263,6 @@ let numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
 let filterResult = numbers.filter((item, index, array) => item > 2);
 console.log(filterResult); // 3,4,5,4,3
 ```
-
-
 
 ### map()
 

@@ -1,12 +1,8 @@
-# 面试官：bind、call、apply 区别？如何实现一个bind?
-
- ![](https://static.vue-js.com/a900e460-7be4-11eb-ab90-d9ae814b240d.png)
-
-
+# 7. bind、call、apply 区别
 
 ## 一、作用
 
-`call `、`apply `、`bind `作用是改变函数执行时的上下文，简而言之就是改变函数运行时的`this`指向
+`call`、`apply`、`bind`作用是改变函数执行时的上下文，简而言之就是改变函数运行时的`this`指向
 
 那么什么情况下需要改变`this`的指向呢？下面举个例子
 
@@ -32,15 +28,11 @@ setTimeout(obj.say,0); // lucy，this 指向 window 对象
 setTimeout(obj.say.bind(obj),0); //martin，this指向obj对象
 ```
 
-
-
 ## 二、区别
-
-下面再来看看`apply`、`call`、`bind`的使用
 
 ### apply
 
-`apply`接受两个参数，第一个参数是`this`的指向，第二个参数是函数接受的参数，以数组的形式传入
+`apply`接受两个参数，第一个参数是`this`的指向，第二个参数是函数接受的参数，以`数组`的形式传入
 
 改变`this`指向后原函数会立即执行，且此方法只是临时改变`this`指向一次
 
@@ -62,8 +54,6 @@ fn(1,2) // this指向window
 fn.apply(null,[1,2]); // this指向window
 fn.apply(undefined,[1,2]); // this指向window
 ```
-
-
 
 ### call
 
@@ -90,8 +80,6 @@ fn.call(null,[1,2]); // this指向window
 fn.call(undefined,[1,2]); // this指向window
 ```
 
-
-
 ### bind
 
 bind方法和call很相似，第一参数也是`this`的指向，后面传入的也是一个参数列表(但是这个参数列表可以分多次传入)
@@ -111,7 +99,6 @@ bindFn(1,2) // this指向obj
 fn(1,2) // this指向window
 ```
 
-
 ### 小结
 
 从上面可以看到，`apply`、`call`、`bind`三者的区别在于：
@@ -119,9 +106,7 @@ fn(1,2) // this指向window
 - 三者都可以改变函数的`this`对象指向
 - 三者第一个参数都是`this`要指向的对象，如果如果没有这个参数或参数为`undefined`或`null`，则默认指向全局`window`
 - 三者都可以传参，但是`apply`是数组，而`call`是参数列表，且`apply`和`call`是一次性传入参数，而`bind`可以分为多次传入
-- `bind `是返回绑定this之后的函数，`apply `、`call` 则是立即执行 
-
-
+- `bind`是返回绑定this之后的函数，`apply`、`call` 则是立即执行
 
 ## 三、实现
 

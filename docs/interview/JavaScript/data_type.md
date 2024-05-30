@@ -1,6 +1,4 @@
-# 面试官：说说JavaScript中的数据类型？存储上的差别？
-
- ![](https://static.vue-js.com/6d133f90-6463-11eb-ab90-d9ae814b240d.png)
+# 1. JavaScript中的数据类型和存储上的差别
 
 ## 前言
 
@@ -11,20 +9,9 @@
 
 两种类型的区别是：存储位置不同
 
-
-
 ## 一、基本类型
 
-基本类型主要为以下6种：
-
-- Number
-- String
-- Boolean
-- Undefined
-- null
-- symbol
-
-
+算上ES6规范的语法，基本类型主要为6种：Number、String、Boolean、Undefined、Null、Symbol、
 
 ### Number
 
@@ -52,18 +39,16 @@ console.log(0/0); // NaN
 console.log(-0/+0); // NaN
 ```
 
-
-
 ### Undefined
 
-`Undefined` 类型只有一个值，就是特殊值 `undefined`。当使用 `var `或 `let `声明了变量但没有初始化时，就相当于给变量赋予了 `undefined `值
+`Undefined` 类型只有一个值，就是特殊值 `undefined`。当使用 `var`或 `let`声明了变量但没有初始化时，就相当于给变量赋予了 `undefined`值
 
 ```js
 let message;
 console.log(message == undefined); // true
 ```
 
-包含` undefined` 值的变量跟未定义变量是有区别的
+包含`undefined` 值的变量跟未定义变量是有区别的
 
 ```js
 let message; // 这个变量被声明了，只是值为 undefined
@@ -71,8 +56,6 @@ let message; // 这个变量被声明了，只是值为 undefined
 console.log(message); // "undefined"
 console.log(age); // 没有声明过这个变量，报错
 ```
-
-
 
 ### String
 
@@ -91,46 +74,40 @@ let lang = "Java";
 lang = lang + "Script";  // 先销毁再创建
 ```
 
-
-
 ### Null
 
-`Null `类型同样只有一个值，即特殊值 `null`
+`Null`类型同样只有一个值，即特殊值 `null`
 
-逻辑上讲， null 值表示一个空对象指针，这也是给`typeof `传一个 `null` 会返回 `"object"` 的原因
+逻辑上讲， null 值表示一个空对象指针，这也是给`typeof`传一个 `null` 会返回 `"object"` 的原因
 
 ```js
 let car = null;
 console.log(typeof car); // "object"
 ```
 
-`undefined` 值是由 `null `值派生而来
+`undefined` 值是由 `null`值派生而来
 
 ```js
 console.log(null == undefined); // true
 ```
 
-只要变量要保存对象，而当时又没有那个对象可保存，就可用 `null `来填充该变量
-
-
+只要变量要保存对象，而当时又没有那个对象可保存，就可用 `null`来填充该变量
 
 ### Boolean
 
-`Boolean `（布尔值）类型有两个字面值： `true` 和` false`
+`Boolean`（布尔值）类型有两个字面值： `true` 和`false`
 
 通过`Boolean`可以将其他类型的数据转化成布尔值
 
 规则如下：
 
 ```js
-数据类型      				转换为 true 的值      				转换为 false 的值
- String        				 非空字符串          					"" 
- Number 				非零数值（包括无穷值）						0 、 NaN 
- Object 					 任意对象 							   null
-Undefined 					N/A （不存在） 						undefined
+数据类型          转换为 true 的值          转换为 false 的值
+ String             非空字符串               "" 
+ Number     非零数值（包括无穷值）      0 、 NaN 
+ Object       任意对象           null
+Undefined      N/A （不存在）       undefined
 ```
-
-
 
 ### Symbol
 
@@ -146,10 +123,6 @@ let otherFooSymbol = Symbol('foo');
 console.log(fooSymbol == otherFooSymbol); // false
 ```
 
-
-
-
-
 ## 二、引用类型
 
 复杂类型统称为`Object`，我们这里主要讲述下面三种：
@@ -157,8 +130,6 @@ console.log(fooSymbol == otherFooSymbol); // false
 - Object
 - Array
 - Function
-
-
 
 ### Object
 
@@ -172,8 +143,6 @@ let person = {
 };
 ```
 
-
-
 ### Array
 
 `JavaScript`数组是一组有序的数据，但跟其他语言不同的是，数组中每个槽位可以存储任意类型的数据。并且，数组也是动态大小的，会随着数据添加而自动增长
@@ -183,11 +152,9 @@ let colors = ["red", 2, {age: 20 }]
 colors.push(2)
 ```
 
+### Function
 
-
-### Function 
-
-函数实际上是对象，每个函数都是 `Function`类型的实例，而 `Function `也有属性和方法，跟其他引用类型一样
+函数实际上是对象，每个函数都是 `Function`类型的实例，而 `Function`也有属性和方法，跟其他引用类型一样
 
 函数存在三种常见的表达方式：
 
@@ -218,13 +185,9 @@ let sum = (num1, num2) => {
 };
 ```
 
-
-
 ### 其他引用类型
 
 除了上述说的三种之外，还包括`Date`、`RegExp`、`Map`、`Set`等......
-
-
 
 ## 三、存储区别
 
@@ -253,8 +216,6 @@ console.log(a); // 10值
 
  ![](https://static.vue-js.com/906ffb90-6463-11eb-85f6-6fac77c0c9b3.png)
 
-
-
 ### 引用类型
 
 ```js
@@ -271,8 +232,6 @@ console.log(obj1.name); // xxx
 下图演示这个引用类型赋值过程
 
  ![](https://static.vue-js.com/a34bdd10-6463-11eb-ab90-d9ae814b240d.png)
-
-
 
 ### 小结
 

@@ -1,12 +1,10 @@
-# 面试官：ajax原理是什么？如何实现？
-
- ![](https://static.vue-js.com/a35a2950-7b2a-11eb-ab90-d9ae814b240d.png)
+# 5. ajax原理是什么
 
 ## 一、是什么
 
-`AJAX `全称(Async Javascript and XML)
+`AJAX`全称(Async Javascript and XML)
 
-即异步的` JavaScript` 和` XML`，是一种创建交互式网页应用的网页开发技术，可以在不重新加载整个网页的情况下，与服务器交换数据，并且更新部分网页
+即异步的`JavaScript` 和`XML`，是一种创建交互式网页应用的网页开发技术，可以在不重新加载整个网页的情况下，与服务器交换数据，并且更新部分网页
 
 `Ajax`的原理简单来说通过`XmlHttpRequest`对象来向服务器发异步请求，从服务器获得数据，然后用`JavaScript`来操作`DOM`而更新页面
 
@@ -22,25 +20,21 @@
 
 浏览器可以发送`HTTP`请求后，接着做其他事情，等收到`XHR`返回来的数据再进行操作
 
-
-
 ## 二、实现过程
 
-实现 `Ajax `异步交互需要服务器逻辑进行配合，需要完成以下步骤：
+实现 `Ajax`异步交互需要服务器逻辑进行配合，需要完成以下步骤：
 
-- 创建 `Ajax `的核心对象 `XMLHttpRequest `对象
+- 创建 `Ajax`的核心对象 `XMLHttpRequest`对象
 
 - 通过 `XMLHttpRequest` 对象的 `open()` 方法与服务端建立连接
 
-- 构建请求所需的数据内容，并通过` XMLHttpRequest` 对象的 `send()` 方法发送给服务器端
+- 构建请求所需的数据内容，并通过`XMLHttpRequest` 对象的 `send()` 方法发送给服务器端
 
 - 通过 `XMLHttpRequest` 对象提供的 `onreadystatechange` 事件监听服务器端你的通信状态
 
 - 接受并处理服务端向客户端响应的数据结果
 
-- 将处理结果更新到 `HTML `页面中
-
-
+- 将处理结果更新到 `HTML`页面中
 
 ### 创建XMLHttpRequest对象
 
@@ -49,8 +43,6 @@
 ```js
 const xhr = new XMLHttpRequest();
 ```
-
-
 
 ### 与服务器建立连接
 
@@ -68,12 +60,9 @@ xhr.open(method, url, [async][, user][, password])
 
 - `async`：布尔值，表示是否异步执行操作，默认为`true`
 
--  `user`: 可选的用户名用于认证用途；默认为`null
-
+- `user`: 可选的用户名用于认证用途；默认为`null
 
 - `password`: 可选的密码用于认证用途，默认为`null
-
-
 
 ### 给服务端发送数据
 
@@ -90,8 +79,6 @@ xhr.send([body])
 - 将请求数据添加到`open()`方法中的`url`地址中
 - 发送请求数据中的`send()`方法中参数设置为`null`
 
-
-
 ### 绑定onreadystatechange事件
 
 `onreadystatechange` 事件用于监听服务器端的通信状态，主要监听的属性为`XMLHttpRequest.readyState` ,
@@ -100,7 +87,7 @@ xhr.send([body])
 
 ![](https://static.vue-js.com/9782fc90-7b31-11eb-ab90-d9ae814b240d.png)
 
-只要 `readyState `属性值一变化，就会触发一次 `readystatechange` 事件
+只要 `readyState`属性值一变化，就会触发一次 `readystatechange` 事件
 
 `XMLHttpRequest.responseText`属性用于接收服务器端的响应结果
 
@@ -121,13 +108,9 @@ request.open('POST','http://xxxx')
 request.send()
 ```
 
-
-
-
-
 ## 三、封装
 
-通过上面对`XMLHttpRequest `对象的了解，下面来封装一个简单的`ajax`请求
+通过上面对`XMLHttpRequest`对象的了解，下面来封装一个简单的`ajax`请求
 
 ```js
 //封装一个ajax请求
