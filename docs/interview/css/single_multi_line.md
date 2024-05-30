@@ -1,7 +1,4 @@
-# 面试官：如何实现单行／多行文本溢出的省略样式？
-
- ![](https://static.vue-js.com/ada8d840-a0e9-11eb-ab90-d9ae814b240d.png)
-
+# 实现单行／多行文本溢出的省略样式
 
 ## 一、前言
 
@@ -12,11 +9,7 @@
 - 单行文本溢出
 - 多行文本溢出
 
-
-
 ## 二、实现方式
-
-
 
 ### 单行文本溢出省略
 
@@ -62,16 +55,12 @@
 
 可以看到，设置单行文本溢出较为简单，并且省略号显示的位置较好
 
-
-
 ### 多行文本溢出省略
 
 多行文本溢出的时候，我们可以分为两种情况：
 
 - 基于高度截断
 - 基于行数截断
-
-
 
 #### 基于高度截断
 
@@ -119,15 +108,13 @@
 
 一般文本存在英文的时候，可以设置`word-break: break-all`使一个单词能够在换行时进行拆分
 
-
-
 #### 基于行数截断
 
 纯`css`实现也非常简单，核心的`css`代码如下：
 
 - -webkit-line-clamp: 2：用来限制在一个块元素显示的文本的行数，为了实现该效果，它需要组合其他的WebKit属性）
-- display: -webkit-box：和1结合使用，将对象作为弹性伸缩盒子模型显示 
-- -webkit-box-orient: vertical：和1结合使用 ，设置或检索伸缩盒对象的子元素的排列方式 
+- display: -webkit-box：和1结合使用，将对象作为弹性伸缩盒子模型显示
+- -webkit-box-orient: vertical：和1结合使用 ，设置或检索伸缩盒对象的子元素的排列方式
 - overflow: hidden：文本溢出限定的宽度就隐藏内容
 - text-overflow: ellipsis：多行文本的情况下，用省略号“…”隐藏溢出范围的文本
 
@@ -196,14 +183,8 @@ $(function(){
 })
 ```
 
-
-
-
-
-
-
 ## 参考文献
 
-- https://www.zoo.team/article/text-overflow
+- <https://www.zoo.team/article/text-overflow>
 
-- https://segmentfault.com/a/1190000017078153
+- <https://segmentfault.com/a/1190000017078153>

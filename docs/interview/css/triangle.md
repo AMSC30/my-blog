@@ -1,6 +1,4 @@
-# 面试官：CSS如何画一个三角形？原理是什么？
-
-![](https://static.vue-js.com/bd310120-a279-11eb-85f6-6fac77c0c9b3.png)
+# CSS如何画一个三角形
 
 ## 一、前言
 
@@ -11,7 +9,6 @@
 通常情况下，我们会使用图片或者`svg`去完成三角形效果图，但如果单纯使用`css`如何完成一个三角形呢？
 
 实现过程似乎也并不困难，通过边框就可完成
-
 
 ## 二、实现过程
 
@@ -105,8 +102,6 @@
 }
 ```
 
-
-
 ## 三、原理分析
 
 可以看到，边框是实现三角形的部分，边框实际上并不是一个直线，如果我们将四条边设置不同的颜色，将边框逐渐放大，可以得到每条边框都是一个梯形
@@ -141,10 +136,8 @@
 }
 ```
 
-
-
 ## 参考文献
 
-- https://www.cnblogs.com/echolun/p/11888612.html
-- https://juejin.cn/post/6844903567795421197
-- https://vue3js.cn/interview
+- <https://www.cnblogs.com/echolun/p/11888612.html>
+- <https://juejin.cn/post/6844903567795421197>
+- <https://vue3js.cn/interview>

@@ -1,10 +1,7 @@
-# 面试官：css选择器有哪些？优先级？哪些属性可以继承？
-
- ![](https://static.vue-js.com/f7dcd330-8fe1-11eb-85f6-6fac77c0c9b3.png)
-
-
+# css选择器有哪些
 
 ## 一、选择器
+
 CSS选择器是CSS规则的第一部分
 
 它是元素和其他部分组合起来告诉浏览器哪个HTML元素应当是被选为应用规则中的CSS属性值的方式
@@ -16,10 +13,8 @@ CSS选择器是CSS规则的第一部分
 ```html
 <div id="box">
     <div class="one">
-        <p class="one_1">
-        </p >
-        <p class="one_1">
-        </p >
+        <p class="one_1"></p >
+        <p class="one_1"></p >
     </div>
     <div class="two"></div>
     <div class="two"></div>
@@ -30,16 +25,12 @@ CSS选择器是CSS规则的第一部分
 关于`css`属性选择器常用的有：
 
 - id选择器（#box），选择id为box的元素
-
 - 类选择器（.one），选择类名为one的所有元素
 - 标签选择器（div），选择标签为div的所有元素
-
 - 后代选择器（#box div），选择id为box元素内部所有的div元素
 - 子选择器（.one>one_1），选择父元素为.one的所有.one_1的元素
 - 相邻同胞选择器（.one+.two），选择紧接在.one之后的所有.two元素
 - 群组选择器（div,p），选择div、p的所有元素
-
-
 
 还有一些使用频率相对没那么多的选择器：
 
@@ -101,8 +92,6 @@ CSS选择器是CSS规则的第一部分
 [attribute$=value]：选择attribute属性结尾为value的所有元素
 ```
 
-
-
 ## 二、优先级
 
 相信大家对`CSS`选择器的优先级都不陌生：
@@ -117,7 +106,7 @@ CSS选择器是CSS规则的第一部分
 
 - C的值等于 类选择器 和 属性选择器 和 伪类 出现的总次数
 
-- D 的值等于 标签选择器 和 伪元素 出现的总次数
+- D的值等于 标签选择器 和 伪元素 出现的总次数
 
 这里举个例子：
 
@@ -143,8 +132,6 @@ CSS选择器是CSS规则的第一部分
 - 如果4位全部相等，则后面的会覆盖前面的
 
 经过上面的优先级计算规则，我们知道内联样式的优先级最高，如果外部样式需要覆盖内联样式，就需要使用`!important`
-
-
 
 ## 三、继承属性
 
@@ -218,8 +205,6 @@ cursor：箭头可以变成需要的形状
 
 - h1-h6标签字体的大下也是不能被继承的
 
-
-
 ### 无继承的属性
 
 - display
@@ -238,9 +223,7 @@ cursor：箭头可以变成需要的形状
 
 - 页面样式属性：size、page-break-before、page-break-after
 
-
-
 ## 参考文献
 
-- https://www.html.cn/qa/css3/13444.html
-- https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Selectors
+- <https://www.html.cn/qa/css3/13444.html>
+- <https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Selectors>

@@ -1,6 +1,4 @@
-# 面试官：如何使用css完成视差滚动效果?
-
- ![](https://static.vue-js.com/1b2d33e0-a18d-11eb-85f6-6fac77c0c9b3.png)
+# 使用css完成视差滚动效果
 
 ## 一、是什么
 
@@ -14,15 +12,12 @@
 
  ![image.png](https://static.vue-js.com/e57ab280-a1dd-11eb-ab90-d9ae814b240d.png)
 
-
 ## 二、实现方式
-
 
 使用`css`形式实现视觉差滚动效果的方式有：
 
 - background-attachment
 - transform:translate3D
-
 
 ### background-attachment
 
@@ -96,10 +91,6 @@ div {
     <div class="a-text">7</div>
 ```
 
-
-
-
-
 ### transform:translate3D
 
 同样，让我们先来看一下两个概念`transform`和`perspective`：
@@ -110,7 +101,6 @@ div {
 `3D`视角示意图如下所示：
 
  ![](https://static.vue-js.com/24f37dd0-a18d-11eb-85f6-6fac77c0c9b3.png)
-
 
 举个例子：
 
@@ -164,7 +154,6 @@ div {
 </div>
 ```
 
-
 而这种方式实现视觉差动的原理如下：
 
 - 容器设置上 transform-style: preserve-3d 和 perspective: xpx，那么处于这个容器的子元素就将位于3D空间中，
@@ -173,8 +162,7 @@ div {
 
 - 滚动滚动条，由于子元素设置了不同的 transform: translateZ()，那么他们滚动的上下距离 translateY 相对屏幕（我们的眼睛），也是不一样的，这就达到了滚动视差的效果
 
-
 ## 参考文献
 
-- https://imweb.io/topic/5b73ef73a56e07401e48729d
-- https://juejin.cn/post/6844903654458146823#heading-5
+- <https://imweb.io/topic/5b73ef73a56e07401e48729d>
+- <https://juejin.cn/post/6844903654458146823#heading-5>

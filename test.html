@@ -5,40 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style type="text/css">
-      .wrap {
-        display: flex;
-        justify-content: space-between;
+    <style>
+      div {
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        line-height: 100vh;
+        text-align: center;
+        font-size: 20vh;
       }
 
-      .left,
-      .right,
-      .middle {
-        height: 100px;
+      .a-img1 {
+        background-image: url(https://images.pexels.com/photos/1097491/pexels-photo-1097491.jpeg);
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
       }
 
-      .left {
-        width: 200px;
-        background: coral;
+      .a-img2 {
+        background-image: url(https://images.pexels.com/photos/2437299/pexels-photo-2437299.jpeg);
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
       }
 
-      .right {
-        width: 120px;
-        background: lightblue;
-      }
-
-      .middle {
-        background: #555;
-        width: 100%;
-        margin: 0 20px;
+      .a-img3 {
+        background-image: url(https://images.pexels.com/photos/1005417/pexels-photo-1005417.jpeg);
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
       }
     </style>
   </head>
+
   <body>
-    <div class="wrap">
-      <div class="left">左侧</div>
-      <div class="middle">中间</div>
-      <div class="right">右侧</div>
-    </div>
+    <div class="a-text">1</div>
+    <div class="a-img1">2</div>
+    <div class="a-text">3</div>
+    <div class="a-img2">4</div>
+    <div class="a-text">5</div>
+    <div class="a-img3">6</div>
+    <div class="a-text">7</div>
   </body>
 </html>
