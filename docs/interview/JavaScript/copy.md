@@ -1,19 +1,15 @@
-# 面试官：深拷贝浅拷贝的区别？如何实现一个深拷贝？
-
- ![](https://static.vue-js.com/cdf952e0-69b8-11eb-85f6-6fac77c0c9b3.png)
+# 11. 深拷贝浅拷贝的区别
 
 ## 一、数据类型存储
 
 前面文章我们讲到，`JavaScript`中存在两大数据类型：
 
 - 基本类型
-- 引用类型 
+- 引用类型
 
 基本类型数据保存在在栈内存中
 
 引用类型数据保存在堆内存中，引用数据类型的变量是一个指向堆内存中实际对象的引用，存在栈中
-
-
 
 ## 二、浅拷贝
 
@@ -43,10 +39,6 @@ function shallowClone(obj) {
 - `Array.prototype.slice()`, `Array.prototype.concat()`
 - 使用拓展运算符实现的复制
 
-
-
-
-
 ### Object.assign
 
 ```js
@@ -64,8 +56,6 @@ var obj = {
 var newObj = Object.assign({}, fxObj);
 ```
 
-
-
 ### slice()
 
 ```js
@@ -75,8 +65,6 @@ fxArrs[1] = "love";
 console.log(fxArr) // ["One", "Two", "Three"]
 console.log(fxArrs) // ["One", "love", "Three"]
 ```
-
-
 
 ### concat()
 
@@ -88,12 +76,6 @@ console.log(fxArr) // ["One", "Two", "Three"]
 console.log(fxArrs) // ["One", "love", "Three"]
 ```
 
-
-
-
-
-
-
 ### 拓展运算符
 
 ```js
@@ -103,10 +85,6 @@ fxArrs[1] = "love";
 console.log(fxArr) // ["One", "Two", "Three"]
 console.log(fxArrs) // ["One", "love", "Three"]
 ```
-
-
-
-
 
 ## 三、深拷贝
 
@@ -119,8 +97,6 @@ console.log(fxArrs) // ["One", "love", "Three"]
 - jQuery.extend()
 - JSON.stringify()
 - 手写循环递归
-
-
 
 ### _.cloneDeep()
 
@@ -135,8 +111,6 @@ const obj2 = _.cloneDeep(obj1);
 console.log(obj1.b.f === obj2.b.f);// false
 ```
 
-
-
 ### jQuery.extend()
 
 ```js
@@ -149,10 +123,6 @@ const obj1 = {
 const obj2 = $.extend(true, {}, obj1);
 console.log(obj1.b.f === obj2.b.f); // false
 ```
-
-
-
-
 
 ### JSON.stringify()
 
@@ -172,8 +142,6 @@ const obj = {
 const obj2 = JSON.parse(JSON.stringify(obj));
 console.log(obj2); // {name: "A"}
 ```
-
-
 
 ### 循环递归
 
@@ -198,12 +166,6 @@ function deepClone(obj, hash = new WeakMap()) {
   return cloneObj;
 }
 ```
-
-
-
-
-
-
 
 ## 四、区别
 
@@ -244,8 +206,6 @@ obj4.arr[1] = [5,6,7] ; // 新对象跟原对象不共享内存
 console.log('obj1',obj1) // obj1 { name: 'init', arr: [ 1, [ 2, 3 ], 4 ] }
 console.log('obj4',obj4) // obj4 { name: 'update', arr: [ 1, [ 5, 6, 7 ], 4 ] }
 ```
-
-
 
 ### 小结
 
