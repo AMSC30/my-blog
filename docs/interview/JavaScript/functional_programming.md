@@ -1,6 +1,4 @@
-# 面试官：说说你对函数式编程的理解？优缺点？
-
- ![](https://static.vue-js.com/ec0f6e80-8534-11eb-85f6-6fac77c0c9b3.png)
+# 17.对函数式编程的理解
 
 ## 一、是什么
 
@@ -30,7 +28,6 @@ for(let i = 0; i < array.length; i++) {
  ![](https://static.vue-js.com/f9f83900-8534-11eb-85f6-6fac77c0c9b3.png)
 
 可以看到，函数实际上是一个关系，或者说是一种映射，而这种映射关系是可以组合的，一旦我们知道一个函数的输出类型可以匹配另一个函数的输入，那他们就可以进行组合
-
 
 ## 二、概念
 
@@ -68,8 +65,6 @@ test('double(2) 等于 4', () => {
 - 可读性更强 ，函数不管是否是纯函数  都会有一个语义化的名称，更便于阅读
 
 - 可以组装成复杂任务的可能性。符合模块化概念及单一职责原则
-
-
 
 ### 高阶函数
 
@@ -154,14 +149,29 @@ const curry = function(fn){
 const fn = (x,y,z,a)=>x+y+z+a;
 const myfn = curry(fn);
 console.log(myfn(1)(2)(3)(1));
+
+
+// 或者
+function curry(fn) {
+    const context = this
+    let preArgs = []
+    return function curriedFn(...args) {
+        const newArgs = [...preArgs, ...args]
+        if (newArgs.length < fn.length) {
+            preArgs = newArgs
+            return curriedFn
+        } else {
+            return fn.apply(context, newArgs)
+        }
+    }
+
+}
 ```
 
 关于柯里化函数的意义如下：
 
 - 让纯函数更纯，每次接受一个参数，松散解耦
 - 惰性执行
-
-
 
 ### 组合与管道
 
@@ -209,7 +219,7 @@ const pipe = (...fns)=>val=>fns.reduce((acc,fn)=>fn(acc),val);
 
 - 隐性好处。减少代码量，提高维护性
 
-#### 缺点：
+#### 缺点
 
 - 性能：函数式编程相对于指令式编程，性能绝对是一个短板，因为它往往会对一个方法进行过度包装，从而产生上下文切换的性能开销
 
@@ -217,7 +227,6 @@ const pipe = (...fns)=>val=>fns.reduce((acc,fn)=>fn(acc),val);
 
 - 递归陷阱：在函数式编程中，为了实现迭代，通常会采用递归操作
 
-
 ## 参考文献
 
-- https://zhuanlan.zhihu.com/p/81302150
+- <https://zhuanlan.zhihu.com/p/81302150>

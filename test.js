@@ -1,22 +1,17 @@
-function throttle(fn, delay) {
-
-    let startTime = Date.now()
-    let timer = null
-
-    return function (...args) {
-
-        const context = this
-        const now = Date.now()
-        const fromExecuteTime = now - startTime - delay
-        const needExecute = fromExecuteTime >= 0
-
-        clearTimeout(timer)
-        if (!needExecute) {
-            timer = setTimeout(() => { fn.apply(context, args) }, fromExecuteTime)
+function curry(fn) {
+    const context = this
+    let preArgs = []
+    return function curriedFn(...args) {
+        const newArgs = [...preArgs, ...args]
+        if (newArgs.length < fn.length) {
+            preArgs = newArgs
+            return curriedFn
         } else {
-            fn.apply(context, args)
-            startTime = Date.now()
+            return fn.apply(context, newArgs)
         }
-
     }
+
 }
+const fn = (x, y, z, a) => x + y + z + a;
+const myfn = curry(fn);
+console.log(myfn(1)(2)(3)(1));
