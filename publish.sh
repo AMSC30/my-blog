@@ -11,7 +11,7 @@ git commit -m 'publish'
 
 
 
-git push -f git@github.com:AMSC30/my-blog.git master:page
+git push -f git@github.com:AMSC30/my-blog.git main:page
 
 cd -
 
