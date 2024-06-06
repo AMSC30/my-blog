@@ -1,6 +1,4 @@
-# 面试官：说说 JavaScript 中内存泄漏的几种情况？
-
-  ![](https://static.vue-js.com/19f76b30-824d-11eb-ab90-d9ae814b240d.png)
+# 内存泄漏的几种情况
 
 ## 一、是什么
 
@@ -29,7 +27,6 @@ free(buffer);
 
 这很麻烦，所以大多数语言提供自动内存管理，减轻程序员的负担，这被称为"垃圾回收机制"
 
-
 ## 二、垃圾回收机制
 
 Javascript 具有自动垃圾回收机制（GC：Garbage Collecation），也就是说，执行环境会负责管理代码执行过程中使用的内存
@@ -40,8 +37,6 @@ Javascript 具有自动垃圾回收机制（GC：Garbage Collecation），也就
 
 - 标记清除
 - 引用计数
-
-
 
 ### 标记清除
 
@@ -68,8 +63,6 @@ function add(a, b) {
 }
 ```
 
-
-
 ### 引用计数
 
 语言引擎有一张"引用表"，保存了内存里面所有的资源（通常是各种值）的引用次数。如果一个值的引用次数是`0`，就表示这个值不再用到了，因此可以将这块内存释放
@@ -91,13 +84,9 @@ arr = null
 
 通过设置`arr`为`null`，就解除了对数组`[1,2,3,4]`的引用，引用次数变为 0，就被垃圾回收了
 
-
-
 ### 小结
 
 有了垃圾回收机制，不代表不用关注内存泄露。那些很占空间的值，一旦不再用到，需要检查是否还存在对它们的引用。如果是的话，就必须手动解除引用
-
-
 
 ## 三、常见内存泄露情况
 
@@ -160,8 +149,7 @@ console.log(refA, 'refA'); // 解除引用
 
 包括使用事件监听`addEventListener`监听的时候，在不监听的情况下使用`removeEventListener`取消对事件监听
 
-
 ## 参考文献
 
-- http://www.ruanyifeng.com/blog/2017/04/memory-leak.html
-- https://zh.wikipedia.org/wiki
+- <http://www.ruanyifeng.com/blog/2017/04/memory-leak.html>
+- <https://zh.wikipedia.org/wiki>
