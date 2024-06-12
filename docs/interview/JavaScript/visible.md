@@ -1,8 +1,7 @@
-# 面试官：如何判断一个元素是否在可视区域中？
-
- ![](https://static.vue-js.com/d848c790-8a05-11eb-85f6-6fac77c0c9b3.png)
+# 34. 判断一个元素在可视区域中
 
 ## 一、用途
+
 可视区域即我们浏览网页的设备肉眼可见的区域，如下图
 
  ![](https://static.vue-js.com/9c5bbb10-8a56-11eb-85f6-6fac77c0c9b3.png)
@@ -14,17 +13,14 @@
 - 计算广告元素的曝光情况
 - 可点击链接的预加载
 
-
 ## 二、实现方式
 
 判断一个元素是否在可视区域，我们常用的有三种办法：
 
 - offsetTop、scrollTop
 
-- getBoundingClientRect 
+- getBoundingClientRect
 - Intersection Observer
-
-
 
 ### offsetTop、scrollTop
 
@@ -45,7 +41,7 @@
 
 - `scrollLeft` 和 `scrollTop` 属性既可以确定元素当前滚动的状态，也可以设置元素的滚动位置
 
-- - 垂直滚动 `scrollTop > 0`
+  - - 垂直滚动 `scrollTop > 0`
   - 水平滚动 `scrollLeft > 0`
 
 - 将元素的 `scrollLeft` 和 `scrollTop` 设置为 0，可以重置元素的滚动位置
@@ -54,15 +50,16 @@
 
 - 上述属性都是只读的，每次访问都要重新开始
 
-
-
 下面再看看如何实现判断：
 
 公式如下：
+
 ```js
 el.offsetTop - document.documentElement.scrollTop <= viewPortHeight
 ```
+
 代码实现：
+
 ```js
 function isInViewPortOfOne (el) {
     // viewPortHeight 兼容所有浏览器写法
@@ -74,7 +71,7 @@ function isInViewPortOfOne (el) {
 }
 ```
 
-### getBoundingClientRect 
+### getBoundingClientRect
 
 返回值是一个 `DOMRect`对象，拥有`left`, `top`, `right`, `bottom`, `x`, `y`, `width`, 和 `height`属性
 
@@ -128,13 +125,9 @@ function isInViewPort(element) {
 }
 ```
 
-
-
 ### Intersection Observer
 
-`Intersection Observer` 即重叠观察者，从这个命名就可以看出它用于判断两个元素是否重叠，因为不用进行事件的监听，性能方面相比`getBoundingClientRect `会好很多
-
-
+`Intersection Observer` 即重叠观察者，从这个命名就可以看出它用于判断两个元素是否重叠，因为不用进行事件的监听，性能方面相比`getBoundingClientRect`会好很多
 
 使用步骤主要分为两步：创建观察者和传入被观察者
 
@@ -180,8 +173,6 @@ const target = document.querySelector('.target');
 observer.observe(target);
 ```
 
-
-
 ### 三、案例分析
 
 实现：创建了一个十万个节点的长列表，当节点滚入到视窗中时，背景就会从红色变为黄色
@@ -221,7 +212,7 @@ function createTargets() {
 }
 ```
 
-这里，首先使用`getBoundingClientRect `方法进行判断元素是否在可视区域
+这里，首先使用`getBoundingClientRect`方法进行判断元素是否在可视区域
 
 ```js
 function isInViewPort(element) {
@@ -279,5 +270,5 @@ $targets.each((index, element) => {
 
 ## 参考文献
 
-- https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect
-- https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API
+- <https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect>
+- <https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API>

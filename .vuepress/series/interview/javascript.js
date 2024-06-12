@@ -24,7 +24,6 @@ export default [
   'new',
   'prototype',
   'pull_up_loading_pull_down_refresh',
-  'read',
   'regexp',
   'scope',
   'security',

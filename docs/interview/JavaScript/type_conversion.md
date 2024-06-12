@@ -1,10 +1,8 @@
-# 面试官：谈谈 JavaScript 中的类型转换机制
-
- ![](https://static.vue-js.com/2abd00a0-6692-11eb-85f6-6fac77c0c9b3.png)
+# 32. JavaScript中的类型转换机制
 
 ## 一、概述
 
-前面我们讲到，`JS `中有六种简单数据类型：`undefined`、`null`、`boolean`、`string`、`number`、`symbol`，以及引用类型：`object`
+前面我们讲到，`JS`中有六种简单数据类型：`undefined`、`null`、`boolean`、`string`、`number`、`symbol`，以及引用类型：`object`
 
 但是我们在声明的时候只有一种数据类型，只有到运行期间才会确定当前类型
 
@@ -21,8 +19,6 @@ let x = y ? 1 : a;
 - 强制转换（显示转换）
 - 自动转换（隐式转换）
 
-
-
 ## 二、显示转换
 
 显示转换，即我们很清楚可以看到这里发生了类型的转变，常见的方法有：
@@ -31,8 +27,6 @@ let x = y ? 1 : a;
 - parseInt()
 - String()
 - Boolean()
-
-
 
 ### Number()
 
@@ -74,8 +68,6 @@ Number([5]) // 5
 
 从上面可以看到，`Number`转换的时候是很严格的，只要有一个字符无法转成数值，整个字符串就会被转为`NaN`
 
-
-
 ### parseInt()
 
 `parseInt`相比`Number`，就没那么严格了，`parseInt`函数逐个解析字符，遇到不能转换的字符就停下来
@@ -83,8 +75,6 @@ Number([5]) // 5
 ```js
 parseInt('32a3') //32
 ```
-
-
 
 ### String()
 
@@ -117,8 +107,6 @@ String({a: 1}) // "[object Object]"
 String([1, 2, 3]) // "1,2,3"
 ```
 
-
-
 ### Boolean()
 
 可以将任意类型的值转为布尔值，转换规则如下：
@@ -138,8 +126,6 @@ Boolean([]) // true
 Boolean(new Boolean(false)) // true
 ```
 
-
-
 ## 三、隐式转换
 
 在隐式转换中，我们可能最大的疑惑是 ：何时发生隐式转换？
@@ -151,25 +137,21 @@ Boolean(new Boolean(false)) // true
 
 除了上面的场景，还要求运算符两边的操作数不是同一类型
 
-
-
 ### 自动转换为布尔值
 
 在需要布尔值的地方，就会将非布尔值的参数自动转为布尔值，系统内部会调用`Boolean`函数
 
 可以得出个小结：
 
-- undefined 
-- null 
-- false 
-- +0 
+- undefined
+- null
+- false
+- +0
 - -0
--  NaN
--  ""
+- NaN
+- ""
 
 除了上面几种会被转化成`false`，其他都换被转化成`true`
-
-
 
 ### 自动转换成字符串
 
@@ -189,8 +171,6 @@ Boolean(new Boolean(false)) // true
 '5' + undefined // "5undefined"
 '5' + null // "5null"
 ```
-
-
 
 ### 自动转换成数值
 

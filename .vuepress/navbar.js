@@ -79,7 +79,7 @@ export default [
       { text: 'Node', link: '/docs/interview/node/nodejs.md' },
       { text: 'Webpack', link: '/docs/interview/webpack/webpack.md' },
       { text: '设计模式', link: '/docs/interview/design/design.md' },
-      { text: '小程序', link: '/docs/interview/applet/applet.md' },
+      { text: '小程序', link: '/docs/interview/applet/applet.md' }
     ]
   },
   {

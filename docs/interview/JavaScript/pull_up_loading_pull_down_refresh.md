@@ -1,6 +1,4 @@
-# 面试官：如何实现上拉加载，下拉刷新？
-
- ![](https://static.vue-js.com/89cd1850-8adc-11eb-ab90-d9ae814b240d.png)
+# 24. 实现上拉加载，下拉刷新
 
 ## 一、前言
 
@@ -36,11 +34,13 @@
 - `scrollHeight`：页面不能滚动时也是存在的,此时scrollHeight等于clientHeight。scrollHeight表示`body`所有元素的总长度(包括body元素自身的padding)
 
 综上我们得出一个触底公式：
+
 ```js
 scrollTop + clientHeight >= scrollHeight
 ```
 
 简单实现
+
 ```js
 let clientHeight  = document.documentElement.clientHeight; //浏览器高度
 let scrollHeight = document.body.scrollHeight;
@@ -53,8 +53,8 @@ if ((scrollTop + clientHeight) >= (scrollHeight - distance)) {
 }
 ```
 
-
 ### 下拉刷新
+
 下拉刷新的本质是页面本身置于顶部时，用户下拉时需要触发的动作
 
 关于下拉刷新的原生实现，主要分成三步：
@@ -131,8 +131,6 @@ _element.addEventListener('touchend', function(e) {
 - 当前手势滑动位置与初始位置差值大于零时，提示正在进行下拉刷新操作
 - 下拉到一定值时，显示松手释放后的操作提示
 - 下拉到达设定最大值松手时，执行回调，提示正在进行更新操作
-
-
 
 ## 三、案例
 
@@ -218,12 +216,12 @@ function getlist(){
 
 注意点：
 
-使用`better-scroll `实现下拉刷新、上拉加载时要注意以下几点：
+使用`better-scroll`实现下拉刷新、上拉加载时要注意以下几点：
 
 - `wrapper`里必须只有一个子元素
 - 子元素的高度要比`wrapper`要高
 - 使用的时候，要确定`DOM`元素是否已经生成，必须要等到`DOM`渲染完成后，再`new BScroll()`
-- 滚动区域的`DOM`元素结构有变化后，需要执行刷新 `refresh() `
+- 滚动区域的`DOM`元素结构有变化后，需要执行刷新 `refresh()`
 - 上拉或者下拉，结束后，需要执行`finishPullUp()`或者`finishPullDown()`，否则将不会执行下次操作
 - `better-scroll`，默认会阻止浏览器的原生`click`事件，如果滚动内容区要添加点击事件，需要在实例化属性里设置`click:true`
 
@@ -233,5 +231,5 @@ function getlist(){
 
 ## 参考文献
 
-- https://segmentfault.com/a/1190000014423308
-- https://github.com/ustbhuangyi/better-scroll
+- <https://segmentfault.com/a/1190000014423308>
+- <https://github.com/ustbhuangyi/better-scroll>

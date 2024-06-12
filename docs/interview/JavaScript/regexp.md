@@ -1,6 +1,4 @@
-# 面试官：说说你对正则表达式的理解？应用场景？
-
-![](https://static.vue-js.com/55388a40-7f1d-11eb-ab90-d9ae814b240d.png)
+# 25. 对正则表达式的理解
 
 ## 一、是什么
 
@@ -26,8 +24,6 @@ const re1 = new RegExp(rul,"g");
 ```
 
 使用构建函数创建，第一个参数可以是一个变量，遇到特殊字符`\`需要使用`\\`进行转义
-
-
 
 ## 二、匹配规则
 
@@ -133,10 +129,6 @@ let str = "John Smith";
 console.log(str.replace(/(john) (smith)/i, '$2, $1')) // Smith, John
 ```
 
-
-
-
-
 ## 三、匹配方法
 
 正则表达式常被用于某些方法，我们可以分成两类：
@@ -153,8 +145,6 @@ console.log(str.replace(/(john) (smith)/i, '$2, $1')) // Smith, John
 | search   | 一个在字符串中测试匹配的String方法，它返回匹配到的位置索引，或者在失败时返回-1。 |
 | replace  | 一个在字符串中执行查找匹配的String方法，并且使用替换字符串替换掉匹配到的子字符串。 |
 | split    | 一个使用正则表达式或者一个固定字符串分隔一个字符串，并将分隔后的子字符串存储到数组中的 `String` 方法。 |
-
-
 
 ### str.match(regexp)
 
@@ -197,8 +187,6 @@ let result = str.match(/HTML/);
 console.log(result); // null
 ```
 
-
-
 ### str.matchAll(regexp)
 
 返回一个包含所有匹配正则表达式的结果及分组捕获组的迭代器
@@ -216,12 +204,6 @@ console.log(array[1]);
 // expected output: Array ["test2", "e", "st2", "2"]
 ```
 
-
-
-
-
-
-
 ### str.search(regexp)
 
 返回第一个匹配项的位置，如果未找到，则返回 `-1`
@@ -233,12 +215,6 @@ console.log( str.search( /ink/i ) ); // 10（第一个匹配位置）
 ```
 
 这里需要注意的是，`search` 仅查找第一个匹配项
-
-
-
-
-
-
 
 ## str.replace(regexp)
 
@@ -253,8 +229,6 @@ console.log('hello Javascript Javascript Javascript'.replace(reg2,'js'));
 //hello js js js
 ```
 
-
-
 ### str.split(regexp)
 
 使用正则表达式（或子字符串）作为分隔符来分割字符串
@@ -262,8 +236,6 @@ console.log('hello Javascript Javascript Javascript'.replace(reg2,'js'));
 ```js
 console.log('12, 34, 56'.split(/,\s*/)) // 数组 ['12', '34', '56']
 ```
-
-
 
 ### regexp.exec(str)
 
@@ -288,8 +260,6 @@ while (result = regexp.exec(str)) {
 }
 ```
 
-
-
 ### regexp.test(str)
 
 查找匹配项，然后返回 `true/false` 表示是否存在
@@ -300,10 +270,6 @@ let str = "I love JavaScript";
 // 这两个测试相同
 console.log( /love/i.test(str) ); // true
 ```
-
-
-
-
 
 ## 四、应用场景
 
@@ -381,4 +347,4 @@ console.log(execUrlParams('test=a=b=c&&==&a='));//{test: "a=b=c", "": "=", a: ""
 
 ## 参考文献
 
-- https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
+- <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions>

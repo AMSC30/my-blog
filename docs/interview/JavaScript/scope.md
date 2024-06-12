@@ -1,6 +1,4 @@
-# 面试官：说说你对作用域链的理解
-
- ![](https://static.vue-js.com/16f614a0-718f-11eb-ab90-d9ae814b240d.png)
+# 26. 对作用域链的理解
 
 ## 一、作用域
 
@@ -22,16 +20,12 @@ console.log(inVariable); // Uncaught ReferenceError: inVariable is not defined
 
 这就说明我们在全局是无法获取到（闭包除外）函数内部的变量
 
-
-
 我们一般将作用域分成：
 
 - 全局作用域
 - 函数作用域
 
 - 块级作用域
-
-
 
 ### 全局作用域
 
@@ -47,7 +41,6 @@ function greet() {
 greet();
 ```
 
-
 ### 函数作用域
 
 函数作用域也叫局部作用域，如果一个变量是在函数内部声明的它就在一个函数作用域下面。这些变量只能在函数内部访问，不能在函数以外去访问
@@ -62,9 +55,8 @@ greet();
 // 报错： Uncaught ReferenceError: greeting is not defined
 console.log(greeting);
 ```
+
 可见上述代码中在函数内部声明的变量或函数，在函数外部是无法访问的，这说明在函数内部定义的变量或者方法只是函数作用域
-
-
 
 ### 块级作用域
 
@@ -82,8 +74,6 @@ console.log(lang);
 // 报错：Uncaught ReferenceError: greeting is not defined
 console.log(greeting);
 ```
-
-
 
 ## 二、词法作用域
 
@@ -106,8 +96,6 @@ bar()
  ![](https://static.vue-js.com/29fab3d0-718f-11eb-85f6-6fac77c0c9b3.png)
 
 由于`JavaScript`遵循词法作用域，相同层级的 `foo` 和 `bar` 就没有办法访问到彼此块作用域中的变量，所以输出2
-
-
 
 ## 三、作用域链
 

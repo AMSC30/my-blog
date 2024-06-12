@@ -1,8 +1,4 @@
-# 面试官：谈谈this对象的理解
-
- ![](https://static.vue-js.com/46c820d0-74b7-11eb-85f6-6fac77c0c9b3.png)
-
-
+# 31. 对this对象的理解
 
 ## 一、定义
 
@@ -57,10 +53,6 @@ function fn() {
 fn();
 ```
 
-
-
-
-
 ## 二、绑定规则
 
 根据不同的使用场合，`this`有不同的值，主要分为下面几种情况：
@@ -70,8 +62,6 @@ fn();
 - new绑定
 
 - 显示绑定
-
-
 
 ### 默认绑定
 
@@ -90,8 +80,6 @@ console.log(person());  //Jenny
 注意：
 
 严格模式下，不能将全局对象用于默认绑定，this会绑定到`undefined`，只有函数运行在非严格模式下，默认绑定才能绑定到全局对象
-
-
 
 ### 隐式绑定
 
@@ -143,8 +131,6 @@ j();
 ```
 
 此时`this`指向的是`window`，这里的大家需要记住，`this`永远指向的是最后调用它的对象，虽然`fn`是对象`b`的方法，但是`fn`赋值给`j`时候并没有执行，所以最终指向`window`
-
-
 
 ### new绑定
 
@@ -199,8 +185,6 @@ var a = new fn;
 console.log(a.user); //xxx
 ```
 
-
-
 ### 显示修改
 
 `apply()、call()、bind()`是函数的一个方法，作用是改变函数的调用对象。它的第一个参数就表示改变后的调用这个函数的对象。因此，这时`this`指的就是这第一个参数
@@ -218,7 +202,6 @@ obj.m.apply(obj) // 1
 ```
 
 关于`apply、call、bind`三者的区别，我们后面再详细说
-
 
 ## 三、箭头函数
 
@@ -266,8 +249,6 @@ cat.sayName()
 ```
 
 同样的，箭头函数不能作为构建函数
-
-
 
 ## 四、优先级
 
@@ -349,8 +330,6 @@ console.log( baz.a ); // 3
 
 综上，new绑定优先级 > 显示绑定优先级 > 隐式绑定优先级 > 默认绑定优先级
 
-
-
 ## 相关链接
 
-- https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this
+- <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this>
