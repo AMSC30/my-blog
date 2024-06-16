@@ -75,7 +75,7 @@ let stringValue = "na ";
 let copyResult = stringValue.repeat(2) // na na 
 ```
 
-#### padEnd()
+#### padStart()、padEnd()
 
 复制字符串，如果小于指定长度，则在相应一边填充字符，直至满足长度条件
 
@@ -85,7 +85,7 @@ console.log(stringValue.padStart(6)); // " foo"
 console.log(stringValue.padStart(9, ".")); // "......foo"
 ```
 
-### toLowerCase()、 toUpperCase()
+#### toLowerCase()、 toUpperCase()
 
 大小写转化
 

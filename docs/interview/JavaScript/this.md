@@ -185,7 +185,7 @@ var a = new fn;
 console.log(a.user); //xxx
 ```
 
-### 显示修改
+### 显示绑定
 
 `apply()、call()、bind()`是函数的一个方法，作用是改变函数的调用对象。它的第一个参数就表示改变后的调用这个函数的对象。因此，这时`this`指的就是这第一个参数
 
@@ -309,7 +309,7 @@ console.log( bar.a ); // 4
 因为`new`和`apply、call`无法一起使用，但硬绑定也是显式绑定的一种，可以替换测试
 
 ```js
-function foo(something) {
+function bar(something) {
     this.a = something;
 }
 
