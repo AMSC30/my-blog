@@ -16,48 +16,6 @@
 
 虽然`JavaScript`并不是真正的面向对象语言，但它天生的灵活性，使应用场景更加丰富
 
-关于继承，我们举个形象的例子：
-
-定义一个类（Class）叫汽车，汽车的属性包括颜色、轮胎、品牌、速度、排气量等
-
-```js
-class Car{
-    constructor(color,speed){
-        this.color = color
-        this.speed = speed
-        // ...
-    }
-}
-```
-
-由汽车这个类可以派生出“轿车”和“货车”两个类，在汽车的基础属性上，为轿车添加一个后备厢、给货车添加一个大货箱
-
-```js
-// 货车
-class Truck extends Car{
-    constructor(color,speed){
-        super(color,speed)
-        this.Container = true // 货箱
-    }
-}
-```
-
-这样轿车和货车就是不一样的，但是二者都属于汽车这个类，汽车、轿车继承了汽车的属性，而不需要再次在“轿车”中定义汽车已经有的属性
-
-在“轿车”继承“汽车”的同时，也可以重新定义汽车的某些属性，并重写或覆盖某些属性和方法，使其获得与“汽车”这个父类不同的属性和方法
-
-```js
-class Truck extends Car{
-    constructor(color,speed){
-        super(color,speed)
-        this.color = "black" //覆盖
-        this.Container = true // 货箱
-    }
-}
-```
-
-从这个例子中就能详细说明汽车、轿车以及卡车之间的继承关系
-
 ## 二、实现方式
 
 下面给出`JavaScript`常见的继承方式：

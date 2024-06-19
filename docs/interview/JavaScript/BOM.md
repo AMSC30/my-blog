@@ -1,4 +1,4 @@
-# 3. 常见的BOM对象你了解哪些
+# 3. 常见的BOM对象
 
 ## 一、是什么
 
@@ -62,7 +62,7 @@ const myWin = window.open('http://www.vue3js.cn','myWin')
 `url`地址如下：
 
 ```js
-http://foouser:barpassword@www.wrox.com:80/WileyCDA/?q=javascript#contents
+http://foouser:foopassword@www.wrox.com:80/WileyCDA/?q=javascript#contents
 ```
 
 `location`属性描述如下：

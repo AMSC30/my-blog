@@ -97,7 +97,7 @@ console.log(colors); // green,blue
 console.log(removed); // red，只有一个元素的数组
 ```
 
-### slice()
+#### slice()
 
  slice() 用于创建一个包含原有数组中一个或多个元素的新数组，不会影响原始数组
 
@@ -132,6 +132,7 @@ console.log(removed); // green，只有一个元素的数组
 - indexOf()
 - includes()
 - find()
+- findIndex()
 
 #### indexOf()
 
@@ -167,6 +168,24 @@ const people = [
     }
 ];
 people.find((element, index, array) => element.age < 28) // // {name: "Matt", age: 27}
+```
+
+#### findIndex()
+
+返回第一个匹配的元素的下标
+
+```js
+const people = [
+    {
+        name: "Matt",
+        age: 27
+    },
+    {
+        name: "Nicholas",
+        age: 29
+    }
+];
+people.findIndex((element, index, array) => element.age < 28) // 0
 ```
 
 ## 二、排序方法

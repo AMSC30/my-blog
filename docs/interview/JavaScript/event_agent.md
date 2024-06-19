@@ -114,7 +114,7 @@ oBtn.onclick = function () {
 
 适合事件委托的事件有：`click`，`mousedown`，`mouseup`，`keydown`，`keyup`，`keypress`
 
-引用场景：
+应用场景：
 
 - 大量元素绑定同一个事件
 - 元素会动态变化

@@ -59,7 +59,7 @@ console.log(age); // 没有声明过这个变量，报错
 
 ### String
 
-字符串可以使用双引号（"）、单引号（'）或反引号（`）标示
+字符串可以使用双引号（"）、单引号（'）或反引号（`）包裹
 
 ```js
 let firstName = "John";
@@ -101,13 +101,13 @@ console.log(null == undefined); // true
 
 规则如下：
 
-```js
-数据类型          转换为 true 的值          转换为 false 的值
- String             非空字符串               "" 
- Number     非零数值（包括无穷值）      0 、 NaN 
- Object       任意对象           null
-Undefined      N/A （不存在）       undefined
-```
+|数据类型|转换为 true 的值|转换为 false 的值|
+|-------|-------|------|
+|String|非空字符串|""|
+|Number|非零数值|0 、 NaN|
+|Object|任意对象|null|
+|Undefined|不存在|undefined|
+|Null|不存在|null|
 
 ### Symbol
 
