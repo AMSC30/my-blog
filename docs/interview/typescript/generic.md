@@ -104,7 +104,7 @@ class Stack<T> {
 使用方式如下：
 
 ```ts
-const stack = new Stacn<number>()
+const stack = new Stack<number>()
 ```
 
 如果上述只能传递 `string` 和 `number` 类型，这时候就可以使用 `<T extends xx>` 的方式猜实现**约束泛型**，如下所示：
