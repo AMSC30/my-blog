@@ -69,7 +69,7 @@ export default [
     children: [
       { text: 'CSS', link: '/docs/interview/css/box.md' },
       { text: 'JavaScript', link: '/docs/interview/javascript/data_type.md' },
-      { text: 'TypeScript', link: '/docs/interview/typescript/data_type.md' },
+      { text: 'TypeScript', link: '/docs/interview/typescript/class.md' },
       { text: 'ES6', link: '/docs/interview/es6/var_let_const.md' },
       { text: 'HTTP', link: '/docs/interview/http/1.0_1.1_2.0.md' },
       { text: 'Vue', link: '/docs/interview/vue/base.md' },

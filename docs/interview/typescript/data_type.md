@@ -1,16 +1,10 @@
-# 面试官：说说 typescript 的数据类型有哪些？
-
- ![](https://static.vue-js.com/d88f9450-0998-11ec-a752-75723a64e8f5.png)
-
-
+# Typescript数据类型
 
 ## 一、是什么
 
 `typescript` 和 `javascript`几乎一样，拥有相同的数据类型，另外在`javascript`基础上提供了更加实用的类型供开发使用
 
 在开发阶段，可以为明确的变量定义为某种类型，这样`typescript`就能在编译阶段进行类型检查，当类型不合符预期结果的时候则会出现错误提示
-
-
 
 ## 二、有哪些
 
@@ -28,8 +22,6 @@
 - never 类型
 - object 对象类型
 
-
-
 ### boolean
 
 布尔类型
@@ -39,8 +31,6 @@ let flag:boolean = true;
 // flag = 123; // 错误
 flag = false;  //正确
 ```
-
-
 
 ### number
 
@@ -61,8 +51,6 @@ let binaryLiteral: number = 0b1010; // 二进制
 let octalLiteral: number = 0o744; // 八进制
 ```
 
-
-
 ### string
 
 字符串类型，和`JavaScript`一样，可以使用双引号（`"`）或单引号（`'`）表示字符串
@@ -79,8 +67,6 @@ let name: string = `Gene`;
 let age: number = 37;
 let sentence: string = `Hello, my name is ${ name }
 ```
-
-
 
 ### array
 
@@ -100,8 +86,6 @@ let sentence: string = `Hello, my name is ${ name }
   arr = ['45', '56'];
   ```
 
-
-
 ### tuple
 
 元祖类型，允许表示一个已知元素数量和类型的数组，各元素的类型不必相同
@@ -114,8 +98,6 @@ typleArr = [12, '34'] // no ok
 
 赋值的类型、位置、个数需要和定义（生明）的类型、位置、个数一致
 
-
-
 ### enum
 
 `enum`类型是对JavaScript标准数据类型的一个补充，使用枚举类型可以为一组数值赋予友好的名字
@@ -124,8 +106,6 @@ typleArr = [12, '34'] // no ok
 enum Color {Red, Green, Blue}
 let c: Color = Color.Green;
 ```
-
-
 
 ### any
 
@@ -146,15 +126,11 @@ let arrayList: any[] = [1, false, 'fine'];
 arrayList[1] = 100;
 ```
 
-
-
-
-
 ### null 和 和 undefined
 
-在` JavaScript` 中 `null `表示 "什么都没有"，是一个只有一个值的特殊类型，表示一个空对象引用，而`undefined`表示一个没有设置值的变量
+在`JavaScript` 中 `null`表示 "什么都没有"，是一个只有一个值的特殊类型，表示一个空对象引用，而`undefined`表示一个没有设置值的变量
 
-默认情况下`null`和`undefined`是所有类型的子类型， 就是说你可以把 `null `和 `undefined `赋值给 `number `类型的变量
+默认情况下`null`和`undefined`是所有类型的子类型， 就是说你可以把 `null`和 `undefined`赋值给 `number`类型的变量
 
 ```tsx
 let num:number | undefined; // 数值类型 或者 undefined
@@ -165,8 +141,6 @@ console.log(num); // 正确
 
 但是`ts`配置了`--strictNullChecks`标记，`null`和`undefined`只能赋值给`void`和它们各自
 
-
-
 ### void
 
 用于标识方法返回值的类型，表示该方法没有返回值。
@@ -176,7 +150,6 @@ function hello(): void {
     alert("Hello Runoob");
 }
 ```
-
 
 ### never
 
@@ -200,10 +173,6 @@ function error(message: string): never {
 }
 ```
 
-
-
-
-
 ### object
 
 对象类型，非原始类型，常见的形式通过`{}`进行包裹
@@ -213,8 +182,6 @@ let obj:object;
 obj = {name: 'Wang', age: 25};
 ```
 
-
-
 ## 三、总结
 
 和`javascript`基本一致，也分成：
@@ -222,10 +189,8 @@ obj = {name: 'Wang', age: 25};
 - 基本类型
 - 引用类型
 
-在基础类型上，`typescript`增添了`void`、`any`、`emum`等原始类型
-
-
+在基础类型上，`typescript`增添了`void`、`any`、`emum`、`tuple`、`never`等原始类型
 
 ## 参考文献
 
-- https://www.tslang.cn/docs/handbook/basic-types.html
+- <https://www.tslang.cn/docs/handbook/basic-types.html>

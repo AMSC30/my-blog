@@ -1,16 +1,13 @@
-# 面试官：说说你对 TypeScript 中泛型的理解？应用场景？
-
-
- ![](https://static.vue-js.com/5bb5f1d0-0e17-11ec-8e64-91fdec0f05a1.png)
+# 对TypeScript泛型的理解
 
 ## 一、是什么
 
 泛型程序设计（generic programming）是程序设计语言的一种风格或范式
 
-泛型允许我们在强类型程序设计语言中编写代码时使用一些以后才指定的类型，在实例化时作为参数指明这些类型
+泛型允许我们在强类型程序设计语言中编写代码时运行以后才指定的类型，在实例化时作为参数指明这些类型
 在`typescript`中，定义函数，接口或者类的时候，不预先定义好具体的类型，而在使用的时候在指定类型的一种特性
 
-假设我们用一个函数，它可接受一个 `number` 参数并返回一个` number` 参数，如下写法：
+假设我们用一个函数，它可接受一个 `number` 参数并返回一个`number` 参数，如下写法：
 
 ```ts
 function returnItem (para: number): number {
@@ -40,18 +37,13 @@ function returnItem<T>(para: T): T {
 
 可以看到，泛型给予开发者创造灵活、可重用代码的能力
 
-
-
 ## 二、使用方式
 
 泛型通过`<>`的形式进行表述，可以声明：
 
 - 函数
-
 - 接口
 - 类
-
-
 
 ### 函数声明
 
@@ -72,10 +64,6 @@ function swap<T, U>(tuple: [T, U]): [U, T] {
 
 swap([7, 'seven']); // ['seven', 7]
 ```
-
-
-
-
 
 ### 接口声明
 
@@ -125,10 +113,6 @@ const stack = new Stacn<number>()
 
  ![](https://static.vue-js.com/67d212a0-0e17-11ec-8e64-91fdec0f05a1.png)
 
-
-
-
-
 除了上述的形式，泛型更高级的使用如下：
 
 例如要设计一个函数，这个函数接受两个参数，一个参数为对象，另一个参数为对象上的属性，我们通过这两个参数返回这个属性的值
@@ -150,10 +134,6 @@ function getValue<T extends object, U extends keyof T>(obj: T, key: U) {
 使用如下图所示：
 
  ![](https://static.vue-js.com/74fcbd40-0e17-11ec-a752-75723a64e8f5.png)
-
-
-
-
 
 ### 多类型约束
 
@@ -196,16 +176,12 @@ class Demo<T extends ChildInterface> {
 
 通过泛型约束就可以达到多类型约束的目的
 
-
-
 ## 三、应用场景
 
 通过上面初步的了解，后述在编写 `typescript` 的时候，定义函数，接口或者类的时候，不预先定义好具体的类型，而在使用的时候在指定类型的一种特性的时候，这种情况下就可以使用泛型
 
 灵活的使用泛型定义类型，是掌握`typescript` 必经之路
 
-
-
 ## 参考文献
 
-- https://www.tslang.cn/docs/handbook/generics.html
+- <https://www.tslang.cn/docs/handbook/generics.html>

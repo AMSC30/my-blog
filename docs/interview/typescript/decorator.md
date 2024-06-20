@@ -1,18 +1,14 @@
-# 面试官：说说你对 TypeScript 装饰器的理解？应用场景？
-
- ![](https://static.vue-js.com/f8905dd0-111c-11ec-8e64-91fdec0f05a1.png)
-
-
+# 对TypeScript装饰器的理解
 
 ## 一、是什么
+
 装饰器是一种特殊类型的声明，它能够被附加到类声明，方法， 访问符，属性或参数上
 
 是一种在不改变原类和使用继承的情况下，动态地扩展对象功能
 
 同样的，本质也不是什么高大上的结构，就是一个普通的函数，`@expression` 的形式其实是`Object.defineProperty`的语法糖
 
-`expression `求值后必须也是一个函数，它会在运行时被调用，被装饰的声明信息做为参数传入
-
+`expression`求值后必须也是一个函数，它会在运行时被调用，被装饰的声明信息做为参数传入
 
 ## 二、使用方式
 
@@ -29,8 +25,6 @@
 
 `typescript`装饰器的使用和`javascript`基本一致
 
-
-
 类的装饰器可以装饰：
 
 - 类
@@ -39,8 +33,6 @@
 - 参数
 
 - 访问器
-
-
 
 ### 类装饰
 
@@ -72,8 +64,6 @@ Person = addAge(function Person() { ... });
 ```
 
 上述可以看到，当装饰器作为修饰类的时候，会把构造器传递进去。 `constructor.prototype.age` 就是在每一个实例化对象上面添加一个 `age` 属性
-
-
 
 ### 方法/属性装饰
 
@@ -131,8 +121,6 @@ xmz.say = function() {
 
  ![](https://static.vue-js.com/e96bc1b0-114d-11ec-8e64-91fdec0f05a1.png)
 
-
-
 ### 参数装饰
 
 接收3个参数，分别是：
@@ -161,8 +149,6 @@ emp.greet('hello');
 
  ![](https://static.vue-js.com/f2f32de0-114d-11ec-a752-75723a64e8f5.png)
 
-
-
 ### 访问器装饰
 
 使用起来方式与方法装饰一致，如下：
@@ -188,10 +174,6 @@ class Person{
 }
 ```
 
-
-
-
-
 ### 装饰器工厂
 
 如果想要传递参数，使装饰器变成类似工厂函数，只需要在装饰器函数内部再函数一个函数即可，如下：
@@ -214,8 +196,6 @@ class Person{
 
 let person = new Person();
 ```
-
-
 
 ### 执行顺序
 
@@ -249,10 +229,6 @@ g(): called
 f(): called
 ```
 
-
-
-
-
 ## 三、应用场景
 
 可以看到，使用装饰器存在两个显著的优点：
@@ -262,9 +238,7 @@ f(): called
 
 后面的使用场景中，借助装饰器的特性，除了提高可读性之后，针对已经存在的类，可以通过装饰器的特性，在不改变原有代码情况下，对原来功能进行扩展
 
-
-
 ## 参考文献
 
-- https://www.tslang.cn/docs/handbook/decorators.html
-- https://juejin.cn/post/6844903876605280269#heading-5
+- <https://www.tslang.cn/docs/handbook/decorators.html>
+- <https://juejin.cn/post/6844903876605280269#heading-5>

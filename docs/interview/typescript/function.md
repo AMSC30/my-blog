@@ -1,17 +1,12 @@
-# 面试官：说说你对 TypeScript 中函数的理解？与 JavaScript 函数的区别？
-
-
-
- ![](https://static.vue-js.com/3f1c1390-0d42-11ec-a752-75723a64e8f5.png)
+# 对TypeScript函数的理解
 
 ## 一、是什么
 
-函数是` JavaScript` 应用程序的基础，帮助我们实现抽象层、模拟类、信息隐藏和模块
+函数是`JavaScript` 应用程序的基础，帮助我们实现抽象层、模拟类、信息隐藏和模块
 
-在` TypeScript` 里，虽然已经支持类、命名空间和模块，但函数仍然是主要定义行为的方式，`TypeScript` 为 `JavaScript` 函数添加了额外的功能，丰富了更多的应用场景
+在`TypeScript` 里，虽然已经支持类、命名空间和模块，但函数仍然是主要定义行为的方式，`TypeScript` 为 `JavaScript` 函数添加了额外的功能，丰富了更多的应用场景
 
 函数类型在 `TypeScript` 类型系统中扮演着非常重要的角色，它们是可组合系统的核心构建块
-
 
 ## 二、使用方式
 
@@ -21,7 +16,7 @@
 const add = (a: number, b: number) => a + b
 ```
 
-上述只定义了函数的两个参数类型，这个时候整个函数虽然没有被显式定义，但是实际上` TypeScript` 编译器是能够通过类型推断到这个函数的类型，如下图所示：
+上述只定义了函数的两个参数类型，这个时候整个函数虽然没有被显式定义，但是实际上`TypeScript` 编译器是能够通过类型推断到这个函数的类型，如下图所示：
 
  ![](https://static.vue-js.com/4b3415b0-0d42-11ec-8e64-91fdec0f05a1.png)
 
@@ -41,8 +36,6 @@ type ShortHand = (a: number) => number;
 
 当存在函数重载时，只能使用方式一的形式
 
-
-
 ### 可选参数
 
 当函数的参数可能是不存在的，只需要在参数后面加上 `?` 代表参数可能不存在，如下：
@@ -52,8 +45,6 @@ const add = (a: number, b?: number) => a + (b ? b : 0)
 ```
 
 这时候参数`b`可以是`number`类型或者`undefined`类型，即可以传一个`number`类型或者不传都可以
-
-
 
 ### 剩余类型
 
@@ -65,15 +56,13 @@ const add = (a: number, b?: number) => a + (b ? b : 0)
 const add = (a: number, ...rest: number[]) => rest.reduce(((a, b) => a + b), a)
 ```
 
-
-
 ### 函数重载
 
 允许创建数项名称相同但输入输出类型或个数不同的子程序，它可以简单地称为一个单独功能可以执行多项任务的能力
 
 关于`typescript`函数重载，必须要把精确的定义放在前面，最后函数实现时，需要使用 `|`操作符或者`?`操作符，把所有可能的输入类型全部包含进去，用于具体实现
 
-这里的函数重载也只是多个函数的声明，具体的逻辑还需要自己去写，`typescript`并不会真的将你的多个重名 `function `的函数体进行合并
+这里的函数重载也只是多个函数的声明，具体的逻辑还需要自己去写，`typescript`并不会真的将你的多个重名 `function`的函数体进行合并
 
 例如我们有一个add函数，它可以接收 `string`类型的参数进行拼接，也可以接收 `number` 类型的参数进行相加，如下：
 
@@ -94,8 +83,6 @@ function add (arg1: string | number, arg2: string | number) {
 }
 ```
 
-
-
 ## 三、区别
 
 从上面可以看到：
@@ -106,6 +93,6 @@ function add (arg1: string | number, arg2: string | number) {
 
 ## 参考文献
 
-- https://www.tslang.cn/docs/handbook/functions.html
-- https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD
-- https://jkchao.github.io/typescript-book-chinese/typings/functions.html#%E9%87%8D%E8%BD%BD
+- <https://www.tslang.cn/docs/handbook/functions.html>
+- <https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD>
+- <https://jkchao.github.io/typescript-book-chinese/typings/functions.html#%E9%87%8D%E8%BD%BD>

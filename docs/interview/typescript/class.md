@@ -1,10 +1,7 @@
-# 面试官：说说你对 TypeScript 中类的理解？应用场景？
-
- ![](https://static.vue-js.com/e4c19060-0cb4-11ec-a752-75723a64e8f5.png)
-
-
+# 对 TypeScript 中类的理解
 
 ## 一、是什么
+
 类（Class）是面向对象程序设计（OOP，Object-Oriented Programming）实现信息封装的基础
 
 > 类是一种用户定义的引用数据类型，也称类类型
@@ -13,11 +10,9 @@
 
 在 `ES6` 之后，`JavaScript` 拥有了 `class` 关键字，虽然本质依然是构造函数，但是使用起来已经方便了许多
 
-但是` JavaScript` 的` class `依然有一些特性还没有加入，比如修饰符和抽象类
+但是`JavaScript` 的`class`依然有一些特性还没有加入，比如修饰符和抽象类
 
 `TypeScript` 的 `class`  支持面向对象的所有特性，比如 类、接口等
-
-
 
 ## 二、使用方式
 
@@ -73,8 +68,6 @@ dog.bark();
 
 `Dog`类继承了`Animal`类，因此实例`dog`也能够使用`Animal`类`move`方法
 
-
-
 同样，类继承后，子类可以对父类的方法重新定义，这个过程称之为方法的重写，通过`super`关键字是对父类的直接引用，该关键字可以引用父类的属性和方法，如下：
 
 ```ts
@@ -92,12 +85,6 @@ class StringPrinter extends PrinterClass {
 }
 ```
 
-
-
-
-
-
-
 ### 修饰符
 
 可以看到，上述的形式跟`ES6`十分的相似，`typescript`在此基础上添加了三种修饰符：
@@ -105,8 +92,6 @@ class StringPrinter extends PrinterClass {
 - 公共 public：可以自由的访问类程序里定义的成员
 - 私有 private：只能够在该类的内部进行访问
 - 受保护 protect：除了在该类的内部可以访问，还可以在子类中仍然可以访问
-
-
 
 ### 私有修饰符
 
@@ -118,8 +103,6 @@ class StringPrinter extends PrinterClass {
 
  ![](https://static.vue-js.com/0072cc20-0cb5-11ec-8e64-91fdec0f05a1.png)
 
-
-
 ### 受保护修饰符
 
 跟私有修饰符很相似，实例对象同样不能访问受保护的属性，如下：
@@ -130,10 +113,6 @@ class StringPrinter extends PrinterClass {
 
  ![](https://static.vue-js.com/137f81a0-0cb5-11ec-8e64-91fdec0f05a1.png)
 
-
-
-
-
 除了上述修饰符之外，还有只读**修饰符**
 
 #### 只读修饰符
@@ -141,8 +120,6 @@ class StringPrinter extends PrinterClass {
 通过`readonly`关键字进行声明，只读属性必须在声明时或构造函数里被初始化，如下：
 
  ![](https://static.vue-js.com/1e848d20-0cb5-11ec-8e64-91fdec0f05a1.png)
-
-
 
 除了实例属性之外，同样存在静态属性
 
@@ -158,17 +135,13 @@ class Square {
 console.log(Square.width) // 100px
 ```
 
-
-
 上述的类都能发现一个特点就是，都能够被实例化，在 `typescript`中，还存在一种抽象类
-
-
 
 ### 抽象类
 
-抽象类做为其它派生类的基类使用，它们一般不会直接被实例化，不同于接口，抽象类可以包含成员的实现细节
+抽象类作为其它派生类的基类使用，它们一般不会直接被实例化，不同于接口，抽象类可以包含成员的实现细节
 
-`abstract `关键字是用于定义抽象类和在抽象类内部定义抽象方法，如下所示：
+`abstract`关键字是用于定义抽象类和在抽象类内部定义抽象方法，如下所示：
 
 ```ts
 abstract class Animal {
@@ -194,8 +167,6 @@ const cat = new Cat()
 cat.makeSound() // miao miao
 cat.move() // roaming the earch...
 ```
-
-
 
 ## 三、应用场景
 
@@ -231,11 +202,9 @@ export default class Props {
 public static defaultProps = new Props()
 ```
 
-`Props` 的实例就是 `defaultProps` 的初始值，这就是 `class `作为接口的实际应用，我们用一个 `class` 起到了接口和设置初始值两个作用，方便统一管理，减少了代码量
-
-
+`Props` 的实例就是 `defaultProps` 的初始值，这就是 `class`作为接口的实际应用，我们用一个 `class` 起到了接口和设置初始值两个作用，方便统一管理，减少了代码量
 
 ## 参考文献
 
-- https://www.tslang.cn/docs/handbook/classes.html
-- https://www.runoob.com/typescript/ts-class.html
+- <https://www.tslang.cn/docs/handbook/classes.html>
+- <https://www.runoob.com/typescript/ts-class.html>

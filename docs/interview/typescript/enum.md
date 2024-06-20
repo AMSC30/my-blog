@@ -1,9 +1,4 @@
-# 面试官：说说你对 TypeScript 中枚举类型的理解？应用场景？
-
-
- ![](https://static.vue-js.com/76173bf0-0b0c-11ec-a752-75723a64e8f5.png)
-
-
+# 对TypeScript枚举的理解
 
 ## 一、是什么
 
@@ -24,8 +19,6 @@ enum 枚举名{
 }枚举变量;
 ```
 
-
-
 ## 二、使用
 
 枚举的使用是通过`enum`关键字进行定义，形式如下：
@@ -41,18 +34,12 @@ enum xxx { ... }
 let d: Direction;
 ```
 
-
-
-
-
 类型可以分成：
 
 - 数字枚举
 - 字符串枚举
 
 - 异构枚举
-
-
 
 ### 数字枚举
 
@@ -85,10 +72,6 @@ enum Direction {
 console.log(Direction.Up, Direction.Down, Direction.Left, Direction.Right); // 10 11 12 13
 ```
 
-
-
-
-
 ### 字符串枚举
 
 ```ts
@@ -115,10 +98,6 @@ enum Direction {
 }
 ```
 
-
-
-
-
 ### 异构枚举
 
 即将数字枚举和字符串枚举结合起来混合起来使用，如下：
@@ -131,8 +110,6 @@ enum BooleanLikeHeterogeneousEnum {
 ```
 
 通常情况下我们很少会使用异构枚举
-
-
 
 ### 本质
 
@@ -210,8 +187,6 @@ var Direction;
 
 可以看到，`Direction`对象属性回叠加
 
-
-
 ## 三、应用场景
 
 就拿回生活的例子，后端返回的字段使用 0 - 6 标记对应的日期，这时候就可以使用枚举可提高代码可读性，如下：
@@ -227,8 +202,8 @@ console.log(Days["Sat"] === 6); // true
 
 包括后端日常返回0、1 等等状态的时候，我们都可以通过枚举去定义，这样可以提高代码的可读性，便于后续的维护
 
-
 ## 参考文献
-- https://zh.wikipedia.org/wiki/%E6%9E%9A%E4%B8%BE
-- https://www.jianshu.com/p/b9e1caa4dd98
-- https://juejin.cn/post/6844904112669065224#heading-30
+
+- <https://zh.wikipedia.org/wiki/%E6%9E%9A%E4%B8%BE>
+- <https://www.jianshu.com/p/b9e1caa4dd98>
+- <https://juejin.cn/post/6844904112669065224#heading-30>
