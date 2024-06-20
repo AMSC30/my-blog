@@ -81,8 +81,6 @@ interface ReturnItemFn<T> {
 const returnItem: ReturnItemFn<number> = para => para
 ```
 
-###
-
 ### 类声明
 
 使用泛型声明类的时候，既可以作用于类本身，也可以作用与类的成员函数
