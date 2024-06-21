@@ -1,8 +1,4 @@
-#  面试官：对象新增了哪些扩展？
-
-![](https://static.vue-js.com/4da4dd40-5427-11eb-ab90-d9ae814b240d.png)
-
-
+# 对象新增了哪些扩展
 
 ## 一、属性的简写
 
@@ -57,8 +53,6 @@ const obj = {
 
 new obj.f() // 报错
 ```
-
-
 
 ## 二、属性名表达式
 
@@ -116,8 +110,6 @@ const myObject = {
 myObject // Object {[object Object]: "valueB"}
 ```
 
-
-
 ## 三、super关键字
 
 `this`关键字总是指向函数所在的当前对象，ES6 又新增了另一个类似的关键字`super`，指向当前对象的原型对象
@@ -137,8 +129,6 @@ const obj = {
 Object.setPrototypeOf(obj, proto); // 为obj设置原型对象
 obj.find() // "hello"
 ```
-
-
 
 ## 四、扩展运算符的应用
 
@@ -164,20 +154,14 @@ x.a.b // 2，影响到了结构出来x的值
 
 对象的扩展运算符等同于使用`Object.assign()`方法
 
-
-
 ## 五、属性的遍历
 
 ES6 一共有 5 种方法可以遍历对象的属性。
 
-- for...in：循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）
-
 - Object.keys(obj)：返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名
-
+- for...in：循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）
 - Object.getOwnPropertyNames(obj)：回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名
-
 - Object.getOwnPropertySymbols(obj)：返回一个数组，包含对象自身的所有 Symbol 属性的键名
-
 - Reflect.ownKeys(obj)：返回一个数组，包含对象自身的（不含继承的）所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举
 
 上述遍历，都遵守同样的属性遍历的次序规则：
@@ -191,10 +175,6 @@ Reflect.ownKeys({ [Symbol()]:0, b:0, 10:0, 2:0, a:0 })
 // ['2', '10', 'b', 'a', Symbol()]
 ```
 
-
-
-
-
 ## 六、对象新增的方法
 
 关于对象新增的方法，分别有以下：
@@ -205,8 +185,6 @@ Reflect.ownKeys({ [Symbol()]:0, b:0, 10:0, 2:0, a:0 })
 - Object.setPrototypeOf()，Object.getPrototypeOf()
 - Object.keys()，Object.values()，Object.entries()
 - Object.fromEntries()
-
-
 
 ### Object.is()
 
@@ -219,8 +197,6 @@ NaN === NaN // false
 Object.is(+0, -0) // false
 Object.is(NaN, NaN) // true
 ```
-
-
 
 ### Object.assign()
 
@@ -239,8 +215,6 @@ target // {a:1, b:2, c:3}
 ```
 
 注意：`Object.assign()`方法是浅拷贝，遇到同名属性会进行替换
-
-
 
 ### Object.getOwnPropertyDescriptors()
 
@@ -265,8 +239,6 @@ Object.getOwnPropertyDescriptors(obj)
 //      configurable: true } }
 ```
 
-
-
 ### Object.setPrototypeOf()
 
 `Object.setPrototypeOf`方法用来设置一个对象的原型对象
@@ -278,8 +250,6 @@ Object.setPrototypeOf(object, prototype)
 const o = Object.setPrototypeOf({}, null);
 ```
 
-
-
 ### Object.getPrototypeOf()
 
 用于读取一个对象的原型对象
@@ -287,8 +257,6 @@ const o = Object.setPrototypeOf({}, null);
 ```js
 Object.getPrototypeOf(obj);
 ```
-
-
 
 ### Object.keys()
 
@@ -300,8 +268,6 @@ Object.keys(obj)
 // ["foo", "baz"]
 ```
 
-
-
 ### Object.values()
 
 返回自身的（不含继承的）所有可遍历（enumerable）属性的键对应值的数组
@@ -312,8 +278,6 @@ Object.values(obj)
 // ["bar", 42]
 ```
 
-
-
 ### Object.entries()
 
 返回一个对象自身的（不含继承的）所有可遍历（enumerable）属性的键值对的数组
@@ -323,8 +287,6 @@ const obj = { foo: 'bar', baz: 42 };
 Object.entries(obj)
 // [ ["foo", "bar"], ["baz", 42] ]
 ```
-
-
 
 ### Object.fromEntries()
 
@@ -338,8 +300,6 @@ Object.fromEntries([
 // { foo: "bar", baz: 42 }
 ```
 
-
-
 ## 参考文献
 
-- https://es6.ruanyifeng.com/#docs/object
+- <https://es6.ruanyifeng.com/#docs/object>

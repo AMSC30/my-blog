@@ -1,50 +1,12 @@
-# 面试官：你是怎么理解ES6中 Decorator 的？使用场景？
-
- ![](https://static.vue-js.com/7df43560-5ba5-11eb-85f6-6fac77c0c9b3.png)
+# 怎么理解Decorator
 
 ## 一、介绍
 
 Decorator，即装饰器，从名字上很容易让我们联想到装饰者模式
 
-简单来讲，装饰者模式就是一种在不改变原类和使用继承的情况下，动态地扩展对象功能的设计理论。
+简单来讲，装饰者模式就是一种在`不改变原类和使用继承`的情况下，动态地扩展对象功能的设计理论。
 
 `ES6`中`Decorator`功能亦如此，其本质也不是什么高大上的结构，就是一个普通的函数，用于扩展类属性和类方法
-
-这里定义一个士兵，这时候他什么装备都没有
-
-```js
-class soldier{ 
-}
-```
-
-定义一个得到 AK 装备的函数，即装饰器
-
-```js
-function strong(target){
-    target.AK = true
-}
-```
-
-使用该装饰器对士兵进行增强
-
-```js
-@strong
-class soldier{
-}
-```
-
-这时候士兵就有武器了
-
-```js
-soldier.AK // true
-```
-
-上述代码虽然简单，但也能够清晰看到了使用`Decorator`两大优点：
-
-- 代码可读性变强了，装饰器命名相当于一个注释
-- 在不改变原有代码情况下，对原来功能进行扩展
-
-
 
 ## 二、用法
 
@@ -102,8 +64,6 @@ class MyClass {}
 MyClass.isTestable // false
 ```
 
-
-
 ### 类属性的装饰
 
 当对类属性进行装饰的时候，能够接受三个参数：
@@ -157,8 +117,6 @@ class Example {
 
 外层装饰器`@dec(1)`先进入，但是内层装饰器`@dec(2)`先执行
 
-
-
 ### 注意
 
 装饰器不能用于修饰函数，因为函数存在变量声明情况
@@ -193,8 +151,6 @@ add = function () {
 ```
 
 意图是执行后`counter`等于 1，但是实际上结果是`counter`等于 0
-
-
 
 ## 三、使用场景
 
@@ -236,8 +192,6 @@ let obj = new MyClass();
 obj.foo() // "foo"
 ```
 
-
-
 下面再讲讲`core-decorators.js`几个常见的装饰器
 
 #### @antobind
@@ -261,8 +215,6 @@ getPerson() === person;
 // true
 ```
 
-
-
 #### @readonly
 
 `readonly`装饰器使得属性或方法不可写
@@ -279,10 +231,6 @@ var dinner = new Meal();
 dinner.entree = 'salmon';
 // Cannot assign to read only property 'entree' of [object Object]
 ```
-
-
-
-
 
 #### @deprecate
 
@@ -309,8 +257,6 @@ person.facepalmHard();
 
 ```
 
-
-
 ## 参考文献
 
-- https://es6.ruanyifeng.com/#docs/decorator
+- <https://es6.ruanyifeng.com/#docs/decorator>

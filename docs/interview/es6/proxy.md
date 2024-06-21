@@ -1,8 +1,4 @@
-# 面试官：你是怎么理解ES6中Proxy的？使用场景?
-
- ![](https://static.vue-js.com/6f656e30-59f5-11eb-85f6-6fac77c0c9b3.png)
-
-
+# 怎么理解Proxy
 
 ## 一、介绍
 
@@ -13,6 +9,7 @@
 元编程（Metaprogramming，又译超编程，是指某类计算机程序的编写，这类计算机程序编写或者操纵其它程序（或者自身）作为它们的数据，或者在运行时完成部分本应在编译时完成的工作
 
 一段代码来理解
+
 ```bash
 #!/bin/bash
 # metaprogram
@@ -22,16 +19,16 @@ for ((I=1; I<=1024; I++)) do
 done
 chmod +x program
 ```
+
 这段程序每执行一次能帮我们生成一个名为`program`的文件，文件内容为1024行`echo`，如果我们手动来写1024行代码，效率显然低效
 
 - 元编程优点：与手工编写全部代码相比，程序员可以获得更高的工作效率，或者给与程序更大的灵活度去处理新的情形而无需重新编译
 
 `Proxy` 亦是如此，用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）
 
-
 ## 二、用法
 
-`Proxy`为 构造函数，用来生成 `Proxy `实例
+`Proxy`为 构造函数，用来生成 `Proxy`实例
 
 ```javascript
 var proxy = new Proxy(target, handler)
@@ -42,8 +39,6 @@ var proxy = new Proxy(target, handler)
 `target`表示所要拦截的目标对象（任何类型的对象，包括原生数组，函数，甚至另一个代理））
 
 `handler`通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 `p` 的行为
-
-
 
 ### handler解析
 
@@ -63,10 +58,6 @@ var proxy = new Proxy(target, handler)
 - apply(target, object, args)：拦截 Proxy 实例作为函数调用的操作
 - construct(target, args)：拦截 Proxy 实例作为构造函数调用的操作
 
-
-
-
-
 ### Reflect
 
 若需要在`Proxy`内部调用对象的默认行为，建议使用`Reflect`，其是`ES6`中操作对象而提供的新 `API`
@@ -75,9 +66,7 @@ var proxy = new Proxy(target, handler)
 
 - 只要`Proxy`对象具有的代理方法，`Reflect`对象全部具有，以静态方法的形式存在
 - 修改某些`Object`方法的返回结果，让其变得更合理（定义不存在属性行为的时候不报错而是返回`false`）
-- 让`Object`操作都变成函数行为      
-
-
+- 让`Object`操作都变成函数行为
 
 下面我们介绍`proxy`几种用法：
 
@@ -144,8 +133,6 @@ const proxy = new Proxy(target, handler);
 proxy.foo
 // TypeError: Invariant check failed
 ```
-
-
 
 ### set()
 
@@ -215,8 +202,6 @@ proxy.foo = 'bar';
 // TypeError: 'set' on proxy: trap returned falsish for property 'foo'
 ```
 
-
-
 ### deleteProperty()
 
 `deleteProperty`方法用于拦截`delete`操作，如果这个方法抛出错误或者返回`false`，当前属性就无法被`delete`命令删除
@@ -243,8 +228,6 @@ delete proxy._prop
 
 注意，目标对象自身的不可配置（configurable）的属性，不能被`deleteProperty`方法删除，否则报错
 
-
-
 ### 取消代理
 
 ```
@@ -258,8 +241,6 @@ Proxy.revocable(target, handler);
 - 拦截和监视外部对对象的访问
 - 降低函数或类的复杂度
 - 在复杂操作前对操作进行校验或对所需资源进行管理
-
-
 
 使用 `Proxy` 保障数据类型的准确性
 
@@ -330,9 +311,7 @@ function set(target, key, value, receiver) {
 
 观察者函数都放进`Set`集合，当修改`obj`的值，在会`set`函数中拦截，自动执行`Set`所有的观察者
 
-
-
 ## 参考文献
 
-- https://es6.ruanyifeng.com/#docs/proxy
-- https://vue3js.cn/es6
+- <https://es6.ruanyifeng.com/#docs/proxy>
+- <https://vue3js.cn/es6>

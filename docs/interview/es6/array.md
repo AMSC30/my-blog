@@ -1,6 +1,4 @@
-# 面试官：ES6中数组新增了哪些扩展？
-
- ![](https://static.vue-js.com/a156b8d0-53c5-11eb-85f6-6fac77c0c9b3.png)
+# ES6中数组新增api
 
 ## 一、扩展运算符的应用
 
@@ -123,8 +121,6 @@ const obj = {a: 1, b: 2};
 let arr = [...obj]; // TypeError: Cannot spread non-iterable object
 ```
 
-
-
 ## 二、构造函数新增的方法
 
 关于构造函数，数组新增的方法有如下：
@@ -153,8 +149,6 @@ Array.from([1, 2, 3], (x) => x * x)
 // [1, 4, 9]
 ```
 
-
-
 ### Array.of()
 
 用于将一组值，转换为数组
@@ -174,8 +168,6 @@ Array() // []
 Array(3) // [, , ,]
 Array(3, 11, 8) // [3, 11, 8]
 ```
-
-
 
 ### 三、实例对象新增的方法
 
@@ -202,8 +194,6 @@ Array(3, 11, 8) // [3, 11, 8]
 [1, 2, 3, 4, 5].copyWithin(0, 3) // 将从 3 号位直到数组结束的成员（4 和 5），复制到从 0 号位开始的位置，结果覆盖了原来的 1 和 2
 // [4, 5, 3, 4, 5] 
 ```
-
-
 
 ### find()、findIndex()
 
@@ -235,8 +225,6 @@ let person = {name: 'John', age: 20};
 [10, 12, 26, 15].find(f, person);    // 26
 ```
 
-
-
 ### fill()
 
 使用给定值，填充一个数组
@@ -258,14 +246,12 @@ new Array(3).fill(7)
 
 注意，如果填充的类型为对象，则是浅拷贝
 
-
-
 ### entries()，keys()，values()
 
 `keys()`是对键名的遍历、`values()`是对键值的遍历，`entries()`是对键值对的遍历
 
 ```js
-or (let index of ['a', 'b'].keys()) {
+for (let index of ['a', 'b'].keys()) {
   console.log(index);
 }
 // 0
@@ -282,8 +268,6 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 }
 // 0 "a"
 ```
-
-
 
 ### includes()
 
@@ -303,8 +287,6 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 [1, 2, 3].includes(3, 3);  // false
 [1, 2, 3].includes(3, -1); // true
 ```
-
-
 
 ### flat()，flatMap()
 
@@ -335,8 +317,6 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 
 `flatMap()`方法还可以有第二个参数，用来绑定遍历函数里面的`this`
 
-
-
 ### 四、数组的空位
 
 数组的空位指，数组的某一个位置没有任何值
@@ -344,10 +324,6 @@ for (let [index, elem] of ['a', 'b'].entries()) {
 ES6 则是明确将空位转为`undefined`，包括`Array.from`、扩展运算符、`copyWithin()`、`fill()`、`entries()`、`keys()`、`values()`、`find()`和`findIndex()`
 
 建议大家在日常书写中，避免出现空位
-
-
-
-
 
 ### 五、排序稳定性
 
@@ -372,9 +348,6 @@ arr.sort(stableSorting)
 
 排序结果中，`straw`在`spork`的前面，跟原始顺序一致
 
-
-
-
 ## 参考文献
 
-- https://es6.ruanyifeng.com/#docs/array
+- <https://es6.ruanyifeng.com/#docs/array>

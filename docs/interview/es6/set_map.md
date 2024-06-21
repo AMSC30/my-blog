@@ -1,6 +1,4 @@
-# 面试官：你是怎么理解ES6新增Set、Map两种数据结构的？
-
- ![](https://static.vue-js.com/2b947d00-560c-11eb-85f6-6fac77c0c9b3.png)
+# 怎么理解Set、Map
 
 如果要用一句来描述，我们可以说
 
@@ -8,10 +6,10 @@
 
 什么是集合？什么又是字典？
 
-- 集合  
+- 集合
 是由一堆无序的、相关联的，且不重复的内存结构【数学中称为元素】组成的组合
 
-- 字典   
+- 字典
 是一些元素的集合。每个元素有一个称作key 的域，不同元素的key 各不相同
 
 区别？
@@ -21,15 +19,13 @@
 
 ## 一、Set
 
-` Set`是`es6`新增的数据结构，类似于数组，但是成员的值都是唯一的，没有重复的值，我们一般称为集合
+`Set`是`es6`新增的数据结构，类似于数组，但是成员的值都是唯一的，没有重复的值，我们一般称为集合
 
 `Set`本身是一个构造函数，用来生成 Set 数据结构
 
 ```js
 const s = new Set();
 ```
-
-
 
 ### 增删改查
 
@@ -74,8 +70,6 @@ s.has(2)
 ```js
 s.clear()
 ```
-
-
 
 ### 遍历
 
@@ -127,7 +121,7 @@ set.forEach((value, key) => console.log(key + ' : ' + value))
 // 9 : 9
 ```
 
-扩展运算符和` Set` 结构相结合实现数组或字符串去重
+扩展运算符和`Set` 结构相结合实现数组或字符串去重
 
 ```javascript
 // 数组
@@ -158,8 +152,6 @@ let difference = new Set([...a].filter(x => !b.has(x)));
 // Set {1}
 ```
 
-
-
 ## 二、Map
 
 `Map`类型是键值对的有序列表，而键和值都可以是任意类型
@@ -169,8 +161,6 @@ let difference = new Set([...a].filter(x => !b.has(x)));
 ```js
 const m = new Map()
 ```
-
-
 
 ### 增删改查
 
@@ -195,8 +185,6 @@ map.set('bar', false);
 map.size // 2
 ```
 
-
-
 ### set()
 
 设置键名`key`对应的键值为`value`，然后返回整个 Map 结构
@@ -214,8 +202,6 @@ m.set(undefined, 'nah')    // 键是 undefined
 m.set(1, 'a').set(2, 'b').set(3, 'c') // 链式操作
 ```
 
-
-
 ### get()
 
 `get`方法读取`key`对应的键值，如果找不到`key`，返回`undefined`
@@ -228,8 +214,6 @@ m.set(hello, 'Hello ES6!') // 键是函数
 
 m.get(hello)  // Hello ES6!
 ```
-
-
 
 ### has()
 
@@ -247,8 +231,6 @@ m.has('years')       // false
 m.has(262)           // true
 m.has(undefined)     // true
 ```
-
-
 
 ### delete()
 
@@ -277,11 +259,9 @@ map.clear()
 map.size // 0
 ```
 
-
-
 ### 遍历
 
-`Map `结构原生提供三个遍历器生成函数和一个遍历方法：
+`Map`结构原生提供三个遍历器生成函数和一个遍历方法：
 
 - keys()：返回键名的遍历器
 - values()：返回键值的遍历器
@@ -343,7 +323,7 @@ map.forEach(function(value, key, map) {
 const ws = new WeakSet();
 ```
 
-`WeakSet `可以接受一个具有 `Iterable `接口的对象作为参数
+`WeakSet`可以接受一个具有 `Iterable`接口的对象作为参数
 
 ```js
 const a = [[1, 2], [3, 4]];
@@ -372,9 +352,7 @@ let ws=new WeakSet([obj1,obj2]);
 console.log(ws) //WeakSet {{…}, {…}}
 ```
 
-`WeakSet `里面的引用只要在外部消失，它在 `WeakSet `里面的引用就会自动消失
-
-
+`WeakSet`里面的引用只要在外部消失，它在 `WeakSet`里面的引用就会自动消失
 
 ### WeakMap
 
@@ -442,8 +420,6 @@ wm.get(key)
 // Object {foo: 1}
 ```
 
-
-
 ## 参考文献
 
-- https://es6.ruanyifeng.com/#docs/set-map
+- <https://es6.ruanyifeng.com/#docs/set-map>

@@ -7,7 +7,6 @@ export default [
     'object',
     'promise',
     'proxy',
-    'read',
     'set_map',
     'var_let_const'
 ]
