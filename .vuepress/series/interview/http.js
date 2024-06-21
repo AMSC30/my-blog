@@ -1,5 +1,4 @@
 export default [
-    '1',
     'CDN',
     'DNS',
     'GET_POST',
@@ -12,6 +11,5 @@ export default [
     'after_url',
     'handshakes_waves',
     'headers',
-    'read',
     'status'
 ]

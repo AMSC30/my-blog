@@ -9,7 +9,8 @@ export default [
       { text: 'JavaScript', link: '/docs/frontend-base/javascript/grammar' },
       { text: 'TypeScript', link: '/docs/frontend-base/typescript/grammar' },
       { text: 'Browser', link: '/docs/frontend-base/browser/architecture' },
-      { text: 'RegExp', link: '/docs/frontend-base/regexp/introduction' }
+      { text: 'RegExp', link: '/docs/frontend-base/regexp/introduction' },
+      { text: '《计算机网络》', link: '/docs/frontend-base/net/net' }
     ]
   },
   {
