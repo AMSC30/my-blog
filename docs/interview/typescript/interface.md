@@ -1,10 +1,4 @@
-# 面试官：说说你对 TypeScript 中接口的理解？应用场景？
-
-
-
- ![](https://static.vue-js.com/193389b0-0b2b-11ec-8e64-91fdec0f05a1.png)
-
-
+# 对TypeScript接口的理解
 
 ## 一、是什么
 
@@ -13,8 +7,6 @@
 简单来讲，一个接口所描述的是一个对象相关的属性和方法，但并不提供具体创建此对象实例的方法
 
 `typescript`的核心功能之一就是对类型做检测，虽然这种检测方式是“鸭式辨型法”，而接口的作用就是为为这些类型命名和为你的代码或第三方代码定义一个约定
-
-
 
 ## 二、使用方式
 
@@ -86,7 +78,7 @@ interface User {
 
 - 类型推断
 
-```
+```ts
 interface User {
     name: string
     age: number
@@ -127,8 +119,6 @@ interface Son extends Father,Mother{
 }
 ```
 
-
-
 ## 三、应用场景
 
 例如在`javascript`中定义一个函数，用来获取用户的姓名和年龄：
@@ -156,9 +146,9 @@ const getUserInfo = (user: IUser): string => {
 // 正确的调用
 getUserInfo({name: "koala", age: 18});
 ```
-包括后面讲到类的时候也会应用到接口
 
+包括后面讲到类的时候也会应用到接口
 
 ## 参考文献
 
-- https://www.tslang.cn/docs/handbook/interfaces.html
+- <https://www.tslang.cn/docs/handbook/interfaces.html>

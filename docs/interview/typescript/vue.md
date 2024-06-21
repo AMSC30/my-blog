@@ -1,11 +1,7 @@
-# 面试官：说说如何在Vue项目中应用TypeScript？
-
-
-
- ![](https://static.vue-js.com/cc658c10-1565-11ec-8e64-91fdec0f05a1.png)
-
+# 在Vue项目中应用TypeScript
 
 ## 一、前言
+
 与link类似
 
 在`VUE`项目中应用`typescript`，我们需要引入一个库`vue-property-decorator`，
@@ -19,8 +15,6 @@
 - 初始化的 data 可以被声明为类属性
 - data、render 以及所有的 Vue 生命周期钩子可以直接作为类的成员方法
 - 所有其他属性，需要放在装饰器中
-
-
 
 ## 二、使用
 
@@ -38,8 +32,6 @@ vue-property-decorator 主要提供了多个装饰器和一个函数:
 - @Ref
 - @Component (由 vue-class-component 提供)
 - Mixins (由 vue-class-component 提供)
-
-
 
 ### @Component
 
@@ -71,8 +63,6 @@ export default class YourCompoent extends Vue{
 
 ```
 
-
-
 ### computed、data、methods
 
 这里取消了组件的data和methods属性，以往data返回对象中的属性、methods中的方法需要直接定义在Class中，当做类的属性和方法
@@ -98,8 +88,6 @@ export default class HelloDecorator extends Vue {
 }
 
 ```
-
-
 
 ### @props
 
@@ -135,10 +123,6 @@ export default class YourComponent extends Vue {
 }
 ```
 
-
-
-
-
 ### @watch
 
 实际就是`Vue`中的监听器，如下：
@@ -159,13 +143,9 @@ export default class YourComponent extends Vue {
 }
 ```
 
-
-
-
-
 ### @emit
 
-`vue-property-decorator` 提供的 `@Emit` 装饰器就是代替`Vue `中的事件的触发`$emit`，如下：
+`vue-property-decorator` 提供的 `@Emit` 装饰器就是代替`Vue`中的事件的触发`$emit`，如下：
 
 ````TS
 import {Vue, Component, Emit} from 'vue-property-decorator';
@@ -183,8 +163,6 @@ import {Vue, Component, Emit} from 'vue-property-decorator';
         }
     }
 ````
-
-
 
 ## 三 、总结
 

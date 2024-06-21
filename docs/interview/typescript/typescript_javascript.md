@@ -1,6 +1,4 @@
-# 面试官：说说你对 TypeScript 的理解？与 JavaScript 的区别？
-
-![](https://static.vue-js.com/58cd3580-0950-11ec-8e64-91fdec0f05a1.png)
+# 对TypeScript的理解
 
 ## 一、是什么
 
@@ -12,7 +10,7 @@
 
 其是一种静态类型检查的语言，提供了类型注解，在代码编译阶段就可以检查出数据类型的错误
 
-同时扩展了` JavaScript` 的语法，所以任何现有的` JavaScript` 程序可以不加改变的在 `TypeScript` 下工作
+同时扩展了`JavaScript` 的语法，所以任何现有的`JavaScript` 程序可以不加改变的在 `TypeScript` 下工作
 
 为了保证兼容性，`TypeScript` 在编译阶段需要编译器编译成纯 `JavaScript` 来运行，是为大型应用之开发而设计的语言，如下：
 
@@ -71,7 +69,7 @@ let str = "string";
 
 ### 接口
 
-接口简单来说就是用来描述对象的类型 数据的类型有 `number`、`null`、` string` 等数据格式，对象的类型就是用接口来描述的
+接口简单来说就是用来描述对象的类型 数据的类型有 `number`、`null`、`string` 等数据格式，对象的类型就是用接口来描述的
 
 ```tsx
 interface Person {

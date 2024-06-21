@@ -5,11 +5,10 @@ export default [
     'enum',
     'function',
     'generic',
-    'high type',
+    'high_type',
     'interface',
     'namespace_module',
     'react',
-    'read',
     'typescript_javascript',
     'vue'
 ]

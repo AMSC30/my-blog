@@ -1,6 +1,4 @@
-# 面试官：说说你对 TypeScript 中高级类型的理解？有哪些？
-
- ![](https://static.vue-js.com/bda521e0-1065-11ec-8e64-91fdec0f05a1.png)
+# 对TypeScript高级类型的理解
 
 ## 一、是什么
 
@@ -19,7 +17,6 @@
 - 类型约束
 - 映射类型
 - 条件类型
-
 
 ### 交叉类型
 
@@ -48,10 +45,6 @@ function extend<T , U>(first: T, second: U) : T & U {
 }
 ```
 
-
-
-
-
 ### 联合类型
 
 联合类型的语法规则和逻辑 “或” 的符号一致，表示其类型为连接的多个类型中的任意一个，本质上是一个交的关系
@@ -76,8 +69,6 @@ function formatCommandline(command: string[] | string) {
   }
 }
 ```
-
-
 
 ### 类型别名
 
@@ -111,11 +102,7 @@ type Tree<T> = {
 
 可以看到，类型别名和接口使用十分相似，都可以描述一个对象或者函数
 
-两者最大的区别在于，`interface `只能用于定义对象类型，而 `type` 的声明方式除了对象之外还可以定义交叉、联合、原始类型等，类型声明的方式适用范围显然更加广泛
-
-
-
-
+两者最大的区别在于，`interface`只能用于定义对象类型，而 `type` 的声明方式除了对象之外还可以定义交叉、联合、原始类型等，类型声明的方式适用范围显然更加广泛
 
 ### 类型索引
 
@@ -131,10 +118,6 @@ type ButtonKeys = keyof Button
 // 等效于
 type ButtonKeys = "type" | "text"
 ```
-
-
-
-
 
 ### 类型约束
 
@@ -160,8 +143,6 @@ function getValue<T, K extends keyof T>(obj: T, key: K) {
 const obj = { a: 1 }
 const a = getValue(obj, 'a')
 ```
-
-
 
 ### 映射类型
 
@@ -194,8 +175,6 @@ interface ReadOnlyObj {
 }
 ```
 
-
-
 ### 条件类型
 
 条件类型的语法规则和三元表达式一致，经常用于一些类型不确定的情况。
@@ -206,18 +185,14 @@ T extends U ? X : Y
 
 上面的意思就是，如果 T 是 U 的子集，就是类型 X，否则为类型 Y
 
-
-
 ## 三、总结
 
 可以看到，如果只是掌握了 `typeScript` 的一些基础类型，可能很难游刃有余的去使用 `typeScript`，需要了解一些`typescript`的高阶用法
 
 并且`typescript`在版本的迭代中新增了很多功能，需要不断学习与掌握
 
-
-
 ## 参考文献
 
-- https://www.tslang.cn/docs/handbook/advanced-types.html
-- https://juejin.cn/post/6844904003604578312
-- https://zhuanlan.zhihu.com/p/103846208
+- <https://www.tslang.cn/docs/handbook/advanced-types.html>
+- <https://juejin.cn/post/6844904003604578312>
+- <https://zhuanlan.zhihu.com/p/103846208>

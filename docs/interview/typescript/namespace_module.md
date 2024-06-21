@@ -1,15 +1,12 @@
-# 面试官：说说对 TypeScript 中命名空间与模块的理解？区别？
-
- ![](https://static.vue-js.com/9378d760-137e-11ec-8e64-91fdec0f05a1.png)
-
+# 对TypeScript命名空间与模块的理解
 
 ## 一、模块
 
-`TypeScript` 与` ECMAScript` 2015 一样，任何包含顶级 `import` 或者 `export` 的文件都被当成一个模块
+`TypeScript` 与`ECMAScript` 2015 一样，任何包含顶级 `import` 或者 `export` 的文件都被当成一个模块
 
 相反地，如果一个文件不带有顶级的`import`或者`export`声明，那么它的内容被视为全局可见的
 
-例如我们在在一个 `TypeScript` 工程下建立一个文件 `1.ts`，声明一个变量`a`，如下：
+例如我们在一个 `TypeScript` 工程下建立一个文件 `1.ts`，声明一个变量`a`，如下：
 
 ```ts
 const a = 1
@@ -43,8 +40,6 @@ export type Person = {
 ```ts
 import { a, Person } from './export';
 ```
-
-
 
 ## 二、命名空间
 
@@ -96,10 +91,6 @@ var Letter;
 })(Letter || (Letter = {}));
 ```
 
-
-
-
-
 ## 三、区别
 
 - 命名空间是位于全局命名空间下的一个普通的带有名字的  JavaScript  对象，使用起来十分容易。但就像其它的全局命名空间污染一样，它很难去识别组件之间的依赖关系，尤其是在大型的应用中
@@ -108,9 +99,8 @@ var Letter;
 
 - 在正常的TS项目开发过程中并不建议用命名空间，但通常在通过 d.ts 文件标记 js 库类型的时候使用命名空间，主要作用是给编译器编写代码的时候参考使用
 
-
 ## 参考文献
 
-- https://www.tslang.cn/docs/handbook/modules.html
-- https://www.tslang.cn/docs/handbook/namespaces.html
-- https://www.tslang.cn/docs/handbook/namespaces-and-modules.html
+- <https://www.tslang.cn/docs/handbook/modules.html>
+- <https://www.tslang.cn/docs/handbook/namespaces.html>
+- <https://www.tslang.cn/docs/handbook/namespaces-and-modules.html>
