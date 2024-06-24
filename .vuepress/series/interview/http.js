@@ -1,6 +1,7 @@
 export default [
     'CDN',
     'DNS',
+    '1.0_1.1_2.0',
     'GET_POST',
     'HTTPS',
     'HTTP_HTTPS',
