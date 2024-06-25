@@ -1,6 +1,4 @@
-# 面试官：什么是HTTP? HTTP 和 HTTPS 的区别?
-
- ![](https://static.vue-js.com/f50c71f0-b20b-11eb-ab90-d9ae814b240d.png)
+# HTTP 和 HTTPS 的区别
 
 ## 一、HTTP
 
@@ -25,17 +23,13 @@
 - 无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间
 - 无状态：HTTP协议无法根据之前的状态进行本次的请求处理
 
-
-
-
-
 ## 二、HTTPS
 
 在上述介绍`HTTP`中，了解到`HTTP`传递信息是以明文的形式发送内容，这并不安全。而`HTTPS`出现正是为了解决`HTTP`不安全的特性
 
 为了保证这些隐私数据能加密传输，让`HTTP`运行安全的`SSL/TLS`协议上，即 HTTPS = HTTP + SSL/TLS，通过 `SSL`证书来验证服务器的身份，并为浏览器和服务器之间的通信进行加密
 
-`SSL` 协议位于` TCP/IP` 协议与各种应用层协议之间，浏览器和服务器在使用 `SSL` 建立连接时需要选择一组恰当的加密算法来实现安全通信，为数据通讯提供安全支持
+`SSL` 协议位于`TCP/IP` 协议与各种应用层协议之间，浏览器和服务器在使用 `SSL` 建立连接时需要选择一组恰当的加密算法来实现安全通信，为数据通讯提供安全支持
 
  ![](https://static.vue-js.com/078c50c0-b20c-11eb-ab90-d9ae814b240d.png)
 
@@ -50,8 +44,6 @@
 - 服务器利用自己的私钥解密出会话密钥
 - 服务器利用会话密钥加密与客户端之间的通信
 
-
-
 ## 三、区别
 
 - HTTPS是HTTP协议的安全版本，HTTP协议的数据传输是明文的，是不安全的，HTTPS使用了SSL/TLS协议进行了加密处理，相对更安全
@@ -59,12 +51,8 @@
 - HTTPS 由于需要设计加密以及多次握手，性能方面不如 HTTP
 - HTTPS需要SSL，SSL 证书需要钱，功能越强大的证书费用越高
 
-
-
-
-
 ## 参考文献
 
-- https://www.cnblogs.com/klb561/p/10289199.html
-- https://www.jianshu.com/p/205c0fc51c97
-- https://vue3js.cn/interview
+- <https://www.cnblogs.com/klb561/p/10289199.html>
+- <https://www.jianshu.com/p/205c0fc51c97>
+- <https://vue3js.cn/interview>

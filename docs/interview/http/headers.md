@@ -1,6 +1,4 @@
-# 面试官：说说 HTTP 常见的请求头有哪些? 作用？
-
- ![](https://static.vue-js.com/964abb00-bc69-11eb-85f6-6fac77c0c9b3.png)
+# 常见的请求头有哪些
 
 ## 一、是什么
 
@@ -8,7 +6,7 @@ HTTP头字段（HTTP header fields）,是指在超文本传输协议（HTTP）�
 
 它们定义了一个超文本传输协议事务中的操作参数
 
-HTTP头部字段可以自己根据需要定义，因此可能在 `Web `服务器和浏览器上发现非标准的头字段
+HTTP头部字段可以自己根据需要定义，因此可能在 `Web`服务器和浏览器上发现非标准的头字段
 
 下面是一个`HTTP`请求的请求头：
 
@@ -26,7 +24,6 @@ If-Modified-Since: Mon, 18 Jul 2016 02:36:04 GMT
 If-None-Match: "c561c68d0ba92bbeb8b0fff2a9199f722e3a621a"
 Cache-Control: max-age=0
 ```
-
 
 ## 二、分类
 
@@ -53,11 +50,7 @@ Cache-Control: max-age=0
 | If-Range          | 如果该实体未被修改过，则向我发送我所缺少的那一个或多个部分；否则，发送整个新的实体 | If-Range: "737060cd8c284d8af7ad3082f209582d"                 |
 | Range             | 仅请求某个实体的一部分                                       | Range: bytes=500-999                                         |
 | User-Agent        | 浏览器的浏览器身份标识字符串                                 | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0 |
-| Origin            | 发起一个针对 跨来源资源共享 的请求                           | Origin: http://www.example-social-network.com                |
-
-
-
-
+| Origin            | 发起一个针对 跨来源资源共享 的请求                           | Origin: <http://www.example-social-network.com>                |
 
 ## 三、使用场景
 
@@ -79,13 +72,11 @@ Cache-Control: max-age=0
 
  ![](https://static.vue-js.com/a4065b00-bc69-11eb-85f6-6fac77c0c9b3.png)
 
-
-
 ### 会话状态
 
 `cookie`，类型为「小型文本文件」，指某些网站为了辨别用户身份而储存在用户本地终端上的数据，通过响应头`set-cookie`决定
 
-作为一段一般不超过 4KB 的小型文本数据，它由一个名称（Name）、一个值（Value）和其它几个用于控制 `Cookie `有效期、安全性、使用范围的可选属性组成
+作为一段一般不超过 4KB 的小型文本数据，它由一个名称（Name）、一个值（Value）和其它几个用于控制 `Cookie`有效期、安全性、使用范围的可选属性组成
 
 `Cookie` 主要用于以下三个方面：
 
@@ -93,9 +84,7 @@ Cache-Control: max-age=0
 - 个性化设置（如用户自定义设置、主题等）
 - 浏览器行为跟踪（如跟踪分析用户行为等
 
-
-
 ## 参考文献
 
-- https://zh.wikipedia.org/wiki/HTTP头字段
-- https://github.com/amandakelake/blog/issues/41
+- <https://zh.wikipedia.org/wiki/HTTP头字段>
+- <https://github.com/amandakelake/blog/issues/41>

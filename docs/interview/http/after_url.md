@@ -1,7 +1,4 @@
-# 面试官：说说地址栏输入 URL 敲下回车后发生了什么?
-
- ![](https://static.vue-js.com/11bf1f20-bdf4-11eb-85f6-6fac77c0c9b3.png)
-
+# 输入URL敲下回车后发生了什么
 
 ## 一、简单分析
 
@@ -14,18 +11,15 @@
 - 响应请求
 - 页面渲染
 
-
 ## 二、详细分析
 
 ### URL解析
 
-首先判断你输入的是一个合法的` URL` 还是一个待搜索的关键词，并且根据你输入的内容进行对应操作
+首先判断你输入的是一个合法的`URL` 还是一个待搜索的关键词，并且根据你输入的内容进行对应操作
 
 `URL`的解析第过程中的第一步，一个`url`的结构解析如下：
 
  ![](https://static.vue-js.com/27a0c690-bdf4-11eb-ab90-d9ae814b240d.png)
-
-
 
 ### DNS查询
 
@@ -37,8 +31,6 @@
 
 最终，获取到了域名对应的目标服务器`IP`地址
 
-
-
 ### TCP连接
 
 在之前文章中，了解到`tcp`是一种面向有连接的传输层协议
@@ -46,10 +38,6 @@
 在确定目标服务器服务器的`IP`地址后，则经历三次握手建立`TCP`连接，流程如下：
 
  ![](https://static.vue-js.com/ad750790-bdf4-11eb-85f6-6fac77c0c9b3.png)
-
-
-
-
 
 ### 发送 http 请求
 
@@ -63,8 +51,6 @@
 
  ![](https://static.vue-js.com/bbcb60f0-bdf4-11eb-ab90-d9ae814b240d.png)
 
-
-
 ### 响应请求
 
 当服务器接收到浏览器的请求之后，就会进行逻辑操作，处理完成之后返回一个`HTTP`响应消息，包括：
@@ -76,8 +62,6 @@
  ![](https://static.vue-js.com/c5fe0140-bdf4-11eb-ab90-d9ae814b240d.png)
 
 在服务器响应之后，由于现在`http`默认开始长连接`keep-alive`，当页面关闭之后，`tcp`链接则会经过四次挥手完成断开
-
-
 
 ### 页面渲染
 
@@ -97,9 +81,7 @@
 
  ![](https://static.vue-js.com/db7bddd0-bdf4-11eb-85f6-6fac77c0c9b3.png)
 
-
-
 ## 参考文献
 
-- https://github.com/febobo/web-interview/issues/141
-- https://zhuanlan.zhihu.com/p/80551769
+- <https://github.com/febobo/web-interview/issues/141>
+- <https://zhuanlan.zhihu.com/p/80551769>
