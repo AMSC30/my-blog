@@ -341,18 +341,20 @@ Function.prototype.bind = function (context, ...args) {
 触发高频时间后n秒内函数只会执行一次,如果n秒内高频时间再次触发,则重新计算时间。
 
 ```js
-function debounce(fn, delay) {
-  let timer = null;
-  return function () {
-    let _self = this;
-    let arg = arguments;
-    if (timer) {
-      timer = clearTimeout(timer);
-      setTimeout(function () {
-        fn.apply(_self, arg);
-      }, delay);
+function debounce(fn, wait, immediate) {
+  let timeout
+  return function (...args) {
+    let context = this
+
+    if (immediate && !timeout) {
+      fn.apply(context, args)
     }
-  };
+
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      fn.apply(context, args)
+    }, wait)
+  }
 }
 ```
 
@@ -385,15 +387,53 @@ function throttle(fn, intervalTime) {
   let startTime = 0;
 
   return function () {
-    let _self = this;
+    if(!startTime) {
+      startTime = Date.now()
+      return
+    }
+
+    let context = this;
 
     let endTime = Date.now();
 
     if (endTime - startTime > intervalTime) {
-      fn.call(_self, arguments);
+      fn.apply(context, arguments);
       startTime = endTime;
     }
   };
+}
+```
+
+- 精确版本
+
+```js
+function throttle(fn, delay) {
+  let timer = null
+  let startTime = 0
+  return function () {
+    let context = this
+    // 第一次触发
+    if (!startTime) {
+      startTime = Date.now()
+      timer = setTimeout(() => {
+        fn.apply(context, arguments)
+      }, delay)
+      return
+    }
+
+    let endTime = Date.now()
+    const remainTime = delay - (endTime - startTime)
+    clearTimeout(timer)
+
+    if (remainTime <= 0) {
+      fn.apply(context, arguments)
+      startTime = Date.now()
+    } else {
+      timer = setTimeout(() => {
+        fn.apply(context, arguments)
+      }, remainTime)
+    }
+  }
 }
 ```
 

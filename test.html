@@ -1,67 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
     <style>
-      div {
-        background: rgba(0, 0, 0, 0.7);
-        color: #fff;
-        text-align: center;
-        font-size: 20vh;
+      .container {
+        height: 400px;
+        overflow: auto;
+        border: 1px solid #ccc;
+        position: relative;
       }
-      body {
-        height: 100vh;
+
+      .scroll-placeholder {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+      }
+
+      .content {
+        position: relative;
+        will-change: transform;
+      }
+
+      .item {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .sentinel {
+        height: 0px;
+        position: absolute;
       }
     </style>
   </head>
   <body>
-    <div id="refreshText">1</div>
+    <div id="app"></div>
+
     <script>
-      var _element = document.body,
-        _refreshText = document.querySelector('#refreshText'),
-        _startPos = 0, // 初始的值
-        _transitionHeight = 0 // 移动的距离
-
-      _element.addEventListener(
-        'mousedown',
-        function (e) {
-          _startPos = e.pageY // 记录初始位置
-          _element.style.position = 'relative'
-          _element.style.transition = 'transform 0.1s'
-        },
-        false
-      )
-
-      _element.addEventListener(
-        'mousemove',
-        function (e) {
-          _transitionHeight = e.pageY - _startPos // 记录差值
-
-          if (_transitionHeight > 0 && _transitionHeight < 100) {
-            _refreshText.innerText = '下拉刷新'
-            _element.style.transform = 'translateY(' + _transitionHeight + 'px)'
-
-            if (_transitionHeight > 80) {
-              _refreshText.innerText = '释放更新'
-            }
-          }
-        },
-        false
-      )
-      _element.addEventListener(
-        'mouseup',
-        function (e) {
-          _element.style.transition = 'transform 1s ease 0s'
-          _element.style.transform = 'translateY(0px)'
-          _refreshText.innerText = '更新中...'
-          _startPos = 0
-          _transitionHeight = 0
-        },
-        false
-      )
+      const bc = new BroadcastChannel('aa_aa')
+      setTimeout(() => {
+        bc.postMessage('hello hello')
+      }, 5000)
     </script>
   </body>
 </html>
