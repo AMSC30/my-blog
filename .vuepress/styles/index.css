@@ -40,7 +40,7 @@ table,
 li {
     margin-top: 0.7rem !important;
     margin-bottom: 0.7rem !important;
-    line-height: 1.8rem !important;
+    line-height: 1.5rem !important;
 }
 blockquote {
     margin-top: 1rem !important;
@@ -56,4 +56,8 @@ blockquote {
 strong {
     display: inline-block;
     padding-top: 1rem;
+}
+h1, h2, h3, h4, h5, h6{
+    margin-bottom: 0.5em;
+
 }
