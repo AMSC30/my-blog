@@ -595,6 +595,29 @@ function longest<Type extends { length: number }>(a: Type, b: Type) {
 }
 ```
 
+### 指定泛型类型
+
+假如我们定义了一个泛型函数
+
+```js
+function combine<Type>(arr1: Type[], arr2: Type[]): Type[] {
+  return arr1.concat(arr2);
+}
+```
+
+在不指定泛型类型的时候会提示hello的类型报错
+
+```js
+const arr = combine([1, 2, 3], ["hello"]);
+Type 'string' is not assignable to type 'number'.
+```
+
+但如果在调用函数时，指定泛型的类型可以消除
+
+```js
+const arr = combine<string | number>([1, 2, 3], ["hello"]);
+```
+
 ## Class
 
 ### 属性
@@ -1223,3 +1246,28 @@ type T4 = ReturnType<typeof f1>;
 ```
 
 ### InstanceType\<Type\>
+
+### Awaited\<Type\>
+
+返回promise中的值
+
+```ts
+type A = Awaited<Promise<string>>;
+    type A = string
+```
+
+### NonNullable\<Type\>
+
+从type中排除null和undefined构造一个新的类型
+
+### Parameters\<Type\>
+
+从函数参数中类型构造一个新的元祖
+
+### ConstructorParameters\<Type\>
+
+从构造函数类型的类型构造元组或数组类型。它生成一个包含所有参数类型的元组类型（如果 Type 不是函数，则生成类型 never）
+
+### NoInfer\<Type\>
+
+阻止对所包含类型的推断。除了阻止推断之外，NoInfer\<Type\> 与 Type 相同
