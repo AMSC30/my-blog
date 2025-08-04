@@ -974,7 +974,7 @@ File类是java.io包下的类，用于操作文件
 - String[] list(): 获取文件夹下的所有文件名
 - File[] listFiles(): 获取文件夹下的所有文件
 
-## FileOutputStream
+### FileOutputStream
 
 文件输出流，是抽象类OutputStream的子类
 
@@ -990,9 +990,9 @@ File类是java.io包下的类，用于操作文件
 - void write(byte b)：向硬板写入一个字节
 - void write(byte[] b)：向硬板写入一个字节数组
 - void write(byte[] b, int off, int length)：向硬盘写入一个字节数组的一部分
-- void close()：关闭输出流
+- void close()：关闭输出流，此时流对象就不能再使用了
 
-## FileInputStream
+### FileInputStream
 
 文件输入流，是抽象类InputStream的子类
 
@@ -1009,3 +1009,55 @@ File类是java.io包下的类，用于操作文件
 - int read(byte[] b)：从输入流中读取字节数组，返回读取的个数
 - int read(byte[] b, int off, int len)：从输入流中读取字节数组，返回读取的个数
 - void close()：关闭输入流
+
+### FileReader
+
+FileReader类继承Reader类，用于从文件中读取字符。
+
+构造方法：
+
+- FileReader(File file)
+- FileReader(String fileName)
+
+常用方法：
+
+- int read()：一次一个字符，返回读取的字符，如果到达文件末尾，则返回-1
+- int read(char[] cbuf)：一次一个字符数组，返回读取的字符个数
+- int read(char[] cbuf, int off, int len)：一次一个字符数组，返回读取的个数
+- void close()：关闭输入流
+
+### FileWriter
+
+FileWriter类继承Writer类，用于向文件中写入字符。
+
+构造方法：
+
+- FileWriter(File file)：创建一个向指定File对象表示的文件中写入数据的FileWriter对象
+- FileWriter(String fileName)：创建一个向具有指定名称的文件中写入数据的FileWriter对象
+- FileWriter(File file, boolean append)：创建一个向指定File对象表示的文件中写入数据的FileWriter对象，如果第二个参数为true，则将数据写入文件末尾，而不是写入文件开头
+
+常用方法：
+
+- void write(int c)：写入单个字符
+- void write(char[] cbuf)：写入字符数组
+- void write(char[] cbuf, int off, int len)：写入字符数组的某一部分
+- void write(String str)：写入字符串
+- void write(String str, int off, int len)：写入字符串的某部分
+- void flush()：刷新该流的缓冲，将缓冲区的数据刷入到文件中
+- void close()：关闭此流并释放与之关联的所有资源
+
+### BufferedInputStream
+
+ BufferedInputStream(InputStream in)创建一个字节缓冲流 BufferedInputStream，它将输入数据读入一个缓冲区，缓冲区会自动扩容
+
+### BufferedOutputStream
+
+ BufferedOutputStream(OutputStream out)创建一个字节缓冲流 BufferedOutputStream，它将输入数据写入一个缓冲区，缓冲区会自动扩容
+
+### BufferedReader
+
+ BufferedReader(Reader in)创建一个字符缓冲流 BufferedReader，它将输入数据读入一个缓冲区，缓冲区会自动扩容
+
+### BufferedWriter
+
+ BufferedWriter(Writer out)创建一个字符缓冲流 BufferedWriter，它将输入数据写入一个缓冲区，缓冲区会自动扩容
