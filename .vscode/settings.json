@@ -1,15 +1,16 @@
 {
-  "cSpell.words": [
-    "extname",
-    "globalconfig",
-    "intarray",
-    "maixaofei",
-    "npmrc",
-    "Pinia",
-    "strarray",
-    "typeof",
-    "updatechildren",
-    "userconfig",
-    "vuex"
-  ]
+    "cSpell.words": [
+        "extname",
+        "globalconfig",
+        "intarray",
+        "maixaofei",
+        "npmrc",
+        "Pinia",
+        "println",
+        "strarray",
+        "typeof",
+        "updatechildren",
+        "userconfig",
+        "vuex"
+    ]
 }
