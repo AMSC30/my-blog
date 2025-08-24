@@ -86,6 +86,10 @@ sql语句通用语法
 
 ### 分组查询
 
+分组查询语法：select 字段列表 from 表名 [where 条件列表] group by 分组字段名 [having 分组后过滤条件]
+
+示例：select gender,count("date") as "date_count" from where data <= "2021-12-21" user group by date having count("date") > 10
+
 分组查询中，经常会用到聚合函数，常见的聚合函数有以下几种：
 
 - count(字段/*)：根据某个字段统计数量
@@ -93,6 +97,23 @@ sql语句通用语法
 - min(字段)：某个字段为表中最小值的数据
 - avg(字段)：计算某个字段的平均值
 - sum(字段)：计算某个字段之和
+
+where与having的区别：
+
+- where是在分组之前使用，是对分组前的数据进行过滤，符合条件的才参与分组；having是对分组后的数据进行过滤
+- where不能对聚合函数进行判断，having可以
+
+### 排序查询
+
+排序查询，需要使用order by，支持两种排序方式，asc升序，desc降序，如果不写，默认为asc
+
+基本语法：select 字段列表 from 表名 [where 条件列表] [group by 分组字段名] [having 分组后过滤条件] order by 排序字段1 [asc/desc],排序字段2 [asc/desc]...
+
+### 分页查询
+
+分页查询中，需要使用limit，数据开始索引从0开始
+
+基本语法为：select 字段列表 from 表名 [where 筛选条件] limit 数据开始索引，单页数量
 
 ## 数据类型
 
