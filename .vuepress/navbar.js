@@ -58,7 +58,11 @@ export default [
     },
     {
         text: 'Java',
-        children: [{ text: 'java语法基础', link: '/docs/java/java-base/java-grammar-base.md' }],
+        children: [
+            { text: 'Java基础', link: '/docs/java/java-base/java-grammar-base.md' },
+            { text: 'Maven', link: '/docs/java/java-base/maven.md' },
+            { text: 'MySQL', link: '/docs/MySQL/mysql-base.md' },
+        ],
     },
     {
         text: 'harmonyOS',
