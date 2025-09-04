@@ -59,9 +59,9 @@ export default [
     {
         text: 'Java',
         children: [
-            { text: 'Java基础', link: '/docs/java/java-base/java-grammar-base.md' },
-            { text: 'Maven', link: '/docs/java/java-base/maven.md' },
-            { text: 'MySQL', link: '/docs/MySQL/mysql-base.md' },
+            { text: 'Java', link: '/docs/backend-base/java-grammar-base.md' },
+            { text: 'Maven', link: '/docs/backend-base/maven-base.md' },
+            { text: 'MySQL', link: '/docs/backend-base/mysql-base.md' },
         ],
     },
     {

@@ -38,26 +38,25 @@ ol,
 ul,
 table,
 li {
-    margin-top: 0.7rem !important;
-    margin-bottom: 0.7rem !important;
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
     line-height: 1.5rem !important;
 }
-blockquote {
-    margin-top: 1rem !important;
-    margin-bottom: 1rem !important;
-    margin-left: 0px;
-    margin-right: 0px;
-    border-left-width: 4px;
-    border-style: solid;
-    padding: 0.5rem;
-    font-size: 1rem;
-    line-height: 1.5rem;
-}
-strong {
-    display: inline-block;
-    padding-top: 1rem;
-}
-h1, h2, h3, h4, h5, h6{
-    margin-bottom: 0.5em;
-
-}
+/*blockquote {*/
+/*    margin-top: 1rem !important;*/
+/*    margin-bottom: 1rem !important;*/
+/*    margin-left: 0px;*/
+/*    margin-right: 0px;*/
+/*    border-left-width: 4px;*/
+/*    border-style: solid;*/
+/*    padding: 0.5rem;*/
+/*    font-size: 1rem;*/
+/*    line-height: 1.5rem;*/
+/*}*/
+/*strong {*/
+/*    display: inline-block;*/
+/*    padding-top: 1rem;*/
+/*}*/
+/*h1, h2, h3, h4, h5, h6{*/
+/*    margin-bottom: 0.5em;*/
+/*}*/
