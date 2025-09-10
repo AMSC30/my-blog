@@ -453,6 +453,7 @@ Super代表父类的引用，可以调用父类中的成员
 当一个类中，对事物的描述过于复杂时，可以使用内部类，内部类是对事物一部分的描述，内部氛围成员内部类、静态内部类、局部内部类
 
 ### 成员内部类
+
 在类的内部定义，不使用static修饰
 
 定义方式：一般不可以定义静态成员，除非同时使用static和final进行修饰
@@ -462,6 +463,7 @@ Super代表父类的引用，可以调用父类中的成员
 被访问权限：在实例方法中访问，可以直接使用new Inner()的方式，外部类的静态方法和外部类的外部，需要使用new Outer().new Inner()
 
 ### 静态内部类
+
 在类的内部定义，使用static修饰
 
 访问权限：可以直接访问外部类的静态变量和静态方法，要访问外部类的实例变量和实例方式需要使用new Outer()的方式
@@ -482,6 +484,7 @@ Super代表父类的引用，可以调用父类中的成员
 ### try-catch
 
 try-catch使用代码块包括语句，可以使用多个catch处理不同的异常类型，的语法格式如下：
+
 ```java
 try {
     // 代码块1
@@ -491,11 +494,13 @@ try {
     // 代码块3
 }
 ```
+
 如果 try 语句块中发生异常，那么一个相应的异常对象就会被拋出，然后 catch 语句就会依据所拋出异常对象的类型进行捕获，并处理。处理之后，程序会跳过 try 语句块中剩余的语句，转到 catch 语句块后面的第一条语句开始执行
 
 如果 try 语句块中没有异常发生，那么 try 块正常结束，后面的 catch 语句块被跳过，程序将从 catch 语句块后的第一条语句开始执行
 
 catch处理异常，可以使用以下三种方式对异常信息进行输出
+
 - e.printStackTrace()：指出异常的类型、性质、栈层次及出现在程序中的位置
 - e.getMessage()：返回异常的性质
 - e.toString()：返回异常的性质和类型
@@ -503,11 +508,13 @@ catch处理异常，可以使用以下三种方式对异常信息进行输出
 finally用于指定无论try和catch中的代码是否执行完，都会执行的代码
 
 ### throws
+
 throws用于指定方法中可能发生的异常，编译器检查方法调用时是否处理了异常，如果处理了，则编译通过；如果未处理，则编译不通过
 
 一般用于在该方法中不处理异常，交给方法的调用者
 
 格式如下：
+
 ```java
 returnType methodName() throws 异常类1,异常类2,异常类3{}
 ```
@@ -682,18 +689,19 @@ int wanger = chenmo;     // 自动拆箱
 2. 基本类型比包装类型更高效
 
 作为局部变量时，基本数据类型在栈中直接存储的具体数值，而包装类型则存储的是堆中的引用。相比较于基本类型而言，包装类型需要占用更多的内存空间，占用的内存空间要大得多，因为它们是对象，并且要存储对象的元数据，并且不仅要存储对象，还要存储引用
-   
+
 ### 数据存储区域
 
 1. 寄存器。这是最快的存储区，因为它位于 CPU 内部，用来暂时存放参与运算的数据和运算结果。
 
-2. 栈：位于 RAM（Random Access Memory，也叫主存，与 CPU 
+2. 栈：位于 RAM（Random Access Memory，也叫主存，与 CPU
 直接交换数据的内部存储器）中，速度仅次于寄存器。但是，在分配内存的时候，存放在栈中的数据大小与生存周期必须在编译时是确定的，缺乏灵活性。基本数据类型的值和对象的引用通常存储在这块区域。
 
-3. 堆：也位于 RAM 区，可以动态分配内存大小，编译器不必知道要从堆里分配多少存储空间，生存周期也不必事先告诉编译器，Java 
+3. 堆：也位于 RAM 区，可以动态分配内存大小，编译器不必知道要从堆里分配多少存储空间，生存周期也不必事先告诉编译器，Java
 的垃圾收集器会自动收走不再使用的数据，因此可以得到更大的灵活性。但是，运行时动态分配内存和销毁对象都需要占用时间，所以效率比栈低一些。new 创建的对象都会存储在这块区域。
 
 4. 磁盘：如果数据完全存储在程序之外，就可以不受程序的限制，在程序没有运行时也可以存在。像文件、数据库，就是通过持久化的方式，让对象存放在磁盘上。当需要的时候，再反序列化成程序可以识别的对象。
+
 ## 工具类
 
 ### Arrays
@@ -740,7 +748,7 @@ Arrays类的sort()方法用来对数组进行排序，排序会改变原有的�
 
 数组排序后就可以使用Arrays类的binarySearch()方法进行二分查找，线性检索，效率就会低很多
 
-Arrays.binarySearch()方法既可以精确检索，也可以模糊检索，比如说忽略大小写，Arrays.binarySearch(sorted, "Wang", 
+Arrays.binarySearch()方法既可以精确检索，也可以模糊检索，比如说忽略大小写，Arrays.binarySearch(sorted, "Wang",
 String::compareToIgnoreCase)
 
 #### 数组打印
@@ -776,6 +784,7 @@ public static String toString(Object[] a) {
 ```java
 List<String> result = new ArrayList<>(Arrays.asList({1,2,3}));
 ```
+
 ### StringUtils
 
 StringUtils工具类用于对字符串判空，截取字符串、转换大小写、分隔字符串、比较字符串、去掉多余空格、拼接字符串、使用正则表达式
@@ -806,6 +815,7 @@ List<Integer> list2 = Lists.newArrayList(1, 2, 3);
 System.out.println(StringUtils.join(list, ","));
 System.out.println(StringUtils.join(list2, " "));
 ```
+
 #### 其他方法
 
 - trim(String str)：去除字符串首尾的空白字符。
@@ -848,6 +858,7 @@ if (Objects.nonNull(integer)) {
 Objects.requireNonNull(integer, "参数不能为空");
 Objects.requireNonNull(integer, () -> "参数不能为空");
 ```
+
 #### 判断对象相等
 
 要判断两个对象是否相等，Objects给我们提供了equals方法， Objects.equals()方法本身是用来避免坑的，因为它可以处理null值的比较，而不会抛出空指针异常。然而，这并不意味着它没有任何潜在问题。实际上，Objects.equals() 方法的一个潜在问题是依赖于被比较对象的equals()方法实现。当两个对象的类没有正确实现equals()方法时，Objects.equals()方法可能会产生不符合预期的结果，没有正确地实现equals()方法，默认情况下会使用Object类的 equals()方法，它只比较对象引用是否相同
@@ -876,6 +887,7 @@ String string3 = "world";
 System.out.println(Objects.deepEquals(string1, string2)); // 输出：true（因为 string1 和 string2 相同）
 System.out.println(Objects.deepEquals(string1, string3)); // 输出：false（因为 string1 和 string3 不同）
 ```
+
 ### Collections
 
 #### 排序操作
@@ -934,6 +946,7 @@ public class MyThread extends Thread {
 3. 调用start()方法启动线程
 
 实现Runnable接口
+
 ```java
 public class MyRunnable implements Runnable {
     @Override
@@ -951,6 +964,7 @@ public class MyRunnable implements Runnable {
 ```
 
 创建线程对象并调用start方法
+
 ```java
 //创建MyRunnable类
 MyRunnable mr = new MyRunnable();
@@ -1110,6 +1124,7 @@ Collection<E> 对象名 = new 实现类<E>()
 ```
 
 常用方法：
+
 ```java
 boolean add(E e): 将元素添加到集合中
 
@@ -1144,19 +1159,25 @@ Object[] toArray(): 将集合中的元素转换为数组形式
 底层由数组实现，线程不安全；ArrayList中的元素都是有序、有索引的，并且可以重复
 
 创建一个ArrayList：
+
 ```java
 ArrayList<String> alist = new ArrayList<String>();
 ```
+
 由于 ArrayList 实现了 List 接口，所以 alist 变量的类型可以是 List 类型；new 关键字声明后的尖括号中可以不再指定元素的类型，因为编译器可以通过前面尖括号中的类型进行智能推断
+
 ```java
 List<String> alist = new ArrayList<>();
 ```
+
 如果非常确定 ArrayList 中元素的个数，在创建的时候还可以指定初始大小，可以有效地避免在添加新的元素时进行不必要的扩容
+
 ```java
 List<String> alist = new ArrayList<>(20);
 ```
 
 常用方法：
+
 ```java
 boolean add(int index,E e): 将元素添加到指定位置
 
@@ -1178,11 +1199,13 @@ int lastIndexOf(E e): 从后往前查询指定元素在集合中的索引，如�
 
 boolean contains(E e): 判断集合中是否包含某个元素
 ```
+
 #### LinkedList
 
 底层由链表实现，线程不安全；LinkedList中的元素是有序、有基于索引的操作方法，本质没有索引，并且可以重复
 
 常用方法
+
 ```java
 void addFirst(E e): 在链表开头添加元素
 
@@ -1336,6 +1359,7 @@ class GenericClass<T> implements GenericInterface<String>{}
 1. 泛型通配符：\<?\>
 
 泛型通配符?可以表示任意类型，如：
+
 ```java
 List<?> list = new ArrayList<>();
 ```
@@ -1343,6 +1367,7 @@ List<?> list = new ArrayList<>();
 2. 泛型上限：<? extends 类型>
 
 问号只能接收extends类型的本类类型及其子类类型，如：
+
 ```java
 List<? extends Number> list = new ArrayList<>();
 ```
@@ -1350,10 +1375,13 @@ List<? extends Number> list = new ArrayList<>();
 3. 泛型下限：\<? super 类型\>
 
 问号只能接收super类型的本类类型及其父类类型，如：
+
 ```java
 List<? super Number> list = new ArrayList<>();
 ```
+
 ## IO
+
 ### 文件操作
 
 File类是java.io包下的类，用于操作文件
@@ -1384,6 +1412,7 @@ File类是java.io包下的类，用于操作文件
 - boolean delete(): 删除文件或者文件夹，删除成功返回true，否则返回false，删除的内容不会在回收站中；如果删除的是文件夹，则文件夹必须为空才能删除成功
 - String[] list(): 获取文件夹下的所有文件名
 - File[] listFiles(): 获取文件夹下的所有文件
+
 ### IO流
 
 流（Stream），是一个抽象的概念，是指一连串的数据（字符或字节），是以先进先出的方式发送信息的通道。
@@ -1612,6 +1641,7 @@ field.set(Object obj, Object val))
 3. RUNTIME：@Retention(RetentionPolicy.RUNTIME)，在JVM加载时有效，可以通过反射获取注解信息，并根据注解的定义执行相应的代码
 
 ### 注解的作用目标
+
 注解的目标定义了注解将适用于哪一种级别的 Java 代码上，有些注解只适用于方法，有些只适用于成员变量，有些只适用于类，有些则都适用。截止到 Java 9，注解的类型一共有 11 种，定义在 ElementType 枚举中。
 
 - TYPE：用于类、接口、注解、枚举
