@@ -653,14 +653,47 @@ SimpleDateFormat类是java.text包下的类，用于格式化日期。
 
 基本类型对应的类就是包装类，例如int对应的包装类是Integer
 
+### 拆箱与装箱
+
 装箱：将基本类型转换为对应的包装类，如Integer提供了valueOf()方法。Integer i = Integer.valueOf(100);
 
 拆箱：将包装类转换为对应的基本类型，如integer提供了intValue()方法。int a = i.intValue();
+
+```java
+Integer chenmo = new Integer(10); // 手动装箱
+int wanger = chenmo.intValue();  // 手动拆箱
+
+Integer chenmo  = 10;  // 自动装箱
+int wanger = chenmo;     // 自动拆箱
+```
 
 字符串转包装类：在包装类中，都有一个类似parseXXX的方法，用于将字符串转换为对应的基本类型。如Integer提供了parseInt()方法。int a = Integer.parseInt("100");
 
 包装类转字符串：在包装类中，还有一个类似toString()的方法，用于将基本类型转换为字符串。如Integer提供了toString()方法。String s = Integer.toString(100);
 
+> 当需要进行自动装箱时，如果数字在 -128 至 127 之间时，会直接使用缓存中的对象，而不是重新创建一个对象
+
+### 包装类型与基本类型的区别
+
+1. 包装类型可以为null，基本类型不可以
+
+在POJO中，这点区别尤为重要，数据库的查询结果可能是null，如果使用基本类型，当自动拆箱时就是抛出`NullPointerException`异常
+
+2. 基本类型比包装类型更高效
+
+作为局部变量时，基本数据类型在栈中直接存储的具体数值，而包装类型则存储的是堆中的引用。相比较于基本类型而言，包装类型需要占用更多的内存空间，占用的内存空间要大得多，因为它们是对象，并且要存储对象的元数据，并且不仅要存储对象，还要存储引用
+   
+### 数据存储区域
+
+1. 寄存器。这是最快的存储区，因为它位于 CPU 内部，用来暂时存放参与运算的数据和运算结果。
+
+2. 栈：位于 RAM（Random Access Memory，也叫主存，与 CPU 
+直接交换数据的内部存储器）中，速度仅次于寄存器。但是，在分配内存的时候，存放在栈中的数据大小与生存周期必须在编译时是确定的，缺乏灵活性。基本数据类型的值和对象的引用通常存储在这块区域。
+
+3. 堆：也位于 RAM 区，可以动态分配内存大小，编译器不必知道要从堆里分配多少存储空间，生存周期也不必事先告诉编译器，Java 
+的垃圾收集器会自动收走不再使用的数据，因此可以得到更大的灵活性。但是，运行时动态分配内存和销毁对象都需要占用时间，所以效率比栈低一些。new 创建的对象都会存储在这块区域。
+
+4. 磁盘：如果数据完全存储在程序之外，就可以不受程序的限制，在程序没有运行时也可以存在。像文件、数据库，就是通过持久化的方式，让对象存放在磁盘上。当需要的时候，再反序列化成程序可以识别的对象。
 ## 工具类
 
 ### Arrays
@@ -880,29 +913,92 @@ System.out.println(Objects.deepEquals(string1, string3)); // 输出：false（�
 #### 通过继承Thread类
 
 1. 继承Thread类，并重写run()方法
-2. 实现Runnable接口，并实现run()方法
-3. 使用继承的类创建对象
+3. 使用子类创建对象
 4. 调用对象的start()方法启动线程，启动以后，jvm会自动调用run()方法
+
+```java
+public class MyThread extends Thread {
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println(getName() + ":打了" + i + "个小兵");
+        }
+    }
+}
+```
 
 #### 通过实现Runnable接口
 
-1. 创建Runnable接口的实现类，并实现Runnable接口
-2. 重写run()方法
-3. 创建Thread对象，并将创建的Runnable接口实现类对象作为参数传递给Thread对象
-4. 调用start()方法启动线程
+1. 创建Runnable接口的实现类，并重写run()方法
+2. 创建Thread对象，并将创建的Runnable接口实现类对象作为参数传递给Thread对象
+3. 调用start()方法启动线程
+
+实现Runnable接口
+```java
+public class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i < 10; i++) {
+            try {//sleep会发生异常要显示处理
+                Thread.sleep(20);//暂停20毫秒
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + "打了:" + i + "个小兵");
+        }
+    }
+}
+```
+
+创建线程对象并调用start方法
+```java
+//创建MyRunnable类
+MyRunnable mr = new MyRunnable();
+//创建Thread类的有参构造,并设置线程名
+Thread t1 = new Thread(mr, "张飞");
+Thread t2 = new Thread(mr, "貂蝉");
+Thread t3 = new Thread(mr, "吕布");
+//启动线程
+t1.start();
+t2.start();
+t3.start();
+```
 
 #### 通过实现Callable接口
 
-1. 创建Callable接口的实现类，并实现Callable接口
-2. 重写call()方法
-3. 创建FutureTask对象，将Callable接口实现类对象作为参数传递给FutureTask对象
-4. 创建Thread对象，将FutureTask对象作为参数传递给Thread对象
-5. 调用start()方法启动线程
-6. 调用FutureTask对象的get()方法获取线程执行结果
+1. 创建Callable接口的实现类，并重写call()方法
+2. 创建FutureTask对象，将Callable接口实现类对象作为参数传递给FutureTask对象
+3. 创建Thread对象，将FutureTask对象作为参数传递给Thread对象
+4. 调用start()方法启动线程
+5. 调用FutureTask对象的get()方法获取线程执行结果
 
 > call方法与run方法的区别
 > call方法有返回值，run方法没有返回值
 > call方法可以抛出异常，run方法不可以抛出异常
+
+```java
+public class CallerTask implements Callable<String> {
+    public String call() throws Exception {
+        return "Hello,i am running!";
+    }
+
+    public static void main(String[] args) {
+        //创建异步任务
+        FutureTask<String> task=new FutureTask<String>(new CallerTask());
+        //启动线程
+        new Thread(task).start();
+        try {
+            //等待执行完成，并获取返回结果
+            String result=task.get();
+            System.out.println(result);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
 
 #### 线程池
 
