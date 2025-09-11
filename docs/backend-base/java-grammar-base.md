@@ -910,8 +910,8 @@ System.out.println(Objects.deepEquals(string1, string3)); // 输出：false（�
 
 #### 其他方法
 
-1. addAll(Collection<? super T> c, T... elements)，往集合中添加元素
-2. disjoint(Collection<?> c1, Collection<?> c2)，判断两个集合是否没有交集
+1. addAll(Collection\<? super T> c, T... elements)，往集合中添加元素
+2. disjoint(Collection\<?> c1, Collection\<?> c2)，判断两个集合是否没有交集
 
 ## 多线程
 
