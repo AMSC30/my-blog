@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-76275994","path":"/docs/vue2/vue/entry/state.html","title":"stateMixin流程","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1680592401000,"updatedTime":1681205285000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":2}]},"filePathRelative":"docs/vue2/vue/entry/state.md"}');export{e as data};

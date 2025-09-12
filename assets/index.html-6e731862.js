@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-01242898","path":"/jsdoc/node_modules/jsdoc/templates/silent/","title":"OVERVIEW","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":null,"updatedTime":null,"contributors":[]},"filePathRelative":"jsdoc/node_modules/jsdoc/templates/silent/README.md"}');export{e as data};

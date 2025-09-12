@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-29f05e2a","path":"/docs/vue2/vue/reactive/data.html","title":"data处理","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1680592401000,"updatedTime":1680592401000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/vue2/vue/reactive/data.md"}');export{e as data};

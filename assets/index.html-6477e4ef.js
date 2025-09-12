@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-a416c39a","path":"/jsdoc/node_modules/jsdoc/templates/haruki/","title":"OVERVIEW","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":null,"updatedTime":null,"contributors":[]},"filePathRelative":"jsdoc/node_modules/jsdoc/templates/haruki/README.md"}');export{e as data};

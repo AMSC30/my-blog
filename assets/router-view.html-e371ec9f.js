@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-e66d1732","path":"/docs/vue2/vue-router/router-view.html","title":"router-view","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1683876130000,"updatedTime":1683876130000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/vue2/vue-router/router-view.md"}');export{e as data};

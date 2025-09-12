@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-47f070f1","path":"/docs/vue2/vue/entry/introduction.html","title":"整体流程","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1680592401000,"updatedTime":1680774628000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":2}]},"filePathRelative":"docs/vue2/vue/entry/introduction.md"}');export{e as data};

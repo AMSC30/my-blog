@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-61cf4455","path":"/docs/frontend-base/javascript/ajax.html","title":"AJAX","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1687943022000,"updatedTime":1688609261000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":2}]},"filePathRelative":"docs/frontend-base/javascript/ajax.md"}');export{a as data};
