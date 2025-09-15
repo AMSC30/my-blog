@@ -257,7 +257,7 @@ byte \< short,char \< int \< long \< float \< double
 
 使用private修饰的成员变量，外部类不能直接访问，只能通过getter和setter方法访问
 
-如果成员变量和成员变量重名时，优先访问局部变量，也就是就近原则，使用this关键字可以访问成员变量，this代表调用this所在方法的对象
+如果成员变量和局部变量重名时，优先访问局部变量，也就是就近原则，使用this关键字可以访问成员变量，this代表调用this所在方法的对象
 
 构造方法：构造方法名与类型相同，没有返回值，并且不适用void，分为有参构造和无参构造
 
@@ -348,7 +348,7 @@ final修饰符用于修饰类，类中的成员变量、成员方法、局部变
 
 继承是子类可以继承父类中的属性和方法，是java中实现复用的重要手段，在java中继承是单一的，即一个子类只能有一个父类，但是一个父类可以有多个子类
 
-继承通过extends实现一个子类继承一个父类，子类有自己的构造方法，可以继承父类的私有和非私有成员，但是不能继承父类的构造方法，也不能使用父类中的私有成员
+继承通过extends实现一个子类继承一个父类，子类有自己的构造方法，可以`继承`父类的私有和非私有成员，但是不能继承父类的构造方法，也不能`使用`父类中的私有成员
 
 java中所有的类都继承自Object类，所以除了Object类，所有的类都有一个父类
 
@@ -571,7 +571,7 @@ String代表字符串类
 
 #### 拼接字符串
 
-1. String concat(String str) 拼接字符串，返回一个新串儿
+1. String concat(String str) 拼接字符串，返回一个新字符串
 
 #### 判断方法
 
@@ -616,44 +616,64 @@ stringBuilder 是一个可变字符串，主要用于字符串拼接，string使
 
 ## Date类
 
-1.new Date()：创建一个Date对象，该对象表示当前时间
-2.new Date(long millis)：创建一个Date对象，该对象表示1970年1月1日0时0分0秒到当前时间之间所经过的毫秒数
-3.Date.parse(String s)：将字符串s转换成Date对象，字符串s必须遵循"yyyy-MM-dd HH:mm:ss"的格式，否则将返回-1
-4.Date.getTime()：返回1970年1月1日0时0分0秒到当前时间之间所经过的毫秒数
-5.Date.toString()：返回当前时间对应的字符串，格式为"EEE MMM dd HH:mm:ss zzz yyyy"
-6.Date.getYear()/Date.getFullYear：返回当前时间对应的年份，从1900年开始计算
-7.Date.getMonth()：返回当前时间对应的月份，从0开始计算
-8.Date.getDate()：返回当前时间对应的日期，从1开始计算
-9.Date.getHours()：返回当前时间对应的小时，从0开始计算
-10.Date.getMinutes()：返回当前时间对应的分钟，从0开始计算
-11.Date.getSeconds()：返回当前时间对应的秒钟，从0开始计算
-12.Date.getMilliseconds()：返回当前时间对应的毫秒，从0开始计算
-13.Date.getDay()：返回当前时间对应的星期，从0开始计算，0表示星期天，1表示星期一，以此类推
-14.Date.setTime(long time)：设置当前时间，参数为毫秒数
+1. new Date()：创建一个Date对象，该对象表示当前时间
+2. new Date(long millis)：创建一个Date对象，该对象表示1970年1月1日0时0分0秒到当前时间之间所经过的毫秒数
+3. Date.parse(String s)：将字符串s转换成Date对象，字符串s必须遵循"yyyy-MM-dd HH:mm:ss"的格式，否则将返回-1
+4. Date.getTime()：返回1970年1月1日0时0分0秒到当前时间之间所经过的毫秒数
+5. Date.toString()：返回当前时间对应的字符串，格式为"EEE MMM dd HH:mm:ss zzz yyyy"
+6. Date.getYear()/Date.getFullYear()：返回当前时间对应的年份，从1900年开始计算
+7. Date.getMonth()：返回当前时间对应的月份，从0开始计算
+8. Date.getDate()：返回当前时间对应的日期，从1开始计算
+9. Date.getHours()：返回当前时间对应的小时，从0开始计算
+10. Date.getMinutes()：返回当前时间对应的分钟，从0开始计算
+11. Date.getSeconds()：返回当前时间对应的秒钟，从0开始计算
+12. Date.getMilliseconds()：返回当前时间对应的毫秒，从0开始计算
+13. Date.getDay()：返回当前时间对应的星期，从0开始计算，0表示星期天，1表示星期一，以此类推
+14. Date.setTime(long time)：设置当前时间，参数为毫秒数
 
 ## Calendar类
 
-1.Calendar.getInstance()：获取当前时间对应的日历对象
-2.Calendar.get(int field)：获取指定字段的值
-3.Calendar.set(int field, int value)：设置指定字段的值
-4.Calendar.add(int field, int amount)：将指定字段的值增加或减少指定的值
-5.Calendar.getTime()：获取当前日历对应的时间对象
-6.Calendar.getTimeInMillis()：获取当前日历对应时间的毫秒数
-7.Calendar.get(Calendar.YEAR)：获取当前日历对应时间的年
-8.Calendar.get(Calendar.MONTH)：获取当前日历对应时间的月
-9.Calendar.get(Calendar.DAY_OF_MONTH)：获取当前日历对应时间的日
-10.Calendar.get(Calendar.HOUR_OF_DAY)：获取当前日历对应时间的时
-11.Calendar.get(Calendar.MINUTE)：获取当前日历对应时间的分
-12.Calendar.get(Calendar.SECOND)：获取当前日历对应时间的秒
-13.Calendar.get(Calendar.MILLISECOND)：获取当前日历对应时间的毫秒
-14.Calendar.get(Calendar.DAY_OF_WEEK)：获取当前日历对应时间的星期几
+Calendar 类是一个抽象类，它提供了在特定时刻和一组 calendar fields 之间转换的方法，例如 YEAR 、 MONTH 、 DAY_OF_MONTH 、 HOUR 等，以及用于操作日历字段的方法，例如获取日期下个星期。即时时间可以用毫秒值表示，该值是从 Epoch 开始的偏移量，1970 年 1 月 1 日 00:00:00.000 GMT（公历）。
+该类还提供了额外的字段和方法，用于在包外实现具体的日历系统。这些字段和方法定义为 protected 。
+
+与其他locale敏感的类一样，Calendar 提供了一个类方法 getInstance ，用于获取此类型的普遍有用的对象。 Calendar 的 getInstance 方法返回一个 Calendar 对象，其日历字段已用当前日期和时间初始化
+
+### 常用静态值
+
+表示年月日时分秒的字段：YEAR、MONTH、DAY_OF_MONTH、HOUR_OF_DAY、MINUTE、SECOND、MILLISECOND，Calendar.getInstance()方法获取当前时间对应的日历对象
+
+### 比较方法
+
+1. int compareTo(Calendar anotherCalendar)：比较两个日历对象的大小，返回一个整数，如果当前日历对象早于 anotherCalendar，则返回一个负数；如果当前日历对象晚于 anotherCalendar，则返回一个正数；如果两个日历对象相等，则返回 0
+2. boolean after(Object when)：返回此 Calendar 是否表示指定 Object 表示的时间之后的时间。
+3. boolean before(Object when)： 返回此 Calendar 是否表示指定 Object 表示的时间之前的时间。
+4. boolean equals(Object obj)： 将此 Calendar 与指定的 Object 进行比较。
+
+### 获取日历对象相关信息
+
+1. int get(int field)：返回给定日历字段的值。
+2. String getCalendarType()：返回此 Calendar 的日历类型
+3. int getFirstDayOfWeek()：获取一周的第一天是什么；例如，SUNDAY 在美国，MONDAY 在法国
+4. final Date getTime()：返回表示此 Calendar 的时间值的 Date 对象（与 时代 的毫秒偏移量）
+5. long getTimeInMillis()：以毫秒为单位返回此日历的时间值
+6. TimeZone getTimeZone()：获取时区。
+
+### 设置日历对象相关信息
+
+1. void set(int field, int value)：将给定的日历字段设置为给定的值
+2. final void set(int year, int month, int date)：设置日历字段 YEAR 、 MONTH 和 DAY_OF_MONTH 的值
+3. final void set(int year, int month, int date, int hourOfDay, int minute)：设置日历字段 YEAR、MONTH、DAY_OF_MONTH、HOUR_OF_DAY 和 MINUTE 的值
+4. final void set(int year, int month, int date, int hourOfDay, int minute, int second)：设置字段 YEAR、MONTH、DAY_OF_MONTH、HOUR_OF_DAY、MINUTE 和 SECOND 的值。
+5. void setFirstDayOfWeek(int value)：设置一周的第一天是什么；例如，SUNDAY 在美国，MONDAY 在法国
+6. abstract void add(int field, int amount)：根据日历的规则向给定的日历字段添加或减去指定的时间量。
 
 ## SimpleDateFormat类
 
-SimpleDateFormat类是java.text包下的类，用于格式化日期。
+SimpleDateFormat是以locale敏感的方式格式化和解析日期的具体类，用于格式化日期。它允许格式化（日期→文本）、解析（文本→日期）和规范化
+
 创建sdf对象，SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-1. 格式化日期：String format( Date date)
+1. 格式化日期：String format(Date date)
 2. 解析日期：Date parse(String source)
 
 ## 包装类
@@ -710,13 +730,18 @@ int wanger = chenmo;     // 自动拆箱
 
 #### 创建数组
 
-1. copyOf：复制指定的数组，如果长度小于数组长度则截取，如果长度大于数组长度则用`null`填充
-2. copyOfRange：复制指定范围内的数组到一个新的数组
-3. fill：对数组进行填充
+1. T[] copyOf(T[] origin, int newLength)：复制指定的数组，如果长度小于数组长度则截取，如果长度大于数组长度则用`null`填充
+2. T[] copyOfRange(T[] origin, int start, int end)：复制指定范围内的数组到一个新的数组
+3. void fill(T[] a, T val)：对数组进行填充
+3. void fill(T[] a, int from ,int to, T val)：对数组进行填充
 
 #### 比较数组
 
+1. static boolean equals(Object[] a, Object[] b)：判断两个数组是否相等
+
 Arrays类的`equals()`方法用来判断两个数组是否相等，除了 equals() 方法，还有另外一个诀窍可以判断两个数组是否相等，尽管可能会出现误差。那就是Arrays.hashCode()方法
+
+2. static boolean equals(boolean[] a, int aFromIndex, int aToIndex, boolean[] b, int bFromIndex, int bToIndex)：判断两个数组指定范围内是否相等
 
 源码实现：
 
@@ -739,6 +764,8 @@ public static boolean equals(Object[] a, Object[] a2) {
     return true;
 }
 ```
+
+3. static boolean deepEquals(Object[] a1, Object[] a2)：如果两个指定的数组是深度相等，则返回true
 
 #### 数组排序
 
@@ -810,8 +837,8 @@ System.out.println(str1.split(","));
 将某个集合的内容，拼接成一个字符串，然后输出，这时可以使用join方法
 
 ```java
-List<String> list = Lists.newArrayList("a", "b", "c");
-List<Integer> list2 = Lists.newArrayList(1, 2, 3);
+List<String> list = new ArrayList<>("a", "b", "c");
+List<Integer> list2 = new ArrayList<>(1, 2, 3);
 System.out.println(StringUtils.join(list, ","));
 System.out.println(StringUtils.join(list2, " "));
 ```

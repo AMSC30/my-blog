@@ -1,6 +1,6 @@
 export default [
     {
-        text: '基础',
+        text: '前端基础',
         icon: '',
         children: [
             { text: 'HTML', link: '/docs/frontend-base/html/html' },
@@ -14,7 +14,7 @@ export default [
         ],
     },
     {
-        text: '进阶',
+        text: '前端进阶',
         icon: '',
         children: [
             { text: 'npm/yarn/pnpm', link: '/docs/frontend-advanced/pkg-manage/instruction' },
@@ -57,7 +57,7 @@ export default [
         ],
     },
     {
-        text: 'Java',
+        text: 'Java基础',
         children: [
             { text: 'Java', link: '/docs/backend-base/java-grammar-base.md' },
             { text: 'Maven', link: '/docs/backend-base/maven-base.md' },
