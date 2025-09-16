@@ -116,6 +116,10 @@ export default [
                 text: '代码图片生成',
                 link: 'https://carbon.now.sh',
             },
+            {
+                text: 'JSON在线解析',
+                link: 'https://www.jyshare.com/front-end/53/',
+            },
         ],
     },
     {
