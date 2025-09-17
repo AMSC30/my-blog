@@ -1140,9 +1140,7 @@ set接口、map接口和list接口都继承自collection接口，list接口下�
 继承关系如下：
 ![集合](./images//collection.png)
 
-### 单列集合
-
-#### Collection
+### Collection接口
 
 单列集合的顶级接口
 
@@ -1152,81 +1150,131 @@ set接口、map接口和list接口都继承自collection接口，list接口下�
 Collection<E> 对象名 = new 实现类<E>()
 ```
 
-常用方法：
+常用实例方法
 
 ```java
+// 增
 boolean add(E e): 将元素添加到集合中
+boolean addAll(Collection<? extends E>): 将一个集合添加到当前集合后面，集合合并的效果
 
-boolean addAll(Connection connection): 将一个集合添加到当前集合后面，集合合并的效果
-
+// 删
 boolean remove(E e): 从集合中删除指定元素，删除成功返回true
-
+boolean removeAll(Collection<?> c)：删除此集合的所有也包含在指定集合中的元素（可选操作）
+boolean retainAll(Collection<?> c)：仅保留此集合中包含在指定集合中的元素（可选操作）
 void clear(): 清除集合中的所有元素
 
-boolean contains(E e): 判断集合中是否含有某个元素
-
+// 查
+boolean contains(E e): 查询集合中是否含有某个元素
+boolean containsAll(Collection<?> c)：如果此集合包含指定集合中的所有元素，则返回 true。
 boolean isEmpty(): 查询集合是否为空
-
 int size(): 查询集合中元素的数量
 
+// 转换
 Object[] toArray(): 将集合中的元素转换为数组形式
 ```
 
-迭代器
+### List接口
 
-通过集合的iterator方法可以获取集合的迭代器
+List接口是继承自collection接口的有序列表，可以通过整数索引（在列表中的位置）访问元素，并在列表中搜索元素，通常允许重复元素
+
+List接口在iterator 、add 、remove 、equals和hashCode方法的约定中扩展了额外的方法
+
+#### 静态方法
 
 ```java
-    ArrayList<String> al = new ArrayList<String>()
-    Iterator<String> iterator = al.iterator()
-    boolean hasNext = iterator.hasNext()
-    String next = iterator.next()
+// 创建
+static <E> List<E> copyOf(Collection<? extends E> coll)：返回一个不可修改的列表 包含给定 Collection 的元素，按其迭代顺序
+static <E> List<E> of(E... elements)：返回包含任意数量元素的不可修改列表
 ```
 
-#### ArrayList
+#### 实例方法
+
+list实例方法在collection的基础上做了一下扩展
+
+```java
+// 增
+void add(int index, E element)：在此list中的指定位置插入指定元素（可选操作）
+
+// 删
+E remove(int index)：删除此list中指定位置的元素（可选操作）
+
+// 改
+E set(int index, E element)：用指定的元素替换此list中指定位置的元素（可选操作）
+
+// 查
+E get(int index)：返回此list中指定位置的元素
+int indexOf(Object o)：返回此list中指定元素第一次出现的索引，如果此list不包含该元素，则返回 -1
+int lastIndexOf(Object o)：返回此list中指定元素最后一次出现的索引，如果此list不包含该元素，则返回 -1
+```
+
+### Set接口
+
+Set接口表示不包含重复元素的集合，也就是在集合中不包含满足 e1.equals(e2) 的一对元素e1和e2，最多包含一个空元素
+
+与List一样，也在Collection的基础上做了增强
+
+#### 静态方法
+
+```java
+static <E> Set<E> copyOf(Collection<? extends E> coll)：返回包含给定 Collection 元素的 不可修改的集合
+static <E> Set<E> of(E... elements)：返回包含任意数量元素的不可修改集
+```
+
+### ArrayList
 
 底层由数组实现，线程不安全；ArrayList中的元素都是有序、有索引的，并且可以重复
+
+除了实现 List 接口之外，此类还提供了一些方法来操纵内部用于存储列表的数组的大小
+
+每个 ArrayList 实例都有一个capacity.容量是用于存储列表中元素的数组的大小。它始终至少与列表大小一样大。当元素被添加到 ArrayList 时，它的容量会自动增长
+
+#### 构造方法
+
+```java
+ArrayList():构造一个初始容量为 10 的空列表。
+ArrayList(int initialCapacity):构造一个具有指定初始容量的空列表。
+ArrayList(Collection<? extends E> c):构造一个包含指定集合元素的列表，按照集合迭代器返回元素的顺序
+```
 
 创建一个ArrayList：
 
 ```java
-ArrayList<String> alist = new ArrayList<String>();
+ArrayList<String> aList = new ArrayList<String>();
 ```
 
-由于 ArrayList 实现了 List 接口，所以 alist 变量的类型可以是 List 类型；new 关键字声明后的尖括号中可以不再指定元素的类型，因为编译器可以通过前面尖括号中的类型进行智能推断
+由于 ArrayList 实现了 List 接口，所以 aList 变量的类型可以是 List 类型；new 关键字声明后的尖括号中可以不再指定元素的类型，因为编译器可以通过前面尖括号中的类型进行智能推断
 
 ```java
-List<String> alist = new ArrayList<>();
+List<String> aList = new ArrayList<>();
 ```
 
 如果非常确定 ArrayList 中元素的个数，在创建的时候还可以指定初始大小，可以有效地避免在添加新的元素时进行不必要的扩容
 
 ```java
-List<String> alist = new ArrayList<>(20);
+List<String> aList = new ArrayList<>(20);
 ```
 
-常用方法：
+实例方法：
 
 ```java
-boolean add(int index,E e): 将元素添加到指定位置
+// 增
+boolean addAll(int index, Collection<? extends E> c)：将指定集合中的所有元素插入此list，从指定位置开始
 
-boolean add(E e): 将元素添加list中
+// 删
+boolean removeIf(Predicate<? super E> filter)：移除此集合中满足给定谓词的所有元素。
+protected void removeRange(int fromIndex, int toIndex)：从此list中删除索引介于 fromIndex 和 toIndex 之间的所有元素，包括在内
 
-E set(int index, E e): 将指定位置的元素设置为新的元素，返回被替换的元素
+// 改
+void trimToSize()：将此 ArrayList 实例的容量修剪为列表的当前大小
 
-E remove(int index): 删除指定位置的元素，并返回删除的元素
+// 克隆
+Object clone()：返回此 ArrayList 实例的浅表副本
 
-boolean remove( E e): 删除指定的元素，并返回删除的结果
+// 遍历
+void forEach(Consumer<? super E> action)：对 Iterable 的每个元素执行给定的操作，直到处理完所有元素或操作引发异常
 
-E get(int index): 获取指定位置的元素
-
-int size(): 获取集合中元素的个数
-
-int indexOf(E e): 查询指定元素在集合中的索引，如果元素不存在，则返回-1
-
-int lastIndexOf(E e): 从后往前查询指定元素在集合中的索引，如果元素不存在，则返回-1
-
-boolean contains(E e): 判断集合中是否包含某个元素
+// 截取
+List<E> subList(int fromIndex, int toIndex)：返回此list中指定的 fromIndex（含）和 toIndex（不含）之间的部分的视图
 ```
 
 #### LinkedList
