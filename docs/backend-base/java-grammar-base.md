@@ -1,5 +1,7 @@
 # Java语法基础
 
+![Java知识图谱](./images/java_basic.png)
+
 ## 常用到的DOS命令
 
 ### 切换盘符
@@ -74,7 +76,7 @@
 
 使用move + 源文件夹 + 目标文件夹
 > 示例：move D:\Java D:\Java_learn
->
+
 ## 常量
 
 程序运行中，值不会发生改变的数据
