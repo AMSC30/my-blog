@@ -4,6 +4,7 @@
         "binlog",
         "Ceki",
         "DBCP",
+        "Deque",
         "extname",
         "globalconfig",
         "Gson",
