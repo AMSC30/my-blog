@@ -8,7 +8,7 @@ IoC也被称为依赖注入（DI）。它是一个过程，对象仅通过构造
 
 ### bean
 
-一个Spring IoC容器管理着一个或多个Bean。这些Bean是用你提供给容器的配置元数据创建的（例如，以XML <bean/> 定义的形式）。
+一个Spring IoC容器管理着一个或多个Bean。这些Bean是用你提供给容器的配置元数据创建的（例如，以XML \<bean/> 定义的形式）。
 
 在容器本身中，这些Bean定义被表示为 BeanDefinition 对象，它包含（除其他信息外）以下元数据。
 
@@ -37,65 +37,161 @@ Spring IoC容器几乎可以管理任何你希望它管理的类。它并不局�
 
 在定义一个用静态工厂方法创建的Bean时，使用 class 属性来指定包含 static 工厂方法的类，并使用名为 factory-method 的属性来指定工厂方法本身的名称。你应该能够调用这个方法（有可选的参数，如后文所述）并返回一个活的对象，随后该对象被视为通过构造函数创建的。这种Bean定义的一个用途是在遗留代码中调用 static 工厂
 
-### 依赖
+假如有这么一个bean定义和对应的类
 
-#### 依赖注入
-
-依赖注入（DI）是一个过程，对象仅通过构造参数、工厂方法的参数或在对象实例被构造或从工厂方法返回后在其上设置的属性来定义它们的依赖（即与它们一起工作的其它对象）。然后，容器在创建 bean 时注入这些依赖。这个过程从根本上说是Bean本身通过使用类的直接构造或服务定位模式来控制其依赖的实例化或位置的逆过程（因此被称为控制反转）
-
-1. 基于构造器的依赖注入
-
-基于构造函数的 DI 是通过容器调用带有许多参数的构造函数来完成的，每个参数代表一个依赖。调用带有特定参数的 static 工厂方法来构造 bean 几乎是等价的，本讨论对构造函数的参数和 static 工厂方法的参数进行类似处理。下面的例子显示了一个只能用构造函数注入的依赖注入的类
+```xml
+<bean id="clientService"
+    class="examples.ClientService"
+    factory-method="createInstance"/>
+```
 
 ```java
-public class SimpleMovieLister {
+public class ClientService {
+    private static ClientService clientService = new ClientService();
+    private ClientService() {}
 
-    // the SimpleMovieLister has a dependency on a MovieFinder
-    private final MovieFinder movieFinder;
-
-    // a constructor so that the Spring container can inject a MovieFinder
-    public SimpleMovieLister(MovieFinder movieFinder) {
-        this.movieFinder = movieFinder;
+    public static ClientService createInstance() {
+        return clientService;
     }
-
-    // business logic that actually uses the injected MovieFinder is omitted...
 }
 ```
 
-2. 基于Setter的依赖注入
+3. 用实例工厂方法进行实例化
+   用实例工厂方法进行的实例化从容器中调用现有 bean 的非静态方法来创建一个新的 bean。要使用这种机制，请将 class 属性留空，并在 factory-bean 属性中指定当前（或父代或祖代）容器中的一个 Bean 的名称，该容器包含要被调用来创建对象的实例方法。用 factory-method 属性设置工厂方法本身的名称
 
-基于 Setter 的 DI 是通过容器在调用无参数的构造函数或无参数的 static 工厂方法来实例化你的 bean 之后调用 Setter 方法来实现的
+```xml
+<!-- the factory bean, which contains a method called createInstance() -->
+<bean id="serviceLocator" class="examples.DefaultServiceLocator">
+    <!-- inject any dependencies required by this locator bean -->
+</bean>
 
-#### 依赖的解析过程
+<!-- the bean to be created via the factory bean -->
+<bean id="clientService"
+    factory-bean="serviceLocator"
+    factory-method="createClientServiceInstance"/>
+```
 
-容器按如下方式执行 bean 依赖解析。
+#### 生命周期回调
 
-1. ApplicationContext 是用描述所有bean的配置元数据创建和初始化的。配置元数据可以由XML、Java代码或注解来指定。
-2. 对于每个Bean来说，它的依赖是以属性、构造函数参数或静态工厂方法的参数（如果你用它代替正常的构造函数）的形式表达的。在实际创建Bean时，这些依赖被提供给Bean。
-3. 每个属性或构造函数参数都是要设置的值的实际定义，或对容器中另一个Bean的引用。
-4. 每个作为值的属性或构造函数参数都会从其指定格式转换为该属性或构造函数参数的实际类型。默认情况下，Spring 可以将以字符串格式提供的值转换为所有内置类型，如
-   int、long、String、boolean 等等。
+**初始化回调**
 
-当容器被创建时，Spring容器会验证每个Bean的配置。然而，在实际创建Bean之前，Bean的属性本身不会被设置。当容器被创建时，那些具有单例作用域并被设置为预实例化的Bean（默认）被创建。作用域在 Bean Scope 中定义。否则，Bean只有在被请求时才会被创建。创建 bean 有可能导致创建 bean 图（graph），因为 bean 的依赖关系和它的依赖关系（等等）被创建和分配
+org.springframework.beans.factory.InitializingBean 接口让Bean在容器对Bean设置了所有必要的属性后执行初始化工作。InitializingBean 接口指定了一个方法afterPropertiesSet，此方式是不被推荐的方式，因为它不必要地将代码与Spring耦合。使用 @PostConstruct 注解或指定一个POJO初始化方法
 
-#### 依赖范围
+在基于XML的配置元数据中，可以使用`init-method`属性来指定具有`void`无参数签名的方法的名称
 
-1. singleton：（默认情况下）为每个Spring IoC容器将单个Bean定义的Scope扩大到单个对象实例。
+对于Java配置，可以使用`@Bean`的`initMethod`属性
 
-2. prototype：将单个Bean定义的Scope扩大到任何数量的对象实例。
+**销毁回调**
 
-3. request：将单个Bean定义的Scope扩大到单个HTTP请求的生命周期。也就是说，每个HTTP请求都有自己的Bean实例，该实例是在单个Bean定义的基础上创建的。只在Web
-   感知的Spring ApplicationContext 的上下文中有效。
+实现 org.springframework.beans.factory.DisposableBean 接口可以让Bean在包含它的容器被销毁时获得一个回调。DisposableBean 接口指定了一个方法，此方式是不被推荐的方式，使用 @PreDestroy 注解或指定一个bean定义所支持的通用方法
 
-4. session：将单个Bean定义的Scope扩大到一个HTTP Session 的生命周期。只在Web感知的Spring ApplicationContext 的上下文中有效。
+对于基于XML的配置元数据，可以使用`\<bean/>`上的`destroy-method`属性
 
-5. application：将单个Bean定义的 Scope 扩大到 ServletContext 的生命周期中。只在Web感知的Spring ApplicationContext 的上下文中有效。
+使用Java配置，可以使用`@Bean`的`destroyMethod`属性
 
-6. websocket：将单个Bean定义的 Scope 扩大到 WebSocket 的生命周期。仅在具有Web感知的 Spring ApplicationContext 的上下文中有效。
+**默认的初始化和销毁方法**
+
+可以将Spring容器配置为在每个Bean上 "寻找" 命名的初始化和销毁回调方法名称。这意味着你，作为应用开发者，可以编写你的应用类并使用名为 init() 的初始化回调，而不必为每个Bean定义配置 init-method="init" 属性。当Bean被创建时，Spring IoC容器会调用该方法，destroy同理
+
+```xml
+<beans default-init-method="init">
+
+    <bean id="blogService" class="com.something.DefaultBlogService">
+        <property name="blogDao" ref="blogDao" />
+    </bean>
+
+</beans>
+```
+
+```java
+public class DefaultBlogService implements BlogService {
+
+    private BlogDao blogDao;
+
+    public void setBlogDao(BlogDao blogDao) {
+        this.blogDao = blogDao;
+    }
+
+    // this is (unsurprisingly) the initialization callback method
+    public void init() {
+        if (this.blogDao == null) {
+            throw new IllegalStateException("The [blogDao] property must be set.");
+        }
+    }
+}
+```
+
+顶层 \<beans/> 元素属性中 default-init-method 属性的存在会使Spring IoC容器识别出Bean类中名为 init 的方法作为初始化方法的回调。当一个Bean被创建和装配时，如果Bean类有这样的方法，它就会在适当的时候被调用
+
+如果现有的Bean类已经有了与惯例不同的回调方法，你可以通过使用 \<bean/> 本身的 init-method 和 destroy-method 属性来指定（在XML中）方法的名称，从而覆盖默认值
+
+### 基于XML配置元数据
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- services -->
+
+    <bean id="petStore" class="org.springframework.samples.jpetstore.services.PetStoreServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+        <property name="itemDao" ref="itemDao"/>
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <!-- more bean definitions for services go here -->
+
+</beans>
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="accountDao"
+        class="org.springframework.samples.jpetstore.dao.jpa.JpaAccountDao">
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <bean id="itemDao" class="org.springframework.samples.jpetstore.dao.jpa.JpaItemDao">
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <!-- more bean definitions for data access objects go here -->
+
+</beans>
+```
+
+在spring应用的启动类中
+
+```java
+ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
+```
+
+通常情况下，每个单独的XML配置文件代表了你架构中的一个逻辑层或模块，可以使用 application context 构造函数从所有这些XML片段中加载Bean定义，或者，使用一个或多个 <import/> 元素的出现来从另一个或多个文件中加载Bean定义
+
+```xml
+<beans>
+    <import resource="services.xml"/>
+    <import resource="resources/messageSource.xml"/>
+    <import resource="/resources/themeSource.xml"/>
+
+    <bean id="bean1" class="..."/>
+    <bean id="bean2" class="..."/>
+</beans>
+```
 
 ### 基于注解的容器配置
 
 基于注解的配置提供了XML设置的替代方案，它依靠字节码元数据来注入组件而不是XML声明。开发者通过在相关的类、方法或字段声明上使用注解，将配置移入组件类本身，而不是使用XML来描述bean的装配
+
+> 注解注入是在XML注入之前进行的。因此，XML配置覆盖了通过这两种方法注入的属性的注解
 
 #### @Autowired
 
@@ -290,16 +386,27 @@ public class AppConfig {
 ```java
 @Component
 public class MailService {
- @Autowired(required = false)
- @Qualifier("z") // 指定注入名称为"z"的ZoneId
- ZoneId zoneId = ZoneId.systemDefault();
+    @Autowired(required = false)
+    @Qualifier("z") // 指定注入名称为"z"的ZoneId
+    private ZoneId zoneId ;
+
+    private ZoneId zoneIdUTC8
+
+    @Autowired(required = false)
+    @Qualifier("utc8") // 指定注入名称为"z"的ZoneId
+    MailService(ZoneId zoneIdUTC8){
+        this.zoneIdUTC8 = zoneIdUTC8;
+    }
 }
 ```
 
 #### @Resource
 
-Spring还支持通过在字段或Bean属性设置方法上使用JSR-250 @Resource 注解（jakarta.annotation.Resource）进行注入，@Resource 需要一个
-name 属性。默认情况下，Spring将该值解释为要注入的Bean名称，如果没有明确指定名字，默认的名字来自于字段名或setter方法。如果是一个字段，它采用字段名。如果是setter 方法，则采用Bean的属性名，在没有明确指定名称的 @Resource 使用的特殊情况下，与 @Autowired 类似
+Spring还支持通过在`字段`或`setter`方法上使用JSR-250 @Resource 注解（jakarta.annotation.Resource）进行注入，@Resource 需要一个name 属性
+
+默认情况下，Spring将该值解释为要注入的Bean名称，如果没有明确指定名字，默认的名字来自于字段名或setter方法
+
+如果是一个字段，它采用字段名，如果是setter 方法，则采用Bean的属性名，在没有明确指定名称的 @Resource 使用的特殊情况下，与 @Autowired 类似
 
 ```java
 // setter方法
@@ -468,6 +575,416 @@ public static void main(String[] args) {
 }
 ```
 
+#### @Scope()
+
+指定Bean的作用域
+
+```java
+@Scope("prototype")
+@Repository
+public class MovieFinderImpl implements MovieFinder {
+    // ...
+}
+```
+
+### 基于Java的容器配置
+
+@Bean注解用来表示一个方法实例化、配置和初始化了一个新的对象，由Spring IoC容器管理
+
+@Bean注解的作用与\<bean/>元素的作用相同，**可以在任何Spring @Component 中使用 @Bean 注解的方法**，最常被用于@Configuration Bean
+
+#### 声明Bean
+
+1. @Bean注解来注解一个方法，用这个方法在 ApplicationContext 中注册一个Bean定义，该类型被指定为该方法的返回值，默认情况下，Bean的名字和方法的名字是一样的
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public TransferServiceImpl transferService() {
+        return new TransferServiceImpl();
+    }
+}
+```
+
+2. 使用default方法来定义Bean，允许通过在默认方法上实现带有Bean定义的接口来组成Bean配置
+
+```java
+public interface BaseConfig {
+
+    @Bean
+    default TransferServiceImpl transferService() {
+        return new TransferServiceImpl();
+    }
+}
+
+@Configuration
+public class AppConfig implements BaseConfig {
+
+}
+```
+
+#### Bean依赖
+
+一个 @Bean 注解的方法可以有任意数量的参数，描述构建该Bean所需的依赖关系，解析机制与基于构造函数的依赖注入基本相同
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public TransferService transferService(AccountRepository accountRepository) {
+        return new TransferServiceImpl(accountRepository);
+    }
+}
+```
+
+#### 生命周期
+
+任何用 @Bean 注解定义的类都支持常规的生命周期回调，并且可以使用JSR-250的 @PostConstruct 和 @PreDestroy 注解
+
+常规的Spring 生命周期 回调也被完全支持。如果一个bean实现了 InitializingBean、DisposableBean 或 Lifecycle，它们各自的方法就会被容器调用
+
+@Bean 注解支持指定任意的初始化和销毁回调方法，就像Spring XML在 bean 元素上的 init-method 和 destroy-method 属性一样
+
+```java
+public class BeanOne {
+
+    public void init() {
+        // initialization logic
+    }
+}
+
+public class BeanTwo {
+
+    public void cleanup() {
+        // destruction logic
+    }
+}
+
+@Configuration
+public class AppConfig {
+
+    @Bean(initMethod = "init")
+    public BeanOne beanOne() {
+        return new BeanOne();
+    }
+
+    @Bean(destroyMethod = "cleanup")
+    public BeanTwo beanTwo() {
+        return new BeanTwo();
+    }
+}
+```
+
+默认情况下，用Java配置定义的具有 public 的 close 或 shutdown 方法的Bean会自动被列入销毁回调
+
+如果不希望它在容器关闭时被调用，可以在Bean定义中添加 @Bean(destroyMethod = "") 来禁用默认 (inferred) 模式
+
+在构造过程中直接调用init()方法同样有效
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public BeanOne beanOne() {
+        BeanOne beanOne = new BeanOne();
+        beanOne.init();
+        return beanOne;
+    }
+
+    // ...
+}
+```
+
+#### Bean作用域
+
+使用`@Scope`注解可以指定你用@Bean注解一个特定的scope，默认的scope是`singleton`，可以用`@Scope`注解来覆盖它
+
+```java
+@Configuration
+public class MyConfiguration {
+
+    @Bean
+    @Scope("prototype")
+    public Encryptor encryptor() {
+        // ...
+    }
+}
+```
+
+#### Bean别名
+
+默认情况下，配置类使用 @Bean 方法的名称作为结果Bean的名称，可以通`name`属性来重写，@Bean 注解的name属性接受一个`String`或者`String数组`来实现这一目的
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean("myThing")
+    public Thing thing() {
+        return new Thing();
+    }
+}
+
+@Configuration
+public class AppConfig {
+
+    @Bean({"dataSource", "subsystemA-dataSource", "subsystemB-dataSource"})
+    public DataSource dataSource() {
+        // instantiate, configure and return DataSource bean...
+    }
+}
+```
+
+#### Bean描述
+
+有时，为 Bean 提供更详细的文本描述是有帮助的，为了给 @Bean 添加描述，可以使用 @Description 注解
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    @Description("Provides a basic example of a bean")
+    public Thing thing() {
+        return new Thing();
+    }
+}
+```
+
+#### 使用@Import注解
+
+就像\<import/>元素在Spring XML文件中被用来帮助模块化配置一样，@Import 注解允许从另一个配置类中加载 @Bean 定义
+
+```java
+@Configuration
+public class ConfigA {
+
+    @Bean
+    public A a() {
+        return new A();
+    }
+}
+
+@Configuration
+@Import(ConfigA.class)
+public class ConfigB {
+
+    @Bean
+    public B b() {
+        return new B();
+    }
+}
+```
+
+### Java和XML相结合
+
+Spring的 @Configuration 类支持的目的并不是要100%完全取代Spring XML。一些设施，如Spring XML命名空间，仍然是配置容器的理想方式。在XML方便或必要的情况下，你有一个选择：要么通过使用例如 ClassPathXmlApplicationContext 以 "以XML为中心" 的方式实例化容器，要么通过使用 AnnotationConfigApplicationContext 和 @ImportResource 注解来根据需要导入XML，以 "以Java为中心" 的方式实例化它
+
+#### 以XML为中心使用@Configuration类
+
+从XML引导Spring容器并以临时的方式包含 @Configuration 类可能是更好的做法。例如，在一个使用Spring XML的大型现有代码库中，根据需要创建 @Configuration 类并从现有的XML文件中包含它们是比较容易的，@Configuration 类最终是容器中的Bean定义
+
+定义一个配置类
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Bean
+    public AccountRepository accountRepository() {
+        return new JdbcAccountRepository(dataSource);
+    }
+
+    @Bean
+    public TransferService transferService() {
+        return new TransferService(accountRepository());
+    }
+}
+```
+
+xml配置如下
+
+```xml
+<beans>
+    <!-- enable processing of annotations such as @Autowired and @Configuration -->
+    <context:annotation-config/>
+    <context:property-placeholder location="classpath:/com/acme/jdbc.properties"/>
+
+    <bean class="com.acme.AppConfig"/>
+
+    <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+</beans>
+```
+
+#### 以java配置类为中心使用XML
+
+在 @Configuration 类是配置容器的主要机制的应用中，仍然可能需要至少使用一些 XML。在这些情况下，你可以使用 @ImportResource 并只定义你需要的 XML。这样做实现了 "以 Java 为中心" 的配置容器的方法，并使 XML 保持在最低限度
+
+```java
+@Configuration
+@ImportResource("classpath:/com/acme/properties-config.xml")
+public class AppConfig {
+
+    @Value("${jdbc.url}")
+    private String url;
+
+    @Value("${jdbc.username}")
+    private String username;
+
+    @Value("${jdbc.password}")
+    private String password;
+
+    @Bean
+    public DataSource dataSource() {
+        return new DriverManagerDataSource(url, username, password);
+    }
+}
+```
+
+properties-config.xml
+
+```xml
+<beans>
+    <context:property-placeholder location="classpath:/com/acme/jdbc.properties"/>
+</beans>
+```
+
+### 依赖
+
+#### 依赖注入
+
+依赖注入（DI）是一个过程，对象仅通过构造参数、工厂方法的参数或在对象实例被构造或从工厂方法返回后在其上设置的属性来定义它们的依赖（即与它们一起工作的其它对象）。然后，容器在创建 bean 时注入这些依赖。这个过程从根本上说是Bean本身通过使用类的直接构造或服务定位模式来控制其依赖的实例化或位置的逆过程（因此被称为控制反转）
+
+1. 基于构造器的依赖注入
+
+基于构造函数的 DI 是通过容器调用带有许多参数的构造函数来完成的，每个参数代表一个依赖。调用带有特定参数的 static 工厂方法来构造 bean 几乎是等价的，本讨论对构造函数的参数和 static 工厂方法的参数进行类似处理。下面的例子显示了一个只能用构造函数注入的依赖注入的类
+
+```java
+public class SimpleMovieLister {
+
+    private final MovieFinder movieFinder;
+
+    public SimpleMovieLister(MovieFinder movieFinder) {
+        this.movieFinder = movieFinder;
+    }
+
+}
+```
+
+```xml
+<bean id="simpleMovieLister" class="examples.SimpleMovieLister">
+    <!-- constructor injection using the neater ref attribute -->
+    <constructor-arg ref="movieFinder"/>
+</bean>
+
+<bean id="movieFinder" class="examples.MovieFinder"/>
+```
+
+构造函数参数解析
+
+构造函数参数解析匹配是通过使用参数的类型进行的。如果 bean 定义中的构造器参数不存在潜在的歧义，那么构造器参数在 bean 定义中的定义顺序就是这些参数在 bean 被实例化时被提供给适当的构造器的顺序
+
+当使用一个简单的类型时，比如 <value>true</value>，Spring不能确定值的类型，所以在没有帮助的情况下不能通过类型进行匹配
+
+- 通过使用 type 属性显式地指定构造函数参数的类型
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <constructor-arg type="int" value="7500000"/>
+    <constructor-arg type="java.lang.String" value="42"/>
+</bean>
+```
+
+- 使用 index 属性来明确指定构造函数参数的索引
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <constructor-arg index="0" value="7500000"/>
+    <constructor-arg index="1" value="42"/>
+</bean>
+```
+
+2. 基于Setter的依赖注入
+
+基于 Setter 的 DI 是通过容器在调用无参数的构造函数或无参数的 static 工厂方法来实例化你的 bean 之后调用 Setter 方法来实现的
+
+```xml
+<bean id="exampleBean" class="examples.ExampleBean">
+    <!-- setter injection using the nested ref element -->
+    <property name="beanOne">
+        <ref bean="anotherExampleBean"/>
+    </property>
+
+    <!-- setter injection using the neater ref attribute -->
+    <property name="beanTwo" ref="yetAnotherBean"/>
+    <property name="integerProperty" value="1"/>
+</bean>
+
+<bean id="anotherExampleBean" class="examples.AnotherBean"/>
+<bean id="yetAnotherBean" class="examples.YetAnotherBean"/>
+```
+
+```java
+public class ExampleBean {
+
+    private AnotherBean beanOne;
+
+    private YetAnotherBean beanTwo;
+
+    private int i;
+
+    public void setBeanOne(AnotherBean beanOne) {
+        this.beanOne = beanOne;
+    }
+
+    public void setBeanTwo(YetAnotherBean beanTwo) {
+        this.beanTwo = beanTwo;
+    }
+
+    public void setIntegerProperty(int i) {
+        this.i = i;
+    }
+}
+```
+
+#### 依赖的解析过程
+
+容器按如下方式执行 bean 依赖解析。
+
+1. ApplicationContext 是用描述所有bean的配置元数据创建和初始化的。配置元数据可以由XML、Java代码或注解来指定。
+2. 对于每个Bean来说，它的依赖是以属性、构造函数参数或静态工厂方法的参数（如果你用它代替正常的构造函数）的形式表达的。在实际创建Bean时，这些依赖被提供给Bean。
+3. 每个属性或构造函数参数都是要设置的值的实际定义，或对容器中另一个Bean的引用。
+4. 每个作为值的属性或构造函数参数都会从其指定格式转换为该属性或构造函数参数的实际类型。默认情况下，Spring 可以将以字符串格式提供的值转换为所有内置类型，如
+   int、long、String、boolean 等等。
+
+当容器被创建时，Spring容器会验证每个Bean的配置。然而，在实际创建Bean之前，Bean的属性本身不会被设置。当容器被创建时，那些具有单例作用域并被设置为预实例化的Bean（默认）被创建。作用域在 Bean Scope 中定义。否则，Bean只有在被请求时才会被创建。创建 bean 有可能导致创建 bean 图（graph），因为 bean 的依赖关系和它的依赖关系（等等）被创建和分配
+
+#### 依赖范围
+
+1. singleton：（默认情况下）为每个Spring IoC容器将单个Bean定义的Scope扩大到单个对象实例。
+
+2. prototype：将单个Bean定义的Scope扩大到任何数量的对象实例。
+
+3. request：将单个Bean定义的Scope扩大到单个HTTP请求的生命周期。也就是说，每个HTTP请求都有自己的Bean实例，该实例是在单个Bean定义的基础上创建的。只在Web
+   感知的Spring ApplicationContext 的上下文中有效。
+
+4. session：将单个Bean定义的Scope扩大到一个HTTP Session 的生命周期。只在Web感知的Spring ApplicationContext 的上下文中有效。
+
+5. application：将单个Bean定义的 Scope 扩大到 ServletContext 的生命周期中。只在Web感知的Spring ApplicationContext 的上下文中有效。
+
+6. websocket：将单个Bean定义的 Scope 扩大到 WebSocket 的生命周期。仅在具有Web感知的 Spring ApplicationContext 的上下文中有效。
+
 ### 元注解
 
 Spring提供的许多注解都可以在你自己的代码中作为元注解使用。元注解是一个可以应用于另一个注解的注解，例如，Spring MVC的 @RestController 注解是由 @Controller 和 @ResponseBody 组成。
@@ -498,44 +1015,218 @@ public class SessionScopedUserService implements UserService {
 }
 ```
 
+### 扫描和管理组件
+
+#### 自动监测类和Bean定义
+
+Spring可以自动检测 stereotype 的类，并在 ApplicationContext 中注册相应的 BeanDefinition 实例，需要@Configuration类中添加 @ComponentScan，其中 basePackages 属性是需要扫描的类的共同父包
+
+```java
+@Configuration
+@ComponentScan(basePackages = "org.example") // 或者@ComponentScan("org.example")
+public class AppConfig  {
+    // ...
+}
+```
+
+#### 使用Filter来自定义扫描
+
+默认情况下，用 @Component、@Repository、@Service、@Controller、 @Configuration 注解的类，或者本身用 @Component 注解的自定义注解是唯一被检测到的候选组件。然而，你可以通过应用自定义`filter`来修改和扩展这种行为。将它们作为 @ComponentScan 注解的 includeFilters 或 excludeFilters 属性，每个 filter 元素都需要`type`和`expression`属性。
+
+FilterType定义了几种filter中使用的类型
+
+- FilterType.ANNOTATION：按照注解过滤
+- FilterType.ASSIGNABLE_TYPE：按照给定的类型,指定具体的类，子类也会被扫描到
+- FilterType.ASPECTJ：使用ASPECTJ表达式
+- FilterType.REGEX：正则
+- FilterType.CUSTOM：自定义规则
+
+```java
+// ASSIGNABLE_TYPE: includeFilters 用法 包含Animal.class类可以被扫描到，包括其子类
+@ComponentScan(value = "com.spring", includeFilters = {@Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {Animal.class})})
+
+//ANNOTATION: excludeFilters 用法 排除包含@Controller注解的类
+@ComponentScan(value = "com.spring", excludeFilters = {@Filter(type = FilterType.ANNOTATION, classes = {Controller.class}),})
+
+// ComponentScans用法
+// 针对Java8 语法可以指定多个@ComponentScan，Java8以下可以用 //@ComponentScans() 配置多个规则
+@ComponentScans(value = {
+                @ComponentScan(value = "com.spring", includeFilters = {Filter(type = FilterType.ANNOTATION, classes = {Controller.class})
+                }, useDefaultFilters = false) ,
+                @ComponentScan(value = "com.spring", excludeFilters = {Filter(type = FilterType.ANNOTATION, classes = { Repository.class})
+                })
+        }
+)
+```
+
+### Environment抽象
+
+Environment 接口是一个集成在容器中的抽象，它对 application environment 的两个关键方面进行建模：配置文件（profiles） 和 属性（properties）
+
+profile是一个命名的、逻辑上的bean定义组，只有在给定的profile处于活动状态时才会在容器中注册。无论是用 XML 定义的还是用注解定义的，Bean 都可以被分配给一个profile。Environment 对象在profile方面的作用是确定哪些profile（如果有的话）是当前活动（active）的，以及哪些profile（如果有的话）应该是默认活动的。
+
+属性（Properties）在几乎所有的应用程序中都扮演着重要的角色，它可能来自各种来源：properties 文件、JVM系统属性、系统环境变量、JNDI、Servlet上下文参数、特设的 Properties 对象、Map 对象等等。与属性有关的 Environment 对象的作用是为用户提供一个方便的服务接口，用于配置属性源并从它们那里解析属性
+
+#### Bean定义配置
+
+Bean定义配置（Bean definition profiles） 在核心容器中提供了一种机制，允许在不同的环境中注册不同的bean
+
+**使用@Profile**
+
+@Profile 注解让你表明当一个或多个指定的配置文件处于活动状态时，一个组件就有资格注册
+
+```java
+@Configuration
+@Profile("development")
+public class StandaloneDataConfig {
+
+    @Bean
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+            .setType(EmbeddedDatabaseType.HSQL)
+            .addScript("classpath:com/bank/config/sql/schema.sql")
+            .addScript("classpath:com/bank/config/sql/test-data.sql")
+            .build();
+    }
+}
+
+@Configuration
+@Profile("production")
+public class JndiDataConfig {
+
+    @Bean(destroyMethod = "") 
+    public DataSource dataSource() throws Exception {
+        Context ctx = new InitialContext();
+        return (DataSource) ctx.lookup("java:comp/env/jdbc/datasource");
+    }
+}
+```
+
+profile 字符串可以包含一个简单的 profile 名称（例如，production）或一个 profile 表达式。this用运算符!、|、&可以使profile表达式拥有更复杂的profile逻辑
+
+@Profile 也可以在方法层面上声明，以便只包括一个配置类的一个特定Bean
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean("dataSource")
+    @Profile("development") (1)
+    public DataSource standaloneDataSource() {
+        return new EmbeddedDatabaseBuilder()
+            .setType(EmbeddedDatabaseType.HSQL)
+            .addScript("classpath:com/bank/config/sql/schema.sql")
+            .addScript("classpath:com/bank/config/sql/test-data.sql")
+            .build();
+    }
+
+    @Bean("dataSource")
+    @Profile("production") (2)
+    public DataSource jndiDataSource() throws Exception {
+        Context ctx = new InitialContext();
+        return (DataSource) ctx.lookup("java:comp/env/jdbc/datasource");
+    }
+}
+```
+
+**使用XML定义配置**
+
+XML的对应部分是\<beans>元素的 profile 属性，可以将通过注解的配置改写为：
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xsi:schemaLocation="...">
+
+    <!-- other bean definitions -->
+
+    <beans profile="development">
+        <jdbc:embedded-database id="dataSource">
+            <jdbc:script location="classpath:com/bank/config/sql/schema.sql"/>
+            <jdbc:script location="classpath:com/bank/config/sql/test-data.sql"/>
+        </jdbc:embedded-database>
+    </beans>
+
+    <beans profile="production">
+        <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/datasource"/>
+    </beans>
+</beans>
+```
+
+**激活一个Profile**
+
+1. 以编程方式对环境API进行激活
+
+```java
+AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+ctx.getEnvironment().setActiveProfiles("development");
+ctx.register(SomeConfig.class, StandaloneDataConfig.class, JndiDataConfig.class);
+ctx.refresh();
+```
+
+2. spring.profiles.active
+
+通过spring.profiles.active属性声明性地激活profiles，它可以通过系统环境变量、JVM系统属性、web.xml 中的servlet上下文参数，甚至作为JNDI中的一个条目来指定
+
+#### PropertySource 抽象
+
+PropertySource 是对任何key值对来源的简单抽象，Spring的 StandardEnvironment 配置了两个 PropertySource 对象—​一个代表JVM系统属性集合（System.getProperties()），一个代表系统环境变量集合（System.getenv()）
+
+执行的搜索是分层次的。默认情况下，系统属性（system properties）比环境变量有优先权。因此，如果在调用 env.getProperty("my-property") 时，my-property 属性恰好在两个地方都被设置了，那么系统属性值 "胜出" 并被返回。请注意，属性值不会被合并，而是被前面的条目完全覆盖。
+
+对于一个普通的 StandardServletEnvironment 来说，完整的层次结构如下，最高优先级的条目在顶部。
+
+1. ServletConfig 参数（如果适用 - 例如，在 DispatcherServlet 上下文的情况下）。
+2. ServletContext 参数（web.xml的context-param条目）.
+3. JNDI环境变量（java:comp/env/ 条目）。
+4. JVM系统属性（-D 命令行参数）。
+5. JVM系统环境（操作系统环境变量）
+
+**使用 @PropertySource**
+
+@PropertySource 注解为向Spring的 Environment 添加 PropertySource 提供了一种方便的声明性机制
+
+任何存在于 @PropertySource 资源位置的 ${…​} 占位符都会根据已经针对环境（environment）注册的属性源集合进行解析
+
+```java
+@Configuration
+@PropertySource("classpath:/com/${my.placeholder:default/path}/app.properties")
+public class AppConfig {
+
+    @Autowired
+    Environment env;
+
+    @Bean
+    public TestBean testBean() {
+        TestBean testBean = new TestBean();
+        testBean.setName(env.getProperty("testbean.name"));
+        return testBean;
+    }
+}
+```
+
 ### AOP
 
 AOP, Aspect Oriented Programming, 是一种编程范式，直译过来就是面向切面编程，其实就是面向`特定方法`编程，主流的实现方式是动态代理
 
 springAOP也是在管理bean对象的过程中，通过底层的动态代理机制，来实现对特定方法的编程
 
-#### springAOP操作
-
-1. 引入springAOP依赖
-2. 创建AOP类，在类上添加注解@Component，将类注入到ioc容器中，添加@Aspect注解，表明是一个AOP类
-3. 编写类方法，并在类方法中添加@Arround注解，通过execution指定方法的切入点
-4. 方法中通过ProceedingJoinPoint调用原始方法，并返回原始方法的返回值
-
-#### AOP的应用场景
-
-1. 记录操作日志
-2. 权限控制
-3. 事务管理
-
-#### AOP的优势
-
-1. 无代码侵入，不修改原始业务代码
-2. 减少重复代码，提高开发效率
-3. 易于维护
-
 #### AOP核心概念
 
-1. 连接点：JoinPoint，满足execution规则的方法，也就是可以被AOP控制的方法，并包含方法在执行时的相关信息
-2. 切入点：Pointcut，通过execution表达式定义的规则
-3. 通知：Advice，AOP中定义的切点所对应的方法，可以添加到切点中
+1. Aspect（切面）: 一个跨越多个类的关注点的模块化。事务管理是企业级Java应用中横切关注点的一个很好的例子。在Spring AOP中，切面是通过使用常规类（基于 schema 的方法）或使用 @Aspect 注解的常规类（@AspectJ 风格）实现的
+2. 连接点JoinPoint：程序执行过程中的一个点，例如一个方法的执行或一个异常的处理，在Spring AOP中，一个连接点总是代表一个方法的执行
+3. 切入点PointCut：一个匹配连接点的谓词（predicate）
+4. 通知Advice： 一个切面在一个特定的连接点采取的行动。不同类型的advice包括 "around"、"before" 和 "after" 的advice（Advice 类型将在后面讨论）。许多AOP框架，包括Spring，都将advice建模为一个拦截器，并在连接点（Join point）周围维护一个拦截器链
 
-#### 通知类型
-
-1. @Around：环绕通知，在原始方法执行前后执行
-2. @Before：前置通知，在原始方法执行前执行
-3. @After：后置通知，在原始方法执行后执行，无论原始方法是否异常，都会执行
-4. @AfterReturning：返回通知，在原始方法返回后执行
-5. @AfterThrowing：异常通知，在原始方法抛出异常后执行
+>advice在Spring AOP有以下几个类型:
+>
+> - Before advice: 在连接点之前运行的Advice ，但它不具备以下能力 阻止执行流进行到 join point 的能力（除非它抛出一个异常）
+> - After returning advice: 在一个连接点正常完成后运行的Advice （例如，如果一个方法返回时没有抛出一个异常）
+> - After (finally) advice: 无论连接点以何种方式退出（正常或特殊返回），都要运行该advice。
+> - Around advice: 围绕一个连接点的advice，如方法调用。这是最强大的一种advice。Around advice可以在方法调用之前和之后执行自定义行为。它还负责选择是否继续进行连接点或通过返回自己的返回值或抛出一个异常来缩短advice方法的执行
+> - After Throwing advice：异常通知，在原始方法抛出异常后执行
 
 #### 切入点表达式
 
@@ -544,7 +1235,7 @@ springAOP也是在管理bean对象的过程中，通过底层的动态代理机�
 execution表示表达式的语法为：
 
 ```java
-execution(访问修饰符? 返回值 包名.类名.方法名?(参数类型列表) throws 异常类型)?
+execution(访问修饰符? 返回值 包名.类名.方法名?(参数类型列表) throws 异常类型?)
 // 示例
 execution(public * com.example.demo.controller.*.*(..))：匹配com.example.demo.controller包下的所有方法，方法返回值任意，方法参数任意
 execution(* com.example.demo.controller.*.*(..))：匹配com.example.demo.controller包下的所有方法，方法返回值任意，方法参数任意
@@ -554,9 +1245,10 @@ execution(* *.*.*.*.*.*(..))：匹配所有方法，方法返回值任意，方�
 当多个表达式组合使用时，可以以使用&&、||、!进行组合。
 
 2. @anotation：
-   匹配方法上指定注解，表达式语法为
 
-```
+匹配方法上指定注解，表达式语法为
+
+```java
 @annotation(包名.注解名)
 ```
 
