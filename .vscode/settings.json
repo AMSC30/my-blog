@@ -18,6 +18,7 @@
         "Inno",
         "Innodb",
         "intarray",
+        "JDBC",
         "JNDI",
         "LLEN",
         "Logback",

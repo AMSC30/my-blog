@@ -1261,6 +1261,329 @@ execution(* *.*.*.*.*.*(..))：匹配所有方法，方法返回值任意，方�
 - 获取方法运行时的参数：Object[] args = joinPoint.getArgs()
 - 获取方法执行后的返回值：Object[] result = joinPoint.proceed(ObJect[] args)
 
+### 事务
+
+事务是逻辑上的一组操作，要么都执行，要么都不执行
+
+#### 事务的特性ACID
+
+1. 原子性（Atomicity）：事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么完全不起作用
+2. 一致性（Consistency）：执行事务前后，数据保持一致，例如转账业务中，无论事务是否成功，转账者和收款人的总额应该是不变的
+3. 隔离性（Isolation）：并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的
+4. 持久性（Durability）：一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响
+
+A、I、D 是手段，C 是目的
+
+#### 编程式事务管理
+
+通过 TransactionTemplate或者TransactionManager手动管理事务，实际应用中很少使用
+
+使用TransactionTemplate 进行编程式事务管理
+
+```java
+@Autowired
+private TransactionTemplate transactionTemplate;
+public void testTransaction() {
+
+        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+
+                try {
+
+                    // ....  业务代码
+                } catch (Exception e){
+                    //回滚
+                    transactionStatus.setRollbackOnly();
+                }
+
+            }
+        });
+}
+```
+
+使用 TransactionManager 进行编程式事务管理
+
+```java
+@Autowired
+private PlatformTransactionManager transactionManager;
+
+public void testTransaction() {
+
+  TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+          try {
+               // ....  业务代码
+              transactionManager.commit(status);
+          } catch (Exception e) {
+              transactionManager.rollback(status);
+          }
+}
+```
+
+#### 声明式事务管理
+
+使用@Transactional注解进行事务管理，是通过 AOP 实现，代码侵入量很小
+
+```java
+@Transactional(propagation = Propagation.REQUIRED)
+public void aMethod {
+  //do something
+  B b = new B();
+  C c = new C();
+  b.bMethod();
+  c.cMethod();
+}
+```
+
+#### Spring事务管理接口
+
+Spring 并不直接管理事务，而是提供了管理器接口PlatformTransactionManager
+
+PlatformTransactionManager接口可以被看作是事务上层的管理者，而 TransactionDefinition 和 TransactionStatus 这两个接口可以看作是事务的描述。
+
+PlatformTransactionManager会根据 TransactionDefinition 的定义比如事务超时时间、隔离级别、传播行为等来进行事务管理
+
+TransactionStatus接口则提供了一些方法来获取事务相应的状态比如是否新事务、是否可以回滚等等
+
+**1. PlatformTransactionManager**
+
+通过PlatformTransactionManager接口，Spring为各个平台如：JDBC(DataSourceTransactionManager)、Hibernate(HibernateTransactionManager)、JPA(JpaTransactionManager)等都提供了对应的事务管理器，具体由各个平台实现
+
+PlatformTransactionManager接口中定义了三个方法：
+
+```java
+package org.springframework.transaction;
+
+import org.springframework.lang.Nullable;
+
+public interface PlatformTransactionManager {
+    //获得事务
+    TransactionStatus getTransaction(@Nullable TransactionDefinition var1) throws TransactionException;
+    //提交事务
+    void commit(TransactionStatus var1) throws TransactionException;
+    //回滚事务
+    void rollback(TransactionStatus var1) throws TransactionException;
+}
+```
+
+**2. TransactionDefinition**
+
+事务管理器接口 PlatformTransactionManager 通过 getTransaction(TransactionDefinition definition) 方法来得到一个事务，这个方法里面的参数是 TransactionDefinition 类 ，这个类就定义了一些基本的事务属性
+
+事务属性可以理解成事务的一些基本配置，描述了事务策略如何应用到方法上
+
+TransactionDefinition 接口中定义了 5 个方法以及一些表示事务属性的常量比如隔离级别、传播行为等等
+
+```java
+package org.springframework.transaction;
+
+import org.springframework.lang.Nullable;
+
+public interface TransactionDefinition {
+    int PROPAGATION_REQUIRED = 0;
+    int PROPAGATION_SUPPORTS = 1;
+    int PROPAGATION_MANDATORY = 2;
+    int PROPAGATION_REQUIRES_NEW = 3;
+    int PROPAGATION_NOT_SUPPORTED = 4;
+    int PROPAGATION_NEVER = 5;
+    int PROPAGATION_NESTED = 6;
+    int ISOLATION_DEFAULT = -1;
+    int ISOLATION_READ_UNCOMMITTED = 1;
+    int ISOLATION_READ_COMMITTED = 2;
+    int ISOLATION_REPEATABLE_READ = 4;
+    int ISOLATION_SERIALIZABLE = 8;
+    int TIMEOUT_DEFAULT = -1;
+    // 返回事务的传播行为，默认值为 REQUIRED。
+    int getPropagationBehavior();
+    //返回事务的隔离级别，默认值是 DEFAULT
+    int getIsolationLevel();
+    // 返回事务的超时时间，默认值为-1。如果超过该时间限制但事务还没有完成，则自动回滚事务。
+    int getTimeout();
+    // 返回是否为只读事务，默认值为 false
+    boolean isReadOnly();
+
+    @Nullable
+    String getName();
+}
+```
+
+**3. TransactionStatus**
+
+TransactionStatus接口用来记录事务的状态 该接口定义了一组方法,用来获取或判断事务的相应状态信息
+
+```java
+public interface TransactionStatus{
+    boolean isNewTransaction(); // 是否是新的事务
+    boolean hasSavepoint(); // 是否有恢复点
+    void setRollbackOnly();  // 设置为只回滚
+    boolean isRollbackOnly(); // 是否为只回滚
+    boolean isCompleted; // 是否已完成
+}
+```
+
+#### 事务属性
+
+##### 事务传播行为：propagation
+
+事务传播行为是为了解决业务层方法之间互相调用的事务问题，当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。例如：方法可能继续在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行
+
+Spring 相应地定义了一个枚举类：Propagation
+
+```java
+package org.springframework.transaction.annotation;
+
+import org.springframework.transaction.TransactionDefinition;
+
+public enum Propagation {
+
+    REQUIRED(TransactionDefinition.PROPAGATION_REQUIRED),
+
+    SUPPORTS(TransactionDefinition.PROPAGATION_SUPPORTS),
+
+    MANDATORY(TransactionDefinition.PROPAGATION_MANDATORY),
+
+    REQUIRES_NEW(TransactionDefinition.PROPAGATION_REQUIRES_NEW),
+
+    NOT_SUPPORTED(TransactionDefinition.PROPAGATION_NOT_SUPPORTED),
+
+    NEVER(TransactionDefinition.PROPAGATION_NEVER),
+
+    NESTED(TransactionDefinition.PROPAGATION_NESTED);
+
+    private final int value;
+
+    Propagation(int value) {
+        this.value = value;
+    }
+
+    public int value() {
+        return this.value;
+    }
+
+}
+```
+
+**1. TransactionDefinition.PROPAGATION_REQUIRED**
+
+使用的最多的一个事务传播行为，我们平时经常使用的@Transactional注解默认使用就是这个事务传播行为
+
+- 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。也就是说：如果外部方法没有开启事务的话，Propagation.REQUIRED修饰的内部方法会新开启自己的事务，且开启的事务相互独立，互不干扰
+- 如果外部方法开启事务并且被Propagation.REQUIRED的话，所有Propagation.REQUIRED修饰的内部方法和外部方法均属于同一事务 ，只要一个方法回滚，整个事务均回滚
+
+**2. TransactionDefinition.PROPAGATION_REQUIRES_NEW**
+
+创建一个新的事务，如果当前存在事务，则把当前事务挂起。也就是说不管外部方法是否开启事务，Propagation.REQUIRES_NEW修饰的内部方法会新开启自己的事务，且开启的事务相互独立，互不干扰
+
+- 如果外部事物方法发生回滚，内部方法传播行为被定义为TransactionDefinition.PROPAGATION_REQUIRES_NEW的不会发生回滚
+- 如果内部发生未被捕获的异常，并且这个异常满足回滚的要求，外部方法也会发生回滚
+
+**3.TransactionDefinition.PROPAGATION_NESTED**
+
+如果当前存在事务，则创建一个事务作为当前事务的嵌套事务执行； 如果当前没有事务，就执行与TransactionDefinition.PROPAGATION_REQUIRED类似的操作
+
+也就是说：在外部方法开启事务的情况下，在内部开启一个新的事务，作为嵌套事务存在。如果外部方法无事务，则单独开启一个事务，与 PROPAGATION_REQUIRED 类似
+
+TransactionDefinition.PROPAGATION_NESTED代表的嵌套事务以父子关系呈现，其核心理念是子事务不会独立提交，依赖于父事务，在父事务中运行；当父事务提交时，子事务也会随着提交，理所当然的，当父事务回滚时，子事务也会回滚
+
+与TransactionDefinition.PROPAGATION_REQUIRES_NEW区别于：PROPAGATION_REQUIRES_NEW是独立事务，不依赖于外部事务，以平级关系呈现，执行完就会立即提交，与外部事务无关；子事务也有自己的特性，可以独立进行回滚，不会引发父事务的回滚，但是前提是需要处理子事务的异常，避免异常被父事务感知导致外部事务回滚
+
+##### 事务隔离级别：isolation
+
+Spring 响应地定义了一个枚举类：Isolation
+
+```java
+public enum Isolation {
+
+  DEFAULT(TransactionDefinition.ISOLATION_DEFAULT),
+
+  READ_UNCOMMITTED(TransactionDefinition.ISOLATION_READ_UNCOMMITTED),
+
+  READ_COMMITTED(TransactionDefinition.ISOLATION_READ_COMMITTED),
+
+  REPEATABLE_READ(TransactionDefinition.ISOLATION_REPEATABLE_READ),
+
+  SERIALIZABLE(TransactionDefinition.ISOLATION_SERIALIZABLE);
+
+  private final int value;
+
+  Isolation(int value) {
+    this.value = value;
+  }
+
+  public int value() {
+    return this.value;
+  }
+
+}
+```
+
+- TransactionDefinition.ISOLATION_DEFAULT :使用后端数据库默认的隔离级别，MySQL 默认采用的 REPEATABLE_READ 隔离级别 Oracle 默认采用的 READ_COMMITTED 隔离级别.
+- TransactionDefinition.ISOLATION_READ_UNCOMMITTED :最低的隔离级别，使用这个隔离级别很少，因为它允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读
+- TransactionDefinition.ISOLATION_READ_COMMITTED : 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生
+- TransactionDefinition.ISOLATION_REPEATABLE_READ : 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。
+- TransactionDefinition.ISOLATION_SERIALIZABLE : 最高的隔离级别，完全服从 ACID 的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。但是这将严重影响程序的性能。通常情况下也不会用到该级别
+
+##### 事务超时： timeout
+
+属性所谓事务超时，就是指一个事务所允许执行的最长时间，如果超过该时间限制但事务还没有完成，则自动回滚事务。在 TransactionDefinition 中以 int 的值来表示超时时间，其单位是秒，默认值为-1，这表示事务的超时时间取决于底层事务系统或者没有超时时间
+
+##### 事务只读属性：readOnly
+
+对于只有读取数据查询的事务，可以指定事务类型为 readonly，即只读事务。只读事务不涉及数据的修改，数据库会提供一些优化手段，适合用在有多条数据库查询操作的方法中
+
+- 如果你一次执行单条查询语句，则没有必要启用事务支持，数据库默认支持 SQL 执行期间的读一致性
+- 如果你一次执行多条查询语句，例如统计查询，报表查询，在这种场景下，多条查询 SQL 必须保证整体的读一致性，否则，在前条 SQL 查询之后，后条 SQL 查询之前，数据被其他用户改变，则该次整体的统计查询将会出现读数据不一致的状态，此时，应该启用事务支持
+
+##### 事务回滚：rollbackFor
+
+这些规则定义了哪些异常会导致事务回滚而哪些不会。默认情况下，事务只有遇到运行期异常（RuntimeException 的子类）时才会回滚，Error 也会导致事务回滚，但是，在遇到检查型（Checked）异常时不会回滚
+
+如果你想要回滚你定义的特定的异常类型的话，可以这样：
+
+```java
+@Transactional(rollbackFor= MyException.class)
+```
+
+#### @Transactional注解
+
+方法：推荐将注解使用于方法上，不过需要注意的是：该注解只能应用到public方法上，否则不生效
+
+类：如果这个注解使用在类上的话，表明该注解对该类中所有的public方法都生效
+
+接口：不推荐在接口上使用
+
+```java
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Documented
+public @interface Transactional {
+
+  @AliasFor("transactionManager")
+  String value() default "";
+
+  @AliasFor("value")
+  String transactionManager() default "";
+
+  Propagation propagation() default Propagation.REQUIRED;
+
+  Isolation isolation() default Isolation.DEFAULT;
+
+  int timeout() default TransactionDefinition.TIMEOUT_DEFAULT;
+
+  boolean readOnly() default false;
+
+  Class<? extends Throwable>[] rollbackFor() default {};
+
+  String[] rollbackForClassName() default {};
+
+  Class<? extends Throwable>[] noRollbackFor() default {};
+
+  String[] noRollbackForClassName() default {};
+
+}
+```
+
 ### 过滤器
 
 过滤器是javaWeb三大组件之一，过滤器可以把请求拦截下来，做一些特殊处理，比如权限验证，日志记录，数据过滤、统一编码处理、敏感字符处理等
