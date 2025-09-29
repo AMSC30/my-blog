@@ -1,126 +1,34 @@
 # SQL
 
-## 数据模型
+## MySQL
 
-关系型数据库
+mysql是一种关系型数据库
 
-建立在关系型数据模型上，由多张二维表相互连接组成的数据库
+关系型数据库：建立在关系型数据模型上，由多张相互连接的二维表组成的数据库
 
-sql语句通用语法
+### sql语句通用语法
 
 - sql语句可以单行或者多行书写，以分号结尾
 - sql语句可以使用空格或缩进来增强sql语句的可读性
 - sql语句可以不区分大小写，但建议使用大写
 - sql语句可以注释，使用#作为单行注释，使用/**/作为多行注释，在mysql中还可以使用#来进行单行注释
 
-## sql语句分类
+### mysql的启动与停止
 
-### DDL语句
+```bash
+# 启动
+net start mysql80
 
-数据库定义语言，用于创建和删除数据库、表、字段
+#停止
+net stop mysql80
+```
 
-#### 数据库操作
+### 客户端连接
 
-- 查询所有数据库: show databases;
-- 查询当前使用的数据库：select database();
-- 创建数据库：create database [if not exists] 数据库名;
-- 删除数据库：drop database [if exists] 数据库名;
-- 使用数据库：use 数据库名;
+1. 使用mysql的客户端连接，打开后输入密码
+2. 使用系统命令行工具进行连接，输入`mysql [-h host] [-P port] -u user -p`
 
-#### 表操作
-
-- 创建表：create table 表名(字段1 字段1类型 [约束] [comment  字段1注释 ],字段2  字段2类型 [约束]  [comment  字段2注释 ],......字段n  字段n类型 [约束]  [comment  字段n注释 ]
-) [ comment  表注释 ] ;
-- 删除表：drop table [if exists] 表名;
-- 修改表名: rename table 表名 to 新表名;
-- 查询表结构：desc 表名;
-- 查询所有的表: show tables;
-- 查询建表语句：show create table 表名;
-
-#### 字段操作
-
-- 添加字段：alter table 表名 add 字段名称 字段类型(长度) [comment 注释]  [约束]
-- 修改字段类型：alter table 表名 modify 字段名称 字段类型(长度) [comment 注释]  [约束]
-- 修改字段名称和类型：alter table 表名 change 旧名称字段 新名称字段 字段类型(长度) [comment 注释]  [约束]
-- 删除字段：alter table 表名 drop column 字段名称;
-
-#### 字段约束
-
-字段约束用于保证表中字段数据的正确性和完整性，是作用于字段的规则
-
-- 非空约束 not null：存储在表中的字段数据不能为null
-- 唯一约束 unique：存储在表中的字段数据必须唯一，不能重复
-- 主键约束 primary key：存储在表中的字段数据必须唯一且不能重复，并且不能为null
-- 默认约束 default：如果没有指定字段的值，则使用默认值
-- 外键约束 foreign key：让两张表建立联系
-
-### DML语句
-
-数据库操作语句，用于对数据的增删改
-
-- 添加表指定字段数据：insert into 表名(字段1,字段2,字段3) values（值1,值2,值3)\[,(值1,值2,值3)]
-- 添加表所有字段数据：insert into 表名 values(值1,值2,值3,...),(值1,值2,值3,...)
-- 修改表指定字段数据：update 表名 set 字段1=值1,字段2=值2,字段3=值3 [where 条件]
-- 删除表指定字段数据：delete from 表名 [where 条件]
-
-### DQL语句
-
-#### 基本查询
-
-1. 查询所有字段：select * from 表名
-2. 查询多个字段：select 字段1,字段2[,...] from 表名
-3. 查询后设置别名 select 字段1 [as] 字段1别名,字段2 from 表名
-4. 查询后去除重复值 select distinct 字段列表 from 表名
-
-#### 条件查询
-
-基本语句：select 字段列表 from 表名 where 条件列表
-
-运算符
-
-条件列表中的条件运算符主要分为比较运算符和逻辑运算符
-
-比较运算符：
-
-- \>, >=, \<, \<=, =, !=：做相等和大小判断
-- between A and B：在A与B的这个范围之内
-- in (...)：值为in后面的列表之一
-- like 占位符：模糊匹配，_匹配单个字符；%匹配任意个字符，包括0个；[] 可以匹配集合内的字符,用脱字符 ^ 可以对其进行否定
-- is null：值为null，不能使用`=null`
-- is not null：值不为null
-
-逻辑运算符：
-
-- and或者&&：逻辑与，同时满足
-- or或者||；逻辑或，满足其中一个
-- not或者!：逻辑非，不满足条件
-
-#### 分组查询
-
-分组查询语法：select 字段列表 from 表名 [where 条件列表] group by 分组字段名 [having 分组后过滤条件]
-
-示例：select gender,count("date") as "date_count" from user where date <= "2021-12-21" group by date having count("date") > 10
-
-where与having的区别：
-
-- where是在分组之前使用，是对分组前的数据进行过滤，符合条件的才参与分组；having是对分组后的数据进行过滤
-- where不能对聚合函数进行判断，having可以
-
-#### 排序查询
-
-排序查询，需要使用order by，支持两种排序方式，asc升序，desc降序，如果不写，默认为asc
-
-基本语法：select 字段列表 from 表名 [where 条件列表] [group by 分组字段名] [having 分组后过滤条件] order by 排序字段1 [asc/desc],排序字段2 [asc/desc]...
-
-#### 分页查询
-
-分页查询中，需要使用limit，数据开始索引从0开始
-
-基本语法为：select 字段列表 from 表名 [where 筛选条件] limit 数据开始索引，单页数量
-
-### DCL语句
-
-数据库控制语言，用于操作数据库的用户及权限
+> 该方式需要配置系统的环境变量
 
 ## 数据类型
 
@@ -180,6 +88,136 @@ char 与 varchar 都可以描述字符串，char是定长字符串，指定长�
 | YEAR      | 1    | 1901 至 2155                               | YYYY                | 年份值                   |
 | DATETIME  | 8    | 1000-01-01 00:00:00 至 9999-12-31 23:59:59 | YYYY-MM-DD HH:MM:SS | 混合日期和时间值         |
 | TIMESTAMP | 4    | 1970-01-01 00:00:01 至 2038-01-19 03:14:07 | YYYY-MM-DD HH:MM:SS | 混合日期和时间值，时间戳 |
+
+## 语句分类
+
+### DDL语句
+
+数据库定义语言，用于创建和删除数据库、表、字段
+
+#### 数据库操作
+
+- 查询所有数据库: show databases
+- 查询当前使用的数据库：select database()
+- 创建数据库：create database [if not exists] 数据库名 [default charset 字符集]
+- 删除数据库：drop database [if exists] 数据库名
+- 使用数据库：use 数据库名
+
+#### 表操作
+
+- 创建表：create table 表名(字段1 字段1类型 [约束] [comment  字段1注释 ],字段2  字段2类型 [约束]  [comment  字段2注释 ],......字段n  字段n类型 [约束]  [comment  字段n注释 ]
+) [ comment  表注释 ] ;
+- 删除表：drop table [if exists] 表名;
+- 修改表名: rename table 表名 to 新表名;
+- 查询表结构：desc 表名;
+- 查询所有的表: show tables;
+- 查询建表语句：show create table 表名;
+
+#### 字段操作
+
+- 添加字段：alter table 表名 add 字段名称 字段类型(长度) [comment 注释]  [约束]
+- 修改字段类型：alter table 表名 modify 字段名称 字段类型(长度) [comment 注释]  [约束]
+- 修改字段名称和类型：alter table 表名 change 旧名称字段 新名称字段 字段类型(长度) [comment 注释]  [约束]
+- 删除字段：alter table 表名 drop column 字段名称;
+
+#### 字段约束
+
+字段约束用于保证表中字段数据的正确性和完整性，是作用于字段的规则
+
+- 非空约束 not null：存储在表中的字段数据不能为null
+- 唯一约束 unique：存储在表中的字段数据必须唯一，不能重复
+- 主键约束 primary key：存储在表中的字段数据必须唯一且不能重复，并且不能为null
+- 默认约束 default：如果没有指定字段的值，则使用默认值
+- 外键约束 foreign key：让两张表建立联系
+
+### DML语句
+
+数据库操作语句，用于对数据的增删改
+
+- 添加表指定字段数据：insert into 表名(字段1,字段2,字段3) values（值1,值2,值3)\[,(值1,值2,值3)]
+- 添加表所有字段数据：insert into 表名 values(值1,值2,值3,...),(值1,值2,值3,...)
+- 修改表指定字段数据：update 表名 set 字段1=值1,字段2=值2,字段3=值3 [where 条件]
+- 删除表指定字段数据：delete from 表名 [where 条件]
+
+### DQL语句
+
+#### 基本查询
+
+1. 查询所有字段：select * from 表名
+2. 查询多个字段：select 字段1,字段2[,...] from 表名
+3. 查询后设置别名 select 字段1 [as] 字段1别名,字段2 from 表名
+4. 查询后去除重复值 select distinct 字段列表 from 表名
+
+#### 条件查询
+
+基本语法
+
+```bash
+select 字段列表 from 表名 where 条件列表
+```
+
+运算符：条件列表中的条件运算符主要分为比较运算符和逻辑运算符
+
+比较运算符：
+
+- \>, >=, \<, \<=, =, !=：做相等和大小判断
+- between A and B：在A与B的这个范围之内
+- in (...)：值为in后面的列表之一
+- like 占位符：模糊匹配，_匹配单个字符；%匹配任意个字符，包括0个；[] 可以匹配集合内的字符,用脱字符 ^ 可以对其进行否定
+- is null：值为null，不能使用`=null`
+- is not null：值不为null
+
+逻辑运算符：
+
+- and或者&&：逻辑与，同时满足
+- or或者||；逻辑或，满足其中一个
+- not或者!：逻辑非，不满足条件
+
+#### 分组查询
+
+分组查询语法：select 字段列表 from 表名 [where 条件列表] group by 分组字段名 [having 分组后过滤条件]
+
+示例：select gender,count("date") as "date_count" from user where date <= "2021-12-21" group by date having count("date") > 10
+
+where与having的区别：
+
+- where是在分组之前使用，是对分组前的数据进行过滤，符合条件的才参与分组；having是对分组后的数据进行过滤
+- where不能对聚合函数进行判断，having可以
+
+```bash
+聚合函数：将一列的数据作为一个整体，进行纵向计算。进行计算时，所有的null值不参与计算
+- count：统计查询结果的数量
+- min：统计某一列的最小值
+- max：统计某一列的最大值
+- avg：统计某一列的平均值
+- sum：统计某一列的总和
+```
+
+#### 排序查询
+
+排序查询，需要使用order by，支持两种排序方式，asc升序，desc降序，如果不写，默认为asc
+
+基本语法：select 字段列表 from 表名 [where 条件列表] [group by 分组字段名] [having 分组后过滤条件] order by 排序字段1 [asc/desc],排序字段2 [asc/desc]...
+
+#### 分页查询
+
+分页查询中，需要使用limit，数据开始索引从0开始
+
+基本语法为：select 字段列表 from 表名 [where 筛选条件] limit 数据开始索引，单页数量
+
+#### 执行顺序
+
+DQL中，语句的执行顺序为
+
+from -> where -> group by -> having -> select -> order by -> limit
+
+### DCL语句
+
+数据库控制语言，用于操作数据库的用户及权限
+
+#### 用户管理
+
+1. 用户管理
 
 ## 多表设计
 
