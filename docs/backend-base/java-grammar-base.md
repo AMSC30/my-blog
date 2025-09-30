@@ -329,7 +329,7 @@ final修饰符用于修饰类，类中的成员变量、成员方法、局部变
 
 #### 访问修饰符
 
-权限修饰符用于修饰类和类中的成员，只有default和public可以用于修饰类，不使用任何修饰符时，表示default(友好型)
+权限修饰符用于修饰类和类中的成员，只有default、abstract和public可以用于修饰类，不使用任何修饰符时，表示default(友好型)
 
 1. public：如果一个类或者类的成员被public访问控制符修饰，那么这个类或者类的成员能被所有的类访问，不管访问类与被访问类是否在同一个包中
 2. protected：如果一个类的成员被protected访问控制符修饰，那么这个成员既能被同一包下的其他类访问，也能被不同包下该类的子类访问
@@ -535,61 +535,153 @@ String代表字符串类
 
 1. 通过字面值创建String对象:String s = "hello";
 2. 通过有参构造传入字符串创建:String s = new String("hello");
-3. 通过char数组创建String对象:String s = new String(char[] {'h','e','l','l','o'});
-4. 通过字节数组创建String对象:String s = new String(byte[] {104,101,108,108,111});
+3. 通过char数组创建String对象:String s = new String(char[] {'h','e','l','l','o'},int offset, int count);
+4. 通过字节数组创建String对象:String s = new String(byte[] {104,101,108,108,111},int offset, int length);
+5. 通过字符串生成器创建String对象:String s = new String(StringBuilder builder);
+6. 通过字符串缓冲器创建String对象:String s = new String(StringBuffer buffer);
 
 ### 常用方法
 
+#### 静态方法
+
+1. static String format(String format, Object... args)：使用指定的格式字符串和参数返回格式化字符串
+2. static String valueOf([boolean b|chart[] c|char c|byte b|short s|int i|long l|float f|double d])：返回参数的字符串表示形式
+
 #### 比较方法
 
-1. boolean equals(String s) 判断两个字符串是否相等
-2. boolean equalsIgnoreCase(String s) 忽略大小写判断两个字符串是否相等
-3. int compareTo(String s) 比较两个字符串的大小
-4. int compareToIgnoreCase(String s) 忽略大小写比较两个字符串的大小
+1. boolean equals(String s)：判断两个字符串是否相等
+2. boolean equalsIgnoreCase(String s)：忽略大小写判断两个字符串是否相等
+3. int compareTo(String s)：比较两个字符串的大小
+4. int compareToIgnoreCase(String s)：忽略大小写比较两个字符串的大小
 
 #### 获取方法
 
-1. int length() 获取字符串的长度
-2. char charAt(int index) 获取指定索引处的字符
-3. int indexOf(String s) 获取指定字符串在字符串中的索引
-4. int indexOf(String s, int fromIndex) 获取指定字符串在字符串中的索引，从指定索引开始
-5. int lastIndexOf(String s) 获取指定字符串在字符串中的索引，从字符串末尾开始
-6. int lastIndexOf(String s, int fromIndex) 获取指定字符串在字符串中的索引，从指定索引开始，从字符串末尾开始
-7. String substring(int beginIndex) 获取指定索引开始到字符串末尾的子字符串
-8. String substring(int beginIndex, int endIndex) 获取指定索引开始到指定索引结束的子字符串
+1. int length()：获取字符串的长度
+2. char charAt(int index)：获取指定索引处的字符
+3. int codePointAt(int index)：返回指定索引处的字符（Unicode 代码点）
+4. int indexOf(String s)：获取指定字符串在字符串中的索引
+5. int indexOf(String s, int fromIndex)：获取指定字符串在字符串中的索引，从指定索引开始
+6. int lastIndexOf(String s)：获取指定字符串在字符串中的索引，从字符串末尾开始
+7. int lastIndexOf(String s, int fromIndex)：获取指定字符串在字符串中的索引，从指定索引开始，从字符串末尾开始
+8. String substring(int beginIndex)：获取指定索引开始到字符串末尾的子字符串
+9. String substring(int beginIndex, int endIndex)：获取指定索引开始到指定索引结束的子字符串
+
+#### 修改方法
+
+1. String toLowerCase()：将字符串转换为小写
+2. String toUpperCase()：将字符串转换为大写
+3. String trim()：删除字符串两端的空格
+4. String replace(char oldChar, char newChar)：替换字符串中指定的字符
+5. String replace(CharSequence target, CharSequence replacement)：替换字符串中指定的字符序列
+6. String replaceAll(String regex, String replacement)：替换字符串中指定的正则表达式
+7. String replaceFirst(String regex, String replacement)：替换字符串中指定的正则表达式的第一个匹配项
 
 #### 转换方法
 
-1. String toLowerCase() 将字符串转换为小写
-2. String toUpperCase() 将字符串转换为大写
-3. String trim() 删除字符串两端的空格
-4. String replace(char oldChar, char newChar) 替换字符串中指定的字符
-5. String replace(CharSequence target, CharSequence replacement) 替换字符串中指定的字符序列
-6. String replaceAll(String regex, String replacement) 替换字符串中指定的正则表达式
-7. String replaceFirst(String regex, String replacement) 替换字符串中指定的正则表达式的第一个匹配项
-8. String[] split(String regex) 分割字符串，返回一个字符串数组
-9. Char[] toCharArray() 将字符串转换为字符数组
-10. byte[] getBytes() 将字符串转换为字节数组
+1. String[] split(String regex)：分割字符串，返回一个字符串数组
+2. Char[] toCharArray()：将字符串转换为字符数组
+3. byte[] getBytes(Charset charset)：使用给定的 charset 将此 String 编码为字节序列，并将结果存储到新的字节数组中
+4. byte[] getBytes()：使用平台的默认字符集将此 String 编码为字节序列，并将结果存储到新的字节数组中
+5. void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)：将此字符串中的字符复制到目标字符数组中
 
 #### 拼接字符串
 
-1. String concat(String str) 拼接字符串，返回一个新字符串
+1. String concat(String str)：拼接字符串，返回一个新字符串
 
 #### 判断方法
 
-1. boolean startsWith(String prefix) 判断字符串是否以指定前缀开头
-2. boolean endsWith(String suffix) 判断字符串是否以指定后缀结尾
-3. boolean contains(CharSequence seq) 判断字符串是否包含指定字符序列
+1. boolean startsWith(String prefix)：判断字符串是否以指定前缀开头
+2. boolean endsWith(String suffix)：判断字符串是否以指定后缀结尾
+3. boolean contains(CharSequence seq)：判断字符串是否包含指定字符序列
+4. boolean isEmpty()：判断字符串是否为空
+5. boolean isBlank()：如果字符串为空或仅包含 空白 代码点，则返回 true，否则返回 false
 
 ### StringBuilder
 
-stringBuilder 是一个可变字符串，主要用于字符串拼接，string使用+每拼接一次字符串，就会创建一个新的字符串对象，消耗内存；stringbuilder自带一个缓冲区，每次拼接都会将结果放到缓冲区，不会创建新的对象，拼接结束后，将缓冲区中的内容复制到新的字符串对象中，不会产生垃圾。
+StringBuilder是一个可变字符串，主要用于字符串拼接，string使用+每拼接一次字符串，就会创建一个新的字符串对象，消耗内存
 
-使用StringBuilder做字符串拼接， 线程是不安全的
+StringBuilder自带一个缓冲区，每次拼接都会将结果放到缓冲区，不会创建新的对象，拼接结束后，将缓冲区中的内容复制到新的字符串对象中，不会产生垃圾
+
+用作StringBuffer在字符串缓冲区被单个线程使用的地方（通常情况下）的替代品，建议优先使用此类而不是StringBuffer，使用StringBuilder做字符串拼接， 线程是不安全的
+
+#### 构造方法
+
+1. StringBuilder()：构造一个没有字符且初始容量为 16 个字符的字符串生成器。
+2. StringBuilder(int capacity)：构造一个没有字符的字符串生成器，初始容量由 capacity 参数指定。
+3. StringBuilder(CharSequence seq)：构造一个字符串生成器，其中包含与指定的 CharSequence 相同的字符。
+4. StringBuilder(String str)：构造一个初始化为指定字符串内容的字符串生成器
+
+#### 追加方法
+
+1. StringBuilder append(boolean b)：将 boolean 参数的字符串表示形式附加到序列中。
+2. StringBuilder append(char c)：将 char 参数的字符串表示形式附加到此序列。
+3. StringBuilder append(char[] str)：将 char 数组参数的字符串表示形式附加到此序列。
+4. StringBuilder append(char[] str, int offset, int len)：将 char 数组参数的子数组的字符串表示形式附加到此序列。
+5. StringBuilder append(double d)：将 double 参数的字符串表示形式附加到此序列。
+6. StringBuilder append(float f)：将 float 参数的字符串表示附加到此序列。
+7. StringBuilder append(int i)：将 int 参数的字符串表示形式附加到此序列。
+8. StringBuilder append(long lng)：将 long 参数的字符串表示形式附加到此序列。
+9. StringBuilder append(CharSequence s)：将指定的字符序列附加到此 Appendable 。
+10. StringBuilder append(CharSequence s, int start, int end)：将指定的 CharSequence 的子序列附加到此序列。
+11. StringBuilder append(Object obj)：附加 Object 参数的字符串表示形式。
+12. StringBuilder append(String str)：将指定的字符串附加到此字符序列。
+13. StringBuilder append(StringBuffer sb)：将指定的 StringBuffer 附加到此序列
+
+#### 插入方法
+
+1. StringBuilder insert(int offset, boolean b)：将 boolean 参数的字符串表示形式插入此序列。
+2. StringBuilder insert(int offset, char c) 将 char 参数的字符串表示形式插入此序列。
+3. StringBuilder insert(int offset, char[] str)：将 char 数组参数的字符串表示形式插入到此序列中。
+4. StringBuilder insert(int index, char[] str, int offset, int len)：将 str 数组参数的子数组的字符串表示形式插入到此序列中。
+5. StringBuilder insert(int offset, double d)：将 double 参数的字符串表示形式插入此序列。
+6. StringBuilder insert(int offset, float f)：将 float 参数的字符串表示形式插入此序列。
+7. StringBuilder insert(int offset, int i)：将第二个 int 参数的字符串表示形式插入此序列。
+8. StringBuilder insert(int offset, long l)：将 long 参数的字符串表示形式插入此序列。
+9. StringBuilder insert(int dstOffset, CharSequence s)：将指定的 CharSequence 插入此序列。
+10. StringBuilder insert(int dstOffset, CharSequence s, int start, int end)：将指定 CharSequence 的子序列插入此序列。
+11. StringBuilder insert(int offset, Object obj)：将 Object 参数的字符串表示形式插入此字符序列。
+12. StringBuilder insert(int offset, String str)：将字符串插入此字符序列
+
+#### 删除方法
+
+1. StringBuilder delete(int start, int end)：删除此序列的子字符串中的字符。
+2. StringBuilder deleteCharAt(int index)：删除此序列中指定位置的 char
+
+#### 查询方法
+
+1. int capacity()：返回当前容量。
+2. char charAt(int index)：返回此序列中指定索引处的 char 值
+3. int codePointAt(int index)：返回指定索引处的字符（Unicode 代码点）
+4. int indexOf(String str)：返回指定子字符串在该字符串中第一次出现的索引。
+5. int indexOf(String str, int fromIndex)：从指定索引开始，返回第一次出现的指定子字符串在此字符串中的索引
+6. int lastIndexOf(String str)：返回最后一次出现的指定子字符串在此字符串中的索引。
+7. int lastIndexOf(String str, int fromIndex)：返回最后一次出现的指定子字符串在此字符串中的索引，从指定索引开始向后搜索。
+8. int length()：返回长度（字符数）
+
+#### 修改方法
+
+1. StringBuilder replace(int start, int end, String str)：用指定的 String 中的字符替换此序列的子字符串中的字符。
+2. StringBuilder reverse()：导致此字符序列被序列的反向替换
+3. void setCharAt(int index, char ch)：指定索引处的字符设置为 ch 。
+4. void setLength(int newLength)：设置字符序列的长度
+5. String substring(int start)：返回一个新的 String，其中包含当前包含在此字符序列中的字符子序列。
+6. String substring(int start, int end)：返回一个新的 String，其中包含当前包含在此序列中的字符子序列
+7. String toString()：返回表示此序列中数据的字符串
+
+### StringBuffer
+
+一个线程安全的、可变的字符序列，字符串缓冲区可以安全地供多个线程使用，是线程安全的，常用API同StringBuilder
 
 ## 数学类
 
 ### Math类
+
+#### 静态属性
+
+1. static final double E：比任何其他值都更接近e, 自然对数的底数。
+2. static final double PI：比任何其他值都更接近pi，圆的周长与其直径之比
+
+### 静态方法
 
 1. int abs(int a)、long abs(long a)、double abs(double a)、float abs(float a)：求绝对值
 2. double floor(double a)：向下取整，返回double a的整数部分
@@ -600,12 +692,43 @@ stringBuilder 是一个可变字符串，主要用于字符串拼接，string使
 
 ### BigInteger类
 
+BigInteger类用于表示任意大小的整数，可以进行加减乘除运算，并且可以解决除不尽的问题
+
+#### 静态常量
+
+1. static final BigInteger ONE：BigInteger常量1
+2. static final BigInteger TEN：BigInteger常量10
+3. static final BigInteger TWO：BigInteger常量2
+4. static final BigInteger ZERO：BigInteger常量0
+
+#### 构造方法
+
+1. static BigInteger probablePrime(int bitLength, Random rnd)：返回一个可能是质数的正BigInteger，具有指定的bitLength
+2. static BigInteger valueOf(long val)：返回一个 BigInteger，其值等于指定的long的值
+
+#### 实例方法
+
 1. BigInteger add(BigInteger val)：求和
 2. BigInteger subtract(BigInteger val)：求差
 3. BigInteger multiply(BigInteger val)：求积
 4. BigInteger divide(BigInteger val)：求商
 5. BigInteger mod(BigInteger m)：求余
-6. BigInteger pow(int n)：求幂
+6. BigInteger[] divideAndRemainder(BigInteger val)：返回包含 (this / val) 后跟 (this % val) 的两个 BigInteger 的数
+7. BigInteger pow(int n)：求幂
+8. BigInteger max(BigInteger val)：返回此 BigInteger 和 val 的最大值。
+9. BigInteger min(BigInteger val)：返回此 BigInteger 和 val 的最小值
+10. BigInteger abs()：返回一个 BigInteger，其值是此 BigInteger 的绝对值
+11. BigInteger sqrt()：返回此 BigInteger 的整数平方根
+
+#### 取值方法
+
+1. int intValue()：将此 BigInteger 转换为 int
+2. long longValue()：将此 BigInteger 转换为 long
+3. float floatValue()：将此 BigInteger 转换为 float
+4. double doubleValue()：将此 BigInteger 转换为 double
+5. byte[] toByteArray()：返回包含此 BigInteger 的二进制补码表示的字节数组
+6. String toString()：返回此 BigInteger 的十进制字符串表示形式。
+7. String toString(int radix)：返回给定基数中此 BigInteger 的字符串表示形式
 
 ### BigDecimal类
 
@@ -616,7 +739,9 @@ stringBuilder 是一个可变字符串，主要用于字符串拼接，string使
 5. BigDecimal divide(BigDecimal val, int scale, int roundingMode)：求商，scale表示精度，roundingMode表示舍入模式，可以解决除不尽的问题
 6. BigDecimal pow(int n)：求幂
 
-## Date类
+## 日期类
+
+### Date类
 
 1. new Date()：创建一个Date对象，该对象表示当前时间
 2. new Date(long millis)：创建一个Date对象，该对象表示1970年1月1日0时0分0秒到当前时间之间所经过的毫秒数
@@ -633,34 +758,56 @@ stringBuilder 是一个可变字符串，主要用于字符串拼接，string使
 13. Date.getDay()：返回当前时间对应的星期，从0开始计算，0表示星期天，1表示星期一，以此类推
 14. Date.setTime(long time)：设置当前时间，参数为毫秒数
 
-## Calendar类
+### Calendar类
 
-Calendar 类是一个抽象类，它提供了在特定时刻和一组 calendar fields 之间转换的方法，例如 YEAR 、 MONTH 、 DAY_OF_MONTH 、 HOUR 等，以及用于操作日历字段的方法，例如获取日期下个星期。即时时间可以用毫秒值表示，该值是从 Epoch 开始的偏移量，1970 年 1 月 1 日 00:00:00.000 GMT（公历）。
+Calendar 类是一个抽象类，它提供了在特定时刻和一组 calendar fields 之间转换的方法，例如 YEAR 、 MONTH 、 DAY_OF_MONTH 、 HOUR 等，以及用于操作日历字段的方法，例如获取日期下个星期
+
+时间可以用毫秒值表示，该值是从Epoch开始的偏移量，1970 年 1 月 1 日 00:00:00.000 GMT（公历）。
+
 该类还提供了额外的字段和方法，用于在包外实现具体的日历系统。这些字段和方法定义为 protected 。
 
-与其他locale敏感的类一样，Calendar 提供了一个类方法 getInstance ，用于获取此类型的普遍有用的对象。 Calendar 的 getInstance 方法返回一个 Calendar 对象，其日历字段已用当前日期和时间初始化
+与其他locale敏感的类一样，Calendar提供了一个类方法getInstance ，用于获取此类型的普遍有用的对象。 Calendar的getInstance方法返回一个Calendar对象，其日历字段已用当前日期和时间初始化
 
-### 常用静态值
+#### 常用静态值
 
-表示年月日时分秒的字段：YEAR、MONTH、DAY_OF_MONTH、HOUR_OF_DAY、MINUTE、SECOND、MILLISECOND，Calendar.getInstance()方法获取当前时间对应的日历对象
+1. YEAR：get 和 set 的字段编号表示年份
+2. MONTH：get 和 set 的字段编号表示月份
+3. DAY_OF_MONTH：get 和 set 的字段编号指示月份中的日期
+4. HOUR_OF_DAY：get 和 set 的字段编号指示一天中的小时数
+5. MINUTE：get 和 set 的字段编号表示小时内的分钟
+6. SECOND：get 和 set 的字段编号表示分钟内的秒数
+7. MILLISECOND：get 和 set 的字段编号表示秒内的毫秒数
+8. WEEK_OF_MONTH：get 和 set 的字段编号表示当月的周数
+9. WEEK_OF_YEAR：get 和 set 的字段编号表示年的周数
+10. DAY_OF_WEEK：get 和 set 的字段编号表示星期几
 
-### 比较方法
+#### 静态方法
+
+1. static Calendar getInstance()：使用默认时区和locale获取日历
+2. static Calendar getInstance(Locale aLocale)：获取使用默认时区和指定locale的日历
+3. static Calendar getInstance(TimeZone zone)：获取使用指定时区和默认locale的日历
+4. static Calendar getInstance(TimeZone zone, Locale aLocale)：获取具有指定时区和locale的日历
+
+#### 判断方法
 
 1. int compareTo(Calendar anotherCalendar)：比较两个日历对象的大小，返回一个整数，如果当前日历对象早于 anotherCalendar，则返回一个负数；如果当前日历对象晚于 anotherCalendar，则返回一个正数；如果两个日历对象相等，则返回 0
 2. boolean after(Object when)：返回此 Calendar 是否表示指定 Object 表示的时间之后的时间。
 3. boolean before(Object when)： 返回此 Calendar 是否表示指定 Object 表示的时间之前的时间。
 4. boolean equals(Object obj)： 将此 Calendar 与指定的 Object 进行比较。
 
-### 获取日历对象相关信息
+#### 获取日历对象相关信息
 
 1. int get(int field)：返回给定日历字段的值。
 2. String getCalendarType()：返回此 Calendar 的日历类型
 3. int getFirstDayOfWeek()：获取一周的第一天是什么；例如，SUNDAY 在美国，MONDAY 在法国
-4. final Date getTime()：返回表示此 Calendar 的时间值的 Date 对象（与 时代 的毫秒偏移量）
-5. long getTimeInMillis()：以毫秒为单位返回此日历的时间值
-6. TimeZone getTimeZone()：获取时区。
+4. final Date getTime()：返回表示此 Calendar 的时间值的Date对象
+5. long getTimeInMillis():以毫秒为单位返回此日历的时间
+6. final boolean isSet(int field)：确定给定的日历字段是否设置了值，包括值已由 get 方法调用触发的内部字段计算设置的情况
+7. TimeZone getTimeZone()：获取时区
+8. String getDisplayName(int field, int style, Locale locale)：返回给定 style 和 locale 中日历 field 值的字符串表示形式。
+9. Map<String,Integer> getDisplayNames(int field, int style, Locale locale)：返回一个 Map，其中包含给定 style 和 locale 中日历 field 的所有名称及其对应的字段值
 
-### 设置日历对象相关信息
+#### 设置日历对象相关信息
 
 1. void set(int field, int value)：将给定的日历字段设置为给定的值
 2. final void set(int year, int month, int date)：设置日历字段 YEAR 、 MONTH 和 DAY_OF_MONTH 的值
@@ -669,7 +816,68 @@ Calendar 类是一个抽象类，它提供了在特定时刻和一组 calendar f
 5. void setFirstDayOfWeek(int value)：设置一周的第一天是什么；例如，SUNDAY 在美国，MONDAY 在法国
 6. abstract void add(int field, int amount)：根据日历的规则向给定的日历字段添加或减去指定的时间量。
 
-## SimpleDateFormat类
+### LocalDate类
+
+LocalDate 是一个不可变且线程安全的日期时间对象，表示日期，通常被视为年月日。还可以访问其他日期字段，例如一年中的某一天、星期几和一年中的一周，没有偏移量或时区等附加信息，它不能代表时间线上的一个瞬间
+
+#### 静态变量
+
+1. static final LocalDate EPOCH：纪元年 LocalDate，'1970-01-01'。
+2. static final LocalDate MAX：最大支持 LocalDate，'+999999999-12-31'。
+3. static final LocalDate MIN：支持的最小值 LocalDate，'-999999999-01-01'
+
+#### 静态方法
+
+1. static LocalDate now()：从默认时区的系统时钟获取当前日期。
+2. static LocalDate now(Clock clock)：从指定时钟获取当前日期。
+3. static LocalDate now(ZoneId zone)：从指定时区的系统时钟获取当前日期
+4. static LocalDate of(int year, int month, int dayOfMonth)：从年、月和日中获取 LocalDate 的实例。
+5. static LocalDate of(int year, Month month, int dayOfMonth)：从年、月和日中获取 LocalDate 的实例
+6. static LocalDate parse(CharSequence text)：从 2007-12-03 等文本字符串中获取 LocalDate 的实例
+
+#### 实例方法
+
+1. LocalDateTime atTime(int hour, int minute)：将此日期与时间结合起来创建一个 LocalDateTime 。
+2. LocalDateTime atTime(int hour, int minute, int second)：将此日期与时间结合起来创建一个 LocalDateTime
+3. LocalDateTime atTime(LocalTime time)：将此日期与时间结合起来创建一个 LocalDateTime
+4. boolean isLeapYear()：根据 ISO proleptic 日历系统规则，检查年份是否为闰年
+5. Period until(ChronoLocalDate endDateExclusive)：计算此日期和另一个日期之间的时间为 Period
+
+#### 查询方法
+
+1. int get(TemporalField field)：从此日期获取指定字段的值作为
+2. int getYear()：获取年份字段
+3. int DayOfWeek getDayOfWeek()：获取星期字段，它是一个枚举DayOfWeek
+4. Month getMonth() 使用 Month 枚举获取月份字段
+5. int getMonthValue()：获取从1到12的月份字段
+6. int getDayOfMonth()：获取日期字段
+
+#### 操作方法
+
+1. LocalDate minus(long amountToSubtract, TemporalUnit unit)：返回此日期的副本，并减去指定的金额。
+2. LocalDate minus(TemporalAmount amountToSubtract) ：回此日期的副本，并减去指定的金额。
+3. LocalDate minusDays(long daysToSubtract)：返回此 LocalDate 的副本，并减去指定的天数。
+4. LocalDate minusMonths(long monthsToSubtract)：返回此 LocalDate 的副本，并减去指定的月数。
+5. LocalDate minusWeeks(long weeksToSubtract)：返回此 LocalDate 的副本，并减去指定的周数。
+6. LocalDate minusYears(long yearsToSubtract)：返回此 LocalDate 的副本，并减去指定的年数。
+7. LocalDate plus(long amountToAdd, TemporalUnit unit)：返回添加了指定数量的此日期的副本。
+8. LocalDate plus(TemporalAmount amountToAdd)：返回添加了指定数量的此日期的副本。
+9. LocalDate plusDays(long daysToAdd)：返回此 LocalDate 的副本，并添加了指定的天数。
+10. LocalDate plusMonths(long monthsToAdd)：返回此 LocalDate 的副本，并添加了指定的月数。
+11. LocalDate plusWeeks(long weeksToAdd)：返回此 LocalDate 的副本，并添加了指定的周数。
+12. LocalDate plusYears(long yearsToAdd)：返回此 LocalDate 的副本，并添加了指定的年数
+
+#### 比较方法
+
+1. int compareTo(ChronoLocalDate other)：将此日期与另一个日期进行比较
+2. boolean equals(Object obj)：检查此日期是否等于另一个日期
+3. boolean isAfter(ChronoLocalDate other)：检查此日期是否在指定日期之后。
+4. boolean isBefore(ChronoLocalDate other)：检查此日期是否早于指定日期。
+5. boolean isEqual(ChronoLocalDate other)：检查此日期是否等于指定日期
+
+> LocalTime、LocalDateTime的用法和LocalDate基本类似
+
+### SimpleDateFormat
 
 SimpleDateFormat是以locale敏感的方式格式化和解析日期的具体类，用于格式化日期。它允许格式化（日期→文本）、解析（文本→日期）和规范化
 
@@ -677,6 +885,11 @@ SimpleDateFormat是以locale敏感的方式格式化和解析日期的具体类�
 
 1. 格式化日期：String format(Date date)
 2. 解析日期：Date parse(String source)
+
+### DateTimeFormatter
+
+1. static DateTimeFormatter ofPattern(String pattern)：使用指定的模式创建格式化程序
+2. String format(TemporalAccessor temporal)：使用此格式化程序格式化日期时间对象
 
 ## 包装类
 
