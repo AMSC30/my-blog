@@ -6,6 +6,7 @@
         "DBCP",
         "Deque",
         "extname",
+        "filesort",
         "getenv",
         "globalconfig",
         "Gson",
@@ -15,6 +16,8 @@
         "HKEYS",
         "HSET",
         "HVALS",
+        "ifnull",
+        "infile",
         "Inno",
         "Innodb",
         "intarray",
@@ -22,6 +25,7 @@
         "JNDI",
         "LLEN",
         "Logback",
+        "LPAD",
         "LPUSH",
         "LRANGE",
         "LSET",
@@ -32,6 +36,7 @@
         "OUNDEX",
         "Pinia",
         "println",
+        "RPAD",
         "RPOP",
         "RTRIM",
         "SETEX",
@@ -42,6 +47,7 @@
         "updatechildren",
         "userconfig",
         "VALUEN",
+        "varchar",
         "vuex"
     ]
 }
