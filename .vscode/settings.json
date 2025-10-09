@@ -2,6 +2,7 @@
     "cSpell.words": [
         "appenders",
         "binlog",
+        "cbuf",
         "Ceki",
         "DBCP",
         "Deque",
@@ -32,6 +33,7 @@
         "LTRIM",
         "maixaofei",
         "millis",
+        "mkdirs",
         "Mybatis",
         "npmrc",
         "OUNDEX",
