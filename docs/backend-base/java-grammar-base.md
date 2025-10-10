@@ -2136,7 +2136,7 @@ try {
 2. 对象.getClass()
 3. 类名.class
 
-### 获取class对象的构造方法
+### 获取构造方法
 
  获取所有public构造方法
 
@@ -2183,7 +2183,7 @@ Constructor\<?\> constructor = class.getDeclaredConstructor(Class\<?\>... parame
 
 constructor.setAccessible(true);
 
-### 获取class对象的成员方法
+### 获取成员方法
 
 获取所有的public方法
 
@@ -2209,7 +2209,7 @@ Method method = class.getDeclaredMethod(methodName, Class\<?\>...parameterTypes)
 
 method.setAccessible(true)
 
-### 获取class对象的成员变量
+### 获取成员变量
 
 获取所有public成员变量
 
@@ -2306,3 +2306,458 @@ public @interface Book{
 ### 注解的解析
 
 注解的解析，本质上是将注解中的属性值获取出来
+
+## Lambda表达式
+
+Lambda 表达式描述了一个代码块（或者叫匿名方法），可以将其作为参数传递给构造方法或者普通方法以便后续执行
+
+使用Lambda的依据是必须有相应的函数接口，即内部只有一个抽象方法的接口
+
+### 语法
+
+每个 Lambda 表达式都遵循以下语法
+
+```java
+( parameter-list ) -> { expression-or-statements }
+```
+
+- () 中的 parameter-list 是以逗号分隔的参数，可以指定参数的类型，也可以不指定
+- -> 相当于 Lambda 的标识符
+- {} 中的 expression-or-statements 是 Lambda 函数的实现，可以是一个表达式，也可以是多条语句
+
+### 使用场景
+
+1. 为变量赋值
+
+```java
+Runnable r = () -> { System.out.println("沉默王二"); };
+r.run();
+```
+
+2. 作为 return 结果
+
+```java
+static FileFilter getFilter(String ext){
+    return (pathname) -> pathname.toString().endsWith(ext);
+}
+```
+
+3. 作为数组元素
+
+```java
+final PathMatcher matchers[] ={
+        (path) -> path.toString().endsWith("txt"),
+        (path) -> path.toString().endsWith("java")
+};
+```
+
+4. 作为普通方法或者构造方法的参数
+
+```java
+new Thread(() -> System.out.println("沉默王二")).start();
+```
+
+### 作用域
+
+不要在 Lambda 表达式主体内对方法内的局部变量进行修改，Lambda 表达式中要用到的，但又未在 Lambda 表达式中声明的变量，必须声明为 final 或者是 effectively final，否则就会出现编译错误
+
+### 方法引用
+
+当要传递给Lambda体内的操作，已经有实现的方法了，就可以使用方法引用了，使用操作符 “::” 将方法名和对象或类的名字分隔开来
+
+方法引用使用的前提条件：
+
+1. 方法引用所引用的方法的参数列表必须要和函数式接口中抽象方法的参数列表相同（完全一致）。
+2. 方法引用所引用的方法的的返回值必须要和函数式接口中抽象方法的返回值相同（完全一致）
+
+#### 对象::实例方法
+
+```java
+@Test
+  public void test1(){
+      PrintStream ps = System.out;
+      Consumer<String> con = (str) -> ps.println(str);
+      con.accept("Hello World！");
+
+      System.out.println("--------------------------------");
+
+      Consumer<String> con2 = ps::println;
+      con2.accept("Hello Java8！");
+
+      Consumer<String> con3 = System.out::println;
+  }
+  @Test
+  public void test2(){
+      Employee emp = new Employee(1, "张三", 18, 5112.99);
+
+      Supplier<String> sup = () -> emp.getName();
+      System.out.println(sup.get());
+
+      System.out.println("----------------------------------");
+
+      Employee emp1 = new Employee(2, "李四", 18, 5112.99);
+      Supplier<String> sup2 = emp1::getName;
+      System.out.println(sup2.get());
+  }
+```
+
+#### 类::静态方法
+
+```java
+@Test
+  public void test3(){
+      BiFunction<Double, Double, Double> fun = (x, y) -> Math.max(x, y);
+      System.out.println(fun.apply(1.5, 22.2));
+
+      System.out.println("--------------------------------------------------");
+      BiFunction<Double, Double, Double> fun2 = Math::max;
+      System.out.println(fun2.apply(1.2, 1.5));
+  }
+
+  @Test
+  public void test4(){
+      Comparator<Integer> com = (x, y) -> Integer.compare(x, y);
+      System.out.println(com.compare(3,9));
+
+      System.out.println("-------------------------------------");
+      Comparator<Integer> com2 = Integer::compare;
+      System.out.println(com2.compare(3,9));
+  }
+```
+
+#### 类::实例方法
+
+```java
+@Test
+  public void test5(){
+      BiPredicate<String, String> bp = (x, y) -> x.equals(y);
+      System.out.println(bp.test("abcde", "abcde"));
+
+      System.out.println("-----------------------------------------");
+      BiPredicate<String, String> bp2 = String::equals;
+      System.out.println(bp2.test("abc", "abc"));
+
+      System.out.println("-----------------------------------------");
+      Function<Employee, String> fun = (e) -> e.show();
+      System.out.println(fun.apply(new Employee()));
+
+      System.out.println("-----------------------------------------");
+      Function<Employee, String> fun2 = Employee::show;
+      System.out.println(fun2.apply(new Employee()));
+  }
+```
+
+### 构造器引用
+
+构造器使用的前提是构造器参数列表要与接口中抽象方法的参数列表一致
+
+语法格式为`类名 :: new`
+
+```java
+// Employee类中必须有一个 Employee(String name, int age) 的构造器
+BiConsumer<String, Integer> biConsumer = Employee :: new;
+biConsumer.accept("王五", 19)
+```
+
+数组引用和构造引用基本相同
+
+```java
+@Test
+  public void test10(){
+      //传统Lambda实现
+      Function<Integer,int[]> function = (i) -> new int[i];
+      int[] apply = function.apply(10);
+      System.out.println(apply.length); // 10
+
+      //数组类型引用实现
+      function = int[] ::new;
+      apply = function.apply(100);
+      System.out.println(apply.length); // 100
+  }
+```
+
+### 函数式接口
+
+函数式接口的抽象方法的签名，基本就是lambda表达式的签名，这种抽象方法称为函数描述符
+
+#### Supplier接口
+
+接口仅包含一个无参的方法T get()，用来获取一个泛型参数指定类型的对象数据
+
+由于这是一个函数式接口，对应的Lambda表达式需要“对外提供”一个符合泛型类型的对象数据
+
+```java
+public class use_Supplier_Max_Value {
+    private static int getMax(Supplier<Integer> suply) {
+        return suply.get();
+    }
+    public static void main(String[] args) {
+        Integer [] data=new Integer[] {6,5,4,3,2,1};
+        int reslut=getMax(()->{
+            int max=0;
+            for (int i = 0; i < data.length; i++) {
+                max=Math.max(max, data[i]);
+            }
+            return max;
+        });
+        System.out.println(reslut);
+    }
+}
+```
+
+#### Consumer接口
+
+与Supplier接口相反，它不是生产一个数据，而是消费一个数据，其数据类型由泛型决定
+
+Consumer 接口中包含抽象方法 void accept(T t) ，意为消费一个指定泛型的数据
+
+```java
+public class Test_Comsumer {
+    public static void generateX(Consumer<String> consumer) {
+        consumer.accept("hello consumer");
+    }
+    public static void main(String[] args) {
+        generateX(s->System.out.println(s));
+    }
+}
+```
+
+如果一个方法的参数和返回值全都是 Consumer 类型，那么就可以实现效果：消费数据的时候，首先做一个操作，然后再做一个操作，实现组合，默认方法andThen的实现：
+
+```java
+default Consumer<T> andThen(Consumer<? super T> after) {
+    Objects.requireNonNull(after);
+    return (T t) ‐> { accept(t); after.accept(t); }; 
+    //1:  返回值为Consumer 那么需要 ()-> 表示函数式接口
+    //2:  accept(t);为生产一个数据供应给 (T t)中的t
+    //3:  after.accept(t);为利用这个t再次生成新的函数式接口 实现类始于builder的设计模式
+}
+```
+
+一个实际使用的例子
+
+```java
+public class use_Consumer_FormattorName {
+    public static void formattorPersonMsg(Consumer<String[]> con1, Consumer<String[]> con2) {
+        // con1.accept(new String[]{ "迪丽热巴,女", "古力娜扎,女", "马尔扎哈,男" });
+        // con2.accept(new String[]{ "迪丽热巴,女", "古力娜扎,女", "马尔扎哈,男" });
+        // 一句代码搞定
+        con1.andThen(con2).accept(new String[] { "迪丽热巴,女", "古力娜扎,女", "马尔扎哈,男" });
+    }
+    public static void main(String[] args) {
+        formattorPersonMsg((s1) -> {
+            for (int i = 0; i < s1.length; i++) {
+                System.out.print(s1[i].split("\\,")[0] + " ");
+            }
+        }, (s2) -> {
+            System.out.println();
+            for (int i = 0; i < s2.length; i++) {
+                System.out.print(s2[i].split("\\,")[1] + " ");
+            }
+        });
+        System.out.println();
+        printInfo(s->System.out.print(s.split("\\,")[0]),
+                  s->System.out.println(","+s.split("\\,")[1]),datas);
+    }
+    // 自身自销 有意思
+    private static void printInfo(Consumer<String> one, Consumer<String> two, String[] array) {
+        for (String info : array) { // 这里每次产生 {迪丽热巴。性别：女 } String 数据 逻辑那边顺序处理就行
+            one.andThen(two).accept(info); // 姓名：迪丽热巴。性别：女。 } }
+        }
+    }
+}
+```
+
+#### Predicate接口
+
+Predicate 接口中包含一个抽象方法:boolean test(T t)，用于条件判断的场景
+
+既然是条件判断，就会存在与、或、非三种常见的逻辑关系，对应and or nagte (取反)三个默认方法
+
+其中将两个 Predicate 条件使用“与”逻辑连接起来实现“并且”的效果时,类始于 Consumer接口 andThen()函数
+
+```java
+default Predicate<T> and(Predicate<? super T> other) {
+    Objects.requireNonNull(other); 
+    return (t) ‐> test(t) && other.test(t);
+}
+```
+
+下面是一个实际使用的例子：
+
+```java
+public class Use_Predicate {
+    // 判断字符串是否存在o  即使生产者 又是消费者接口
+    private static void method_test(Predicate<String> predicate) {
+         boolean b = predicate.test("OOM SOF");
+         System.out.println(b);
+    }
+    // 判断字符串是否同时存在o h 同时
+    private static void method_and(Predicate<String> predicate1,Predicate<String> predicate2) {
+        boolean b = predicate1.and(predicate2).test("OOM SOF");
+        System.out.println(b);
+    }
+    //判断字符串是否一方存在o h 
+    private static void method_or(Predicate<String> predicate1,Predicate<String> predicate2) {
+        boolean b = predicate1.or(predicate2).test("OOM SOF");
+        System.out.println(b);
+    }
+    // 判断字符串不存在o 为真   相反结果
+    private static void method_negate(Predicate<String> predicate) {
+         boolean b = predicate.negate().test("OOM SOF");
+         System.out.println(b);
+    }
+    public static void main(String[] args) {
+        method_test((s)->s.contains("O"));
+        method_and(s->s.contains("O"), s->s.contains("h"));
+        method_or(s->s.contains("O"), s->s.contains("h"));
+        method_negate(s->s.contains("O"));
+    }
+}
+```
+
+## Optional
+
+Optional类提供了一种用于表示可选值而非空引用的类级别解决方案
+
+### 创建 Optional 对象
+
+```java
+static <T> Optional<T> empty():返回一个空的Optional实例
+static <T> Optional<T> of(T value):返回描述给定非null值的Optional
+static <T> Optional<T> ofNullable(T value):返回描述给定值的Optional（如果非null），否则返回一个空的Optional
+```
+
+### 判断值是否存在
+
+```java
+boolean isEmpty()：如果值不存在，则返回true，否则返回false
+boolean isPresent()：如果存在值，则返回true，否则返回false
+void ifPresent(Consumer<? super T> action)：如果存在值，则使用该值执行给定操作，否则不执行任何操作。
+void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)：如果存在值，则使用该值执行给定操作，否则执行给定的基于空值的操作
+```
+
+### 获取值
+
+```java
+T get()：如果存在值，则返回该值，否则抛出NoSuchElementException
+T orElse(T other)：如果存在值，则返回该值，否则返回other。
+T orElseGet(Supplier<? extends T> supplier)：如果存在值，则返回该值，否则返回由提供函数生成的结果
+```
+
+### 过滤值
+
+```java
+Optional<T> filter(Predicate<? super T> predicate)：如果存在值，并且该值与给定的断言匹配，则返回描述该值的Optional，否则返回一个空的Optional
+```
+
+### 转换值
+
+```java
+<U> Optional<U> map(Function<? super T,? extends U> mapper)：如果存在值，则返回描述该值的Optional（如同通过ofNullable(T)）应用给定映射函数的结果，否则返回一个空Optional
+```
+
+## Stream流
+
+Stream就像一个高级的迭代器，只能遍历一次，要想操作流，首先需要有一个数据源，可以是数组或者集合。每次操作都会返回一个新的流对象，方便进行链式操作，但原有的流对象会保持不变
+
+流的操作可以分为两种类型：
+
+- 中间操作，可以有多个，每次返回一个新的流，可进行链式操作。
+- 终端操作，只能有一个，每次执行完，这个流也就用光光了，无法执行下一个操作，因此只能放在最后
+
+### 创建流
+
+```java
+static <T> Stream<T> concat(Stream<? extends T> a, Stream<? extends T> b)：建一个延迟连接的流，其元素是第一个流的所有元素，后跟第二个流的所有元素
+static <T> Stream<T> empty()：返回一个空的顺序Stream
+static <T> Stream<T> of(T t)：返回包含单个元素的顺序Stream。
+static <T> Stream<T> of(T... values)：返回元素为指定值的顺序有序流。
+static <T> Stream<T> ofNullable(T t)：返回包含单个元素的顺序Stream，如果非空，则返回一个空的Stream
+```
+
+如果是数组的话，可以使用Arrays提供的静态方法
+
+```java
+static <T> Stream<T> stream(T[] array)：返回一个以指定数组为源的顺序Stream。
+static <T> Stream<T> stream(T[] array, int startInclusive, int endExclusive)：返回一个以指定对象数组的指定范围为源的顺序Stream
+```
+
+### 操作流
+
+#### 遍历
+
+```java
+// 过滤
+Stream<T> filter(Predicate<? super T> predicate)：返回由与给定断言匹配的此流的元素组成的流
+// 映射
+<R> Stream<R> map(Function<? super T,? extends R> mapper)：返回由将给定函数应用于此流的元素的结果组成的流
+// 迭代
+void forEach(Consumer<? super T> action)：对此流的每个元素执行一个操作
+
+Stream<T> peek(Consumer<? super T> action)：返回由此流的元素组成的流，同时在从生成的流中消耗元素时对每个元素执行提供的操作
+```
+
+#### 匹配
+
+```java
+boolean allMatch(Predicate<? super T> predicate)：返回此流的所有元素是否都与提供的断言匹配。
+boolean anyMatch(Predicate<? super T> predicate)：返回此流的任何元素是否与提供的断言匹配
+boolean noneMatch(Predicate<? super T> predicate)：返回此流的元素是否没有一个与提供的谓词匹配
+```
+
+#### 累积
+
+```java
+Optional<T> reduce(BinaryOperator<T> accumulator)：对此流的元素执行reduction，使用关联累积函数，并返回描述减少值（如果有）的Optional。
+T reduce(T identity, BinaryOperator<T> accumulator)：对此流的元素执行reduction，使用提供的身份值和关联累积函数，并返回减少值
+<U> U reduce(U identity, BiFunction<U,? super T,U> accumulator, BinaryOperator<U> combiner)：对此流的元素执行reduction，使用提供的身份、累积和组合函数
+```
+
+代码示例：
+
+```java
+public class ReduceStreamDemo {
+    public static void main(String[] args) {
+        Integer[] ints = {0, 1, 2, 3};
+        List<Integer> list = Arrays.asList(ints);
+
+        Optional<Integer> optional = list.stream().reduce((a, b) -> a + b);
+        Optional<Integer> optional1 = list.stream().reduce(Integer::sum);
+        System.out.println(optional.orElse(0)); // 输出6
+        System.out.println(optional1.orElse(0)); // 输出6
+
+        int reduce = list.stream().reduce(6, (a, b) -> a + b);
+        System.out.println(reduce);// 输出12
+        int reduce1 = list.stream().reduce(6, Integer::sum);
+        System.out.println(reduce1);// 输出12
+    }
+}
+```
+
+#### 转换
+
+```java
+<R> R collect(Supplier<R> supplier, BiConsumer<R,? super T> accumulator, BiConsumer<R,R> combiner)：对此流的元素执行一个 可变归约 操作。
+<R, A> R collect(Collector<? super T,A,R> collector)：对此流的元素使用 Collector 执行一个 可变归约操作
+default List<T> toList()：将此流的元素累积为List
+Object[] toArray()：返回包含此流的元素的数组。
+<A> A[] toArray(IntFunction<A[]> generator)：返回包含此流的元素的数组，使用提供的generator函数来分配返回的数组，以及可能需要用于分区执行或调整大小的其他数组
+```
+
+#### 其他api
+
+```java
+// 排序
+Stream<T> sorted()：返回根据自然顺序排序的此流的元素组成的流。
+Stream<T> sorted(Comparator<? super T> comparator)：返回根据提供的Comparator排序的此流的元素组成的流
+
+Stream<T> limit(long maxSize)：返回由此流的元素组成的流，截断长度不超过maxSize
+Stream<T> skip(long n)：返回丢弃流的前n个元素后剩余元素组成的流
+Optional<T> max(Comparator<? super T> comparator)：根据提供的Comparator返回此流的最大元素。
+Optional<T> min(Comparator<? super T> comparator)：根据提供的Comparator返回此流的最小元素
+long count()：返回此流中元素的计数。
+Stream<T> distinct()：返回此流的不同元素（根据 Object.equals(Object)）组成的流
+Optional<T> findAny()：返回一个描述流中某个元素的 Optional，如果流为空则返回一个空的 Optional。
+Optional<T> findFirst()：返回描述此流的第一个元素的 Optional，如果流为空则返回一个空的 Optional
+```
