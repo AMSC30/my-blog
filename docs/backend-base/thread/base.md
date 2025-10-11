@@ -1,13 +1,16 @@
 # 多线程入门
 
 进程：是系统分配资源的最小单位
+
 线程：是系统执行任务(系统调度)的最小单元
+
 并行：在同一时刻，有多个任务在多个cpu上同时进行
+
 并发：在同一时刻，有多个任务在单个cpu上交替进行
 
 ## 创建线程
 
-### 通过继承Thread类
+### 继承Thread类
 
 1. 继承Thread类，并重写run()方法
 3. 使用子类创建对象
@@ -24,7 +27,7 @@ public class MyThread extends Thread {
 }
 ```
 
-### 通过实现Runnable接口
+### 实现Runnable接口
 
 1. 创建Runnable接口的实现类，并重写run()方法
 2. 创建Thread对象，并将创建的Runnable接口实现类对象作为参数传递给Thread对象
@@ -63,7 +66,7 @@ t2.start();
 t3.start();
 ```
 
-### 通过实现Callable接口
+### 实现Callable接口
 
 1. 创建Callable接口的实现类，并重写call()方法
 2. 创建FutureTask对象，将Callable接口实现类对象作为参数传递给FutureTask对象
