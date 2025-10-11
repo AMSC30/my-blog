@@ -1,5 +1,13 @@
 export default [
     {
+        text: '软件基础',
+        icon: '',
+        children: [
+            { text: '操作系统', link: '/docs/software-base/os-base' },
+            { text: '计算机网络', link: '/docs/software-base/net-base' },
+        ],
+    },
+    {
         text: '前端基础',
         icon: '',
         children: [
@@ -10,7 +18,6 @@ export default [
             { text: 'TypeScript', link: '/docs/frontend-base/typescript/grammar' },
             { text: 'Browser', link: '/docs/frontend-base/browser/architecture' },
             { text: 'RegExp', link: '/docs/frontend-base/regexp/introduction' },
-            { text: '《计算机网络》', link: '/docs/frontend-base/net/net' },
         ],
     },
     {
@@ -57,9 +64,10 @@ export default [
         ],
     },
     {
-        text: 'Java基础',
+        text: '后端基础',
         children: [
-            { text: 'Java', link: '/docs/backend-base/java-grammar-base.md' },
+            { text: 'Java', link: '/docs/backend-base/java/DOS.md' },
+            { text: '并发编程', link: '/docs/backend-base/thread/base.md' },
             { text: 'Maven', link: '/docs/backend-base/maven-base.md' },
             { text: 'MySQL', link: '/docs/backend-base/mysql-base.md' },
             { text: 'Spring', link: '/docs/backend-base/spring-base.md' },

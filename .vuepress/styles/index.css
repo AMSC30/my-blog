@@ -1,9 +1,21 @@
 @font-face {
-    font-family: 'MyWebFont'; /* 自定义字体名称 */
-    src: url('fonts/SanJiDianHeiJianTi-Zhong-2.ttf') format('ttf');
+    font-family: 'MyWebFont';
+    src: url('fonts/font-1.ttf') format('ttf');
 }
-html {
-    font-family: MyWebFont, system-ui, sans-serif !important;
+
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+/* @font-face {
+    font-family: '阿里妈妈方圆体 VF Regular';
+    src: url('//at.alicdn.com/wf/webfont/L6zKVOu6KOPy/WJ9V4shqcz7J.woff2') format('woff2'),
+        url('//at.alicdn.com/wf/webfont/L6zKVOu6KOPy/YZwEjwaHVa2L.woff') format('woff');
+    font-variation-settings: 'BEVL' 80, 'wght' 300;
+    font-display: swap;
+} */
+
+* {
+    /* font-family: '阿里妈妈方圆体 VF Regular' !important; */
+    font-family: 'MyWebFont' !important;
+    font-variation-settings: 'BEVL' 80, 'wght' 300;
 }
 @media (min-width: 768px) {
     .banner-brand__wrapper {
@@ -43,11 +55,14 @@ html {
 p,
 ol,
 ul,
-table,
+table {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.8rem !important;
+}
 li {
-    margin-top: 16px !important;
-    margin-bottom: 16px !important;
-    line-height: 1.5rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
 }
 /*blockquote {*/
 /*    margin-top: 1rem !important;*/
@@ -64,6 +79,15 @@ li {
 /*    display: inline-block;*/
 /*    padding-top: 1rem;*/
 /*}*/
-/*h1, h2, h3, h4, h5, h6{*/
-/*    margin-bottom: 0.5em;*/
-/*}*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 1em !important;
+}
+body {
+    background-color: rgb(248 248 248) / var(--tw-bg-opacity) !important;
+    /* color: rgb(68 68 68) / var(--tw-text-opacity) !important; */
+}
