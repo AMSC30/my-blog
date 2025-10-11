@@ -21,6 +21,7 @@ import vuex2 from './vue2/vuex'
 import nodejs from './node/node'
 import java from './backend-base/java'
 import thread from './backend-base/thread'
+import mysql from './backend-base/mysql'
 
 export default {
     '/docs/interview/vue/': vue,
@@ -46,4 +47,5 @@ export default {
     '/docs/vue2/vuex/': vuex2,
     '/docs/backend-base/java/': java,
     '/docs/backend-base/thread/': thread,
+    '/docs/backend-base/mysql/': mysql,
 }
