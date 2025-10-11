@@ -1,5 +1,10 @@
 export default [
     {
+        text: '软件基础',
+        icon: '',
+        children: [{ text: '操作系统', link: '/docs/software-base/os-base' }],
+    },
+    {
         text: '前端基础',
         icon: '',
         children: [
