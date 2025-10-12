@@ -13,4 +13,5 @@ export default [
     'lock',
     'engine',
     'MVCC',
+    'manage',
 ]
