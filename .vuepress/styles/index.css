@@ -15,7 +15,8 @@
 * {
     /* font-family: '阿里妈妈方圆体 VF Regular' !important; */
     font-family: 'MyWebFont' !important;
-    font-variation-settings: 'BEVL' 80, 'wght' 300;
+    font-variation-settings: 'BEVL' 80, 'wght' 100;
+    font-display: swap;
 }
 @media (min-width: 768px) {
     .banner-brand__wrapper {
@@ -87,7 +88,7 @@ h5,
 h6 {
     margin-bottom: 1em !important;
 }
-body {
-    background-color: rgb(248 248 248) / var(--tw-bg-opacity) !important;
-    /* color: rgb(68 68 68) / var(--tw-text-opacity) !important; */
-}
+/* body { */
+/* background-color: rgb(248 248 248) / var(--tw-bg-opacity) !important; */
+/* color: rgb(68 68 68) / var(--tw-text-opacity) !important; */
+/* } */
