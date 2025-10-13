@@ -23,6 +23,11 @@
         height: calc(100vh - 65px) !important;
     }
 }
+*[class^='language'] {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
 
 /* 页面目录 */
 .page-catalog-container ul .page-catalog-menu-depth_3 {

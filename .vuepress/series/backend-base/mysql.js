@@ -14,4 +14,6 @@ export default [
     'engine',
     'MVCC',
     'manage',
+    'log',
+    'slave',
 ]
