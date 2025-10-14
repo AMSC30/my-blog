@@ -16,4 +16,5 @@ export default [
     'manage',
     'log',
     'slave',
+    'sub-db',
 ]
