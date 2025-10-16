@@ -1,7 +1,5 @@
 # 字符串
 
-String代表字符串类
-
 ## 特点
 
 1. java中所有的双引号字面值都是String类的对象实现
@@ -23,6 +21,7 @@ String代表字符串类
 
 1. static String format(String format, Object... args)：使用指定的格式字符串和参数返回格式化字符串
 2. static String valueOf([boolean b|chart[] c|char c|byte b|short s|int i|long l|float f|double d])：返回参数的字符串表示形式
+3. static String join(CharSequence delimiter, CharSequence... elements)：返回由CharSequence元素的副本与指定delimiter的副本连接在一起组成的新字符串
 
 ### 比较方法
 
@@ -47,7 +46,7 @@ String代表字符串类
 
 1. String toLowerCase()：将字符串转换为小写
 2. String toUpperCase()：将字符串转换为大写
-3. String trim()：删除字符串两端的空格
+3. String trim()：删除字符串两端所有的空格
 4. String replace(char oldChar, char newChar)：替换字符串中指定的字符
 5. String replace(CharSequence target, CharSequence replacement)：替换字符串中指定的字符序列
 6. String replaceAll(String regex, String replacement)：替换字符串中指定的正则表达式

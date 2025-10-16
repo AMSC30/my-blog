@@ -6,7 +6,7 @@
 
 装箱：将基本类型转换为对应的包装类，如Integer提供了valueOf()方法。Integer i = Integer.valueOf(100);
 
-拆箱：将包装类转换为对应的基本类型，如integer提供了intValue()方法。int a = i.intValue();
+拆箱：将包装类转换为对应的基本类型，如Integer提供了intValue()方法。int a = i.intValue();
 
 ```java
 Integer chenmo = new Integer(10); // 手动装箱

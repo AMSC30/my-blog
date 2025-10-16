@@ -5,9 +5,27 @@
 
 异常处理常用的两种方式：try-catch和throws
 
+## 常用api
+
+### 构造方法
+
+- Exception()：用null构造一个新异常，调用initCause(Throwable case)进行初始化
+- Exception(String message)：用指定的详细消息构造一个新异常。
+- Exception(String message, Throwable cause)：用指定的详细消息和原因构造一个新异常。
+- protected Exception(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)：用指定的详细消息、原因、启用或禁用抑制以及启用或禁用可写堆栈跟踪构造一个新异常
+
+### 实例方法
+
+- Throwable getCause()：返回此throwable的原因，如果原因不存在或未知，则返回null
+- String getMessage()：返回此throwable的详细消息字符串
+- StackTraceElement[] getStackTrace()：提供对由printStackTrace()打印的堆栈跟踪信息的编程访问
+- Throwable initCause(Throwable cause)：将此throwable的cause初始化为指定值
+- void printStackTrace()：将此throwable及其回溯打印到标准错误流
+- void setStackTrace(StackTraceElement[] stackTrace)：设置将由getStackTrace()返回并由printStackTrace()及相关方法打印的堆栈跟踪元素
+
 ## try-catch
 
-try-catch使用代码块包括语句，可以使用多个catch处理不同的异常类型，的语法格式如下：
+try-catch使用代码块包括语句，可以使用多个catch处理不同的异常类型，语法格式如下：
 
 ```java
 try {
@@ -19,7 +37,7 @@ try {
 }
 ```
 
-如果 try 语句块中发生异常，那么一个相应的异常对象就会被拋出，然后 catch 语句就会依据所拋出异常对象的类型进行捕获，并处理。处理之后，程序会跳过 try 语句块中剩余的语句，转到 catch 语句块后面的第一条语句开始执行
+如果 try 语句块中发生异常，那么一个相应的异常对象就会被拋出，然后 catch 语句就会依据所拋出异常对象的类型进行捕获并处理。处理之后，程序会跳过 try 语句块中剩余的语句，转到 catch 语句块内部的第一条语句开始执行
 
 如果 try 语句块中没有异常发生，那么 try 块正常结束，后面的 catch 语句块被跳过，程序将从 catch 语句块后的第一条语句开始执行
 

@@ -4,6 +4,7 @@
         "binlog",
         "cbuf",
         "Ceki",
+        "chenmo",
         "datatime",
         "DBCP",
         "Deque",
@@ -63,6 +64,7 @@
         "userconfig",
         "VALUEN",
         "varchar",
-        "vuex"
+        "vuex",
+        "wanger"
     ]
 }

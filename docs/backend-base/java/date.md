@@ -59,9 +59,9 @@ Calendar 类是一个抽象类，它提供了在特定时刻和一组 calendar f
 1. int get(int field)：返回给定日历字段的值。
 2. String getCalendarType()：返回此 Calendar 的日历类型
 3. int getFirstDayOfWeek()：获取一周的第一天是什么；例如，SUNDAY 在美国，MONDAY 在法国
-4. final Date getTime()：返回表示此 Calendar 的时间值的Date对象
+4. Date getTime()：返回表示此 Calendar 的时间值的Date对象
 5. long getTimeInMillis():以毫秒为单位返回此日历的时间
-6. final boolean isSet(int field)：确定给定的日历字段是否设置了值，包括值已由 get 方法调用触发的内部字段计算设置的情况
+6. boolean isSet(int field)：确定给定的日历字段是否设置了值，包括值已由 get 方法调用触发的内部字段计算设置的情况
 7. TimeZone getTimeZone()：获取时区
 8. String getDisplayName(int field, int style, Locale locale)：返回给定 style 和 locale 中日历 field 值的字符串表示形式。
 9. Map<String,Integer> getDisplayNames(int field, int style, Locale locale)：返回一个 Map，其中包含给定 style 和 locale 中日历 field 的所有名称及其对应的字段值
@@ -104,7 +104,7 @@ LocalDate 是一个不可变且线程安全的日期时间对象，表示日期�
 
 ### 查询方法
 
-1. int get(TemporalField field)：从此日期获取指定字段的值作为
+1. int get(TemporalField field)：从此日期获取指定字段的值
 2. int getYear()：获取年份字段
 3. int DayOfWeek getDayOfWeek()：获取星期字段，它是一个枚举DayOfWeek
 4. Month getMonth() 使用 Month 枚举获取月份字段
@@ -113,17 +113,17 @@ LocalDate 是一个不可变且线程安全的日期时间对象，表示日期�
 
 ### 操作方法
 
-1. LocalDate minus(long amountToSubtract, TemporalUnit unit)：返回此日期的副本，并减去指定的金额。
-2. LocalDate minus(TemporalAmount amountToSubtract) ：回此日期的副本，并减去指定的金额。
-3. LocalDate minusDays(long daysToSubtract)：返回此 LocalDate 的副本，并减去指定的天数。
-4. LocalDate minusMonths(long monthsToSubtract)：返回此 LocalDate 的副本，并减去指定的月数。
-5. LocalDate minusWeeks(long weeksToSubtract)：返回此 LocalDate 的副本，并减去指定的周数。
-6. LocalDate minusYears(long yearsToSubtract)：返回此 LocalDate 的副本，并减去指定的年数。
-7. LocalDate plus(long amountToAdd, TemporalUnit unit)：返回添加了指定数量的此日期的副本。
-8. LocalDate plus(TemporalAmount amountToAdd)：返回添加了指定数量的此日期的副本。
-9. LocalDate plusDays(long daysToAdd)：返回此 LocalDate 的副本，并添加了指定的天数。
-10. LocalDate plusMonths(long monthsToAdd)：返回此 LocalDate 的副本，并添加了指定的月数。
-11. LocalDate plusWeeks(long weeksToAdd)：返回此 LocalDate 的副本，并添加了指定的周数。
+1. LocalDate minus(long amountToSubtract, TemporalUnit unit)：返回此日期的副本，并减去指定的日期
+2. LocalDate minus(TemporalAmount amountToSubtract) ：回此日期的副本，并减去指定的日期
+3. LocalDate minusDays(long daysToSubtract)：返回此 LocalDate 的副本，并减去指定的天数
+4. LocalDate minusMonths(long monthsToSubtract)：返回此 LocalDate 的副本，并减去指定的月数
+5. LocalDate minusWeeks(long weeksToSubtract)：返回此 LocalDate 的副本，并减去指定的周数
+6. LocalDate minusYears(long yearsToSubtract)：返回此 LocalDate 的副本，并减去指定的年数
+7. LocalDate plus(long amountToAdd, TemporalUnit unit)：返回添加了指定数量的此日期的副本
+8. LocalDate plus(TemporalAmount amountToAdd)：返回添加了指定数量的此日期的副本
+9. LocalDate plusDays(long daysToAdd)：返回此 LocalDate 的副本，并添加了指定的天数
+10. LocalDate plusMonths(long monthsToAdd)：返回此 LocalDate 的副本，并添加了指定的月数
+11. LocalDate plusWeeks(long weeksToAdd)：返回此 LocalDate 的副本，并添加了指定的周数
 12. LocalDate plusYears(long yearsToAdd)：返回此 LocalDate 的副本，并添加了指定的年数
 
 ### 比较方法
@@ -142,10 +142,12 @@ SimpleDateFormat是以locale敏感的方式格式化和解析日期的具体类�
 
 创建sdf对象，SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-1. 格式化日期：String format(Date date)
-2. 解析日期：Date parse(String source)
+1. StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition pos)：将给定的Date格式化为日期/时间字符串并将结果附加到给定的StringBuffer
+2. String format(Date date)：将给定的Date格式化为日期/时间字符串
+3. Date parse(String text, ParsePosition pos)：从字符串解析文本以生成一个Date
 
 ## DateTimeFormatter
 
 1. static DateTimeFormatter ofPattern(String pattern)：使用指定的模式创建格式化程序
 2. String format(TemporalAccessor temporal)：使用此格式化程序格式化日期时间对象
+3. TemporalAccessor parse(CharSequence text)：完全解析文本，生成一个时间对象

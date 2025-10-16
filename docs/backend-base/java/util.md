@@ -6,46 +6,34 @@
 
 ### 创建数组
 
-1. T[] copyOf(T[] origin, int newLength)：复制指定的数组，如果长度小于数组长度则截取，如果长度大于数组长度则用`null`填充
-2. T[] copyOfRange(T[] origin, int start, int end)：复制指定范围内的数组到一个新的数组
-3. void fill(T[] a, T val)：对数组进行填充
-3. void fill(T[] a, int from ,int to, T val)：对数组进行填充
+1. static T[] copyOf(T[] origin, int newLength)：复制指定的数组，如果长度小于数组长度则截取，如果长度大于数组长度则用`null`填充
+2. static T[] copyOfRange(T[] origin, int start, int end)：复制指定范围内的数组到一个新的数组
 
-### 比较数组
+### 数组操作
+
+#### 排序
+
+1. static void sort(T[] a)：将指定数组按升序排序，排序会改变原有的数组
+2. static void sort(T[] a, int fromIndex, int toIndex)：将数组的指定范围按升序排序，排序会改变原有的数组
+
+#### 转换
+
+static \<T> void setAll(T[] array, IntFunction<? extends T> generator)：使用提供的生成器函数设置指定数组的所有元素
+static \<T extends Stream> T stream(T[] array)：返回一个以指定数组为源的顺序Stream
+static String toString(T[] a)：返回指定数组内容的字符串表示形式
+
+#### 填充
+
+1. static void fill(T[] a, T val)：对数组进行填充
+2. static void fill(T[] a, int from ,int to, T val)：对数组进行填充
+
+#### 比较
 
 1. static boolean equals(Object[] a, Object[] b)：判断两个数组是否相等
-
-Arrays类的`equals()`方法用来判断两个数组是否相等，除了 equals() 方法，还有另外一个诀窍可以判断两个数组是否相等，尽管可能会出现误差。那就是Arrays.hashCode()方法
-
 2. static boolean equals(boolean[] a, int aFromIndex, int aToIndex, boolean[] b, int bFromIndex, int bToIndex)：判断两个数组指定范围内是否相等
-
-源码实现：
-
-```java
-public static boolean equals(Object[] a, Object[] a2) {
-    if (a==a2)
-        return true;
-    if (a==null || a2==null)
-        return false;
-
-    int length = a.length;
-    if (a2.length != length)
-        return false;
-
-    for (int i=0; i<length; i++) {
-        if (!Objects.equals(a[i], a2[i]))
-            return false;
-    }
-
-    return true;
-}
-```
-
 3. static boolean deepEquals(Object[] a1, Object[] a2)：如果两个指定的数组是深度相等，则返回true
 
-### 数组排序
-
-Arrays类的sort()方法用来对数组进行排序，排序会改变原有的数组
+> Arrays类的`equals()`方法用来判断两个数组是否相等，除了 equals() 方法，还有另外一个诀窍可以判断两个数组是否相等，尽管可能会出现误差。那就是Arrays.hashCode()方法
 
 ### 数组元素查询
 
@@ -53,6 +41,11 @@ Arrays类的sort()方法用来对数组进行排序，排序会改变原有的�
 
 Arrays.binarySearch()方法既可以精确检索，也可以模糊检索，比如说忽略大小写，Arrays.binarySearch(sorted, "Wang",
 String::compareToIgnoreCase)
+
+1. static int mismatch(T[] a, T[] b)：查找并返回两个boolean数组之间第一个不匹配的索引，如果没有找到不匹配则返回-1。
+2. static int mismatch(T[] a, int aFromIndex, int aToIndex, T[] b, int bFromIndex, int bToIndex)：在指定范围内查找并返回两个boolean数组之间第一个不匹配的相对索引，如果没有找到不匹配则返回-1
+3. static int binarySearch(T[] a, T key)：使用二分搜索算法在指定的字节数组中搜索指定值。
+4. static int binarySearch(T[] a, int fromIndex, int toIndex, T key)：使用二分搜索算法在指定字节数组的范围内搜索指定值
 
 ### 数组打印
 
@@ -208,10 +201,12 @@ System.out.println(Objects.deepEquals(string1, string3)); // 输出：false（�
 3. max(Collection coll, Comparator comp)：根据自定义比较器，返回最大元素
 4. min(Collection coll)：返回最小元素
 5. min(Collection coll, Comparator comp)：根据自定义比较器，返回最小元素
-6. fill(List list, Object obj)：使用指定对象填充
+6. fill(List list, Object obj)：用指定元素替换指定列表的所有元素
 7. frequency(Collection c, Object o)：返回指定对象出现的次数
 
 ### 其他方法
 
 1. addAll(Collection\<? super T> c, T... elements)，往集合中添加元素
 2. disjoint(Collection\<?> c1, Collection\<?> c2)，判断两个集合是否没有交集
+3. static \<T> void copy(List<? super T> dest, List<? extends T> src)：将一个列表中的所有元素复制到另一个列表中
+4. static \<T> boolean replaceAll(List\<T> list, T oldVal, T newVal)：用另一个指定值替换列表中一个指定值的所有出现

@@ -34,6 +34,7 @@ boolean addAll(Collection<? extends E>): 将一个集合添加到当前集合后
 boolean remove(E e): 从集合中删除指定元素，删除成功返回true
 boolean removeAll(Collection<?> c)：删除此集合的所有也包含在指定集合中的元素（可选操作）
 boolean retainAll(Collection<?> c)：仅保留此集合中包含在指定集合中的元素（可选操作）
+default boolean removeIf(Predicate<? super E> filter)：移除此集合中满足给定谓词的所有元素
 void clear(): 清除集合中的所有元素
 
 // 查
