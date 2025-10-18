@@ -22,6 +22,7 @@ import nodejs from './node/node'
 import java from './backend-base/java'
 import thread from './backend-base/thread'
 import mysql from './backend-base/mysql'
+import mybatis from './backend-base/mybatis'
 
 export default {
     '/docs/interview/vue/': vue,
@@ -48,4 +49,5 @@ export default {
     '/docs/backend-base/java/': java,
     '/docs/backend-base/thread/': thread,
     '/docs/backend-base/mysql/': mysql,
+    '/docs/backend-base/mybatis/': mybatis,
 }
