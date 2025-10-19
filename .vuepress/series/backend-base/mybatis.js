@@ -1,1 +1,1 @@
-export default ['mapper']
+export default ['mapper', 'dynamic-sql']

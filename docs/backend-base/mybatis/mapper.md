@@ -214,3 +214,28 @@ sql元素可以被用来定义可重用的SQL代码段，可以包含在其他�
     </include>
 </select>
 ```
+
+## 参数映射
+
+### 简单参数映射
+
+原生的类型或简单数据类型(比如整型和字符串)，因为没有相关属性，它会完全用参数值来替代
+
+```xml
+<select id="selectUsers" parameterType="int" resultType="User">
+    select id,username,password
+    from users
+    where id = #{id}
+</select>
+```
+
+### 复杂参数映射
+
+如果传入一个复杂的对象(比如User)，如果User 类型的参数对象被传递到了语句中，如#{id}语句则会查找参数对象User的id属性，#{username}和#{password}也是一样，然后将它们的值传入预处理语句的参数中
+
+```xml
+<insert id="insertUser" parameterType="User">
+    insert into users (id,username,password)
+    values (#{id},#{username},{password})
+</insert>
+```

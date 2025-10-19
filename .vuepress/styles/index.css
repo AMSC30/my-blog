@@ -26,10 +26,15 @@
 *[class^='language'] {
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
         'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+        'Segoe UI Symbol', 'Noto Color Emoji' !important;
 }
-
+/* .page-container {
+    padding-right: 18rem;
+} */
 /* 页面目录 */
+/* .page-catalog-container {
+    width: 18rem;
+} */
 .page-catalog-container ul .page-catalog-menu-depth_3 {
     text-indent: 0.5em;
 }
