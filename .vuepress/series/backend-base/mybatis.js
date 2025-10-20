@@ -1,1 +1,1 @@
-export default ['mapper', 'dynamic-sql']
+export default ['mapper', 'dynamic-sql', 'config', 'mybatis-mapper']
