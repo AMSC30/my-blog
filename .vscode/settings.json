@@ -2,6 +2,7 @@
     "cSpell.words": [
         "appenders",
         "binlog",
+        "bootfs",
         "cbuf",
         "Ceki",
         "chenmo",
@@ -50,6 +51,7 @@
         "OUNDEX",
         "Pinia",
         "println",
+        "rootfs",
         "RPAD",
         "RPOP",
         "RTRIM",

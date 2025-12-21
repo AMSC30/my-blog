@@ -73,6 +73,7 @@ export default [
             { text: 'MyBatis', link: '/docs/backend-base/mybatis/mapper.md' },
             { text: 'Spring', link: '/docs/backend-base/spring-base.md' },
             { text: 'Redis', link: '/docs/backend-base/redis-base.md' },
+            { text: 'Docker', link: '/docs/backend-base/docker-base.md' },
         ],
     },
     {
