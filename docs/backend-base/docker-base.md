@@ -268,3 +268,21 @@ docker的镜像实际上由一层一层的文件系统组成，这种层级的�
 bootfs(bootTile system)主要包含bootloader和kernel, bootloader主要是引导加载kernel, Linux刚启动时会加载bootfs文件系统，在Docker镜像的最底层是引导文件系统bootfs。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成之后整个内核就都在内存中了，此时内存的使用权己由bootfs转交给内核，此时系统也会卸载bootfs。
 
 rootfs (root file system)，在bootfs之上。包含的就是典型 Linux 系统中的 /dev, /proc, /bin, /etc 等标准目录和文件。rootfs就是各种不同的操作系统发行版，比如Ubuntu,Centos等等。
+
+## 容器卷
+
+卷是文件或者目录，存在于一个或者多个容器中，用于持久存储和共享数据
+
+容器卷独立于容器的生命周期，不会在容器删除时删除容器卷
+
+### 运行一个带有容器卷的容器
+
+```bash
+docker run -d -privileged -v 主机目录path:容器目录path 镜像名:标签 命令
+```
+
+### 容器卷的继承
+
+```
+docker run -d -privileged --volumes-from 容器ID或容器名称 镜像名:标签 命令
+```
