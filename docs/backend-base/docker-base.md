@@ -286,9 +286,13 @@ docker run -d -privileged -v 主机目录path:容器目录path 镜像名:标签 
 ```
 docker run -d -privileged --volumes-from 容器ID或容器名称 镜像名:标签 命令
 ```
+
 ## Dockerfile
+
 Dockerfile是用来构建Docker镜像的文本文件，是由一条条构建镜像所需的指令和参数构成的脚本
+
 ### 文件编写规则
+
 1. 文件名必须为Dockerfile
 2. 每条保留字指令都必须为大写字母且后面至少要跟随一个参数
 3. 指令从上至下，顺序执行
@@ -296,6 +300,7 @@ Dockerfile是用来构建Docker镜像的文本文件，是由一条条构建镜�
 5. 每条指令都会创建一个新的镜像层并对镜像进行提交
 
 ### 执行流程
+
 1. docker从基础镜像创建一个容器
 2. 执行一条指令对容器进行修改
 3. 执行类似commit的操作，提交一个新的镜像层
@@ -303,76 +308,116 @@ Dockerfile是用来构建Docker镜像的文本文件，是由一条条构建镜�
 5. 执行下一条指令，重复上述布置，直到最后一条指令
 
 ### 常用指令
+
 #### FROM
-指定基础镜像，第一项必须是FROM，FROM 镜像名:标签 
+
+指定基础镜像，第一项必须是FROM，FROM 镜像名:标签
 
 #### MAINTAINER
+
 指定镜像的作者和邮箱地址
 
 #### RUN
+
 在build时，执行一条命令，RUN \<命令行命令\>，可以是shell和exec格式
 
 #### EXPOSE
+
 指定容器向外暴露的端口号，EXPOSE 端口号
 
 #### WORKDIR
+
 指定容器工作目录，WORKDIR 目录，指定在创建容器后，终端默认登录进来的工作目录
 
 #### ENV
+
 用来在构建镜像过程中设置环境变量，ENV 变量名 变量值
 
 #### VOLUME
+
 创建一个容器卷，VOLUME 目录
 
 #### ADD
+
 添加文件或者目录到镜像中，ADD <源文件> <目标文件>，会自动处理url和解压tar压缩包
 
 #### COPY
+
 添加文件或者目录到镜像中，COPY <源文件> <目标文件>，不会自动处理url和解压tar压缩包
 
 #### CMD
+
  指定容器启动时执行的命令，CMD [命令，参数1，参数2，...]，dockerfile中可以有多个cmd命令，但是只有最后一个会生效，在使用docker run时，如果指定了cmd命令，那么dockerfile中的cmd命令会被覆盖
 
 #### ENTRYPOINT
+
 指定容器启动时执行的命令，ENTRYPOINT [命令，参数1，参数2，...]，ENTRYPOINT命令会覆盖CMD命令，但是ENTRYPOINT命令不能被docker run命令所覆盖
 
 当指定ENTRYPOINT命令时，CMD命令的含义就发生了变化，CMD命令的参数会被追加到ENTRYPOINT命令的参数中，最终的命令行参数为ENTRYPOINT命令的参数+CMD命令的参数
+
 ## Docker网络
+
 Docker网络是Docker容器之间进行通信的基础，Docker默认使用bridge网络模式，bridge网络模式下，Docker会创建一个docker0网桥，并把所有容器的网卡都加入到docker0网桥中，docker0网桥会监听所有端口，并把接收到的数据包转发给对应的容器
+
 ### 网络模式
 
-####  1. bridge模式
+#### 1. bridge模式
+
 创建一个docker0网桥，并把所有容器的网卡都加入到docker0网桥中，docker0网桥会监听所有端口，并把接收到的数据包转发给对应的容器，每个容器有一个自己的IP地址和端口
 
 #### 2. host模式
+
 容器的网卡会与宿主机的网卡进行绑定，容器的端口会与宿主机的端口进行绑定
 
 容器启动后，相当于在宿主机上启动了一个进程，容器的服务直接通过宿主机的ip和端口进行方案
 
 #### 3. none模式
+
 容器的网卡不会与宿主机的网卡进行绑定，容器的端口不会与宿主机的端口进行绑定
 
 #### 4. container模式
+
 创建一个容器，并指定容器的网卡与 another_container 容器的网卡进行绑定
 
 ### 网络操作
 
 #### 创建一个自定义网络
+
 ```bash
 docker network create -d bridge 网络名称
 docker network create -d bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 网络名称
 ```
+
 #### 查看网络
+
 ```bash
 docker network ls
 ```
+
 #### 删除网络
+
 ```bash
 docker network rm 网络名称
 ```
+
 ## Docker容器编排
+
 Docker容器编排，是多个容器组成的一个应用，Docker容器编排工具有Docker Compose和Kubernetes
 
 docker建议我们每一个容器中只运行一个服务，如果同时部署多个服务，就需要为每个服务单独写dockerfile来构建镜像，docker官方提供了docker-compose来进行多服务部署
 
 docker-compose允许用户通过一个单独的docker-compose.yml文件来定义一组相关联的应用容器组成一个应用
+
+### 常用命令
+
+1. docker-compose up 启动所有服务
+2. docker-compose up -d 启动所有服务并后台运行
+3. docker-compose down 停止所有服务并删除容器、网络、卷
+4. docker-compose stop 停止所有服务
+5. docker-compose start 启动所有服务
+6. docker-compose restart 重启所有服务
+7. docker-compose ps 列出所有服务
+8. docker-compose exec yum文件里的服务id 进入容器实例内部
+9. docker-compose logs yum文件里的服务id 查看指定容器的输出日志
+10. docker-compose config 检查配置
+11. docker-compose config -q 检查配置，有问题则输出
