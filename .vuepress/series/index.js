@@ -23,6 +23,7 @@ import java from './backend-base/java'
 import thread from './backend-base/thread'
 import mysql from './backend-base/mysql'
 import mybatis from './backend-base/mybatis'
+import k8s from "./backend-base/k8s"
 
 export default {
     '/docs/interview/vue/': vue,
@@ -50,4 +51,5 @@ export default {
     '/docs/backend-base/thread/': thread,
     '/docs/backend-base/mysql/': mysql,
     '/docs/backend-base/mybatis/': mybatis,
+    '/docs/backend-base/k8s/': k8s,
 }

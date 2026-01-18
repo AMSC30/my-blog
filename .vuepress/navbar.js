@@ -74,6 +74,7 @@ export default [
             { text: 'Spring', link: '/docs/backend-base/spring-base.md' },
             { text: 'Redis', link: '/docs/backend-base/redis-base.md' },
             { text: 'Docker', link: '/docs/backend-base/docker-base.md' },
+            { text: 'Kubernetes', link: '/docs/backend-base/k8s/instruction.md' },
         ],
     },
     {
