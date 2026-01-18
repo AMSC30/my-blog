@@ -1,4 +1,4 @@
-# 第七章 Service详解
+# 第五章 Service详解
 
 本章节主要介绍kubernetes的流量负载组件：Service和Ingress。
 
