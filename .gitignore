@@ -4,3 +4,4 @@
 .vuepress/dist
 node_modules
 /.idea/inspectionProfiles/Project_Default.xml
+/.vuepress/dist.zip
