@@ -895,7 +895,7 @@ volume-nfs        2/2     Running   0          2m9s
 access.log  error.log
 ~~~
 
-##高级存储
+## 高级存储
 
 ### PV和PVC
 
@@ -1480,7 +1480,7 @@ ApiServer是访问及管理资源对象的唯一入口。任何一个请求访�
 
 <img src="./assets/image-20200520103942580.png" style="zoom:100%; border:1px solid" />
 
-## 认证管理
+### 认证管理
 
 Kubernetes集群安全的最关键点在于如何识别并认证客户端身份，它提供了3种客户端身份认证方式：
 
@@ -1532,7 +1532,7 @@ Kubernetes集群安全的最关键点在于如何识别并认证客户端身份�
 
 > 注意:  Kubernetes允许同时配置多种认证方式，只要其中任意一个方式认证通过即可
 
-## 授权管理
+### 授权管理
 
 ​     授权发生在认证成功之后，通过认证就可以知道请求用户是谁， 然后Kubernetes会根据事先定义的授权策略来决定用户是否有权限访问，这个过程就称为授权。
 
@@ -1772,7 +1772,7 @@ nginx-deployment-66cb59b984-thfck    1/1     Running            0          4d1h
 Switched to context "kubernetes-admin@kubernetes".
 ~~~
 
-## 准入控制
+### 准入控制
 
 通过了前面的认证和授权之后，还需要经过准入控制处理通过之后，apiserver才会处理这个请求。
 
