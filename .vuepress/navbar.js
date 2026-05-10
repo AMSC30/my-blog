@@ -71,7 +71,7 @@ export default [
             { text: 'Maven', link: '/docs/backend-base/maven-base.md' },
             { text: 'MySQL', link: '/docs/backend-base/mysql/base.md' },
             { text: 'MyBatis', link: '/docs/backend-base/mybatis/mapper.md' },
-            { text: 'Spring', link: '/docs/backend-base/spring-base.md' },
+            { text: 'Spring', link: '/docs/backend-base/spring/spring.md' },
             { text: 'Redis', link: '/docs/backend-base/redis-base.md' },
             { text: 'Docker', link: '/docs/backend-base/docker-base.md' },
             { text: 'Kubernetes', link: '/docs/backend-base/k8s/instruction.md' },
