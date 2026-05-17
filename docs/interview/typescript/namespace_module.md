@@ -101,6 +101,6 @@ var Letter;
 
 ## 参考文献
 
-- <https://www.tslang.cn/docs/handbook/modules.html>
-- <https://www.tslang.cn/docs/handbook/namespaces.html>
-- <https://www.tslang.cn/docs/handbook/namespaces-and-modules.html>
+- \<https://www.tslang.cn/docs/handbook/modules.html>
+- \<https://www.tslang.cn/docs/handbook/namespaces.html>
+- \<https://www.tslang.cn/docs/handbook/namespaces-and-modules.html>

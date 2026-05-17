@@ -125,5 +125,5 @@ html { -webkit-text-size-adjust: none; }
 
 ## 参考文献
 
-- <https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-size-adjust>
-- <https://vue3js.cn/interview>
+- \<https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-size-adjust>
+- \<https://vue3js.cn/interview>

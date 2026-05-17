@@ -166,5 +166,5 @@ function add(num1, num2) {
 
 ## 参考文献
 
-- <https://zhuanlan.zhihu.com/p/100353781>
-- <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt>
+- \<https://zhuanlan.zhihu.com/p/100353781>
+- \<https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt>

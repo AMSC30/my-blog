@@ -500,7 +500,7 @@ export default defineConfig(({ command, mode }) => {
 开发或生产环境服务的公共基础路径。合法的值包括以下几种：
 
 - 绝对 URL 路径名，例如 /foo/
-- 完整的 URL，例如 <https://foo.com/>
+- 完整的 URL，例如 \<https://foo.com/>
 - 空字符串或 ./（用于嵌入形式的开发）
 
 **mode**
@@ -985,7 +985,7 @@ export default defineConfig({
 
 **通用钩子**
 
-<br>
+\<br>
 
 1. 在启动服务器时调用：
 
@@ -995,7 +995,7 @@ export default defineConfig({
 
 替换或操作传递给 rollup.rollup 的选项对象。返回 null 不会替换任何内容。如果只需要读取选项，则建议使用 buildStart 钩子，因为该钩子可以访问所有 options 钩子的转换过滤后的选项
 
-<br>
+\<br>
 
 - [buildStart](https://rollupjs.org/plugin-development/#buildstart)
 
@@ -1003,7 +1003,7 @@ export default defineConfig({
 
 此钩子过滤了所有 options 钩子的转换，并且还包含未设置选项的正确默认值
 
-<br>
+\<br>
 
 2. 在每个传入模块请求时调用：
 
@@ -1039,7 +1039,7 @@ interface PartialResolvedId {
 }
 ```
 
-<br>
+\<br>
 
 - [load](https://rollupjs.org/plugin-development/#load)
 
@@ -1065,7 +1065,7 @@ interface SourceDescription {
 }
 ```
 
-<br>
+\<br>
 
 - [transform](https://rollupjs.org/plugin-development/#transform)
 
@@ -1091,7 +1091,7 @@ interface SourceDescription {
 
 在服务器关闭时调用：
 
-<br>
+\<br>
 
 - [buildEnd](https://rollupjs.org/plugin-development/#buildend)
 
@@ -1099,7 +1099,7 @@ interface SourceDescription {
 
 在 Rollup 完成产物但尚未调用 generate 或 write 之前调用；也可以返回一个 Promise。如果在构建过程中发生错误，则将其传递给此钩子
 
-<br>
+\<br>
 
 - [closeBundle](https://rollupjs.org/plugin-development/#closebundle)
 
@@ -1109,7 +1109,7 @@ interface SourceDescription {
 
 **vite钩子**
 
-<br>
+\<br>
 
 - config
 
@@ -1121,7 +1121,7 @@ interface SourceDescription {
 
 > 用户插件在运行这个钩子之前会被解析，因此在 config 钩子中注入其他插件不会有任何效果
 
-<br>
+\<br>
 
 - configResolved
 
@@ -1155,7 +1155,7 @@ const examplePlugin = () => {
 }
 ```
 
-<br>
+\<br>
 
 - configureServer
 
@@ -1163,11 +1163,11 @@ const examplePlugin = () => {
 
 适用于配置开发服务器的钩子。最常见的用例是在内部 connect 应用程序中添加自定义中间件，钩子中定义的中间件默认在内置中间件前调用，如果需要在后调用可以返回一个函数
 
-<br>
+\<br>
 
 - handleHotUpdate
 
-类型： (ctx: HmrContext) => Array\<ModuleNode\> | void | Promise<Array\<ModuleNode\> | void>
+类型： (ctx: HmrContext) => Array\<ModuleNode\> | void | Promise\<Array\<ModuleNode\> | void>
 
 执行自定义 HMR 更新处理。钩子接收一个带有以下签名的上下文对象：
 
@@ -1185,7 +1185,7 @@ modules: 是受更改文件影响的模块数组。它是一个数组，因为�
 
 read: 这是一个异步读函数，它返回文件的内容。之所以这样做，是因为在某些系统上，文件更改的回调函数可能会在编辑器完成文件更新之前过快地触发，并 fs.readFile 直接会返回空内容。传入的 read 函数规范了这种行为。
 
-<br>
+\<br>
 钩子可以选择:
 
 1. 过滤和缩小受影响的模块列表，使 HMR 更准确。
@@ -1213,7 +1213,7 @@ if (import.meta.hot) {
 }
 ```
 
-<br>
+\<br>
 
 - transformIndexHtml
 

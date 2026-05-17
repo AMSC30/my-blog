@@ -228,4 +228,4 @@ const c = 20 // Identifier 'c' has already been declared
 
 ## 参考文献
 
-- <https://es6.ruanyifeng.com/>
+- \<https://es6.ruanyifeng.com/>

@@ -1,4 +1,4 @@
-# 一、Spring启示录
+# Spring
 阅读以下代码：
 ```java
 package com.powernode.oa.controller;
@@ -5207,8 +5207,8 @@ public class ClassPathXmlApplicationContext implements ApplicationContext{
 ```
 
 ## 第六步：确定采用Map集合存储Bean
-确定采用Map集合存储Bean实例。Map集合的key存储beanId，value存储Bean实例。Map<String,Object>
-在ClassPathXmlApplicationContext类中添加Map<String,Object>属性。
+确定采用Map集合存储Bean实例。Map集合的key存储beanId，value存储Bean实例。Map\<String,Object>
+在ClassPathXmlApplicationContext类中添加Map\<String,Object>属性。
 并且在ClassPathXmlApplicationContext类中添加构造方法，该构造方法的参数接收myspring.xml文件。
 同时实现getBean方法。
 ```java
@@ -6083,7 +6083,7 @@ class F {
 ```
 use-default-filters="true" 表示：使用spring默认的规则，只要有Component、Controller、Service、Repository中的任意一个注解标注，则进行实例化。
 **use-default-filters="false"** 表示：不再spring默认实例化规则，即使有Component、Controller、Service、Repository这些注解标注，也不再实例化。
-<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 表示只有Controller进行实例化。
+\<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 表示只有Controller进行实例化。
 ```java
 @Test
 public void testChoose(){
@@ -8260,7 +8260,7 @@ public class MyAspect {
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>
 ```
-<aop:aspectj-autoproxy  proxy-target-class="true"/> 开启自动代理之后，凡事带有@Aspect注解的bean都会生成代理对象。
+\<aop:aspectj-autoproxy  proxy-target-class="true"/> 开启自动代理之后，凡事带有@Aspect注解的bean都会生成代理对象。
 proxy-target-class="true" 表示采用cglib动态代理。
 proxy-target-class="false" 表示采用jdk动态代理。默认值是false。即使写成false，当没有接口的时候，也会自动选择cglib生成代理类。
 测试程序：

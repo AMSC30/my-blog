@@ -164,5 +164,5 @@ console.log(localStorage.getItem('key')); // '[object, Object]'
 
 ## 相关连接
 
-- <https://mp.weixin.qq.com/s/mROjtpoXarN--UDfEMqwhQ>
-- <https://github.com/chenstarx/GoDB.js>
+- \<https://mp.weixin.qq.com/s/mROjtpoXarN--UDfEMqwhQ>
+- \<https://github.com/chenstarx/GoDB.js>

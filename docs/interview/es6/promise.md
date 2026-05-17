@@ -384,4 +384,4 @@ Promise
 
 ## 参考文献
 
-- <https://es6.ruanyifeng.com/#docs/promise>
+- \<https://es6.ruanyifeng.com/#docs/promise>

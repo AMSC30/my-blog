@@ -231,5 +231,5 @@ function getlist(){
 
 ## 参考文献
 
-- <https://segmentfault.com/a/1190000014423308>
-- <https://github.com/ustbhuangyi/better-scroll>
+- \<https://segmentfault.com/a/1190000014423308>
+- \<https://github.com/ustbhuangyi/better-scroll>

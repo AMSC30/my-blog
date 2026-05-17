@@ -173,5 +173,5 @@ console.log(refA, 'refA'); // 解除引用
 
 ## 参考文献
 
-- <http://www.ruanyifeng.com/blog/2017/04/memory-leak.html>
-- <https://zh.wikipedia.org/wiki>
+- \<http://www.ruanyifeng.com/blog/2017/04/memory-leak.html>
+- \<https://zh.wikipedia.org/wiki>

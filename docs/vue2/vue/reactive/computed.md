@@ -333,7 +333,7 @@ class Watcher {
 }
 ```
 
-当第一次遍历时，此时的`watcher`为计算属性`watcher`，我们已经在前面介绍过计算属性`watcher`它的`this.lazy`值为`true`，因此会进行`this.dirty = true`。<br/>
+当第一次遍历时，此时的`watcher`为计算属性`watcher`，我们已经在前面介绍过计算属性`watcher`它的`this.lazy`值为`true`，因此会进行`this.dirty = true`。\<br/>
 当第二次遍历时，此时的`watcher`为渲染`watcher`，对于渲染`watcher`而言，它的`lazy`值为`false`，`this.sync`为`false`，因此会调用`queueWatcher()`方法。我们目前不需要知道`queueWatcher`是怎么实现的，只需要知道`queueWatcher()`方法在调用时，会触发`updateComponent()`方法：
 
 ```js
@@ -357,6 +357,6 @@ fullName () {
 因为此时的`total`值为`1`，所以会返回`this.firstName + this.lastName`的值，而`firstName`和`lastName`又是定义在`data`中的响应式变量，会依次触发`firstName`和`lastName`的`getter`，然后进行依赖收集。在组件渲染完毕后，`fullName`的依赖数组`subs`此时会有四个`watcher`，分别是三个计算属性`watcher`和一个渲染`watcher`。无论这三个计算属性`watcher`哪一个值更新了，都会再次重复以上的流程，这就是`computed`更新的过程。
 
 在分析完`computed`的相关流程后，我们可以得到如下流程图
-<div style="text-align: center">
-  <img src="../../images/computed.png">
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/computed.png">
+\</div>

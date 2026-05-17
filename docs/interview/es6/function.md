@@ -224,4 +224,4 @@ let getTempItem = id => ({ id: id, name: "Temp" });
 
 ## 参考文献
 
-- <https://es6.ruanyifeng.com/#docs/function>
+- \<https://es6.ruanyifeng.com/#docs/function>

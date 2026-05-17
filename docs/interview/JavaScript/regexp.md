@@ -347,4 +347,4 @@ console.log(execUrlParams('test=a=b=c&&==&a='));//{test: "a=b=c", "": "=", a: ""
 
 ## 参考文献
 
-- <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions>
+- \<https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions>

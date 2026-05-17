@@ -151,4 +151,4 @@ getUserInfo({name: "koala", age: 18});
 
 ## 参考文献
 
-- <https://www.tslang.cn/docs/handbook/interfaces.html>
+- \<https://www.tslang.cn/docs/handbook/interfaces.html>

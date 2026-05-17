@@ -9,11 +9,11 @@
 异步地将数据追加到文件，如果该文件尚不存在，则创建该文件
 
 - path \<string\> | \<Buffer\> | \<URL\> | \<number\> 文件名或文件描述符
-- data 、<string、> | 、<Buffer、>
-- options 、<Object、> | 、<string、>
-  - encoding 、<string、> | 、<null、> 默认值: 'utf8'
-  - mode 、<integer、> 默认值: 0o666
-  - flag 、<string、>  默认值: 'a'。
+- data 、\<string、> | 、\<Buffer、>
+- options 、\<Object、> | 、\<string、>
+  - encoding 、\<string、> | 、\<null、> 默认值: 'utf8'
+  - mode 、\<integer、> 默认值: 0o666
+  - flag 、\<string、>  默认值: 'a'。
 
 ```js
 import { appendFile } from 'node:fs';
@@ -26,7 +26,7 @@ appendFile('message.txt', 'data to append', (err) => {
 appendFile('message.txt', 'data to append', 'utf8', callback);
 ```
 
-<br/>
+\<br/>
 2. fs.writeFile(file, data[, options], callback)
 
 当 file 是文件名时，将数据异步地写入文件，如果文件已存在则替换该文件。 data 可以是字符串或缓冲区，当 file 是文件描述符时，其行为类似于直接调用 fs.write()（推荐）
@@ -47,7 +47,7 @@ fs.writeFile 是一个便捷的方法，其在内部执行多次 write 调用以
 
 例如，如果连续调用 fs.writeFile() 两次，首先写入字符串 'Hello'，然后写入字符串 ', World'，该文件将包含 'Hello, World'，并且可能包含文件的一些原始数据（这取决于原始文件的大小和文件描述符的位置）。 如果使用文件名而不是描述符，则文件将保证仅包含 ', World'
 
-<br/>
+\<br/>
 3. fs.readFile(path[, options], callback)
 
 异步地读取文件的全部内容
@@ -86,7 +86,7 @@ controller.abort();
 
 fs.readFile() 函数缓冲整个文件。 为了最小化内存成本，在可能的情况下优先通过 fs.createReadStream() 进行流式传输
 
-<br/>
+\<br/>
 4. fs.copyFile(src, dest[, mode], callback)
 
 异步地将文件从 src 复制到 dest。 默认情况下，如果 dest 已经存在，则会被覆盖，如果在打开目标文件进行写入后发生错误，Node.js 将尝试删除目标文件
@@ -111,7 +111,7 @@ copyFile('source.txt', 'destination.txt', callback);
 copyFile('source.txt', 'destination.txt', constants.COPYFILE_EXCL, callback);
 ```
 
-<br/>
+\<br/>
 5. fs.truncate(path[, len], callback)
 
 - path \<string\> | \<Buffer\> | \<URL\>
@@ -141,7 +141,7 @@ mkdir('/tmp/a/apple', { recursive: true }, (err) => {
 });
 ```
 
-<br/>
+\<br/>
 2. fs.mkdtemp(prefix[, options], callback)
 
 - prefix \<string\>
@@ -169,7 +169,7 @@ mkdtemp(join(tmpdir(), 'foo-'), (err, directory) => {
 });
 ```
 
-<br/>
+\<br/>
 3. fs.readdir(path[, options], callback)
 
 读取目录的内容。 回调有两个参数 (err, files)，其中 files 是目录中文件名的数组，不包括 '.' 和 '..'。
@@ -180,7 +180,7 @@ fs.readdir('../../promise', { withFileTypes: true }, (err, data) => {
 })
 ```
 
-<br/>
+\<br/>
 4. fs.cp(src, dest[, options], callback)
 
 将整个目录结构从 src 异步地复制到 dest，包括子目录和文件
@@ -196,16 +196,16 @@ fs.readdir('../../promise', { withFileTypes: true }, (err, data) => {
   - recursive \<boolean\> 递归地复制目录 默认值: false
   - verbatimSymlinks \<boolean\> 当为 true 时，则符号链接的路径解析将被跳过。 默认值: false
 
-<br/>
+\<br/>
 5. fs.rmdir(path[, options], callback)
 
 异步地删除文件夹，在文件（而不是目录）上使用 fs.rmdir()，则在 Windows 上会导致 ENOENT 错误，在 POSIX 上会导致 ENOTDIR 错误
 
 - path \<string\> | \<Buffer\> | \<URL\>
 - options \<Object\>
-  - maxRetries 、<integer、> 如果遇到 EBUSY、EMFILE、ENFILE、ENOTEMPTY 或 EPERM 错误，Node.js 将在每次尝试时以 retryDelay 毫秒的线性退避等待时间重试该操作。 此选项表示重试次数。 如果 recursive 选项不为 true，则忽略此选项。 默认值: 0。
-  - recursive 、<boolean、> 如果为 true，则执行递归目录删除。 在递归模式下，操作将在失败时重试。 默认值: false。 已弃用。
-  - retryDelay 、<integer、> 重试之间等待的时间（以毫秒为单位）。 如果 recursive 选项不为 true，则忽略此选项。 默认值: 100。
+  - maxRetries 、\<integer、> 如果遇到 EBUSY、EMFILE、ENFILE、ENOTEMPTY 或 EPERM 错误，Node.js 将在每次尝试时以 retryDelay 毫秒的线性退避等待时间重试该操作。 此选项表示重试次数。 如果 recursive 选项不为 true，则忽略此选项。 默认值: 0。
+  - recursive 、\<boolean、> 如果为 true，则执行递归目录删除。 在递归模式下，操作将在失败时重试。 默认值: false。 已弃用。
+  - retryDelay 、\<integer、> 重试之间等待的时间（以毫秒为单位）。 如果 recursive 选项不为 true，则忽略此选项。 默认值: 100。
 
 ## 链接操作
 
@@ -218,7 +218,7 @@ fs.readdir('../../promise', { withFileTypes: true }, (err, data) => {
 
 创建从 existingPath 到 newPath 的新链接。 除了可能的异常之外，没有为完成回调提供任何参数
 
-<br/>
+\<br/>
 2. fs.readlink(path[, options], callback)
 
 - path \<string\> | \<Buffer\> | \<URL\>
@@ -232,7 +232,7 @@ err \<Error\>
 
 可选的 options 参数可以是指定编码的字符串，也可以是具有 encoding 属性（指定用于传给回调的链接路径的字符编码）的对象。 如果将 encoding 设置为 'buffer'，则返回的链接路径将作为 \<Buffer\> 对象传入
 
-<br/>
+\<br/>
 3. fs.symlink(target, path[, type], callback)
 
 - target \<string\> | \<Buffer\> | \<URL\>
@@ -243,7 +243,7 @@ err \<Error\>
 
 创建名为 path 指向 target 的链接。 除了可能的异常之外，没有为完成回调提供任何参数
 
-<br/>
+\<br/>
 4. fs.unlink(path, callback)
 
 - path \<string\> | \<Buffer\> | \<URL\>
@@ -272,11 +272,11 @@ fs.unlink() 不适用于目录，无论是空目录还是其他目录。 要删�
 - path \<string\> | \<Buffer\> | \<URL\>
 - options \<Object\>
   - force \<boolean\> 当为 true 时，如果 path 不存在，则异常将被忽略。 默认值: false。
-  - maxRetries 、<integer、> 如果遇到 EBUSY、EMFILE、ENFILE、ENOTEMPTY 或 EPERM 错误，Node.js 将在每次尝试时以 retryDelay 毫秒的线性退避等待时间重试该操作。 此选项表示重试次数。 如果 recursive 选项不为 true，则忽略此选项。 默认值: 0。
-  - recursive 、<boolean、> 如果为 true，则执行递归删除。 在递归模式下，操作将在失败时重试。 默认值: false。
-  - retryDelay 、<integer、> 重试之间等待的时间（以毫秒为单位）。 如果 recursive 选项不为 true，则忽略此选项。 默认值: 100。
+  - maxRetries 、\<integer、> 如果遇到 EBUSY、EMFILE、ENFILE、ENOTEMPTY 或 EPERM 错误，Node.js 将在每次尝试时以 retryDelay 毫秒的线性退避等待时间重试该操作。 此选项表示重试次数。 如果 recursive 选项不为 true，则忽略此选项。 默认值: 0。
+  - recursive 、\<boolean、> 如果为 true，则执行递归删除。 在递归模式下，操作将在失败时重试。 默认值: false。
+  - retryDelay 、\<integer、> 重试之间等待的时间（以毫秒为单位）。 如果 recursive 选项不为 true，则忽略此选项。 默认值: 100。
 
-<br/>
+\<br/>
 2. fs.rename(oldPath, newPath, callback)
 将 oldPath 处的文件异步重命名为作为 newPath 提供的路径名。 如果 newPath 已经存在，则它将被覆盖。 如果在 newPath 中有目录，则会引发错误
 
@@ -292,7 +292,7 @@ rename('oldFile.txt', 'newFile.txt', (err) => {
 });
 ```
 
-<br/>
+\<br/>
 3. fs.watch(filename[, options][, listener])
 
 监听文件或者目录的变化，监听器回调有两个参数 (eventType, filename)。 eventType 是 'rename' 或 'change'，filename 是触发事件的文件的名称
@@ -332,7 +332,7 @@ import { createReadStream } from 'node:fs';
 createReadStream('sample.txt', { start: 90, end: 99 });
 ```
 
-<br/>
+\<br/>
 2. fs.createWriteStream(path[, options])
 
 创建文件的可写流
@@ -383,7 +383,7 @@ chmod('my_file.txt', 0o775, (err) => {
 |fs.constants.S_IWOTH|  0o2 |     其他人可写入|
 |fs.constants.S_IXOTH|   0o1|     其他人可执行/搜索|
 
-<br/>
+\<br/>
 2. fs.open(path[, flags[, mode]], callback)
 
 异步地打开文件,mode 设置文件模式（权限和粘滞位），但前提是文件已创建
@@ -392,7 +392,7 @@ chmod('my_file.txt', 0o775, (err) => {
 - flags \<string\> | \<number\> 请参阅对文件系统 flags 的支持。 默认值: 'r'。
 - mode \<string\> | \<integer\> 默认值: 0o666 （可读可写）
 
-<br/>
+\<br/>
 3. fs.close(fd[, callback])
 
 关闭文件描述如
@@ -401,7 +401,7 @@ chmod('my_file.txt', 0o775, (err) => {
 - callback \<Function\>
   - err \<Error\>
 
-<br/>
+\<br/>
 4. fs.stat(path[, options], callback)
 
 获取文件信息
@@ -410,7 +410,7 @@ chmod('my_file.txt', 0o775, (err) => {
 - options \<Object\>
   - bigint \<boolean\> 返回的 \<fs.Stats\> 对象中的数值是否应为 bigint。 默认值: false。
 
-<br/>
+\<br/>
 5. fs.access (path,mode,callback)
 
 用于获取文件或目录的权限，不建议在调用open方法检查文件的可访问性，应该直接使用文件的读写、执行操作，在具体的操作中对错误进行处理
@@ -441,7 +441,7 @@ access(file, constants.R_OK | constants.W_OK, (err) => {
 });
 ```
 
-<br/>
+\<br/>
 6. fs.chown(path, uid, gid, callback)
 
 异步地更改文件的所有者和群组。 除了可能的异常之外，没有为完成回调提供任何参数

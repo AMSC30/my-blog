@@ -206,5 +206,5 @@ public static defaultProps = new Props()
 
 ## 参考文献
 
-- <https://www.tslang.cn/docs/handbook/classes.html>
-- <https://www.runoob.com/typescript/ts-class.html>
+- \<https://www.tslang.cn/docs/handbook/classes.html>
+- \<https://www.runoob.com/typescript/ts-class.html>

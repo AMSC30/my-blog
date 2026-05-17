@@ -86,7 +86,7 @@ name=qiming.c&age=22
 
 ## 参考文献
 
-- <https://mp.weixin.qq.com/s?__biz=MzI3NzIzMzg3Mw==&mid=100000054&idx=1&sn=71f6c214f3833d9ca20b9f7dcd9d33e4#rd>
-- <https://blog.fundebug.com/2019/02/22/compare-http-method-get-and-post/>
-- <https://www.w3school.com.cn/tags/html_ref_httpmethods.asp>
-- <https://vue3js.cn/interview>
+- \<https://mp.weixin.qq.com/s?__biz=MzI3NzIzMzg3Mw==&mid=100000054&idx=1&sn=71f6c214f3833d9ca20b9f7dcd9d33e4#rd>
+- \<https://blog.fundebug.com/2019/02/22/compare-http-method-get-and-post/>
+- \<https://www.w3school.com.cn/tags/html_ref_httpmethods.asp>
+- \<https://vue3js.cn/interview>

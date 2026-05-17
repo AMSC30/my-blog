@@ -259,4 +259,4 @@ person.facepalmHard();
 
 ## 参考文献
 
-- <https://es6.ruanyifeng.com/#docs/decorator>
+- \<https://es6.ruanyifeng.com/#docs/decorator>

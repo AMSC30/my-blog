@@ -2,7 +2,7 @@
 
 先上一张图：
 
-<img src="./images/system.png"/>
+\<img src="./images/system.png"/>
 
 ## 综述
 

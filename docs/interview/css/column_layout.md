@@ -399,6 +399,6 @@
 
 ## 参考文献
 
-- <https://zhuqingguang.github.io/2017/08/16/adapting-two-layout/>
+- \<https://zhuqingguang.github.io/2017/08/16/adapting-two-layout/>
 
-- <https://segmentfault.com/a/1190000008705541>
+- \<https://segmentfault.com/a/1190000008705541>

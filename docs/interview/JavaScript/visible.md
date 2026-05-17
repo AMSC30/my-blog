@@ -270,5 +270,5 @@ $targets.each((index, element) => {
 
 ## 参考文献
 
-- <https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect>
-- <https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API>
+- \<https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect>
+- \<https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API>

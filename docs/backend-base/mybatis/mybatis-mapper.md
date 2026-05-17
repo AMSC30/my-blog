@@ -336,7 +336,7 @@ public class User
 </mapper>
 ```
 
-在PersonMapper.xml中定义了一个<select.../>，其根据id查询Person信息，由于Person类除了简单的属性id、name、sex和age之外，还有一个关联对象card，所以返回的是一个名为personMapper的resultMap。personMapper中使用了<association .../>元素映射一对一的关联关系。其中，select属性表示会使用column属性的card_id值作为参数执行CardMapper中定义的selectCardById语句，查询对应的Card数据，查询出的数据将被封装到property表示的card对象当中
+在PersonMapper.xml中定义了一个\<select.../>，其根据id查询Person信息，由于Person类除了简单的属性id、name、sex和age之外，还有一个关联对象card，所以返回的是一个名为personMapper的resultMap。personMapper中使用了\<association .../>元素映射一对一的关联关系。其中，select属性表示会使用column属性的card_id值作为参数执行CardMapper中定义的selectCardById语句，查询对应的Card数据，查询出的数据将被封装到property表示的card对象当中
 
 ## 一对多映射
 
@@ -371,8 +371,8 @@ public class User
 </mapper>
 ```
 
-ClassMapper.xml中定义了一个<select.../>，其根据id查询班级信息。由于Class类除了简单的属性id、code、name 之外，还有一个关联对象students，所以返回的是一个名为classResultMap的resultMap。
-由于student是一个List集合，所以classResultMap中使用了<collection.../>元素映射一对多的关联关系，select属性表示会使用column属性的id值作为参数执行StudentMapper中定义的selectStudentByClass查询该班级对应的所有学生数据，查询出的数据将被封装到property表示的students对象当中。
+ClassMapper.xml中定义了一个\<select.../>，其根据id查询班级信息。由于Class类除了简单的属性id、code、name 之外，还有一个关联对象students，所以返回的是一个名为classResultMap的resultMap。
+由于student是一个List集合，所以classResultMap中使用了\<collection.../>元素映射一对多的关联关系，select属性表示会使用column属性的id值作为参数执行StudentMapper中定义的selectStudentByClass查询该班级对应的所有学生数据，查询出的数据将被封装到property表示的students对象当中。
 
 还使用了一个新的属性fetchType，该属性的取值有eager和lazy，eager表示立即加载，即查询Class对象的时候，会立即执行关联的selectStudentByClassId中定义的SQL语句去查询班级的所有学生；lazy表示懒加载，其不会立即发送SQL语句去查询班级的所有学生，而是等到需要使用到班级的students属性时，才会发送SQL语句去查询班级的所有学生。fetch机制更多的是为了性能考虑，如果查询班级时确定会访问班级的所有学生，则该属性应该设置为eager；如果查询班级时只是查询班级信息，有可能不会访问班级的所有学生，则该属性应该设置为lazy。正常情况下，一对多所关联的集合对象，都应该被设置成lazy
 
@@ -410,7 +410,7 @@ ClassMapper.xml中定义了一个<select.../>，其根据id查询班级信息。
 </mapper>
 ```
 
-UserMapper.xml中定义了一一个<select.../>，其根据id查询用户信息。由于User 类除了简单的属性id、usemame、loginame、password和address之外，还有一个关联对象orders，所以返回的是一个名为userResultMap的resultMap。由于orders是一个List集合，因此userResultMap 中使用了<collection.../>元素映射一对多的关联关系，select属性表示会使用columm属性的id值作为参数执行OrderMapper中定义的selectOrderByUserId查询该用户所下的所有订单，查询出的数据将被封装到property表示的orders对象当中。注意，一对多使用的都是lazy(懒加载)
+UserMapper.xml中定义了一一个\<select.../>，其根据id查询用户信息。由于User 类除了简单的属性id、usemame、loginame、password和address之外，还有一个关联对象orders，所以返回的是一个名为userResultMap的resultMap。由于orders是一个List集合，因此userResultMap 中使用了\<collection.../>元素映射一对多的关联关系，select属性表示会使用columm属性的id值作为参数执行OrderMapper中定义的selectOrderByUserId查询该用户所下的所有订单，查询出的数据将被封装到property表示的orders对象当中。注意，一对多使用的都是lazy(懒加载)
 
 ## 一对一注解
 

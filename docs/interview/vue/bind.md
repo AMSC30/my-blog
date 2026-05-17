@@ -215,8 +215,8 @@ function defineReactive(obj, key, val) {
 
 ## 参考文献
 
-- <https://www.liaoxuefeng.com/wiki/1022910821149312/1109527162256416>
-- <https://juejin.cn/post/6844903942254510087#heading-9>
+- \<https://www.liaoxuefeng.com/wiki/1022910821149312/1109527162256416>
+- \<https://juejin.cn/post/6844903942254510087#heading-9>
 
 面试官VUE系列总进度：3／33
 

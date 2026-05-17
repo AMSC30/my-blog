@@ -172,7 +172,7 @@ public class DefaultBlogService implements BlogService {
 ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
 ```
 
-通常情况下，每个单独的XML配置文件代表了你架构中的一个逻辑层或模块，可以使用 application context 构造函数从所有这些XML片段中加载Bean定义，或者，使用一个或多个 <import/> 元素的出现来从另一个或多个文件中加载Bean定义
+通常情况下，每个单独的XML配置文件代表了你架构中的一个逻辑层或模块，可以使用 application context 构造函数从所有这些XML片段中加载Bean定义，或者，使用一个或多个 \<import/> 元素的出现来从另一个或多个文件中加载Bean定义
 
 ```xml
 <beans>
@@ -893,7 +893,7 @@ public class SimpleMovieLister {
 
 构造函数参数解析匹配是通过使用参数的类型进行的。如果 bean 定义中的构造器参数不存在潜在的歧义，那么构造器参数在 bean 定义中的定义顺序就是这些参数在 bean 被实例化时被提供给适当的构造器的顺序
 
-当使用一个简单的类型时，比如 <value>true</value>，Spring不能确定值的类型，所以在没有帮助的情况下不能通过类型进行匹配
+当使用一个简单的类型时，比如 \<value>true\</value>，Spring不能确定值的类型，所以在没有帮助的情况下不能通过类型进行匹配
 
 - 通过使用 type 属性显式地指定构造函数参数的类型
 

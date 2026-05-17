@@ -70,6 +70,6 @@ Vue.prototype.$watch = function (
 ```
 
 在以上代码分析完毕后，我们可以得到`stateMixin`如下流程图：
-<div style="text-align: center">
-  <img src="../../images/stateMixin.png" />
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/stateMixin.png" />
+\</div>

@@ -96,6 +96,6 @@ export default {
 ```
 
 在分析完以上`initMethods`流程后，我们能得到如下流程图：
-<div style="text-align:center">
-  <img src="../../images/methods.png">
-</div>
+\<div style="text-align:center">
+  \<img src="../../images/methods.png">
+\</div>

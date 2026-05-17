@@ -2,7 +2,7 @@
 
 ## 反转字符串
 
-链接：<https://leetcode.cn/problems/reverse-string/>
+链接：\<https://leetcode.cn/problems/reverse-string/>
 
 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。
 
@@ -25,7 +25,7 @@ var reverseString = function (s) {
 
 ## 反转字符串II
 
-链接：<https://leetcode.cn/problems/reverse-string-ii/>
+链接：\<https://leetcode.cn/problems/reverse-string-ii/>
 
 给定一个字符串 s 和一个整数 k，从字符串开头算起, 每计数至 2k 个字符，就反转这 2k 个字符中的前 k 个字符。
 
@@ -49,7 +49,7 @@ var reverseStr = function(s, k) {
 
 ## 替换空格
 
-链接：<https://leetcode.cn/problems/ti-huan-kong-ge-lcof/>
+链接：\<https://leetcode.cn/problems/ti-huan-kong-ge-lcof/>
 
 请实现一个函数，把字符串 s 中的每个空格替换成"%20"
 
@@ -80,7 +80,7 @@ var replaceSpace = function (s) {
 
 ## 翻转字符串里的单词
 
-链接：<https://leetcode.cn/problems/reverse-words-in-a-string/>
+链接：\<https://leetcode.cn/problems/reverse-words-in-a-string/>
 
 给你一个字符串 s ，请你反转字符串中 单词 的顺序。
 
@@ -146,7 +146,7 @@ function reverse(strArr, start, end) {
 
 ## 左旋转字符串
 
-链接：<https://leetcode.cn/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/>
+链接：\<https://leetcode.cn/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/>
 
 字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串"abcdefg"和数字2，该函数将返回左旋转两位得到的结果"cdefgab"
 
@@ -176,7 +176,7 @@ var reverseWords = function (s, start, end) {
 
 ## 重复的子字符串
 
-链接：<https://leetcode.cn/problems/repeated-substring-pattern/>
+链接：\<https://leetcode.cn/problems/repeated-substring-pattern/>
 
 给定一个非空的字符串 s ，检查是否可以通过由它的一个子串重复多次构成
 

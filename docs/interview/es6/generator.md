@@ -301,4 +301,4 @@ for (let [key, value] of iterEntries(myObj)) {
 
 ## 参考文献
 
-- <https://es6.ruanyifeng.com/#docs/generator-async>
+- \<https://es6.ruanyifeng.com/#docs/generator-async>

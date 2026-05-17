@@ -11,7 +11,7 @@
 - 属性方法：组件可以通过链式调用配置多项属性，如fontSize()、width()、height()、backgroundColor()等。
 - 事件方法：组件可以通过链式调用设置多个事件的响应逻辑，如跟随在Button后面的onClick()
 
- <img src="../images/arkts-construct.png"/>
+ \<img src="../images/arkts-construct.png"/>
 
 ## 组件和页面生命周期
 
@@ -28,7 +28,7 @@
 
 生命周期流程如下图所示:
 
- <img src="../images/lifecycle.png"/>
+ \<img src="../images/lifecycle.png"/>
 
 1. 初始化自定义组件的成员变量：通过本地默认值或者构造方法传递参数来初始化自定义组件的成员变量，初始化顺序为成员变量的定义顺序
 2. 如果定义了aboutToAppear，则执行aboutToAppear方法

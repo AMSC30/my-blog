@@ -93,6 +93,6 @@ function add (arg1: string | number, arg2: string | number) {
 
 ## 参考文献
 
-- <https://www.tslang.cn/docs/handbook/functions.html>
-- <https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD>
-- <https://jkchao.github.io/typescript-book-chinese/typings/functions.html#%E9%87%8D%E8%BD%BD>
+- \<https://www.tslang.cn/docs/handbook/functions.html>
+- \<https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD>
+- \<https://jkchao.github.io/typescript-book-chinese/typings/functions.html#%E9%87%8D%E8%BD%BD>

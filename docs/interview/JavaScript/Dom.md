@@ -268,4 +268,4 @@ removed === self; // true
 
 ## 相关链接
 
-<https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model>
+\<https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model>

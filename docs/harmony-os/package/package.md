@@ -17,11 +17,11 @@ HAP是HarmonyOS应用安装的基本单位，包含了编译后的代码、资�
 
 因此，应用程序基于stage模型的包结构如下
 
-<img src="../images/app.png"/>
+\<img src="../images/app.png"/>
 
 ## 多HAP构建视图
 
-<img src="../images/build.png"/>
+\<img src="../images/build.png"/>
 
 **IDE开发态视图**
 
@@ -169,7 +169,7 @@ ohpm config set key_path your_key_path
 ohpm config set publish_id your_publish_id
 ```
 
-- 执行如下命令发布HAR，<HAR路径>需指定为.har文件的具体路径
+- 执行如下命令发布HAR，\<HAR路径>需指定为.har文件的具体路径
 
 ```bash
 ohpm publish <HAR路径>

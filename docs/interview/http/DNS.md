@@ -70,7 +70,7 @@ DNS 查询的方式有两种：
 
 ## 参考文献
 
-- <https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F>
-- <https://www.cnblogs.com/jmilkfan-fanguiju/p/12789677.html>
-- <https://segmentfault.com/a/1190000039039275>
-- <https://vue3js.cn/interview>
+- \<https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F>
+- \<https://www.cnblogs.com/jmilkfan-fanguiju/p/12789677.html>
+- \<https://segmentfault.com/a/1190000039039275>
+- \<https://vue3js.cn/interview>

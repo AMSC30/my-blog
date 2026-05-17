@@ -8,11 +8,11 @@
 
 ​    为了解决这个问题，kubernetes提供了Service资源，Service会对提供同一个服务的多个pod进行聚合，并且提供一个统一的入口地址。通过访问Service的入口地址就能访问到后面的pod服务。
 
-<img src="./assets/image-20200408194716912.png" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200408194716912.png" style="zoom:100%;border:1px solid" />
 
 ​    Service在很多情况下只是一个概念，真正起作用的其实是kube-proxy服务进程，每个Node节点上都运行着一个kube-proxy服务进程。当创建Service的时候会通过api-server向etcd写入创建的service的信息，而kube-proxy会基于监听的机制发现这种Service的变动，然后**它会将最新的Service信息转换成对应的访问规则**。
 
-<img src="./assets/image-20200509121254425.png" style="border:1px solid" />
+\<img src="./assets/image-20200509121254425.png" style="border:1px solid" />
 
 ~~~powershell
 # 10.97.97.97:80 是service提供的访问入口
@@ -36,20 +36,20 @@ kube-proxy目前支持三种工作模式:
 ​    userspace模式下，kube-proxy会为每一个Service创建一个监听端口，发向Cluster IP的请求被Iptables规则重定向到kube-proxy监听的端口上，kube-proxy根据LB算法选择一个提供服务的Pod并和其建立链接，以将请求转发到Pod上。
 ​    该模式下，kube-proxy充当了一个四层负责均衡器的角色。由于kube-proxy运行在userspace中，在进行转发处理时会增加内核和用户空间之间的数据拷贝，虽然比较稳定，但是效率比较低。
 
-<img src="./assets/image-20200509151424280.png" style="border: 1px solid; zoom: 57%;" />
+\<img src="./assets/image-20200509151424280.png" style="border: 1px solid; zoom: 57%;" />
 
 **iptables 模式**
 
 ​    iptables模式下，kube-proxy为service后端的每个Pod创建对应的iptables规则，直接将发向Cluster IP的请求重定向到一个Pod IP。
 ​    该模式下kube-proxy不承担四层负责均衡器的角色，只负责创建iptables规则。该模式的优点是较userspace模式效率更高，但不能提供灵活的LB策略，当后端Pod不可用时也无法进行重试。
 
-<img src="./assets/image-20200509152947714.png" style="zoom: 57%;"  />
+\<img src="./assets/image-20200509152947714.png" style="zoom: 57%;"  />
 
 **ipvs 模式**
 
 ​    ipvs模式和iptables类似，kube-proxy监控Pod的变化并创建相应的ipvs规则。ipvs相对iptables转发效率更高。除此以外，ipvs支持更多的LB算法。
 
-<img src="./assets/image-20200509153731363.png" style="zoom: 57%" />
+\<img src="./assets/image-20200509153731363.png" style="zoom: 57%" />
 
 ~~~powershell
 # 此模式必须安装ipvs内核模块，否则会降级为iptables
@@ -325,7 +325,7 @@ service-headliness.dev.svc.cluster.local. 30 IN A 10.244.2.33
 
 ​    在之前的样例中，创建的Service的ip地址只有集群内部才可以访问，如果希望将Service暴露给集群外部使用，那么就要使用到另外一种类型的Service，称为NodePort类型。NodePort的工作原理其实就是**将service的端口映射到Node的一个端口上**，然后就可以通过`NodeIp:NodePort`来访问service了。
 
-<img src="./assets/image-20200620175731338.png" style="border:1px solid"  />
+\<img src="./assets/image-20200620175731338.png" style="border:1px solid"  />
 
 创建service-nodeport.yaml
 
@@ -362,13 +362,13 @@ service-nodeport   NodePort   10.105.64.191   <none>        80:30002/TCP  app=ng
 
 ​    LoadBalancer和NodePort很相似，目的都是向外部暴露一个端口，区别在于LoadBalancer会在集群的外部再来做一个负载均衡设备，而这个设备需要外部环境支持的，外部服务发送到这个设备上的请求，会被设备负载之后转发到集群中。
 
-<img src="./assets/image-20200510103945494.png" style="border:1px solid" />
+\<img src="./assets/image-20200510103945494.png" style="border:1px solid" />
 
 ### ExternalName类型的Service
 
 ​     ExternalName类型的Service用于引入集群外部的服务，它通过`externalName`属性指定外部一个服务的地址，然后在集群内部访问此service就可以访问到外部的服务了。
 
-<img src="./assets/image-20200510113311209.png" style="border:1px solid" />
+\<img src="./assets/image-20200510113311209.png" style="border:1px solid" />
 
 ~~~yaml
 apiVersion: v1
@@ -403,7 +403,7 @@ www.a.shifen.com.       30      IN      A       39.156.66.14
 
 ​    基于这种现状，kubernetes提供了Ingress资源对象，Ingress只需要一个NodePort或者一个LB就可以满足暴露多个Service的需求。工作机制大致如下图表示：
 
-<img src="./assets/image-20200623092808049.png" style="border:1px solid"/>
+\<img src="./assets/image-20200623092808049.png" style="border:1px solid"/>
 
 ​    实际上，Ingress相当于一个7层的负载均衡器，是kubernetes对反向代理的一个抽象，它的工作原理类似于Nginx，可以理解成在**Ingress里建立诸多映射规则，Ingress Controller通过监听这些配置规则并转化成Nginx的反向代理配置 , 然后对外部提供服务**。在这里有两个核心概念：
 
@@ -417,7 +417,7 @@ Ingress（以Nginx为例）的工作原理如下：
 3. Ingress控制器会将生成的Nginx配置写入到一个运行着的Nginx服务中，并动态更新
 4. 到此为止，其实真正在工作的就是一个Nginx了，内部配置了用户定义的请求转发规则
 
-<img src="./assets/image-20200516112704764.png" style="border: 1px solid; zoom: 100%;" />
+\<img src="./assets/image-20200516112704764.png" style="border: 1px solid; zoom: 100%;" />
 
 ## Ingress使用
 
@@ -455,7 +455,7 @@ ingress-nginx   NodePort   10.98.75.163   <none>        80:32240/TCP,443:31335/T
 
 为了后面的实验比较方便，创建如下图所示的模型
 
-<img src="./assets/image-20200516102419998.png" style="zoom:80%;border:1px solid" />
+\<img src="./assets/image-20200516102419998.png" style="zoom:80%;border:1px solid" />
 
 创建tomcat-nginx.yaml
 
@@ -696,7 +696,7 @@ kubernetes的Volume支持多种类型，比较常见的有下面几个：
 
 ​    在一个Pod中准备两个容器nginx和busybox，然后声明一个Volume分别挂在到两个容器的目录中，然后nginx容器负责向Volume中写日志，busybox中通过命令将日志内容读到控制台。
 
-<img src="./assets/image-20200413174713773.png" style="zoom:80%;border:solid 1px" />
+\<img src="./assets/image-20200413174713773.png" style="zoom:80%;border:solid 1px" />
 
 创建一个volume-emptydir.yaml
 
@@ -751,7 +751,7 @@ volume-emptydir   2/2     Running   0          97s   10.244.1.100   node1  .....
 
 ​    HostPath就是将Node主机中一个实际目录挂在到Pod中，以供容器使用，这样的设计就可以保证Pod销毁了，但是数据依据可以存在于Node主机上。
 
-<img src="./assets/image-20200413214031331.png" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200413214031331.png" style="zoom:100%;border:1px solid" />
 
 创建一个volume-hostpath.yaml：
 
@@ -821,7 +821,7 @@ access.log  error.log
 
 ​    NFS是一个网络文件存储系统，可以搭建一台NFS服务器，然后将Pod中的存储直接连接到NFS系统上，这样的话，无论Pod在节点上怎么转移，只要Node跟NFS的对接没问题，数据就可以成功访问。
 
-<img src="./assets/image-20200413215133559.png" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200413215133559.png" style="zoom:100%;border:1px solid" />
 
 1）首先要准备nfs的服务器，这里为了简单，直接是master节点做nfs服务器
 
@@ -905,7 +905,7 @@ access.log  error.log
 
 ​    PVC（Persistent Volume Claim）是持久卷声明的意思，是用户对于存储需求的一种声明。换句话说，PVC其实就是用户向kubernetes系统发出的一种资源需求申请。
 
-<img src="./assets/image-20200514194111567.png" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200514194111567.png" style="zoom:100%;border:1px solid" />
 
 使用了PV和PVC之后，工作可以得到进一步的细分：
 
@@ -1273,7 +1273,7 @@ PVC和PV是一一对应的，PV和PVC之间的相互作用遵循以下生命周�
 
   对于PV，管理员可以设定回收策略，用于设置与之绑定的PVC释放资源之后如何处理遗留数据的问题。只有PV的存储空间完成回收，才能供新的PVC绑定和使用
 
-<img src="./assets/image-20200515002806726.png" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200515002806726.png" style="zoom:100%;border:1px solid" />
 
 ## 配置存储
 
@@ -1468,7 +1468,7 @@ admin
 
 - **Service Account**：kubernetes管理的账号，用于为Pod中的服务进程在访问Kubernetes时提供身份标识。
 
-<img src="./assets/image-20200520102949189.png" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200520102949189.png" style="zoom:100%;border:1px solid" />
 
 **认证、授权与准入控制**   
 
@@ -1478,7 +1478,7 @@ ApiServer是访问及管理资源对象的唯一入口。任何一个请求访�
 - Authorization（授权）：  判断用户是否有权限对访问的资源执行特定的动作
 - Admission Control（准入控制）：用于补充授权机制以实现更加精细的访问控制功能。
 
-<img src="./assets/image-20200520103942580.png" style="zoom:100%; border:1px solid" />
+\<img src="./assets/image-20200520103942580.png" style="zoom:100%; border:1px solid" />
 
 ### 认证管理
 
@@ -1503,7 +1503,7 @@ Kubernetes集群安全的最关键点在于如何识别并认证客户端身份�
   ~~~
   
 
-<img src="./assets/image-20200518211037434.png" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200518211037434.png" style="zoom:100%;border:1px solid" />
 
 **HTTPS认证大体分为3个过程：**
 
@@ -1561,7 +1561,7 @@ RBAC(Role-Based Access Control) 基于角色的访问控制，主要是在描述
 - 角色：代表着一组定义在资源上的可操作动作(权限)的集合
 - 绑定：将定义好的角色跟用户绑定在一起
 
-<img src="./assets/image-20200519181209566.png" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200519181209566.png" style="zoom:100%;border:1px solid" />
 
 RBAC引入了4个顶级资源对象：
 
@@ -1878,11 +1878,11 @@ ca.crt:     1025 bytes
 
 在登录页面上输入上面的token
 
-<img src="./assets/image-20200520144548997.png" alt="image-20200520144548997" style="zoom:80%;border:1px solid" />
+\<img src="./assets/image-20200520144548997.png" alt="image-20200520144548997" style="zoom:80%;border:1px solid" />
 
 出现下面的页面代表成功
 
-<img src="./assets/image-20200520144959353.png" alt="image-20200520144959353" style="zoom:80%;border:1px solid" />
+\<img src="./assets/image-20200520144959353.png" alt="image-20200520144959353" style="zoom:80%;border:1px solid" />
 
 ## 使用DashBoard
 
@@ -1892,30 +1892,30 @@ ca.crt:     1025 bytes
 
 选择指定的命名空间`dev`，然后点击`Deployments`，查看dev空间下的所有deployment
 
-<img src="./assets/image-20200520154628679.png" style="zoom:90%;border:1px solid" />
+\<img src="./assets/image-20200520154628679.png" style="zoom:90%;border:1px solid" />
 
 **扩缩容**
 
 在`Deployment`上点击`规模`，然后指定`目标副本数量`，点击确定
 
-<img src="./assets/image-20200520162605102.png" style="zoom:90%;border:1px solid" />
+\<img src="./assets/image-20200520162605102.png" style="zoom:90%;border:1px solid" />
 
 **编辑**
 
 在`Deployment`上点击`编辑`，然后修改`yaml文件`，点击确定
 
-<img src="./assets/image-20200520163253644.png" alt="image-20200520163253644" style="zoom:100%;border:1px solid" />
+\<img src="./assets/image-20200520163253644.png" alt="image-20200520163253644" style="zoom:100%;border:1px solid" />
 
 **查看Pod**
 
 点击`Pods`, 查看pods列表
 
-<img src="./assets/image-20200520163552110.png" style="zoom:90%;border:1px solid" />
+\<img src="./assets/image-20200520163552110.png" style="zoom:90%;border:1px solid" />
 
 **操作Pod**
 
 选中某个Pod，可以对其执行日志（logs）、进入执行（exec）、编辑、删除操作
 
-<img src="./assets/image-20200520163832827.png" style="zoom:90%;border:1px solid" />
+\<img src="./assets/image-20200520163832827.png" style="zoom:90%;border:1px solid" />
 
 > Dashboard提供了kubectl的绝大部分功能，这里不再一一演示

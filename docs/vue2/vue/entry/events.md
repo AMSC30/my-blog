@@ -251,6 +251,6 @@ Vue.prototype.$once = function (event: string, fn: Function): Component {
 **注意**：在源码中`$once`的实现是在回调函数中使用`fn`绑定了原回调函数的引用，在上面已经提到过的`$off`方法中也同样进行了`cb.fn === fn`的判断。
 
 在实现完以上几种方法后，我们可以得到`eventsMixin`如下流程图：
-<div style="text-align: center">
-  <img src="../../images/eventsMixin.png" />
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/eventsMixin.png" />
+\</div>

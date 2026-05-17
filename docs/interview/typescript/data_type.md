@@ -193,4 +193,4 @@ obj = {name: 'Wang', age: 25};
 
 ## 参考文献
 
-- <https://www.tslang.cn/docs/handbook/basic-types.html>
+- \<https://www.tslang.cn/docs/handbook/basic-types.html>

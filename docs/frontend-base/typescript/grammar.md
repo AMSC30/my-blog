@@ -1218,7 +1218,7 @@ type T2 = Exclude<string | number | (() => void), Function>;
 //    ^?
 ```
 
-### Extract<Type, Union>
+### Extract\<Type, Union>
 
 通过从 Type 中提取可分配给 Union 的所有联合成员来构造类型。
 

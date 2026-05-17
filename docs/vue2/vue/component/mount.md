@@ -337,6 +337,6 @@ export function mountComponent (
 ## 流程图
 
 在分析完`$mount`方法后，我们可以得到如下流程图：
-<div style="text-align: center">
-  <img src="../../images/$mount.png" />
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/$mount.png" />
+\</div>

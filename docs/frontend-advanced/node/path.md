@@ -5,13 +5,13 @@ path模块提供了对路径操作的方法
 path结构：
 
 |──────────|───────|
-<br/>
+\<br/>
 │-----------dir---------│----base----│
-<br/>
+\<br/>
 │--root--│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│-name-│-ext-│
-<br/>
+\<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;home/user/dir/&nbsp;&nbsp;&nbsp;&nbsp;file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.txt
-<br/>
+\<br/>
 |──────────|───────|
 
 ## Windows 与 POSIX 的对比
@@ -64,12 +64,12 @@ path.basename('/foo/bar/baz/asdf/quux.html', '.html');
 
 tips：如果path不是字符串，将会报错
 
-<br/>
+\<br/>
 2. path.delimiter
 
 提供特定于平台的路径定界符：windows->;  posix->：
 
-<br/>
+\<br/>
 3. path.dirname(path)
 
 dirname方法用于解析path所指定文件所在目录名，末尾的路径分隔符会被忽略
@@ -138,12 +138,12 @@ path.format({
 });
 ```
 
-<br/>
+\<br/>
 2. path.isAbsolute(path)
 
 该方法用于判断path是否为绝对路径
 
-<br/>
+\<br/>
 3. path.parse(path)
 
 path.parse() 方法返回一个对象，其属性表示 path 的重要元素
@@ -172,7 +172,7 @@ path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb');
 // 返回: '..\\..\\impl\\bbb'
 ```
 
-<br/>
+\<br/>
 2. path.resolve([...paths])
 
 path.resolve() 方法将路径或路径片段的序列解析为绝对路径，

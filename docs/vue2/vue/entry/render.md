@@ -22,6 +22,6 @@ export function renderMixin (Vue) {
 * `nextTick`：就像我们之前介绍过的，`nextTick`会在`Vue`构造函数上挂载一个全局的`nextTick()`方法，而此处为实例方法，本质上引用的是同一个`nextTick`。
 
 在以上代码分析完毕后，我们可以得到`renderMixin`如下流程图：
-<div style="text-align: center">
-  <img src="../../images/renderMixin.png" />
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/renderMixin.png" />
+\</div>

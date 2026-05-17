@@ -339,7 +339,7 @@ exports字段的别名如果是.，就代表模块的主入口，优先级高于
 3. 全局配置文件（默认为$PREFIX/etc/.npmrc;可通过CLI选项--globalconfig或环境变量$NPM_CONFIG_GLOBALCONFIG配置）
 4. npm 的内置配置文件（/path/to/npm/.npmrc）
 
-<br/>
+\<br/>
 
 .npmrc配置项：
 
@@ -913,7 +913,7 @@ npm按package中的定义顺序安装包，如果node_modules下不存在，则�
     - 有冲突，报错，需要手动解决冲突
 
 流程图如下：
-<img src="./install.png"/>
+\<img src="./install.png"/>
 
 ## pnpm
 
@@ -938,7 +938,7 @@ pnpm将依赖包统一存储在硬盘上的一个位置，项目中安装依赖�
 
 在 \<path\> 中启动 pnpm ，而不是当前的工作目录。
 
-<br/>
+\<br/>
 
 2. -w, --workspace-root
 
@@ -978,7 +978,7 @@ pnpm add <pkg>
 - --global -g：安装到全局
 - --workspace：仅添加在workspace中找到的依赖
 
-<br/>
+\<br/>
 
 2. 安装项目所有依赖
 
@@ -1049,7 +1049,7 @@ ndjson - 最详细报告. 打印所有ndjson 格式日志
 
 不执行项目中`package.json`和它的依赖项中定义的任何脚本
 
-<br/>
+\<br/>
 
 3. 更新包
 
@@ -1101,7 +1101,7 @@ pnpm up -r --workspace express
 
 显示过时的依赖项并选择要更新的依赖项
 
-<br/>
+\<br/>
 
 4. 删除包
 
@@ -1135,7 +1135,7 @@ pnpm remove/rm/un/uninstall <pkg-name>
 
 仅从 dependencies 中删除相关依赖项
 
-<br/>
+\<br/>
 
 5. 链接包
 
@@ -1173,7 +1173,7 @@ pnpm link --global <pkg>
 
 取消连接到系统的包
 
-<br/>
+\<br/>
 
 6. 添加补丁
 
@@ -1233,7 +1233,7 @@ npm audit
 
 仅审查生产依赖项
 
-<br/>
+\<br/>
 
 2. 依赖列表
 
@@ -1243,7 +1243,7 @@ pnpm list/ls
 
 以一个树形结构输出所有的已安装package的版本及其依赖
 
-<br/>
+\<br/>
 
 3. 查看过期依赖
 
@@ -1251,7 +1251,7 @@ pnpm list/ls
 pnpm outdated
 ```
 
-<br/>
+\<br/>
 
 4. 查看依赖链
 
@@ -1483,7 +1483,7 @@ Yarn生成一个.pnp.cjs文件，而不是通常的包含各种软件包副本�
 
 验证软件包解析方案是否一致
 
-<br/>
+\<br/>
 
 2. add
 
@@ -1534,7 +1534,7 @@ yarn add lodash@https://github.com/lodash/lodash
 
 重用项目内某个地方已使用的最高版本
 
-<br/>
+\<br/>
 
 3. bin
 
@@ -1546,7 +1546,7 @@ yarn add lodash@https://github.com/lodash/lodash
 
 以json的格式输出
 
-<br/>
+\<br/>
 
 4. cache clean
 
@@ -1568,7 +1568,7 @@ yarn cache clean
 
 删除全局和本地缓存文件
 
-<br/>
+\<br/>
 
 5. constraints
 
@@ -1594,7 +1594,7 @@ source：打印事实数据库源代码
 yarn constraints source
 ```
 
-<br/>
+\<br/>
 
 6. dedupe
 
@@ -1624,7 +1624,7 @@ yarn dedupe @<scope>/*
 yarn dedupe --check
 ```
 
-<br/>
+\<br/>
 
 7. dlx
 
@@ -1642,13 +1642,13 @@ yarn dlx create-react-app ./my-app
 yarn dlx -p typescript -p ts-node ts-node --transpile-only -e "console.log('hello!')"
 ```
 
-<br/>
+\<br/>
 
 8. exec
 
 执行shell命令
 
-<br/>
+\<br/>
 
 9. info
 
@@ -1672,7 +1672,7 @@ yarn info <pkg-name>
 
 打印包的缓存信息
 
-<br/>
+\<br/>
 
 10. init
 
@@ -1696,7 +1696,7 @@ yarn info <pkg-name>
 
 初始化具有给定名称的包
 
-<br/>
+\<br/>
 
 11. tag
 
@@ -1720,13 +1720,13 @@ yarn npm tag list <pkg-name>
 yarn npm tag remove <pkg-name> <tag>
 ```
 
-<br/>
+\<br/>
 
 12. patch
 
 为包打补丁，用法同npm
 
-<br/>
+\<br/>
 
 13. set version
 
@@ -1786,13 +1786,13 @@ yarn set version <https://repo.yarnpkg.com/3.1.0/packages/yarnpkg-cli/bin/yarn.j
 yarn set version self
 ```
 
-<br/>
+\<br/>
 
 14. up
 
 升级所有工作区的包
 
-<br/>
+\<br/>
 
 15. workspace
 
@@ -1932,19 +1932,19 @@ NodeLinker: “pnp”
 |Side-effects cache |✔️ |❌ |❌|
 |Listing licenses| ✔️-Via pnpm licenses list| ✔️-Via a plugin |❌|
 
-<br/>
+\<br/>
 
 1. 空间占用
 
 不管是使用npm或者是yarn，安装依赖时一般是下载该依赖的tar包到本地离线镜像，然后解压到本地缓存，最后再将其拷贝到项目的node_modules中，所以多个项目依赖同一个版本的包，那么这个包就是在硬盘上存在多份，而pnpm安装依赖时，依赖包会被存放在统一的位置（store），然后使用该依赖的项目会硬链接对应的依赖位置
 
-<br/>
+\<br/>
 
 2. node_module结构
 
 pnpm项目根目录下的node_modules文件夹下的各个依赖文件夹都是软链接，而 .pnpm 文件夹下有所有依赖的扁平化结构，以依赖名加版本号命名目录名，其目录下的node_modules下有个相同依赖名的目录，是硬链接，除了相同依赖名的目录，如果该依赖还有其他的依赖，也会展示在同级下，是软链接，它们的真正位置也是扁平在.pnpm项目下的对应位置的硬链接，npm和yarn都使用了扁平结构处理，避免了相同版本包的重复安装，在安装依赖包时，npm/yarn会对所有依赖先进行一次排序
 
-<br/>
+\<br/>
 
 3. 安全性
 

@@ -76,7 +76,7 @@
 
 - 当oldIndex>maxIndex时，将oldIndex的值赋值给maxIndex
 - 当oldIndex=maxIndex时，不操作
-- 当oldIndex<maxIndex时，将当前节点移动到index的位置
+- 当oldIndex\<maxIndex时，将当前节点移动到index的位置
 
 `diff`过程如下：
 

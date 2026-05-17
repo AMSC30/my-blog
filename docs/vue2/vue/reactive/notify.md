@@ -2,8 +2,8 @@
 
 在介绍完依赖收集后，我们紧接着来分析一下派发更新。在这一小节，我们的目标是弄清楚派发更新主要做什么事情以及派发更新的具体过程实现。
 
-我们先来回答第一个问题：<br/>
-问：派发更新主要做什么事情？<br/>
+我们先来回答第一个问题：\<br/>
+问：派发更新主要做什么事情？\<br/>
 答：派发更新就是当响应式数据发生变动的时候，通知所有订阅了这个数据变化的`Watcher`(既`Dep`依赖)执行`update`。对于`render watcher`渲染`Watcher`而言，`update`就是触发组件重新进行渲染；对于`computed watcher`计算属性`Watcher`而言，`update`就是对计算属性重新求值；对于`user watcher`用户自定义`Watcher`而言，`update`就是调用用户提供的回调函数。
 
 ## 场景
@@ -465,6 +465,6 @@ for (index = 0; index < queue.length; index++) {
 
 在分析完以上派发更新的过程后，我们可以得到如下流程图。
 
-<div style="text-align: center">
-  <img src="../../images/notify.png" alt="派发更新流程">
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/notify.png" alt="派发更新流程">
+\</div>

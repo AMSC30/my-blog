@@ -22,6 +22,6 @@ export function initState (vm: Component) {
 
 那么我们的深入响应式原理介绍会以`initState()`方法开始，逐步分析`Vue`中响应式的原理，下面这张图可以很好的展示响应式的原理。
 
-<div style="text-align:center;">
-  <img src="../../images/reactive.png" alt="响应式原理图" width="740" />
-</div>
+\<div style="text-align:center;">
+  \<img src="../../images/reactive.png" alt="响应式原理图" width="740" />
+\</div>

@@ -350,4 +350,4 @@ arr.sort(stableSorting)
 
 ## 参考文献
 
-- <https://es6.ruanyifeng.com/#docs/array>
+- \<https://es6.ruanyifeng.com/#docs/array>

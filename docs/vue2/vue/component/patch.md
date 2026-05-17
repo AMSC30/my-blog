@@ -210,9 +210,9 @@ if (!prevVnode) {
 
 3. `render`函数执行会得到一个`VNode`的树形结构，`update`的作用就是把这个虚拟`DOM`节点树转换成真实的`DOM`节点树。因此结合前面介绍的所有内容，我们可以得到一个从实例初始化到最终渲染成真实`DOM`到视图的一个主线流程图。
 
-<div style="text-align: center">
-  <img src="../../images/vue-process.png" alt="流程图">
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/vue-process.png" alt="流程图">
+\</div>
 
 ## patch
 

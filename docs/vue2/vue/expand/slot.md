@@ -681,7 +681,7 @@ const parentRender = `with(this){
 
 既然我们搞清楚了这两个例子为什么要通知子组件重新进行渲染，接下来让我们来回答前面遗留的两个问题：**什么时候通知子组件重新进行渲染？**、**怎么通知子组件重新进行渲染？**。
 
-问：**什么时候通知子组件重新进行渲染？**<br/>
+问：**什么时候通知子组件重新进行渲染？**\<br/>
 答：当我们在父组件初始化完毕后，再次修改`list`数组时，父组件会触发`prepatch`钩子函数，在这个钩子函数中它调用了`updateChildComponent`方法，在这个方法中有如下代码逻辑：
 ```js
 export function updateChildComponent (
@@ -718,7 +718,7 @@ export function updateChildComponent (
 ```
 从上面例子中我们可以看出来，当`needsForceUpdate`逻辑判断为真时，就会调用`$forceUpdate()`方法进行子组件的重新渲染逻辑，我们仔细分析后可以知道`needsForceUpdate`主要与`$stable`或`$key`这两个属性挂钩，这两个属性就是**怎么通知子组件重新进行渲染**的关键。
 
-问：**怎么通知子组件重新进行渲染？**<br>
+问：**怎么通知子组件重新进行渲染？**\<br>
 答：在介绍插槽的`parse`编译小节时，对于`genScopedSlots`方法、我们故意省略了一部分代码没有进行说明，完整代码如下：
 ```js
 function genScopedSlots (

@@ -35,7 +35,7 @@ url中的`:`具有特殊含义，表示将紧接着的部分作为动态值，�
 <Route path="/teams/new" />
 ```
 
-当访问如<http://example.com/teams/new这个地址，router是优先使用第二个>
+当访问如\<http://example.com/teams/new这个地址，router是优先使用第二个>
 
 ## 创建路由器
 
@@ -100,19 +100,19 @@ route是React Router中最重要的一部分，它将URL段耦合到组件、数
 
 组件对应的路径，通过多级嵌套的方式，与浏览器URL、链接url相匹配
 
-<br/>
+\<br/>
 动态段
 
 如果路径段以:开始，则它成为“动态段”。当路由与URL匹配时，将从URL解析动态段，并将其作为params提供给其他路由器API
 动态段必须是完整的，不能是 `"/teams-:teamId"`或者 `"/:teams-:teamId"`的形式
 
-<br/>
+\<br/>
 可选段
 
 通过在管段末端添加?，可以使管段成为可选管段，如`path="/:lang?/categories"`的形式
 也可以是可选的静态段，如`path="/lang/detail?/:id"`
 
-<br/>
+\<br/>
 通用段
 
 如果路由路径模式以/*结束，则它将匹配/之后的任何字符，包括其他/字符，如`path:/file/*`
@@ -232,7 +232,7 @@ function loader({ request }) {
 
 当在loader、action或组件渲染中抛出异常时,此React元素/组件将渲染而不是正常的element/Component。
 
-<br/>
+\<br/>
 
 - 冒泡
 
@@ -240,14 +240,14 @@ function loader({ request }) {
 
 将errorElement放在路由树的顶部，并在一个地方处理应用中的几乎所有错误。或者，将它们放在所有路由上，并允许应用程序中没有错误的部分继续正常渲染
 
-<br/>
+\<br/>
 
 - 手动抛出错误
 
 在loader和action中，当您使用不受您控制的外部数据时，您不能总是计划现有的数据、可用的服务或可以访问它的用户。在这些情况下，您可以throw自己的异常。
 一旦你知道你不能用你正在加载的数据呈现路由，你就可以抛出来打破调用栈
 
-<br/>
+\<br/>
 
 - 抛出响应
 

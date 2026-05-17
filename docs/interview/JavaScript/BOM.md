@@ -72,7 +72,7 @@ http://foouser:foopassword@www.wrox.com:80/WileyCDA/?q=javascript#contents
 | hash     | "#contents"                                            | utl中#后面的字符，没有则返回空串    |
 | host     | www.wrox.com:80                                        | 服务器名称和端口号                  |
 | hostname | www.wrox.com                                           | 域名，不带端口号                    |
-| href     | <http://www.wrox.com:80/WileyCDA/?q=javascript#contents> | 完整url                             |
+| href     | \<http://www.wrox.com:80/WileyCDA/?q=javascript#contents> | 完整url                             |
 | pathname | "/WileyCDA/"                                           | 服务器下面的文件路径                |
 | port     | 80                                                     | url的端口号，没有则为空             |
 | protocol | http:                                                  | 使用的协议                          |

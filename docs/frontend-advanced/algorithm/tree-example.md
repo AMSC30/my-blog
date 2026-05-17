@@ -2,7 +2,7 @@
 
 ## 翻转二叉树
 
-链接：<https://leetcode.cn/problems/invert-binary-tree/>
+链接：\<https://leetcode.cn/problems/invert-binary-tree/>
 
 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点
 
@@ -25,7 +25,7 @@ var swapChild = function (node) {
 
 ## 二叉树的右视图
 
-链接：<https://leetcode.cn/problems/binary-tree-right-side-view/>
+链接：\<https://leetcode.cn/problems/binary-tree-right-side-view/>
 
 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值
 
@@ -55,7 +55,7 @@ var rightSideView = function(root) {
 
 ## 二叉树的层平均值
 
-链接：<https://leetcode.cn/problems/average-of-levels-in-binary-tree/>
+链接：\<https://leetcode.cn/problems/average-of-levels-in-binary-tree/>
 
 给定一个非空二叉树的根节点 root , 以数组的形式返回每一层节点的平均值。与实际答案相差 10-5 以内的答案可以被接受。
 代码示例：
@@ -83,7 +83,7 @@ var averageOfLevels = function(root) {
 
 ## N 叉树的层序遍历
 
-链接：<https://leetcode.cn/problems/n-ary-tree-level-order-traversal/>
+链接：\<https://leetcode.cn/problems/n-ary-tree-level-order-traversal/>
 
 给定一个 N 叉树，返回其节点值的层序遍历。（即从左到右，逐层遍历）。
 
@@ -120,7 +120,7 @@ var levelOrder = function(root) {
 
 ## 在每个树行中找最大值
 
-链接：<https://leetcode.cn/problems/find-largest-value-in-each-tree-row/>
+链接：\<https://leetcode.cn/problems/find-largest-value-in-each-tree-row/>
 
 给定一棵二叉树的根节点 root ，请找出该二叉树中每一层的最大值
 
@@ -154,7 +154,7 @@ var largestValues = function(root) {
 
 ## 填充每个节点的下一个右侧节点指针
 
-链接：<https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/>
+链接：\<https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/>
 
 给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点
 
@@ -186,7 +186,7 @@ var connect = function(root) {
 
 ## 二叉树的最大深度
 
-链接：<https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/>
+链接：\<https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/>
 
 给定一个二叉树 root ，返回其最大深度。
 
@@ -221,7 +221,7 @@ var maxDepth = function(root) {
 
 ## 二叉树的最小深度
 
-链接：<https://leetcode.cn/problems/minimum-depth-of-binary-tree/>
+链接：\<https://leetcode.cn/problems/minimum-depth-of-binary-tree/>
 
 给定一个二叉树，找出其最小深度。
 
@@ -261,7 +261,7 @@ var minDepth = function(root) {
 
 ## 对称二叉树
 
-链接：<https://leetcode.cn/problems/symmetric-tree/>
+链接：\<https://leetcode.cn/problems/symmetric-tree/>
 
 给你一个二叉树的根节点 root ， 检查它是否轴对称
 
@@ -289,7 +289,7 @@ var isSymmetric = function(root) {
 
 ## 完全二叉树节点个数
 
-链接：<https://leetcode.cn/problems/count-complete-tree-nodes/>
+链接：\<https://leetcode.cn/problems/count-complete-tree-nodes/>
 
 给你一棵 完全二叉树 的根节点 root ，求出该树的节点个数。
 
@@ -316,7 +316,7 @@ var countNodes = function(root) {
 
 ## 二叉树的所有路径
 
-链接：<https://leetcode.cn/problems/binary-tree-paths/>
+链接：\<https://leetcode.cn/problems/binary-tree-paths/>
 
 代码示例：
 
@@ -339,7 +339,7 @@ var binaryTreePaths = function(root) {
 
 ## 左叶子之和
 
-链接：<https://leetcode.cn/problems/sum-of-left-leaves/description/>
+链接：\<https://leetcode.cn/problems/sum-of-left-leaves/description/>
 
 代码示例：
 
@@ -367,7 +367,7 @@ var sumOfLeftLeaves = function(root) {
 
 ## 找树左下角的值
 
-链接：<https://leetcode.cn/problems/find-bottom-left-tree-value/>
+链接：\<https://leetcode.cn/problems/find-bottom-left-tree-value/>
 
 代码示例：
 
@@ -396,7 +396,7 @@ var findBottomLeftValue = function(root) {
 
 ## 合并二叉树
 
-链接：<https://leetcode.cn/problems/merge-two-binary-trees/>
+链接：\<https://leetcode.cn/problems/merge-two-binary-trees/>
 
 代码示例：
 
@@ -433,7 +433,7 @@ var mergeTrees = function(root1, root2) {
 
 ## 二叉搜索树中的搜索
 
-链接：<https://leetcode.cn/problems/search-in-a-binary-search-tree/description/>
+链接：\<https://leetcode.cn/problems/search-in-a-binary-search-tree/description/>
 
 代码示例：
 
@@ -451,7 +451,7 @@ var searchBST = function(root, val) {
 
 ## 验证二叉搜索树
 
-链接：<https://leetcode.cn/problems/validate-binary-search-tree/description/>
+链接：\<https://leetcode.cn/problems/validate-binary-search-tree/description/>
 
 代码示例：
 
@@ -479,7 +479,7 @@ var isValidBST = function(root) {
 
 ## 二叉搜索树的最小绝对差
 
-链接：<https://leetcode.cn/problems/minimum-absolute-difference-in-bst/description/>
+链接：\<https://leetcode.cn/problems/minimum-absolute-difference-in-bst/description/>
 
 代码示例：
 
@@ -509,7 +509,7 @@ var getMinimumDifference = function(root) {
 
 ## 二叉树的最近公共祖先
 
-链接：<https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/>
+链接：\<https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/>
 
 代码示例：
 

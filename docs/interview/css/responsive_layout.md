@@ -166,6 +166,6 @@ window.addEventListener('resize', init)
 
 ## 参考文献
 
-- <https://baike.baidu.com/item/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1>
-- <https://juejin.cn/post/6844904082751111176>
-- <https://vue3js.cn/interview>
+- \<https://baike.baidu.com/item/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BD%91%E9%A1%B5%E8%AE%BE%E8%AE%A1>
+- \<https://juejin.cn/post/6844904082751111176>
+- \<https://vue3js.cn/interview>

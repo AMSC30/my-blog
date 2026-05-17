@@ -16,6 +16,6 @@
 
 因此根据上面这段话，我们可以得到`Vue`使用虚拟`DOM`进行模板转视图的一个流程。
 
-<div style="text-align: center">
-  <img src="../../images/dom.png" alt="虚拟dom" />
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/dom.png" alt="虚拟dom" />
+\</div>

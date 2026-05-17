@@ -116,5 +116,5 @@ PC端中，1个设备独立像素 = 1个设备像素 （在100%，未缩放的�
 
 ## 参考文献
 
-- <https://developer.mozilla.org/zh-CN/docs/Glossary/CSS_pixel>
-- <https://hijiangtao.github.io/2017/07/09/Device-Viewport-and-Pixel-Introduction/>
+- \<https://developer.mozilla.org/zh-CN/docs/Glossary/CSS_pixel>
+- \<https://hijiangtao.github.io/2017/07/09/Device-Viewport-and-Pixel-Introduction/>

@@ -156,6 +156,6 @@ console.log(this.msg)
 * **observe(data)**：`observe`的作用是把传入值所有的属性(包括嵌套属性)递归的进行响应式`defineReactive`，我们会在之后的章节中详细介绍`observe`的实现原理，在`initData`中我们只要知道`observe(data)`会把`data`函数返回对象的所有属性全部变成响应式的即可。
 
 在分析完`initData`的实现后，我们可以得到`initData`的整体流程图。
-<div style="text-align: center">
-  <img src="../../images/data.png" />
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/data.png" />
+\</div>

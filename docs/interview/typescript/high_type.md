@@ -193,6 +193,6 @@ T extends U ? X : Y
 
 ## 参考文献
 
-- <https://www.tslang.cn/docs/handbook/advanced-types.html>
-- <https://juejin.cn/post/6844904003604578312>
-- <https://zhuanlan.zhihu.com/p/103846208>
+- \<https://www.tslang.cn/docs/handbook/advanced-types.html>
+- \<https://juejin.cn/post/6844904003604578312>
+- \<https://zhuanlan.zhihu.com/p/103846208>

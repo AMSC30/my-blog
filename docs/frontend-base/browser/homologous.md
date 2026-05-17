@@ -8,12 +8,12 @@
 - 域名相同
 - 端口相同
 举例来说:
-- <http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略），它的同源情况如下。>
-- <http://www.example.com/dir2/other.html：同源>
-- <http://example.com/dir/other.html：不同源（域名不同>）
-- <http://v2.www.example.com/dir/other.html：不同源（域名不同>）
-- <http://www.example.com:81/dir/other.html：不同源（端口不同>）
-- <https://www.example.com/dir/page.html：不同源（协议不同>）
+- \<http://www.example.com/dir/page.html这个网址，协议是http://，域名是www.example.com，端口是80（默认端口可以省略），它的同源情况如下。>
+- \<http://www.example.com/dir2/other.html：同源>
+- \<http://example.com/dir/other.html：不同源（域名不同>）
+- \<http://v2.www.example.com/dir/other.html：不同源（域名不同>）
+- \<http://www.example.com:81/dir/other.html：不同源（端口不同>）
+- \<https://www.example.com/dir/page.html：不同源（协议不同>）
 
 > 注意，标准规定端口不同的网址不是同源（比如8000端口和8001端口不是同源），但是浏览器没有遵守这条规定。实际上，同一个网域的不同端口，是可以互相读取 Cookie 的。
 >
@@ -24,7 +24,7 @@
 ### 设置document.domain
 
 如果两个网页一级域名相同，只是次级域名不同，浏览器允许通过设置document.domain共享 Cookie。
-举例来说，A 网页的网址是<http://w1.example.com/a.html，B> 网页的网址是<http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享> Cookie。因为浏览器通过document.domain属性来检查是否同源。
+举例来说，A 网页的网址是\<http://w1.example.com/a.html，B> 网页的网址是\<http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享> Cookie。因为浏览器通过document.domain属性来检查是否同源。
 // 两个网页都需要设置
 document.domain = 'example.com';
 
@@ -57,7 +57,7 @@ window.parent.document.body
 
 如果两个窗口一级域名相同，只是二级域名不同，那么设置上一节介绍的document.domain属性，就可以规避同源政策，拿到 DOM。
 片段识别符
-片段标识符（fragment identifier）指的是，URL 的#号后面的部分，比如<http://example.com/x.html#fragment的#fragment。如果只是改变片段标识符，页面不会重新刷新。>
+片段标识符（fragment identifier）指的是，URL 的#号后面的部分，比如\<http://example.com/x.html#fragment的#fragment。如果只是改变片段标识符，页面不会重新刷新。>
 父窗口可以把信息，写入子窗口的片段标识符。
 var src = originURL + '#' + data;
 document.getElementById('myIFrame').src = src;
@@ -164,7 +164,7 @@ Connection: Upgrade
 Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
 Sec-WebSocket-Protocol: chat, superchat
 Sec-WebSocket-Version: 13
-Origin: <http://example.com>
+Origin: \<http://example.com>
 
 上面代码中，有一个字段是Origin，表示该请求的请求源（origin），即发自哪个域名。
 正是因为有了Origin这个字段，所以 WebSocket 才没有实行同源政策。因为服务器可以根据这个字段，判断是否许可本次通信。如果该域名在白名单内，服务器就会做出如下回应。
@@ -198,7 +198,7 @@ CORS 属于跨源 AJAX 请求的根本解决方法，允许任何类型的请求
 基本流程
 对于简单请求，浏览器直接发出 CORS 请求。具体来说，就是在头信息之中，增加一个Origin字段。
 GET /cors HTTP/1.1
-Origin: <http://api.bob.com>
+Origin: \<http://api.bob.com>
 Host: api.alice.com
 Accept-Language: en-US
 Connection: keep-alive
@@ -208,7 +208,7 @@ User-Agent: Mozilla/5.0...
 浏览器发现，这个回应的头信息没有包含Access-Control-Allow-Origin字段，就知道出错了，从而抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。
 注意，这种错误无法通过状态码识别，因为 HTTP 回应的状态码有可能是200。
 如果Origin指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。
-Access-Control-Allow-Origin: <http://api.bob.com>
+Access-Control-Allow-Origin: \<http://api.bob.com>
 Access-Control-Allow-Credentials: true
 Access-Control-Expose-Headers: FooBar
 Content-Type: text/html; charset=utf-8
@@ -244,7 +244,7 @@ xhr.send();
 
 浏览器发现，这是一个非简单请求，就自动发出一个“预检”请求，要求服务器确认可以这样请求。下面是这个“预检”请求的 HTTP 头信息。
 OPTIONS /cors HTTP/1.1
-Origin: <http://api.bob.com>
+Origin: \<http://api.bob.com>
 Access-Control-Request-Method: PUT
 Access-Control-Request-Headers: X-Custom-Header
 Host: api.alice.com
@@ -263,7 +263,7 @@ User-Agent: Mozilla/5.0...
 HTTP/1.1 200 OK
 Date: Mon, 01 Dec 2008 01:15:39 GMT
 Server: Apache/2.0.61 (Unix)
-Access-Control-Allow-Origin: <http://api.bob.com>
+Access-Control-Allow-Origin: \<http://api.bob.com>
 Access-Control-Allow-Methods: GET, POST, PUT
 Access-Control-Allow-Headers: X-Custom-Header
 Content-Type: text/html; charset=utf-8
@@ -273,19 +273,19 @@ Keep-Alive: timeout=2, max=100
 Connection: Keep-Alive
 Content-Type: text/plain
 
-上面的 HTTP 回应中，关键的是Access-Control-Allow-Origin字段，表示<http://api.bob.com可以请求数据。该字段也可以设为星号，表示同意任意跨源请求。>
+上面的 HTTP 回应中，关键的是Access-Control-Allow-Origin字段，表示\<http://api.bob.com可以请求数据。该字段也可以设为星号，表示同意任意跨源请求。>
 Access-Control-Allow-Origin: *
 
 如果服务器否定了“预检”请求，会返回一个正常的 HTTP 回应，但是没有任何 CORS 相关的头信息字段，或者明确表示请求不符合条件。
-OPTIONS <http://api.bob.com> HTTP/1.1
+OPTIONS \<http://api.bob.com> HTTP/1.1
 Status: 200
-Access-Control-Allow-Origin: <https://notyourdomain.com>
+Access-Control-Allow-Origin: \<https://notyourdomain.com>
 Access-Control-Allow-Method: POST
 
-上面的服务器回应，Access-Control-Allow-Origin字段明确不包括发出请求的<http://api.bob.com。>
+上面的服务器回应，Access-Control-Allow-Origin字段明确不包括发出请求的\<http://api.bob.com。>
 这时，浏览器就会认定，服务器不同意预检请求，因此触发一个错误，被XMLHttpRequest对象的onerror回调函数捕获。控制台会打印出如下的报错信息。
-XMLHttpRequest cannot load <http://api.alice.com>.
-Origin <http://api.bob.com> is not allowed by Access-Control-Allow-Origin.
+XMLHttpRequest cannot load \<http://api.alice.com>.
+Origin \<http://api.bob.com> is not allowed by Access-Control-Allow-Origin.
 
 服务器回应的其他 CORS 相关字段如下。
 Access-Control-Allow-Methods: GET, POST, PUT
@@ -305,7 +305,7 @@ Access-Control-Max-Age: 1728000
 一旦服务器通过了“预检”请求，以后每次浏览器正常的 CORS 请求，就都跟简单请求一样，会有一个Origin头信息字段。服务器的回应，也都会有一个Access-Control-Allow-Origin头信息字段。
 下面是“预检”请求之后，浏览器的正常 CORS 请求。
 PUT /cors HTTP/1.1
-Origin: <http://api.bob.com>
+Origin: \<http://api.bob.com>
 Host: api.alice.com
 X-Custom-Header: value
 Accept-Language: en-US
@@ -314,7 +314,7 @@ User-Agent: Mozilla/5.0...
 
 上面头信息的Origin字段是浏览器自动添加的。
 下面是服务器正常的回应。
-Access-Control-Allow-Origin: <http://api.bob.com>
+Access-Control-Allow-Origin: \<http://api.bob.com>
 Content-Type: text/html; charset=utf-8
 
 上面头信息中，Access-Control-Allow-Origin字段是每次回应都必定包含的。

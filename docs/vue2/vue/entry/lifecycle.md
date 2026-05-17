@@ -24,6 +24,6 @@ export function lifecycleMixin (Vue) {
 * `$destroy()`为组件销毁方法，在其具体的实现中，会处理父子组件的关系，事件监听，触发生命周期等操作。
 
 `lifecycleMixin()`方法的代码不是很多，我们也能很容易的得到如下流程图：
-<div style="text-align: center">
-  <img src="../../images/lifecycleMixin.png" />
-</div>
+\<div style="text-align: center">
+  \<img src="../../images/lifecycleMixin.png" />
+\</div>

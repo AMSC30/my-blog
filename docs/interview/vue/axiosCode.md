@@ -640,6 +640,6 @@ if (config.cancelToken) {
 
 ## 参考文献
 
-- <https://juejin.cn/post/6856706569263677447#heading-4>
-- <https://juejin.cn/post/6844903907500490766>
-- <https://github.com/axios/axios>
+- \<https://juejin.cn/post/6856706569263677447#heading-4>
+- \<https://juejin.cn/post/6844903907500490766>
+- \<https://github.com/axios/axios>

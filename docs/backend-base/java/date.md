@@ -64,7 +64,7 @@ Calendar 类是一个抽象类，它提供了在特定时刻和一组 calendar f
 6. boolean isSet(int field)：确定给定的日历字段是否设置了值，包括值已由 get 方法调用触发的内部字段计算设置的情况
 7. TimeZone getTimeZone()：获取时区
 8. String getDisplayName(int field, int style, Locale locale)：返回给定 style 和 locale 中日历 field 值的字符串表示形式。
-9. Map<String,Integer> getDisplayNames(int field, int style, Locale locale)：返回一个 Map，其中包含给定 style 和 locale 中日历 field 的所有名称及其对应的字段值
+9. Map\<String,Integer> getDisplayNames(int field, int style, Locale locale)：返回一个 Map，其中包含给定 style 和 locale 中日历 field 的所有名称及其对应的字段值
 
 ### 设置日历对象相关信息
 

@@ -50,7 +50,7 @@ Cache-Control: max-age=0
 | If-Range          | 如果该实体未被修改过，则向我发送我所缺少的那一个或多个部分；否则，发送整个新的实体 | If-Range: "737060cd8c284d8af7ad3082f209582d"                 |
 | Range             | 仅请求某个实体的一部分                                       | Range: bytes=500-999                                         |
 | User-Agent        | 浏览器的浏览器身份标识字符串                                 | User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/21.0 |
-| Origin            | 发起一个针对 跨来源资源共享 的请求                           | Origin: <http://www.example-social-network.com>                |
+| Origin            | 发起一个针对 跨来源资源共享 的请求                           | Origin: \<http://www.example-social-network.com>                |
 
 ## 三、使用场景
 
@@ -86,5 +86,5 @@ Cache-Control: max-age=0
 
 ## 参考文献
 
-- <https://zh.wikipedia.org/wiki/HTTP头字段>
-- <https://github.com/amandakelake/blog/issues/41>
+- \<https://zh.wikipedia.org/wiki/HTTP头字段>
+- \<https://github.com/amandakelake/blog/issues/41>

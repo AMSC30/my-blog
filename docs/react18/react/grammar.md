@@ -1595,7 +1595,7 @@ React将为domNode创建一个根目录，并接管管理其中的DOM。创建�
 root.render(<App />);
 ```
 
-React将在<App />中显示root，并接管其中的DOM管理
+React将在\<App />中显示root，并接管其中的DOM管理
 
 ```js
 root.unmount();

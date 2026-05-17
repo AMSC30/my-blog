@@ -965,7 +965,7 @@ const myDirective = {
 
 挂载标准：
 
-- 所有同步子组件（不包含异步或<Suspens></Suspens>树中的组件）
+- 所有同步子组件（不包含异步或\<Suspens>\</Suspens>树中的组件）
 - 自身的DOM树已经创建并插入到父容器中，根组件也已经插入到DOM中
 
 **2. onUpdated**

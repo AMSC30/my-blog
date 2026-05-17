@@ -1,29 +1,8 @@
-﻿# Spring Boot 完整教程
+﻿# Spring Boot
 
 ## 第1章 First Spring Boot
 
-![](./images/image_1.png)
-
-# 认识Spring Boot
-我们来看看官方是如何介绍的：
-
-[https://docs.spring.io/spring-boot/index.html](https://docs.spring.io/spring-boot/index.html)
-
-![](./images/image_2.png)
-
-翻译：
-
-![](./images/image_3.png)
-
-
-
-![](./images/image_4.png)
-
-
-
 Spring Boot倡导`约定优于配置`，将`简化开发`发挥到极致。使用Spring Boot框架可以快速构建Spring应用，再也不需要`大量的繁琐的`的各种配置。Spring Boot框架设计的目标是：程序员关注业务逻辑就行了，环境方面的事儿交给Spring Boot就行。
-
-
 
 Spring Boot特性：
 
@@ -34,73 +13,28 @@ Spring Boot特性：
 5. 没有代码生成，没有XML配置。（Spring Boot的应用程序在启动后不会动态地创建新的Java类，所有逻辑都是在编译期就已经确定好的）
 6. 提供了生产监控的支持，例如健康检查，度量信息，跟踪信息，审计信息等。也支持集成外部监控系统。
 
-
-
 Spring Boot的开箱即用和约定优于配置：
 
 + 开箱即用：Spring Boot框架设计得非常便捷，开发者能够在几乎不需要任何复杂的配置的情况下，快速搭建并运行一个功能完备的Spring应用。
 + 约定优于配置：“约定优于配置”（Convention Over Configuration, CoC）是一种软件设计哲学，核心思想是通过提供一组合理的默认行为来减少配置的数量，从而简化开发流程。例如：Spring Boot默认约定了使用某个事务管理器，在事务方面不需要做任何配置，只需要在对应代码的位置上使用`@Transactional`注解即可。
 
-
-
-![](./images/image_5.png)
-
-# 知识储备
-学习本套课程的前提是你已经学过了：
-
-+ MyBatis
-+ Spring
-+ SpringMVC
-
-# 主要版本说明
-Spring Boot版本：3.3.5
-
-IDEA版本：2024.2.4
-
-JDK版本：21（Spring Boot3要求JDK的最低版本是JDK17）
-
-
-
-![](./images/image_6.png)
-
-# First Spring Boot
-需求：在浏览器上输入请求路径 http://localhost:8080/hello，在浏览器上显示 HelloWorld!
-
-使用**<font style="color:#DF2A3F;">Spring Boot3 开发web应用</font>**，实现步骤如下：
-
-## 第一步：创建一个空的工程，并设置JDK版本21（Spring Boot 3要求JDK最低版本是17）
+### 第一步：创建一个空的工程，并设置JDK版本21（Spring Boot 3要求JDK最低版本是17）
 ![](./images/image_7.png)
 
 ![](./images/image_8.png)
 
-
-
-![](./images/image_9.png)
-
-## 第二步：设置maven
+### 第二步：设置maven
 ![](./images/image_10.png)
 
-
-
-![](./images/image_11.png)
-
-## 第三步：创建一个Maven模块 sb3-01-first-web
+### 第三步：创建一个Maven模块 sb3-01-first-web
 ![](./images/image_12.png)
 
-## 第四步：打开Spring Boot 3官方文档，按照文档一步一步进行
+### 第四步：打开Spring Boot 3官方文档，按照文档一步一步进行
 ![](./images/image_13.png)
-
-
-
-![](./images/image_14.png)
 
 ![](./images/image_15.png)
 
-
-
-![](./images/image_16.png)
-
-## 第五步：要使用Spring Boot 3，需要继承这个开源项目。从官方指导文档中复制以下内容：
+### 第五步：要使用Spring Boot 3，需要继承这个开源项目。从官方指导文档中复制以下内容：
 ![](./images/image_17.png)
 
 ```xml
@@ -114,14 +48,8 @@ JDK版本：21（Spring Boot3要求JDK的最低版本是JDK17）
 
 我们开发的每一个项目其实可以看做是 Spring Boot 项目下的子项目。
 
-
-
-![](./images/image_18.png)
-
-## 第六步：添加Spring Boot的web starter
+### 第六步：添加Spring Boot的web starter
 ![](./images/image_19.png)
-
-
 
 在parent下立即添加如下配置，让Spring Boot项目具备开发web应用的依赖：
 
@@ -135,15 +63,14 @@ JDK版本：21（Spring Boot3要求JDK的最低版本是JDK17）
 </dependencies>
 ```
 
-
-
 关联的依赖也被引入进来，如下：
 
 ![](./images/image_20.png)
 
 可以看到spring mvc被引入了，tomcat服务器也被引入了。
 
-## 第七步：编写Spring Boot主入口程序
+### 第七步：编写Spring Boot主入口程序
+
 ```java
 package com.powernode.springboot3;
 
@@ -159,11 +86,8 @@ public class MyApplication {
 }
 ```
 
+### 第八步：编写controller
 
-
-![](./images/image_21.png)
-
-## 第八步：编写controller
 ```java
 package com.powernode.springboot3.controller;
 
@@ -184,28 +108,16 @@ public class MyController {
 
 ```
 
-## 第九步：运行main方法就是启动web容器
+### 第九步：运行main方法就是启动web容器
 ![](./images/image_22.png)
 
-
-
-![](./images/image_23.png)
-
-## 第十步：打开浏览器访问
+### 第十步：打开浏览器访问
 ![](./images/image_24.png)
 
-# 便捷的部署方式
-## 打jar包运行
-Spring Boot提供了打包插件，可以将Spring Boot项目打包为**<font style="color:#DF2A3F;">可执行 jar 包</font>**。Web服务器（Tomcat）也会连同一块打入jar包中。只要电脑上安装了Java的运行环境（JDK），就可以启动Spring Boot项目。
-
+## 便捷的部署方式
+### 打jar包运行
+Spring Boot提供了打包插件，可以将Spring Boot项目打包为**可执行 jar 包**。Web服务器（Tomcat）也会连同一块打入jar包中。只要电脑上安装了Java的运行环境（JDK），就可以启动Spring Boot项目。
 ![](./images/image_25.png)
-
-
-
-![](./images/image_26.png)
-
-
-
 根据官方文档指导，使用打包功能需要引入以下的插件：
 
 ```xml
@@ -219,8 +131,6 @@ Spring Boot提供了打包插件，可以将Spring Boot项目打包为**<font st
 </build>
 ```
 
-
-
 执行打包命令，生成可执行jar包：
 
 ![](./images/image_27.png)
@@ -229,27 +139,13 @@ Spring Boot提供了打包插件，可以将Spring Boot项目打包为**<font st
 
 ![](./images/image_29.png)
 
-
-
-![](./images/image_30.png)
-
-
-
 单独的将这个 jar 包可以拷贝到任何位置运行，通过`java -jar sb3-01-first-web-1.0-SNAPSHOT.jar`命令来启动 Spring Boot 项目：
 
 ![](./images/image_31.png)
 
-
-
 打开浏览器访问：
 
 ![](./images/image_32.png)
-
-
-
-![](./images/image_33.png)
-
-
 
 另外，Spring Boot框架为我们提供了非常灵活的配置，在可执行jar包的同级目录下新建配置文件：application.properties，并配置以下信息：
 
@@ -276,8 +172,6 @@ Spring Boot 打包成的 JAR 文件与传统的 Java 应用程序中的 JAR 文�
 
 Spring Boot 的这些特性使得部署和运行变得更加简单和方便，特别是在微服务架构中，每个服务都可以被打包成独立的 JAR 文件并部署到任何支持 Java 的地方。
 
-
-
 SpringBoot的可执行jar包目录结构：
 
 ![](./images/image_35.png)
@@ -285,10 +179,6 @@ SpringBoot的可执行jar包目录结构：
 普通jar包的目录结构：
 
 ![](./images/image_36.png)
-
-
-
-![](./images/image_37.png)
 
 # Spring Boot脚手架
 ## 什么是脚手架
@@ -302,8 +192,6 @@ SpringBoot的可执行jar包目录结构：
 
 ### Spring Boot脚手架
 Spring Boot 脚手架（Scaffold）可以帮助开发者快速搭建一个Spring Boot项目结构，让开发者只专注于业务逻辑的开发，而不是在项目的初始阶段花费大量时间来配置环境或者解决依赖关系。
-
-
 
 Spring Boot 脚手架工具存在多种形式，以下是一些常见的 Spring Boot 脚手架工具和方法：
 
@@ -347,15 +235,11 @@ Visual Studio Code 社区提供了多个插件，如 Spring Boot Extension Pack�
 
 很多开发者也会根据自己的需求定制自己的脚手架工具，比如使用 Bash 脚本、Gradle 或 Maven 插件等。
 
-![](./images/image_39.png)
-
 ## 使用官方提供的
 ### 使用官方脚手架生成Spring Boot项目
 Spring Initializr：[https://start.spring.io](https://start.spring.io)
 
 ![](./images/image_40.png)
-
-
 
 点击“GENERATE”后，生成zip压缩包：
 
@@ -364,10 +248,6 @@ Spring Initializr：[https://start.spring.io](https://start.spring.io)
 将其解压后的目录结构是一个标准的maven 工程：
 
 ![](./images/image_42.png)
-
-
-
-![](./images/image_43.png)
 
 ### 将项目放到IDEA当中
 接下来将其导入到IDEA当中：直接将解压后的`sb3-02-use-spring-initializr`拷贝到我们新建的空工程`SpringBoot3`下，如图：
@@ -378,17 +258,9 @@ Spring Initializr：[https://start.spring.io](https://start.spring.io)
 
 ![](./images/image_45.png)
 
-
-
-![](./images/image_46.png)
-
 注意：如果`pom.xml`文件的图标颜色不是蓝色，而是橘色，需要在`pom.xml`文件上右键，选择：add as maven project。这样`pom.xml`文件的图标就会变为蓝色了。
 
 ![](./images/image_47.png)
-
-
-
-![](./images/image_48.png)
 
 ### 脚手架生成的pom.xml文件
 ```xml
@@ -454,33 +326,21 @@ Spring Initializr：[https://start.spring.io](https://start.spring.io)
 
 可以看到脚手架生成的`pom.xml`文件的内容和我们手动创建Spring Boot项目的`pom.xml`文件是一样的。
 
-
-
-![](./images/image_49.png)
-
 ### 脚手架生成的Spring Boot项目的结构
 ![](./images/image_50.png)
 
 请仔细阅读上图来学习Spring Boot项目结构。
-
-
-
-![](./images/image_51.png)
 
 ### 编写controller并测试
 新建controller包，并新建HelloController类，如下图：
 
 ![](./images/image_52.png)
 
-**<font style="color:#DF2A3F;">重点：默认情况下，SpringBoot项目只扫描主入口程序所在目录以及子目录，因此创建的Controller类要求放在主入口程序的同级目录下或子目录下。其他位置默认情况下扫描不到。</font>**
+**\<font style="color:#DF2A3F;"\>重点：默认情况下，SpringBoot项目只扫描主入口程序所在目录以及子目录，因此创建的Controller类要求放在主入口程序的同级目录下或子目录下。其他位置默认情况下扫描不到。\</font\>**
 
 启动应用并访问：
 
 ![](./images/image_53.png)
-
-
-
-![](./images/image_54.png)
 
 ## 使用阿里提供的
 阿里巴巴提供的 Spring Boot 项目脚手架服务称为 DragonBoot（也被称为 Alibaba Cloud Spring Boot Initializr）。DragonBoot 基于 Spring Initializr，并在此基础上增加了更多的定制选项，特别是针对阿里巴巴云服务和中间件的支持。脚手架地址：[https://start.aliyun.com/](https://start.aliyun.com/)
@@ -501,15 +361,9 @@ Spring Initializr：[https://start.spring.io](https://start.spring.io)
 
 ![](./images/image_58.png)
 
-
-
 启动应用并访问：
 
 ![](./images/image_59.png)
-
-
-
-![](./images/image_60.png)
 
 ## 使用IDEA工具的脚手架插件
  IDEA工具自带了Spring Boot脚手架的插件，使用它会更加的方便，让我们来操作一下：
@@ -518,25 +372,15 @@ Spring Initializr：[https://start.spring.io](https://start.spring.io)
 
 ![](./images/image_62.png)
 
-
-
-![](./images/image_63.png)
-
-
-
 ![](./images/image_64.png)
 
 编写控制器，启动服务器测试：
 
 ![](./images/image_65.png) 
 
-
-
 ---
 
 ## 第2章 Spring Boot核心机制
-
-![](./images/image_1.png)
 
 # 为何以继承方式引入SpringBoot
 ## 提出疑问
@@ -570,9 +414,7 @@ Spring Initializr：[https://start.spring.io](https://start.spring.io)
 </parent>
 ```
 
-**<font style="color:#DF2A3F;">为什么？</font>**
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>为什么？\</font\>**
 
 ## 作为父项目和作为依赖的区别
 **继承父工程的优势**
@@ -589,16 +431,12 @@ Spring Initializr：[https://start.spring.io](https://start.spring.io)
 + 属性设置：每个子模块都需要单独设置通用的属性，如项目编码、Java 版本等。
 + 构建配置：每个子模块的构建配置需要单独维护，难以保证一致性。
 
+**\<font style="color:#DF2A3F;"\>总结：选择哪种方式取决于你的具体需求。\</font\>**
 
++ **\<font style="color:#DF2A3F;"\>如果你希望多个项目之间共享构建配置，那么使用父项目是一个好的选择；\</font\>**
++ **\<font style="color:#DF2A3F;"\>如果你只是想在项目之间共享代码，那么应该使用依赖关系。\</font\>**
 
-**<font style="color:#DF2A3F;">总结：选择哪种方式取决于你的具体需求。</font>**
-
-+ **<font style="color:#DF2A3F;">如果你希望多个项目之间共享构建配置，那么使用父项目是一个好的选择；</font>**
-+ **<font style="color:#DF2A3F;">如果你只是想在项目之间共享代码，那么应该使用依赖关系。</font>**
-
-**<font style="color:#DF2A3F;"></font>**
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>\</font\>**
 
 ## 原理揭晓
 通过源码来分析一下：
@@ -610,10 +448,6 @@ Spring Initializr：[https://start.spring.io](https://start.spring.io)
 ![](./images/image_68.png)
 
 通过上图源码可以看到Spring Boot预先对开发中需要用到的依赖进行了版本的统一管理。我们需要和SpringBoot框架共享这个构建配置。因此官方推荐使用继承的方式引入SpringBoot框架。
-
-
-
-![](./images/image_1.png)
 
 ## 依赖统一管理的好处
 Spring Boot 框架的一个重要特性就是简化了项目依赖管理。它通过提供一个叫做“依赖管理”的功能来帮助开发者更容易地管理和使用第三方库和其他 Spring 组件。具体来说，Spring Boot 提供了一个包含多个 Spring 和其他常用库的依赖版本配置文件（通常是在 `spring-boot-dependencies` 文件中），这使得开发者不需要在自己的项目中显式指定这些依赖的版本号。
@@ -641,8 +475,6 @@ Spring Boot 框架的一个重要特性就是简化了项目依赖管理。它�
 
 总的来说，Spring Boot 的依赖管理功能使得开发者可以更加专注于业务逻辑的实现，同时减少了因依赖版本不一致而引发的问题，提高了项目的可维护性和开发效率。
 
-![](./images/image_1.png)
-
 当然，如果你在项目中需要更改某个依赖的版本号，不想使用SpringBoot框架指定的版本号，只需要在引入依赖时强行执行版本号即可，maven是支持就近原则的：
 
 这样做就是采用SpringBoot指定版本的依赖：
@@ -668,10 +500,6 @@ Spring Boot 框架的一个重要特性就是简化了项目依赖管理。它�
 
 ![](./images/image_70.png)
 
-
-
-![](./images/image_1.png)
-
 # Starter-启动器
 在 Spring Boot 中，启动器（Starter）本质上是一个简化依赖管理的概念。
 
@@ -688,12 +516,6 @@ Spring Boot 的启动器本质上就是一组预定义的依赖集合，它们�
 启动器内部已经指定了所有依赖项的具体版本，这些版本信息存储在一个公共的 BOM（Bill of Materials，物料清单）文件中，通常是 `spring-boot-dependencies`。当引入启动器时，实际上也间接引用了这个 BOM，从而确保了所有依赖项版本的一致性。
 4. **自动配置**：  
 许多启动器还提供了自动配置（Auto-configuration），这是一种机制，允许 Spring Boot 根据类路径上的可用组件自动设置你的应用程序。例如，如果类路径上有 Spring MVC 和嵌入式 Tomcat，则 Spring Boot 会自动配置它们，并准备好一个 web 应用程序。
-
-
-
-![](./images/image_1.png)
-
-
 
 **使用启动器的示例**
 
@@ -712,10 +534,6 @@ Spring Boot 的启动器本质上就是一组预定义的依赖集合，它们�
 
 这就是 Spring Boot 启动器的基本实现原理，它简化了依赖管理，让开发者能够更专注于业务逻辑的实现。
 
-
-
-![](./images/image_1.png)
-
 ## 都有哪些启动器
 启动器通常包括：
 
@@ -727,18 +545,10 @@ Spring Boot 的启动器本质上就是一组预定义的依赖集合，它们�
 
 ![](./images/image_72.png)
 
-
-
-![](./images/image_1.png)
-
 ### 非官方的启动器
 启动器命名特点：*-spring-boot-starter
 
 ![](./images/image_73.png)
-
-
-
-![](./images/image_1.png)
 
 # Spring Boot核心注解
 创建一个新的模块，来学习Spring Boot核心注解：
@@ -754,18 +564,10 @@ Spring Boot的主入口程序被`@SpringBootApplication`注解标注，可见这
 
 可以看出这个注解属于`组合注解`。拥有`@SpringBootConfiguration`、`@EnableAutoConfiguration`、`@ComponentScan`的功能。
 
-
-
-![](./images/image_1.png)
-
 ## @SpringBootConfiguration注解
 @SpringBootConfiguration注解的源码如下：
 
 ![](./images/image_76.png)
-
-
-
-![](./images/image_1.png)
 
 可以看到这个注解的被`@Configuration`标注，说明`主入口`程序是一个配置类。也就是说主入口中的方法可以被`@Bean`注解标注，被`@Bean`注解的标注的方法会被Spring容器自动调用，并且将该方法的返回对象纳入IoC容器的管理。测试一下：
 
@@ -792,13 +594,7 @@ public class Sb305CoreApplication {
 
 通过测试我们也认证了这一点：`SpringBoot主入口类实际上就是一个配置类`。
 
-
-
 这个`配置类`也可以称为`源`，起源的意思，SpringBoot从这个配置类开始加载项目中所有的bean。
-
-
-
-![](./images/image_1.png)
 
 ## @EnableAutoConfiguration注解
 该注解表示`启用自动配置`。
@@ -818,10 +614,6 @@ spring.datasource.password=123456
 
 + **SqlSessionFactory**: MyBatis的核心工厂SqlSessionFactory会被自动配置。这个工厂负责创建SqlSession实例，后者用来执行映射文件中的SQL语句。
 + **TransactionManager**: DataSourceTransactionManager会被自动配置来管理与数据源相关的事务。
-
-
-
-![](./images/image_1.png)
 
 ## @ComponentScan注解
 这个注解的作用是：启动组件扫描功能，代替spring框架xml文件中这个配置：
@@ -851,16 +643,10 @@ public class HelloController {
 
 ![](./images/image_79.png)
 
-
-
-![](./images/image_1.png)
-
 ### 扫描不到
 ![](./images/image_80.png)
 
 可以看到`UserController`没有在`sb305core`包下。
-
-
 
 `UserController`代码如下：
 
@@ -880,13 +666,7 @@ public class UserController {
 
 通过测试得知`UserController`没有被纳入IoC容器的管理。
 
-
-
 最终结论：要让bean纳入IoC容器的管理，必须将类放到主入口程序同级目录下，或者子目录下。
-
-
-
-![](./images/image_1.png)
 
 # Spring Boot的单元测试
 ## 不使用单元测试怎么调用service
@@ -913,8 +693,6 @@ public class UserServiceImpl implements UserService {
 }
 ```
 
-![](./images/image_1.png)
-
 ### 直接在入口程序中调用service
 ```java
 @SpringBootApplication
@@ -931,13 +709,7 @@ public class Sb306TestApplication {
 
 ![](./images/image_84.png)
 
-
-
 这种方式就是手动获取Spring上下文对象`ConfigurableApplicationContext`，然后调用getBean方法从Spring容器中获取service对象，然后调用方法。
-
-
-
-![](./images/image_1.png)
 
 ## 使用单元测试怎么调用service
 ### test-starter引入以及测试类编写
@@ -959,8 +731,6 @@ public class Sb306TestApplication {
 </dependency>
 ```
 
-![](./images/image_1.png)
-
 ### @SpringBootTest注解
 `@SpringBootTest` 会创建一个完整的 Spring 应用程序上下文（Application Context），这个上下文包含了应用程序的所有组件和服务。以下是 `@SpringBootTest` 做的一些主要工作：
 
@@ -974,10 +744,6 @@ public class Sb306TestApplication {
     - 使用 `@SpringBootTest` 创建的应用程序上下文允许你在测试类中使用 `@Autowired` 注入需要的 bean，就像在一个真实的 Spring Boot 应用程序中一样。
 
 总的来说，`@SpringBootTest` 为你的测试提供了尽可能接近实际运行时环境的条件，这对于验证应用程序的行为非常有用。
-
-
-
-![](./images/image_1.png)
 
 ### 注入service并调用
 ```java
@@ -998,10 +764,6 @@ class Sb306TestApplicationTests {
 测试结果如下：
 
 ![](./images/image_87.png)
-
-
-
-![](./images/image_1.png)
 
 # 外部化配置
 ## 什么是外部化配置
@@ -1025,10 +787,6 @@ SpringBoot支持多种外部化配置方式，包括但不限于：
 
 总之，外部化配置使得配置更加灵活、安全、易于管理和共享，是现代云原生应用中非常推荐的做法
 
-
-
-![](./images/image_1.png)
-
 ### 外部化配置对比传统配置
 在传统的SSM三大框架中，如果修改XML的配置后，需要对应用重新打包，重新部署。
 
@@ -1043,12 +801,10 @@ SpringBoot支持多种外部化配置方式，包括但不限于：
 
 `application.properties`可以放在类路径当中，也可以放在项目之外。因此称为外部化配置。
 
-
-
 Spring Boot 框架在启动时会尝试从以下位置加载 `application.properties` 配置文件：
 
 1. **file:./config/**：首先在Spring Boot 当前工作目录下的 `config` 文件夹中查找。
-    1. **<font style="color:#DF2A3F;">注意：如果没有找到</font>**`**<font style="color:#DF2A3F;">application.properties</font>**`**<font style="color:#DF2A3F;">会继续找</font>**`**<font style="color:#DF2A3F;">application.yml</font>**`**<font style="color:#DF2A3F;">，如果这两个都没有找到，才会进入以下位置查找，以此类推。</font>**
+    1. **\<font style="color:#DF2A3F;"\>注意：如果没有找到\</font\>**`**<font style="color:#DF2A3F;">application.properties</font>**`**\<font style="color:#DF2A3F;"\>会继续找\</font\>**`**<font style="color:#DF2A3F;">application.yml</font>**`**\<font style="color:#DF2A3F;"\>，如果这两个都没有找到，才会进入以下位置查找，以此类推。\</font\>**
 2. **file:./**：如果在当前工作目录下`config`目录中找不到时，再从当前工作目录中查找。
 3. **classpath:/config/**：如果从工作目录中找不到，会从类路径中找，先从类路径的 `/config/` 目录下寻找配置文件。
 4. **classpath:/**：如果在 `/config/` 下没有找到，它会在类路径的根目录下查找。
@@ -1063,20 +819,12 @@ java -jar sb3-01-first-web-1.0-SNAPSHOT.jar --spring.config.location=file:///E:\
 
 这样，Spring Boot 将会首先从 `E:\a\b\` 这个路径加载配置文件。注意，这种方式可以用来覆盖默认的配置文件位置，并且可以结合以上提到的位置一起使用。
 
-
-
 注意：以上的`--spring.config.location=file:///E:\a\b\application.properties`就属于命令行参数，它将来会被传递到main方法的(String[] args)参数上。
-
-
-
-![](./images/image_1.png)
 
 ## 使用@Value注解
 @Value注解可以将`application.properties`/`application.yml`文件中的配置信息注入/绑定到java对象的属性上。
 
-**<font style="color:#DF2A3F;">语法格式：@Value("${key}")</font>**
-
-
+**\<font style="color:#DF2A3F;"\>语法格式：@Value("${key}")\</font\>**
 
 使用脚手架创建SpringBoot项目，不添加任何启动器：
 
@@ -1112,8 +860,6 @@ public class UserService {
 }
 ```
 
-![](./images/image_1.png)
-
 编写单元测试：
 
 ```java
@@ -1132,13 +878,9 @@ class Sb307ExternalConfigApplicationTests {
 
 ![](./images/image_89.png)
 
-
-
-![](./images/image_1.png)
-
 使用@Value注解时也可以指定默认值，当指定默认值时，如果配置文件中没有指定配置值，则采用默认值。
 
-**<font style="color:#DF2A3F;">语法格式：@Value("${key:defalut}")</font>**
+**\<font style="color:#DF2A3F;"\>语法格式：@Value("${key:defalut}")\</font\>**
 
 ```java
 @Service("userService")
@@ -1167,10 +909,6 @@ public class UserService {
 
 ![](./images/image_90.png)
 
-
-
-![](./images/image_1.png)
-
 当然，如果配置文件进行了相关的配置，则不会采用默认值，修改配置文件`application.properties`：
 
 ```properties
@@ -1183,8 +921,6 @@ myapp.password=888888
 执行结果：
 
 ![](./images/image_91.png)
-
-
 
 我们再来测试一下，如果在`resources`目录下新建`config`目录，在`config`目录下新建`application.properties`，配置信息如下：
 
@@ -1201,10 +937,6 @@ myapp.password=666666
 
 通过这个测试也验证了我们之前所说：SpringBoot会优先加载**classpath:/config/**目录下的`application.properties`。
 
-
-
-![](./images/image_1.png)
-
 ## YAML
 ### YAML概述
 SpringBoot采用集中式配置管理，所有的配置都编写到一个配置文件中：`application.properties`
@@ -1213,7 +945,7 @@ SpringBoot采用集中式配置管理，所有的配置都编写到一个配置�
 
 YAML（YAML Ain't Markup Language）是一种人类可读的数据序列化格式，它通常用于配置文件，在各种编程语言中作为一种存储或传输数据的方式。YAML的设计目标是易于阅读和编写，同时保持足够的表达能力来表示复杂的数据结构。
 
-**<font style="color:#DF2A3F;">YAML文件的扩展名可以是</font>**`**<font style="color:#DF2A3F;">.yaml</font>**`**<font style="color:#DF2A3F;">或</font>**`**<font style="color:#DF2A3F;">.yml</font>**`**<font style="color:#DF2A3F;">。</font>**
+**\<font style="color:#DF2A3F;"\>YAML文件的扩展名可以是\</font\>**`**<font style="color:#DF2A3F;">.yaml</font>**`**\<font style="color:#DF2A3F;"\>或\</font\>**`**<font style="color:#DF2A3F;">.yml</font>**`**\<font style="color:#DF2A3F;"\>。\</font\>**
 
 ### 常见的数据存储和交换格式
 `properties`、`XML`、`JSON`、`YAML`这几种格式确实是用来存储和交换数据的常见方式，但它们各有特点和适用场景：
@@ -1239,10 +971,6 @@ YAML（YAML Ain't Markup Language）是一种人类可读的数据序列化格�
 + YAML非常适合用来编写配置文件，因为它允许以一种自然的方式组织数据，并且可以包含注释和其他人类可读的元素。
 
 总结来说，这四种格式都可以用来存储和交换数据，但它们的设计初衷和最佳使用场景有所不同。选择哪种格式取决于具体的应用需求、数据复杂度、性能要求等因素。
-
-
-
-![](./images/image_1.png)
 
 ### YAML的语法规则
 YAML的语法规则如下：
@@ -1297,14 +1025,12 @@ myapp:
 
 + --- 这个符号下面的配置可以认为是一个独立的yaml文件。便于庞大文件的阅读。
 
-**<font style="color:#DF2A3F;"></font>**
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>\</font\>**
 
 ### application.yml
 Spring Boot框架同时支持`properties`和`yaml`。
 
-**<font style="color:#DF2A3F;">强调：在同一个目录下同时存在</font>**`**<font style="color:#DF2A3F;">application.properties</font>**`**<font style="color:#DF2A3F;">和</font>**`**<font style="color:#DF2A3F;">application.yml</font>**`**<font style="color:#DF2A3F;">时，SpringBoot优先解析</font>**`**<font style="color:#DF2A3F;">application.properties</font>**`**<font style="color:#DF2A3F;">文件。</font>**
+**\<font style="color:#DF2A3F;"\>强调：在同一个目录下同时存在\</font\>**`**<font style="color:#DF2A3F;">application.properties</font>**`**\<font style="color:#DF2A3F;"\>和\</font\>**`**<font style="color:#DF2A3F;">application.yml</font>**`**\<font style="color:#DF2A3F;"\>时，SpringBoot优先解析\</font\>**`**<font style="color:#DF2A3F;">application.properties</font>**`**\<font style="color:#DF2A3F;"\>文件。\</font\>**
 
 在`resources/config`目录下新建`application.yml`文件，进行如下配置：
 
@@ -1323,12 +1049,6 @@ myapp:
 运行测试程序：
 
 ![](./images/image_94.png)
-
-
-
-
-
-![](./images/image_1.png)
 
 ## 配置文件合并
 一个项目中所有的配置全部编写到`application.properties`文件中，会导致配置臃肿，不易维护，有时我们会将配置编写到不同的文件中，例如：`application-mysql.properties`专门配置mysql的信息，`application-redis.properties`专门配置redis的信息，最终将两个配置文件合并到一个配置文件中。
@@ -1384,10 +1104,6 @@ public class UserServiceMulti {
 
 ![](./images/image_95.png)
 
-
-
-![](./images/image_1.png)
-
 ### yaml文件
 `application-mysql.yml`
 
@@ -1421,10 +1137,6 @@ spring:
 运行测试：
 
 ![](./images/image_96.png)
-
-
-
-![](./images/image_1.png)
 
 ## 多环境切换
 在Spring Boot中，多环境切换是指在一个应用程序中支持多种运行环境配置的能力。这通常用于区分开发（development）、测试（testing）、预生产（staging）和生产（production）等不同阶段的环境。
@@ -1463,16 +1175,12 @@ spring.datasource.password=prod123
 spring.datasource.url=jdbc:mysql://localhost:3306/prod
 ```
 
-
-
 如果你希望该项目使用生产环境的配置，你可以这样做：
 
 + 第一种方式：在`application.properties`文件中添加这个配置：**spring.profiles.active=prod**
 + 第二种方式：在命令行参数上添加：**--spring.profiles.active=prod**
 
 ****
-
-![](./images/image_1.png)
 
 ## 将配置绑定到bean
 ### 绑定简单bean
@@ -1488,10 +1196,6 @@ app:
   age: 30
   email: jack@123.com
 ```
-
-
-
-![](./images/image_1.png)
 
 Bean需要这样定义：
 
@@ -1556,15 +1260,9 @@ public class AppBean {
 2. 这样的bean需要使用`@Component`注解进行标注，纳入IoC容器的管理。`@Component`注解负责创建Bean对象，`@ConfigurationProperties(prefix = "app")`注解负责给bean对象的属性赋值。
 3. bean的属性需要是`非static`的属性。
 
-
-
 编写测试程序，将bean对象输出，结果如下：
 
 ![](./images/image_98.png)
-
-
-
-![](./images/image_1.png)
 
 ### @Configuration注解
 以上操作中使用了`@Component注解`进行了标注，来纳入IoC容器的管理。也可以使用另外一个注解`@Configuration`，用这个注解将Bean标注为配置类。多数情况下我们会选择使用这个注解，因为该Bean对象的属性对应的就是配置文件中的配置信息，因此这个Bean我们也可以将其看做是一个配置类。
@@ -1583,12 +1281,6 @@ public class AppBean {
 运行测试程序：
 
 ![](./images/image_99.png)
-
-
-
-![](./images/image_1.png)
-
-
 
 我们把这个Bean对象的类名打印一下看看：
 
@@ -1612,10 +1304,6 @@ public class AppBean {
 执行结果如下：
 
 ![](./images/image_101.png)
-
-
-
-![](./images/image_1.png)
 
 ### 绑定嵌套bean
 当一个Bean中嵌套了一个Bean，这种情况下可以将配置信息绑定到该Bean上吗？当然可以。
@@ -1694,8 +1382,6 @@ public class AppBean {
 
 ```
 
-![](./images/image_1.png)
-
 ```java
 package com.powernode.sb307externalconfig.bean;
 
@@ -1744,17 +1430,13 @@ public class Address {
 
 ![](./images/image_102.png)
 
-
-
-![](./images/image_1.png)
-
-### <font style="color:#080808;background-color:#ffffff;">@EnableConfigurationProperties与@ConfigurationPropertiesScan</font>
+### \<font style="color:#080808;background-color:#ffffff;"\>@EnableConfigurationProperties与@ConfigurationPropertiesScan\</font\>
 将`AppBean`纳入IoC容器的管理，之前我们说了两种方式：第一种是使用`@Component`，第二种是使用`@Configuration`。SpringBoot其实还提供了另外两种方式：
 
 + 第一种：@EnableConfigurationProperties
-+ 第二种：@<font style="color:#080808;background-color:#ffffff;">ConfigurationPropertiesScan</font>
++ 第二种：@\<font style="color:#080808;background-color:#ffffff;"\>ConfigurationPropertiesScan\</font\>
 
-<font style="color:#080808;background-color:#ffffff;">这两个注解都是标注在SpringBoot主入口程序上的：</font>
+\<font style="color:#080808;background-color:#ffffff;"\>这两个注解都是标注在SpringBoot主入口程序上的：\</font\>
 
 ```java
 @EnableConfigurationProperties(AppBean.class)
@@ -1781,10 +1463,6 @@ public class Sb307ExternalConfigApplication {
 运行测试程序，执行结果如下：
 
 ![](./images/image_103.png)
-
-
-
-![](./images/image_1.png)
 
 ### 将配置赋值到Bean的Map/List/Array属性上
 代码如下：
@@ -1897,8 +1575,6 @@ class Vip {
 }
 ```
 
-![](./images/image_1.png)
-
 配置信息如下：`application.yml`
 
 ```yaml
@@ -1925,19 +1601,13 @@ vips:
     age: 22
 ```
 
+提醒：记得入口程序使用\<font style="color:#080808;background-color:#ffffff;"\>@ConfigurationPropertiesScan(basePackages = "com.powernode.sb307externalconfig.bean")进行标注。\</font\>
 
+\<font style="color:#080808;background-color:#ffffff;"\>\</font\>
 
-提醒：记得入口程序使用<font style="color:#080808;background-color:#ffffff;">@ConfigurationPropertiesScan(basePackages = "com.powernode.sb307externalconfig.bean")进行标注。</font>
-
-<font style="color:#080808;background-color:#ffffff;"></font>
-
-<font style="color:#080808;background-color:#ffffff;">编写测试程序，执行结果如下：</font>
+\<font style="color:#080808;background-color:#ffffff;"\>编写测试程序，执行结果如下：\</font\>
 
 ![](./images/image_104.png)
-
-
-
-![](./images/image_1.png)
 
 ### 将配置绑定到第三方对象
 将配置文件中的信息绑定到某个Bean对象上，如果这个Bean对象没有源码，是第三方库提供的，怎么办？
@@ -2002,10 +1672,6 @@ address:
   zipcode: 11111111
 ```
 
-
-
-![](./images/image_1.png)
-
 实现代码如下：
 
 ```java
@@ -2022,10 +1688,6 @@ public class ApplicationConfig {
 运行结果如下：
 
 ![](./images/image_105.png)
-
-
-
-![](./images/image_1.png)
 
 ### 指定数据来源
 之前所讲的内容是将Spring Boot框架默认的配置文件`application.properties`或`application.yml`作为数据的来源绑定到Bean上。如果配置信息没有在默认的配置文件中呢？可以使用@PropertySource注解指定配置文件的位置，这个配置文件可以是`.properties`，也可以是`.xml`。这里重点掌握`.properties`即可。
@@ -2097,15 +1759,9 @@ public class Group {
 + @ConfigurationProperties(prefix = "group")：将配置文件中的值赋值给Bean对象的属性
 + @PropertySource("classpath:a/b/group-info.properties")：指定额外的配置文件
 
-
-
 编写测试程序，测试结果如下：
 
 ![](./images/image_106.png)
-
-
-
-![](./images/image_1.png)
 
 ## @ImportResource注解
 创建Bean的三种方式总结：
@@ -2115,8 +1771,6 @@ public class Group {
 + 第三种方式：@Component、@Service、@Controller、@Repository等注解。
 
 第二种和第三种我们都已经知道了。针对第一种方式，如果在SpringBoot框架中应该怎么实现呢？使用@ImportResource注解实现
-
-
 
 定义一个普通的Java类：Person
 
@@ -2154,8 +1808,6 @@ public class Person {
 
 ```
 
-
-
 在`resources`目录下新建`applicationContext.xml`配置文件：
 
 ```xml
@@ -2170,16 +1822,12 @@ public class Person {
 </beans>
 ```
 
-![](./images/image_1.png)
-
 在SpringBoot主入口类上添加@ImportResource进行资源导入，这样`applicationContext.xml`文件中的Bean将会纳入IoC容器的管理：
 
 ```java
 @ImportResource("classpath:applicationContext.xml")
 public class Sb307ExternalConfigApplication {}
 ```
-
-
 
 编写测试程序，看看是否可以获取到`person`这个bean对象：
 
@@ -2199,18 +1847,10 @@ class Sb307ExternalConfigApplicationTests {
 
 ![](./images/image_107.png)
 
-
-
 因此，项目中如果有类似于Spring的这种xml配置文件，要想纳入IoC容器管理，需要在入口类上使用`@ImportResource("classpath:applicationContext.xml")`注解即可。
 
-
-
-![](./images/image_1.png)
-
-
-
 ## Environment
-**<font style="color:#DF2A3F;">SpringBoot框架在启动的时候会将系统配置，环境信息全部封装到</font>**`**<font style="color:#DF2A3F;">Environment</font>**`**<font style="color:#DF2A3F;">对象中，如果要获取这些环境信息，可以调用</font>**`**<font style="color:#DF2A3F;">Environment</font>**`**<font style="color:#DF2A3F;">接口的方法。</font>**
+**\<font style="color:#DF2A3F;"\>SpringBoot框架在启动的时候会将系统配置，环境信息全部封装到\</font\>**`**<font style="color:#DF2A3F;">Environment</font>**`**\<font style="color:#DF2A3F;"\>对象中，如果要获取这些环境信息，可以调用\</font\>**`**<font style="color:#DF2A3F;">Environment</font>**`**\<font style="color:#DF2A3F;"\>接口的方法。\</font\>**
 
 在Spring Boot中，`Environment`接口提供了访问应用程序环境信息的方法，比如活动配置文件、系统环境变量、命令行参数等。`Environment`接口由Spring框架提供，Spring Boot应用程序通常会使用Spring提供的实现类`AbstractEnvironment`及其子类来实现具体的环境功能。
 
@@ -2254,8 +1894,6 @@ public class SomeBean {
 
 通过这种方式，你可以根据环境的不同灵活地配置你的应用程序。`Environment`是一个非常有用的工具，它可以帮助你管理各种类型的配置信息，并根据不同的运行时条件做出相应的调整。
 
-![](./images/image_1.png)
-
 # Spring Boot中如何进行AOP的开发
 ## Spring Boot AOP概述
 面向切面编程AOP在Spring教程中已经进行了详细讲解，这里不再赘述，如果忘记的同学，可以重新听一下Spring教程中AOP相关的内容。这里仅带着大家在Spring Boot中实现AOP编程。
@@ -2276,10 +1914,6 @@ Spring Boot的AOP编程和Spring框架中AOP编程的唯一区别是：引入依
 
 + aop依赖：如果只有这一个依赖，也可以实现AOP编程，这种方式表示使用了纯Spring AOP实现aop编程。
 + aspectj依赖：一个独立的可以完成AOP编程的AOP框架，属于第三方的，不属于Spring框架。（我们通常用它，因为它的功能更加强大）
-
-
-
-![](./images/image_1.png)
 
 ## Spring Boot AOP实现
 实现功能：项目中很多service，要求执行`任何service中的任何方法之前`记录日志。
@@ -2333,10 +1967,6 @@ public class OrderServiceImpl implements OrderService {
 
 ```
 
-
-
-![](./images/image_1.png)
-
 ### 编写切面
 ```java
 package com.powernode.aop;
@@ -2385,10 +2015,6 @@ public class LogAspect {
 
 ```
 
-
-
-![](./images/image_1.png)
-
 ### 测试
 ```java
 package com.powernode.aop;
@@ -2418,18 +2044,11 @@ class Sb308AopApplicationTests {
 
 ![](./images/image_109.png)
 
-
-
-![](./images/image_1.png)
-
-
-
 ---
 
 ## 第3章 SSM整合
 
 # 整合持久层框架MyBatis
-![](./images/image_1.png)
 
 ## 准备数据库表及数据
 创建数据库：springboot
@@ -2440,38 +2059,24 @@ class Sb308AopApplicationTests {
 
 ![](./images/image_111.png)
 
-![](./images/image_1.png)
-
 ![](./images/image_112.png)
 
 ![](./images/image_113.png)
 
-![](./images/image_1.png)
-
 ![](./images/image_114.png)
-
-![](./images/image_1.png)
-
-
 
 表创建成功后，为表准备数据，如下：
 
 ![](./images/image_115.png)
-
-![](./images/image_1.png)
 
 ## 创建SpringBoot项目
 使用脚手架创建Spring Boot项目
 
 ![](./images/image_116.png)
 
-![](./images/image_1.png)
-
 引入mysql驱动以及mybatis的启动器
 
 ![](./images/image_117.png)
-
-![](./images/image_1.png)
 
 依赖如下：
 
@@ -2490,10 +2095,10 @@ class Sb308AopApplicationTests {
 </dependency>
 ```
 
-**<font style="color:#DF2A3F;">注意，之前也提到过：</font>**
+**\<font style="color:#DF2A3F;"\>注意，之前也提到过：\</font\>**
 
-+ **<font style="color:#DF2A3F;">Spring Boot官方提供的启动器的名字规则：spring-boot-starter-xxx</font>**
-+ **<font style="color:#DF2A3F;">第三方（非Spring Boot官方）提供的启动器的名字规则：xxx-spring-boot-starter</font>**
++ **\<font style="color:#DF2A3F;"\>Spring Boot官方提供的启动器的名字规则：spring-boot-starter-xxx\</font\>**
++ **\<font style="color:#DF2A3F;"\>第三方（非Spring Boot官方）提供的启动器的名字规则：xxx-spring-boot-starter\</font\>**
 
 ## 编写数据源配置
 前面提到过，Spring Boot配置统一可以编写到application.properties中，配置如下：
@@ -2511,8 +2116,6 @@ spring.datasource.password=123456
 ```
 
 以上的配置属于连接池的配置，连接池使用的是Spring Boot默认的连接池：HikariCP
-
-![](./images/image_1.png)
 
 ## 编写实体类Vip
 表`t_vip`中的字段分别是：
@@ -2602,8 +2205,6 @@ public class Vip {
 
 以上代码可以使用第三方库Lombok进行改造，后面再说。
 
-![](./images/image_1.png)
-
 ## 编写Mapper接口
 创建`repository`包，在该包下新建`VipMapper`接口，代码如下：
 
@@ -2651,18 +2252,12 @@ public interface VipMapper {
 }
 ```
 
-![](./images/image_1.png)
-
 ## 编写Mapper接口的XML配置文件
 在`resources`目录下新建`mapper`目录，将来的`mapper.xml`配置文件放在这个目录下。
-
-
 
 安装`MyBatisX`插件，该插件可以根据我们编写的`VipMapper`接口自动生成mapper的XML配置文件。
 
 ![](./images/image_118.png)
-
-![](./images/image_1.png)
 
 然后在`VipMapper`接口上：alt+enter
 
@@ -2675,8 +2270,6 @@ public interface VipMapper {
 ![](./images/image_121.png)
 
 ![](./images/image_122.png)
-
-![](./images/image_1.png)
 
 接下来，你会看到Mapper接口中方法报错了，可以在错误的位置上使用`alt+enter`，选择`Generate statement`：
 
@@ -2710,14 +2303,10 @@ public interface VipMapper {
 </mapper>
 ```
 
-![](./images/image_1.png)
-
 ## 添加Mapper的扫描
 在Spring Boot的入口程序上添加如下的注解，来完成`VipMapper`接口的扫描：
 
 ![](./images/image_125.png)
-
-![](./images/image_1.png)
 
 ## 告诉MyBatis框架MapperXML文件的位置
 在`application.properties`配置文件中进行如下配置：
@@ -2758,13 +2347,9 @@ public class Sb305SpringbootMybatisApplication {
 
 ```
 
-![](./images/image_1.png)
-
 测试结果：
 
 ![](./images/image_126.png)
-
-
 
 测试结果中可以看到`cardNumber`属性没有赋值成功，原因是：表中的字段名叫做`card_number`，和实体类`Vip`的属性名`cardNumber`对应不上。解决办法两个：
 
@@ -2775,8 +2360,6 @@ public class Sb305SpringbootMybatisApplication {
 再次测试：
 
 ![](./images/image_128.png)
-
-![](./images/image_1.png)
 
 + **第二种方式：通过配置自动映射**
 
@@ -2792,15 +2375,9 @@ map-underscore-to-camel-case 是一个配置项，主要用于处理数据库字
 
 map-underscore-to-camel-case 这个配置项的作用就是在查询结果映射到Java对象时，自动将下划线分隔的字段名转换成驼峰式命名法。这样可以减少手动映射的工作量，并提高代码的可读性和可维护性。
 
-
-
 mapper的xml文件中的sql语句仍然使用`*`的方式：
 
 ![](./images/image_129.png)
-
-![](./images/image_1.png)
-
-
 
 测试结果如下：
 
@@ -2861,18 +2438,12 @@ public class Sb305SpringbootMybatisApplication {
 
 ![](./images/image_131.png)
 
-
-
 到此为止，我们已经完成了Spring Boot整合MyBatis的操作。
-
-![](./images/image_1.png)
 
 # Lombok库
 Lombok 是一个 Java 库，它可以通过注解的方式减少 Java 代码中的样板代码。Lombok 自动为你生成构造函数、getter、setter、equals、hashCode、toString 方法等，从而避免了手动编写这些重复性的代码。这不仅减少了出错的机会，还让代码看起来更加简洁。
 
-
-
-**<font style="color:#DF2A3F;">Lombok只是一个编译阶段的库，能够帮我们自动补充代码，在Java程序运行阶段并不起作用。（因此Lombok库并不会影响Java程序的执行效率）</font>**
+**\<font style="color:#DF2A3F;"\>Lombok只是一个编译阶段的库，能够帮我们自动补充代码，在Java程序运行阶段并不起作用。（因此Lombok库并不会影响Java程序的执行效率）\</font\>**
 
 例如我们有这样一个java源文件`User.java`，代码如下：
 
@@ -2987,8 +2558,6 @@ public class com.powernode.lomboktest.model.User {
 
 通过字节码可以看到Lombok库的`@Data`注解可以帮助我们生成`无参构造器`、`setter`、`getter`、`toString`、`hashCode`、`equals`。
 
-![](./images/image_1.png)
-
 ## Lombok 的主要注解
 **@Data**：
 
@@ -3011,23 +2580,19 @@ public class com.powernode.lomboktest.model.User {
 **@RequiredArgsConstructor**：
 
 + 生成包含所有被 `final` 修饰符修饰的实例变量的构造方法。
-+ **<font style="color:#DF2A3F;">如果没有</font>**`**<font style="color:#DF2A3F;">final</font>**`**<font style="color:#DF2A3F;">的实例变量，则自动生成无参数构造方法。</font>**
++ **\<font style="color:#DF2A3F;"\>如果没有\</font\>**`**<font style="color:#DF2A3F;">final</font>**`**\<font style="color:#DF2A3F;"\>的实例变量，则自动生成无参数构造方法。\</font\>**
 
 **@ToString** / **@EqualsAndHashCode**：
 
 + 用于生成 toString 和 equals/hashCode 方法。
-+ **<font style="color:#DF2A3F;">这两个注解都有</font>**`**<font style="color:#DF2A3F;">exclude</font>**`**<font style="color:#DF2A3F;background-color:#ffffff;">属性，通过这个属性可以定制toString、hashCode、equals方法。</font>**
++ **\<font style="color:#DF2A3F;"\>这两个注解都有\</font\>**`**<font style="color:#DF2A3F;">exclude</font>**`**\<font style="color:#DF2A3F;background-color:#ffffff;"\>属性，通过这个属性可以定制toString、hashCode、equals方法。\</font\>**
 
-**<font style="color:#DF2A3F;background-color:#ffffff;"></font>**
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;background-color:#ffffff;"\>\</font\>**
 
 ## 如何使用 Lombok？
 创建一个普通的Maven模块来快速测试一下Lombok库的使用：
 
 ![](./images/image_132.png)
-
-![](./images/image_1.png)
 
 ### 添加依赖
 在 Maven 的 `pom.xml` 文件中添加 Lombok 依赖：
@@ -3046,15 +2611,9 @@ public class com.powernode.lomboktest.model.User {
 
 ![](./images/image_133.png)
 
-![](./images/image_1.png)
-
-
-
-**<font style="color:#DF2A3F;">Lombok插件不是必须要安装的</font>**，为了提高开发效率以及开发者的体验，安装Lombok插件是有必要的。
+**\<font style="color:#DF2A3F;"\>Lombok插件不是必须要安装的\</font\>**，为了提高开发效率以及开发者的体验，安装Lombok插件是有必要的。
 
 也就是说安装了Lombok插件之后，编写代码的时候，才会有方法的提示功能。
-
-
 
 当IDEA中没有安装lombok插件时：
 
@@ -3064,15 +2623,11 @@ public class com.powernode.lomboktest.model.User {
 
 ![](./images/image_135.png)
 
-![](./images/image_1.png)
-
 如果在IDEA中安装了lombok插件：
 
 ![](./images/image_136.png)
 
 程序会有很好的提示功能。
-
-![](./images/image_1.png)
 
 ### 使用 Lombok 注解
 在 Java 类中使用 Lombok 提供的注解。
@@ -3112,10 +2667,6 @@ public class Test {
 
 ![](./images/image_137.png)
 
-![](./images/image_1.png)
-
-
-
 以下的注解可以自行测试：
 
 + @Getter
@@ -3126,9 +2677,7 @@ public class Test {
 + @AllArgsConstructor
 + @RequiredArgsConstructor
 
-**<font style="color:#DF2A3F;">注：Lombok只能帮助我们生成无参数构造方法和全参数构造方法，其他定制参数的构造方法无法生成。</font>**
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>注：Lombok只能帮助我们生成无参数构造方法和全参数构造方法，其他定制参数的构造方法无法生成。\</font\>**
 
 ## Lombok的其他常用注解
 @Value
@@ -3159,8 +2708,6 @@ public class Customer {
 }
 ```
 
-![](./images/image_1.png)
-
 测试程序：
 
 ```java
@@ -3189,8 +2736,6 @@ public class CustomerTest {
 
 可以查看一下字节码，你会发现，@Value注解的作用只会生成：全参数构造方法、getter方法、hashCode、equals、toString方法。（没有setter方法。）
 
-![](./images/image_1.png)
-
 ### @Builder
 #### GoF23种设计模式之一：建造模式
 建造模式（Builder Pattern）属于创建型设计模式。GoF23种设计模式之一。
@@ -3204,8 +2749,6 @@ public class CustomerTest {
 3. **增强灵活性**：允许按需配置对象的不同部分。
 
 这样可以更方便地创建复杂对象，并且使得代码更加易于理解和维护。
-
-![](./images/image_1.png)
 
 #### 建造模式的代码
 建造模式代码如下：
@@ -3291,8 +2834,6 @@ public class Person {
 
 ![](./images/image_139.png)
 
-![](./images/image_1.png)
-
 #### 使用@Builder注解自动生成建造模式的代码
 该注解可以直接帮助我们生成以上的代码。使用`@Builder`注解改造以上代码。
 
@@ -3326,8 +2867,6 @@ public class Person {
 执行结果：
 
 ![](./images/image_140.png)
-
-![](./images/image_1.png)
 
 ### @Singular
 @Singular注解是辅助@Builder注解的。
@@ -3374,10 +2913,8 @@ public class Person {
 
 ![](./images/image_141.png)
 
-![](./images/image_1.png)
-
 ### @Slf4j
-Lombok 支持多种日志框架的注解，可以根据你使用的日志框架选择合适的注解。以下是 Lombok 提供的**<font style="color:#DF2A3F;">部分日志注解</font>**及其对应的日志框架：
+Lombok 支持多种日志框架的注解，可以根据你使用的日志框架选择合适的注解。以下是 Lombok 提供的**\<font style="color:#DF2A3F;"\>部分日志注解\</font\>**及其对应的日志框架：
 
 1. `@Log4j`：
     - 自动生成一个 `org.apache.log4j.Logger` 对象。
@@ -3388,8 +2925,6 @@ Lombok 支持多种日志框架的注解，可以根据你使用的日志框架�
 3. `@Log4j2`：
     - 自动生成一个 `org.apache.logging.log4j.Logger` 对象。
     - 适用于 Apache Log4j 2.x 版本。
-
-![](./images/image_1.png)
 
 #### 使用示例
 假设我们有一个类 `ExampleClass`，并且我们想要使用 SLF4J 作为日志框架，我们可以这样使用 `@Slf4j` 注解：
@@ -3413,10 +2948,6 @@ public class UserService {
 ```
 
 在这个例子中，`log` 是一个静态成员变量，表示一个 `org.slf4j.Logger` 对象。Lombok 自动生成了这个日志对象，并且你可以直接使用它来进行日志记录。
-
-
-
-![](./images/image_1.png)
 
 #### 选择合适的注解
 选择哪个注解取决于你使用的日志框架。例如：
@@ -3448,12 +2979,6 @@ public class UserService {
 
 通过这些日志注解，你可以方便地在类中使用日志记录功能，而无需手动创建日志对象。
 
-
-
-![](./images/image_1.png)
-
-
-
 执行结果：
 
 ![](./images/image_142.png)
@@ -3464,16 +2989,8 @@ MyBatis逆向工程：使用IDEA插件可以根据数据库表的设计逆向生
 ## 安装插件`free mybatis tools`
 ![](./images/image_143.png)
 
-
-
-![](./images/image_1.png)
-
 ## 在IDEA中配置数据源
 ![](./images/image_144.png)
-
-
-
-![](./images/image_1.png)
 
 ## 创建数据库，创建表，准备数据
 ![](./images/image_145.png)
@@ -3481,19 +2998,9 @@ MyBatis逆向工程：使用IDEA插件可以根据数据库表的设计逆向生
 ## 使用脚手架创建SpringBoot项目
 ![](./images/image_146.png)
 
-
-
-![](./images/image_1.png)
-
-
-
 添加依赖：mybatis依赖、mysql驱动、Lombok库
 
 ![](./images/image_147.png)
-
-
-
-![](./images/image_1.png)
 
 ## 生成MyBatis代码放到SpringBoot项目中
 在表上右键：Mybatis-Generator
@@ -3502,19 +3009,13 @@ MyBatis逆向工程：使用IDEA插件可以根据数据库表的设计逆向生
 
 ![](./images/image_149.png)
 
-![](./images/image_1.png)
-
 代码生成后，如果在IDEA中看不到，这样做（重新从硬盘加载）：
 
 ![](./images/image_150.png)
 
+**\<font style="color:#DF2A3F;"\>注意：生成的\</font\>**`**<font style="color:#DF2A3F;">VipMapper</font>**`**\<font style="color:#DF2A3F;"\>接口上自动添加了\</font\>**`**<font style="color:#DF2A3F;">@Repository</font>**`**\<font style="color:#DF2A3F;"\>注解，这个注解没用，删除即可。\</font\>**
 
-
-**<font style="color:#DF2A3F;">注意：生成的</font>**`**<font style="color:#DF2A3F;">VipMapper</font>**`**<font style="color:#DF2A3F;">接口上自动添加了</font>**`**<font style="color:#DF2A3F;">@Repository</font>**`**<font style="color:#DF2A3F;">注解，这个注解没用，删除即可。</font>**
-
-**<font style="color:#DF2A3F;"></font>**
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>\</font\>**
 
 ## 编写mybatis相关配置
 application.properties属性文件的配置：
@@ -3529,10 +3030,6 @@ spring.datasource.password=123456
 mybatis.mapper-locations=classpath:com/powernode/springboot/repository/*.xml
 mybatis.configuration.map-underscore-to-camel-case=true
 ```
-
-
-
-![](./images/image_1.png)
 
 ## 编写测试程序
 ```java
@@ -3575,10 +3072,6 @@ public class Sb306SpringbootMybatisGeneratorApplication {
 
 到此，Spring Boot整合MyBatis结束！
 
-
-
-![](./images/image_1.png)
-
 # 整合SpringMVC（SSM整合）
 SSM整合：Spring + SpringMVC + MyBatis
 
@@ -3587,30 +3080,18 @@ Spring Boot项目本身就是基于Spring框架实现的。因此SSM整合时，
 ## 使用脚手架创建SpringBoot项目
 ![](./images/image_151.png)
 
-![](./images/image_1.png)
-
 添加依赖：web启动器、mybatis启动器、mysql驱动依赖、lombok依赖
 
 ![](./images/image_152.png)
-
-![](./images/image_1.png)
 
 项目结构：
 
 ![](./images/image_153.png)
 
-
-
-![](./images/image_1.png)
-
 ## 使用`free mybatis tool`插件逆向生成MyBatis代码
 将`springboot`数据库中的`t_vip`表逆向生成mybatis代码。这里不再赘述。
 
 ![](./images/image_154.png)
-
-
-
-![](./images/image_1.png)
 
 ## 整合MyBatis
 1. 编写数据源的配置
@@ -3650,8 +3131,6 @@ public class Sb307SsmApplication {
 }
 ```
 
-![](./images/image_1.png)
-
 ## 编写service
 编写`VipService`接口：
 
@@ -3670,8 +3149,6 @@ public interface VipService {
 }
 
 ```
-
-![](./images/image_1.png)
 
 编写`VipServiceImpl`实现类：
 
@@ -3697,8 +3174,6 @@ public class VipServiceImpl implements VipService {
 }
 
 ```
-
-![](./images/image_1.png)
 
 ## 编写controller
 编写`VipController`，代码如下：
@@ -3728,34 +3203,22 @@ public class VipController {
 
 ```
 
-<font style="color:#DF2A3F;">提示：这里使用了RESTFul编程风格，这个内容在SpringMVC课程中已经讲过。忘了的同学可以回头观看一下。</font>
-
-![](./images/image_1.png)
+\<font style="color:#DF2A3F;"\>提示：这里使用了RESTFul编程风格，这个内容在SpringMVC课程中已经讲过。忘了的同学可以回头观看一下。\</font\>
 
 ## 启动服务器测试
 执行SpringBoot项目主入口的main方法，启动Tomcat服务器：
 
 ![](./images/image_155.png)
 
-![](./images/image_1.png)
-
 打开浏览器访问：
 
 ![](./images/image_156.png)
 
-
-
 到此为止，SSM框架就集成完毕了，通过这个集成也可以感觉到SpringBoot简化了SSM三大框架的集成。
-
-![](./images/image_1.png)
-
-
 
 ---
 
 ## 第4章 Spring Boot自动配置
-
-![](./images/image_1.png)
 
 # 自动配置概述
 ## SpringBoot的两大核心
@@ -3767,13 +3230,11 @@ Spring Boot 提供了一系列的 Starter POMs，它们是一组预定义的依�
 当你在项目中引入一个 Starter POM 时，它会自动包含所有必要的 Spring 组件以及合理的默认设置。开发者不需要手动管理复杂的依赖关系，也不需要担心版本冲突的问题，减少了配置上的出错可能。
 
 2. **自动配置（Auto-Configuration）**：  
-当添加了特定的 Starter POM 后，Spring Boot 会**<font style="color:#DF2A3F;">根据类路径上存在的 jar 包来自动配置 Bean（自动配置相关组件）（比如：SpringBoot发现类路径上存在mybatis相关的类，例如SqlSessionFactory.class，那么SpringBoot将自动配置mybatis相关的所有Bean。）</font>**。
+当添加了特定的 Starter POM 后，Spring Boot 会**\<font style="color:#DF2A3F;"\>根据类路径上存在的 jar 包来自动配置 Bean（自动配置相关组件）（比如：SpringBoot发现类路径上存在mybatis相关的类，例如SqlSessionFactory.class，那么SpringBoot将自动配置mybatis相关的所有Bean。）\</font\>**。
 
 如果开发者没有显式地提供任何与特定功能相关的配置，Spring Boot 将使用其默认配置来自动设置这些功能。当然，如果需要的话，用户也可以覆盖这些默认设置。
 
-这两个特性结合在一起，使得使用 Spring Boot 开发应用程序变得更加简单快速，减少了大量的样板代码和重复配置的工作。**<font style="color:#DF2A3F;">让程序员专注业务逻辑的开发，在环境方面耗费最少的时间</font>**。
-
-![](./images/image_1.png)
+这两个特性结合在一起，使得使用 Spring Boot 开发应用程序变得更加简单快速，减少了大量的样板代码和重复配置的工作。**\<font style="color:#DF2A3F;"\>让程序员专注业务逻辑的开发，在环境方面耗费最少的时间\</font\>**。
 
 ## 体会自动配置带来的便捷
 拿SpringBoot集成MyBatis为例。
@@ -3831,8 +3292,6 @@ Spring Boot 提供了一系列的 Starter POMs，它们是一组预定义的依�
 
 通过以上的配置可以看到Spring集成MyBatis的时候，需要手动提供`BasicDataSource`、`SqlSessionFactoryBean`、`MapperScannerConfigurer`、`DataSourceTransactionManager`等Bean的配置。
 
-![](./images/image_1.png)
-
 使用了Spring Boot框架之后，这些配置都不需要提供了，SpringBoot框架的自动配置机制可以全部按照默认的方式自动化完成。减少了大量的配置，在环境方面耗费很少的时间，让程序员更加专注业务逻辑的处理。我们只需要在`application.yml`中提供以下的配置即可：
 
 ```yaml
@@ -3870,8 +3329,6 @@ public class TestApplication {
 }
 
 ```
-
-![](./images/image_1.png)
 
 在springboot没有引入任何启动器的情况下，默认提供了`59`bean：
 
@@ -3936,8 +3393,6 @@ org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
 spring.task.scheduling-org.springframework.boot.autoconfigure.task.TaskSchedulingProperties
 org.springframework.aop.config.internalAutoProxyCreator
 ```
-
-![](./images/image_1.png)
 
 引入web启动器：
 
@@ -4113,7 +3568,7 @@ spring.servlet.multipart-org.springframework.boot.autoconfigure.web.servlet.Mult
 org.springframework.aop.config.internalAutoProxyCreator
 ```
 
-也就是说，引入了`web启动器`后，ioc容器中增加了`101`个bean对象（**<font style="color:#DF2A3F;">加入了101个组件</font>**）。这`101`个bean对象都是为web开发而准备的，例如我们常见的：
+也就是说，引入了`web启动器`后，ioc容器中增加了`101`个bean对象（**\<font style="color:#DF2A3F;"\>加入了101个组件\</font\>**）。这`101`个bean对象都是为web开发而准备的，例如我们常见的：
 
 + dispatcherServlet：DispatcherServlet 是 Spring MVC 的前端控制器，负责接收所有的 HTTP 请求，并将请求分发给适当的处理器（Controller）
 + viewResolver：ViewResolver 是 Spring MVC 中用于将逻辑视图名称解析为实际视图对象的组件。它的主要作用是根据控制器返回的视图名称，找到对应的视图实现（如 JSP、Thymeleaf、Freemarker 等），并返回给 DispatcherServlet 用于渲染视图。
@@ -4124,8 +3579,6 @@ org.springframework.aop.config.internalAutoProxyCreator
 每一个组件都有它特定的功能。
 
 没有使用SpringBoot之前，以上的很多组件都是需要手动配置的。
-
-![](./images/image_1.png)
 
 ## 默认的包扫描规则
 之前我们已经说过并且测试过：springboot默认情况下只扫描`主入口类`所在包及子包下的类。
@@ -4143,10 +3596,6 @@ org.springframework.aop.config.internalAutoProxyCreator
 @ComponentScan("com")
 public class TestApplication {}
 ```
-
-
-
-![](./images/image_1.png)
 
 ## 默认配置
 springboot为功能的实现提供了非常多的默认配置.
@@ -4168,8 +3617,6 @@ spring.thymeleaf.prefix=classpath:/templates/
 spring.thymeleaf.suffix=.html
 ```
 
-![](./images/image_1.png)
-
 这些配置最终都会通过`@ConfigurationProperties(prefix="")`注解绑定到对应的bean的属性上。这个Bean我们一般称为`属性类`。例如：
 
 `ServerProperties`：服务器属性类，专门负责配置服务器相关信息。
@@ -4186,16 +3633,12 @@ public class ServerProperties {}
 public class ThymeleafProperties {}
 ```
 
-![](./images/image_1.png)
-
 SpringBoot官方文档当中也有指导，告诉你都有哪些`属性类`，告诉你在`application.properties`中都可以配置哪些东西。默认值都是什么：
 
 ![](./images/image_157.png)
 
-![](./images/image_1.png)
-
 ## 自动配置是按需加载的
-SpringBoot提供了非常多的自动配置类，有的是`web`相关的自动配置，有的是`mail`相关的自动配置。但是这些自动配置并不是全部生效，它是按需加载的。**<font style="color:#DF2A3F;">导入了哪个启动器，则该启动器对应的自动配置类才会被加载</font>**。
+SpringBoot提供了非常多的自动配置类，有的是`web`相关的自动配置，有的是`mail`相关的自动配置。但是这些自动配置并不是全部生效，它是按需加载的。**\<font style="color:#DF2A3F;"\>导入了哪个启动器，则该启动器对应的自动配置类才会被加载\</font\>**。
 
 这些自动配置类在哪里？
 
@@ -4204,8 +3647,6 @@ SpringBoot提供了非常多的自动配置类，有的是`web`相关的自动�
 `spring-boot-starter`又关联引入了`spring-boot-autoconfigure`。所有的自动配置类都在这里。
 
 ![](./images/image_158.png)
-
-![](./images/image_1.png)
 
 ## SpringBoot框架提供的条件注解
 如何做到按需加载的，依靠SpringBoot框架中的条件注解来实现的。
@@ -4225,9 +3666,7 @@ Spring Boot框架中的@ConditionalOnXxx系列注解属于条件注解（Conditi
 
 使用这些注解可以帮助开发者根据不同的运行环境或配置来灵活地控制Bean的创建，从而实现更智能、更自动化的配置过程。这对于构建可插拔的模块化系统特别有用，因为可以根据实际需求选择性地启用或禁用某些功能。
 
-![](./images/image_1.png)
-
-假设我们来实现这样一个功能：如果IoC容器当中**<font style="color:#DF2A3F;">存在</font>**`**<font style="color:#DF2A3F;">A</font>**`**<font style="color:#DF2A3F;">Bean</font>**，就创建`B`Bean，代码如下：
+假设我们来实现这样一个功能：如果IoC容器当中**\<font style="color:#DF2A3F;"\>存在\</font\>**`**<font style="color:#DF2A3F;">A</font>**`**\<font style="color:#DF2A3F;"\>Bean\</font\>**，就创建`B`Bean，代码如下：
 
 ```java
 @Configuration
@@ -4246,9 +3685,7 @@ public class AppConfig {
 }
 ```
 
-
-
-如果IoC容器当中**<font style="color:#DF2A3F;">不存在</font>**`**<font style="color:#DF2A3F;">A</font>**`**<font style="color:#DF2A3F;">Bean</font>**，就创建`B`Bean，代码如下：
+如果IoC容器当中**\<font style="color:#DF2A3F;"\>不存在\</font\>**`**<font style="color:#DF2A3F;">A</font>**`**\<font style="color:#DF2A3F;"\>Bean\</font\>**，就创建`B`Bean，代码如下：
 
 ```java
 @Configuration
@@ -4267,8 +3704,6 @@ public class AppConfig {
 }
 ```
 
-![](./images/image_1.png)
-
 当类路径当中存在`DispatcherServlet`类，则启用配置，反之则不启用配置，代码如下：
 
 ```java
@@ -4284,8 +3719,6 @@ public class MyConfig {
 
 以上程序自行测试！
 
-![](./images/image_1.png)
-
 # 自动配置实现原理
 我们来深入的分析一个问题：为什么导入`web启动器`，web开发相关的自动配置就会生效？
 
@@ -4296,7 +3729,7 @@ public class MyConfig {
 2. 然后关联导入了`spring-boot-starter`、`spring-boot-starter-json`、`spring-boot-starter-tomcat`、`spring-web`、`spring-webmvc`
     1. 注意：`spring-boot-starter`是springboot核心启动器，任何启动器在导入时，都会关联导入springboot核心启动器。
 3. 核心启动器导入之后，关联导入了一个jar包：`spring-boot-autoconfigure`。
-    1. 注意：这个jar包中存放的是springboot框架**<font style="color:#DF2A3F;">官方支持的自动配置类</font>**。如下图：
+    1. 注意：这个jar包中存放的是springboot框架**\<font style="color:#DF2A3F;"\>官方支持的自动配置类\</font\>**。如下图：
 
 ![](./images/image_159.png)
 
@@ -4308,9 +3741,7 @@ public class MyConfig {
 
 得知`springboot3.3.5`这个版本共`152`个自动配置类。自动配置类的命名规则是`XxxxAutoConfiguration`。
 
-**<font style="color:#DF2A3F;">提示：哪个自动配置类生效，就代表哪个配置文件生效，那么对应的技术就完成了整合，就可以进行对应技术的开发。</font>**
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>提示：哪个自动配置类生效，就代表哪个配置文件生效，那么对应的技术就完成了整合，就可以进行对应技术的开发。\</font\>**
 
 ## 从main方法开始执行之后都发生了什么
 以上分析的是在项目结构上已经完成了相关依赖的导入，这些自动配置了导入到了项目当中，那么在运行时哪些自动配置类会被加载？哪些自动配置类会生效呢？我们接下来进行程序运行阶段的分析：
@@ -4327,17 +3758,13 @@ public class MyConfig {
 
 ![](./images/image_162.png)
 
-通过跟踪得知，这`152`个自动配置类的**类名**都会被加载到IoC容器中。**<font style="color:#DF2A3F;">注意：加载了152，并不是152个全部生效</font>**。
-
-![](./images/image_1.png)
+通过跟踪得知，这`152`个自动配置类的**类名**都会被加载到IoC容器中。**\<font style="color:#DF2A3F;"\>注意：加载了152，并不是152个全部生效\</font\>**。
 
 5. 这`152`个自动配置类底层是怎么查找的？
 
 ![](./images/image_163.png)
 
 ![](./images/image_164.png)
-
-![](./images/image_1.png)
 
 ![](./images/image_165.png)
 
@@ -4347,15 +3774,11 @@ public class MyConfig {
 
 ![](./images/image_160.png)
 
-![](./images/image_1.png)
-
 6. 最终哪些自动配置类生效了？
 
 ![](./images/image_167.png)
 
-最先获取到`152`个，经过上图的一层一层的过滤（**条件注解**），**<font style="color:#DF2A3F;">最终筛选了</font>**`**<font style="color:#DF2A3F;">26</font>**`**<font style="color:#DF2A3F;">个自动配置类，为什么这么少，因为你只引入了</font>**`**<font style="color:#DF2A3F;">web starter</font>**`**<font style="color:#DF2A3F;">。这26个配置就是做web开发需要的最少配置</font>**。
-
-![](./images/image_1.png)
+最先获取到`152`个，经过上图的一层一层的过滤（**条件注解**），**\<font style="color:#DF2A3F;"\>最终筛选了\</font\>**`**<font style="color:#DF2A3F;">26</font>**`**\<font style="color:#DF2A3F;"\>个自动配置类，为什么这么少，因为你只引入了\</font\>**`**<font style="color:#DF2A3F;">web starter</font>**`**\<font style="color:#DF2A3F;"\>。这26个配置就是做web开发需要的最少配置\</font\>**。
 
 **具体怎么排除的，请看以下解释：**
 
@@ -4363,7 +3786,7 @@ public class MyConfig {
 
 去重：移除 configurations 列表中的重复项，确保每个配置类只出现一次。
 
-+ Set<String> exclusions = getExclusions(annotationMetadata, attributes);
++ Set\<String\> exclusions = getExclusions(annotationMetadata, attributes);
 
 获取排除列表：从注解元数据和属性中获取需要排除的配置类名称集合。因为`@EnableAutoConfiguration`注解还能这么用：`@EnableAutoConfiguration(exclude = {排除列表}, excludeName = {排除列表})`
 
@@ -4383,10 +3806,8 @@ public class MyConfig {
 
 触发事件：触发自动配置导入事件，通知其他组件或监听器关于最终确定的配置类和排除的类。
 
-![](./images/image_1.png)
-
 ## 自动配置类都干了啥
-**<font style="color:#DF2A3F;">自动配置类导入了一堆相关的组件（一个组件一个功能），而每个组件获取配置时都是从属性类中获取，而属性类恰好又和配置文件绑定。</font>**
+**\<font style="color:#DF2A3F;"\>自动配置类导入了一堆相关的组件（一个组件一个功能），而每个组件获取配置时都是从属性类中获取，而属性类恰好又和配置文件绑定。\</font\>**
 
 以`DispatcherServletAutoConfiguration`自动配置类为例，这个自动配置类主要是配置了SpringMVC中的前端控制器。
 
@@ -4394,15 +3815,11 @@ public class MyConfig {
 
 ![](./images/image_168.png)
 
-![](./images/image_1.png)
-
 通过以上源码得知，`DispatcherServletConfiguration`组件的配置信息来源于`WebMvcProperties`属性类。`WebMvcProperties`类源码如下：
 
 ![](./images/image_169.png)
 
 通过以上源码又得知，要对`DispatcherServletConfiguration`进行配置的话，应该在`application.properties`中使用这样的前缀配置：`spring.mvc....`
-
-![](./images/image_1.png)
 
 再来看`嵌入式Web服务器工厂自定义程序自动配置`：`EmbeddedWebServerFactoryCustomizerAutoConfiguration`，通俗讲：通过它可以配置web服务器。
 
@@ -4410,15 +3827,11 @@ public class MyConfig {
 
 ![](./images/image_170.png)
 
-![](./images/image_1.png)
-
 通过以上源码得知，这个自动配置类中也有很多组件，有tomcat组件，有jetty组件。单独看Tomcat，要配置Tomcat服务器，需要参照`ServerProperties`属性类，打开源码看看：
 
 ![](./images/image_171.png)
 
 因此配置Tomcat服务器需要在`application.properties`文件中使用这样的前缀配置：`server.`
-
-![](./images/image_1.png)
 
 ## 总结自动配置原理
 1. 运行环境准备阶段
@@ -4432,26 +3845,14 @@ public class MyConfig {
     4. 属性类又和配置文件绑定在一起。
 3. 因此，最终一句话：导入启动器，修改配置文件，就可以完成对应功能的开发。
 
-![](./images/image_1.png)
-
-
-
-
-
-
-
 ---
 
 ## 第5章 Spring Boot的web开发
-
-![](./images/image_1.png)
 
 # SpringBoot的web自动配置
 新建项目`sb3-09-web`：添加web启动器，添加Lombok依赖。
 
 ![](./images/image_172.png)
-
-![](./images/image_1.png)
 
 ## web自动配置的依赖是如何传递的
 1. 首先引入了`web启动器`，如下：
@@ -4474,8 +3875,6 @@ public class MyConfig {
 </dependency>
 ```
 
-![](./images/image_1.png)
-
 3. `spring-boot-starter`会传递引入一个`spring-boot-autoconfigure`包，如下：
 
 ```xml
@@ -4489,13 +3888,9 @@ public class MyConfig {
 
 ![](./images/image_173.png)
 
-![](./images/image_1.png)
-
 4. 在`spring-boot-autoconfigure`包中的`.imports`文件中罗列的需要导入的自动配置类，如下图：
 
 ![](./images/image_174.png)
-
-![](./images/image_1.png)
 
 ## web自动配置的实现原理
 1. 从入口程序开始：
@@ -4515,20 +3910,16 @@ public class Sb309WebApplication {
 }
 ```
 
-![](./images/image_1.png)
-
 入口程序被`@SpringBootApplication`注解标注。
 
-2. `@SpringBootApplication`注解被`@EnableAutoConfiguration`<font style="color:#080808;background-color:#ffffff;">注解标注。表示启用自动配置。</font>
-3. `@EnableAutoConfiguration`<font style="color:#080808;background-color:#ffffff;">注解被</font>`@Import({AutoConfigurationImportSelector.class})`<font style="color:#080808;background-color:#ffffff;">注解标注。</font>
-4. <font style="color:#080808;background-color:#ffffff;">因此</font>`AutoConfigurationImportSelector`<font style="color:#080808;background-color:#ffffff;">决定哪些自动配置类是需要导入的。</font>
-5. `<font style="color:#080808;background-color:#ffffff;">AutoConfigurationImportSelector</font>`<font style="color:#080808;background-color:#ffffff;">底层实现步骤具体如下：</font>
+2. `@SpringBootApplication`注解被`@EnableAutoConfiguration`\<font style="color:#080808;background-color:#ffffff;"\>注解标注。表示启用自动配置。\</font\>
+3. `@EnableAutoConfiguration`\<font style="color:#080808;background-color:#ffffff;"\>注解被\</font\>`@Import({AutoConfigurationImportSelector.class})`\<font style="color:#080808;background-color:#ffffff;"\>注解标注。\</font\>
+4. \<font style="color:#080808;background-color:#ffffff;"\>因此\</font\>`AutoConfigurationImportSelector`\<font style="color:#080808;background-color:#ffffff;"\>决定哪些自动配置类是需要导入的。\</font\>
+5. `<font style="color:#080808;background-color:#ffffff;">AutoConfigurationImportSelector</font>`\<font style="color:#080808;background-color:#ffffff;"\>底层实现步骤具体如下：\</font\>
 
 ![](./images/image_175.png)
 
 ![](./images/image_176.png)
-
-![](./images/image_1.png)
 
 ![](./images/image_177.png)
 
@@ -4542,16 +3933,10 @@ public class Sb309WebApplication {
 
 ![](./images/image_179.png)
 
-![](./images/image_1.png)
-
 ## 通过web自动配置类逆推web配置的prefix
 在自动配置列表中找到web自动配置相关的类：
 
 ![](./images/image_180.png)
-
-![](./images/image_1.png)
-
-
 
 以下就是web自动配置类列表：
 
@@ -4566,12 +3951,6 @@ org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration
 org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 ```
 
-
-
-![](./images/image_1.png)
-
-
-
 通过web自动配置类的源码可以逆推web配置的prefix：
 
 1. WebMvcAutoConfiguration
@@ -4582,15 +3961,11 @@ org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 
 ![](./images/image_183.png)
 
-![](./images/image_1.png)
-
 2. MultipartAutoConfiguration
 
 ![](./images/image_184.png)
 
 ![](./images/image_185.png)
-
-![](./images/image_1.png)
 
 3. HttpEncodingAutoConfiguration
 
@@ -4598,15 +3973,11 @@ org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 
 ![](./images/image_187.png)
 
-![](./images/image_1.png)
-
 4. ErrorMvcAutoConfiguration
 5. ServletWebServerFactoryAutoConfiguration
 6. DispatcherServletAutoConfiguration
 7. EmbeddedWebServerFactoryCustomizerAutoConfiguration
 8. RestTemplateAutoConfiguration
-
-
 
 通过查看源码，得知，web开发时，在`application.properties`配置文件中可以配置的前缀是：
 
@@ -4624,14 +3995,10 @@ spring.servlet.multipart.
 server.
 ```
 
-![](./images/image_1.png)
-
 ## Web自动配置都默认配置了什么
 查看官方文档：
 
 ![](./images/image_188.png)
-
-
 
 **翻译如下：**
 
@@ -4639,7 +4006,7 @@ Spring Boot 为 Spring MVC 提供了自动配置，这在大多数应用程序�
 
 + 包括 `ContentNegotiatingViewResolver` 和 `BeanNameViewResolver` 的 Bean。
     - `ContentNegotiatingViewResolver` 自动根据HTTP请求头中Accept字段来选择合适的视图技术渲染响应。
-    - `<font style="color:rgb(44, 44, 54);">BeanNameViewResolver</font>`<font style="color:rgb(44, 44, 54);"> 的作用是根据视图名称找到视图View对象。</font>
+    - `<font style="color:rgb(44, 44, 54);">BeanNameViewResolver</font>`\<font style="color:rgb(44, 44, 54);"\> 的作用是根据视图名称找到视图View对象。\</font\>
 + 支持提供静态资源，包括对 WebJars的支持。
     - 静态资源路径默认已经配置好了。默认会去static目录下找。
 + 自动注册 `Converter`、`GenericConverter` 和 `Formatter` 的 Bean。
@@ -4657,15 +4024,9 @@ Spring Boot 为 Spring MVC 提供了自动配置，这在大多数应用程序�
 
 如果您不想使用自动配置并希望完全控制 Spring MVC，可以添加您自己的带有 `**<font style="color:#DF2A3F;">@EnableWebMvc</font>**` 注解的 `@Configuration`。
 
-如果您希望保留这些 Spring Boot MVC 定制化设置并进行更多的 MVC 定制化（如拦截器、格式化程序、视图控制器等其他功能），可以添加您自己的类型为 `WebMvcConfigurer` 的 `@Configuration` 类。**<font style="color:#DF2A3F;">但不能使用</font>**`**<font style="color:#DF2A3F;">@EnableWebMvc</font>**`**<font style="color:#DF2A3F;">注解</font>**。
+如果您希望保留这些 Spring Boot MVC 定制化设置并进行更多的 MVC 定制化（如拦截器、格式化程序、视图控制器等其他功能），可以添加您自己的类型为 `WebMvcConfigurer` 的 `@Configuration` 类。**\<font style="color:#DF2A3F;"\>但不能使用\</font\>**`**<font style="color:#DF2A3F;">@EnableWebMvc</font>**`**\<font style="color:#DF2A3F;"\>注解\</font\>**。
 
-
-
-
-
-![](./images/image_1.png)
-
-## <font style="color:#080808;background-color:#ffffff;">WebMvcAutoConfiguration原理</font>
+## \<font style="color:#080808;background-color:#ffffff;"\>WebMvcAutoConfiguration原理\</font\>
 通过源码分析的方式，学习WebMvc的自动配置原理。
 
 ### WebMvc自动配置是否生效的条件
@@ -4694,8 +4055,6 @@ public class WebMvcAutoConfiguration {}
 + @ImportRuntimeHints(WebResourcesRuntimeHints.class) **不重要**
     - 运行时引入**WebResourcesRuntimeHints**这个类，这个类的作用是给JVM或者其他组件提示信息的，提示一下系统应该如何处理类和资源。
 
-
-
 总结来说，WebMvcAutoConfiguration类将在以下条件下生效：
 
 1. 应用程序是一个Servlet类型的Web应用；
@@ -4704,12 +4063,8 @@ public class WebMvcAutoConfiguration {}
 
 如果这些条件都满足的话，那么这个自动配置类就会被激活，并进行相应的自动配置工作。
 
-
-
-![](./images/image_1.png)
-
 ### WebMvc自动配置生效后引入了两个Filter Bean
-#### 引入了<font style="color:#080808;background-color:#ffffff;">HiddenHttpMethodFilter Bean</font>
+#### 引入了\<font style="color:#080808;background-color:#ffffff;"\>HiddenHttpMethodFilter Bean\</font\>
 ```java
 @Bean
 @ConditionalOnMissingBean(HiddenHttpMethodFilter.class)
@@ -4721,7 +4076,7 @@ public OrderedHiddenHttpMethodFilter hiddenHttpMethodFilter() {
 
 这个过滤器是专门处理Rest请求的。GET POST PUT DELETE请求。
 
-#### 引入了<font style="color:#080808;background-color:#ffffff;">FormContentFilter Bean</font>
+#### 引入了\<font style="color:#080808;background-color:#ffffff;"\>FormContentFilter Bean\</font\>
 ```java
 @Bean
 @ConditionalOnMissingBean(FormContentFilter.class)
@@ -4733,10 +4088,6 @@ public OrderedFormContentFilter formContentFilter() {
 
 OrderedFormContentFilter 是 Spring Boot 中用于处理 HTTP 请求的一个过滤器，特别是针对 PUT 和 DELETE 请求。这个过滤器的主要作用是在处理 PUT 和 DELETE 请求时，确保如果请求体中有表单格式的数据，这些数据会被正确解析并可用。
 
-
-
-![](./images/image_1.png)
-
 ### WebMvc自动配置生效后引入了WebMvcConfigurer接口的实现类
 在SpringBoot框架的`WebMvcAutoConfiguration`类中提供了一个内部类：`WebMvcAutoConfigurationAdapter`
 
@@ -4744,13 +4095,11 @@ OrderedFormContentFilter 是 Spring Boot 中用于处理 HTTP 请求的一个过
 
 SpringBoot在这个类`WebMvcAutoConfigurationAdapter`中进行了一系列的Spring MVC相关配置。
 
-**<font style="color:#DF2A3F;">我们开发中要对Spring MVC的相关配置进行修改，可以编写一个类继承</font>**`**<font style="color:#DF2A3F;">WebMvcAutoConfigurationAdatper</font>**`**<font style="color:#DF2A3F;">，然后重写对应的方法即可。</font>**
+**\<font style="color:#DF2A3F;"\>我们开发中要对Spring MVC的相关配置进行修改，可以编写一个类继承\</font\>**`**<font style="color:#DF2A3F;">WebMvcAutoConfigurationAdatper</font>**`**\<font style="color:#DF2A3F;"\>，然后重写对应的方法即可。\</font\>**
 
-**<font style="color:#DF2A3F;">因此，通过对</font>**`**<font style="color:#DF2A3F;">WebMvcAutoConfigurationAdapter</font>**`**<font style="color:#DF2A3F;">类中的方法进行重写来</font>****<font style="color:#74B602;">修改</font>****<font style="color:#DF2A3F;">Web MVC的默认配置。</font>**
+**\<font style="color:#DF2A3F;"\>因此，通过对\</font\>**`**<font style="color:#DF2A3F;">WebMvcAutoConfigurationAdapter</font>**`**\<font style="color:#DF2A3F;"\>类中的方法进行重写来\</font\>****\<font style="color:#74B602;"\>修改\</font\>****\<font style="color:#DF2A3F;"\>Web MVC的默认配置。\</font\>**
 
-**<font style="color:#DF2A3F;"></font>**
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>\</font\>**
 
 #### 关于`WebMvcConfigurer`接口
 这个接口不是SpringBoot框架提供的，是Spring MVC提供的，在Spring框架4.3版本中引入的。这个接口的作用主要是**允许开发者通过实现这个接口来定制Spring MVC的行为**。
@@ -4796,8 +4145,6 @@ public interface WebMvcConfigurer {
 }
 ```
 
-![](./images/image_1.png)
-
 #### `WebMvcConfigurer`接口的实现类`WebMvcAutoConfigurationAdapter`
 `WebMvcAutoConfigurationAdapter`是Spring Boot框架提供的，实现了Spring MVC中的`WebMvcConfigurer`接口，对Spring MVC的所有行为进行了默认的配置。
 
@@ -4813,14 +4160,8 @@ public interface WebMvcConfigurer {
 
 通过以上源码得知要改变SpringBoot对SpringMVC的默认配置，需要在配置文件中使用以下前缀的配置：
 
-+ spring.mvc：<font style="color:rgb(44, 44, 54);">主要用于配置 Spring MVC 的相关行为，例如路径匹配、视图解析、静态资源处理等</font>
++ spring.mvc：\<font style="color:rgb(44, 44, 54);"\>主要用于配置 Spring MVC 的相关行为，例如路径匹配、视图解析、静态资源处理等\</font\>
 + spring.web：通常用于配置一些通用的 Web 层设置，如资源处理、安全性配置等。
-
-
-
-![](./images/image_1.png)
-
-
 
 ## 自动配置中的静态资源处理
 web站点中的静态资源指的是：js、css、图片等。
@@ -4829,8 +4170,6 @@ web站点中的静态资源指的是：js、css、图片等。
 关于**SpringBoot对静态资源处理的默认配置**，查看`WebMvcAutoConfigurationAdapter`源码，核心源码如下：
 
 ![](./images/image_193.png)
-
-![](./images/image_1.png)
 
 对以上源码进行解释：
 
@@ -4870,30 +4209,20 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
 }
 ```
 
-
-
-![](./images/image_1.png)
-
 ### 关于WebJars静态资源处理
 默认规则是：当请求路径是`/webjars/**`，则会去`classpath:/META-INF/resources/webjars/`找。
 
-
-
 **WebJars介绍**
 
-<font style="color:rgb(44, 44, 54);">WebJars 是一种将常用的前端库（如 jQuery、Bootstrap、Font Awesome 等）打包成 JAR 文件的形式，方便在 Java 应用程序中使用。WebJars 提供了一种标准化的方式来管理前端库，使其更容易集成到 Java 项目中，并且可以利用 Maven 的依赖管理功能。</font>
+\<font style="color:rgb(44, 44, 54);"\>WebJars 是一种将常用的前端库（如 jQuery、Bootstrap、Font Awesome 等）打包成 JAR 文件的形式，方便在 Java 应用程序中使用。WebJars 提供了一种标准化的方式来管理前端库，使其更容易集成到 Java 项目中，并且可以利用 Maven 的依赖管理功能。\</font\>
 
-<font style="color:rgb(44, 44, 54);"></font>
+\<font style="color:rgb(44, 44, 54);"\>\</font\>
 
-**<font style="color:rgb(44, 44, 54);">WebJars在SpringBoot中的使用</font>**
+**\<font style="color:rgb(44, 44, 54);"\>WebJars在SpringBoot中的使用\</font\>**
 
-<font style="color:rgb(44, 44, 54);">WebJars官网：</font>[https://www.webjars.org/](https://www.webjars.org/)
+\<font style="color:rgb(44, 44, 54);"\>WebJars官网：\</font\>[https://www.webjars.org/](https://www.webjars.org/)
 
 ![](./images/image_194.png)
-
-
-
-![](./images/image_1.png)
 
 在官网上可以找到某个webjars的maven依赖，将依赖加入到SpringBoot项目中，例如我们添加vue的依赖：
 
@@ -4913,33 +4242,17 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 ![](./images/image_196.png)
 
-
-
-![](./images/image_1.png)
-
-
-
 在SpringBoot中，对WebJars的默认访问规则是：当请求路径是`/webjars/**`，则会去`classpath:/META-INF/resources/webjars/`找。
 
 因此我们要想访问上图的`index.js`，则应该发送这样的请求路径：`http://localhost:8080/webjars/vue/3.5.12/index.js`
-
-
 
 启动服务器，打开浏览器，访问，测试结果如下：
 
 ![](./images/image_197.png)
 
-
-
-![](./images/image_1.png)
-
 和IDEA中的文件对比一下，完全一样则表示测试成功：
 
 ![](./images/image_198.png)
-
-
-
-![](./images/image_1.png)
 
 ### 关于普通静态资源处理
 SpringBoot对普通静态资源处理的规则是：
@@ -4957,30 +4270,20 @@ SpringBoot对普通静态资源处理的规则是：
 
 ![](./images/image_200.png)
 
-![](./images/image_1.png)
-
 然后启动服务器，打开浏览器，访问，测试是否可以正常访问图片：
 
 ![](./images/image_201.png)
-
-![](./images/image_1.png)
 
 ![](./images/image_202.png)
 
 ![](./images/image_203.png)
 
-![](./images/image_1.png)
-
 ![](./images/image_204.png)
-
-![](./images/image_1.png)
 
 ### 关于静态资源缓存处理
 不管是webjars的静态资源还是普通静态资源，统一都会执行以下这个方法，这个方法最后几行代码就是关于静态资源的缓存处理方式。
 
 ![](./images/image_205.png)
-
-![](./images/image_1.png)
 
 **什么是静态资源缓存，谁缓存，有什么用？**
 
@@ -4988,37 +4291,31 @@ SpringBoot对普通静态资源处理的规则是：
 
 ![](./images/image_206.png)
 
-
-
 以上三行代码的解释如下：
 
 + registration.setCachePeriod(getSeconds(this.resourceProperties.getCache().getPeriod()));
     - 设置缓存的过期时间（如果没有指定单位，默认单位是秒）
     - 浏览器会**根据响应头中的缓存控制信息**决定是否从本地缓存中加载资源，而不是每次都从服务器重新请求。这有助于减少网络流量和提高页面加载速度。
     - 假设你配置了静态资源缓存过期时间为 1 小时（3600 秒），那么浏览器在首次请求某个静态资源后，会在接下来的一小时内从本地缓存加载该资源，而不是重新请求服务器。
-    - 可以通过`application.properties`的来修改默认的过期时间，例如：`<font style="color:rgb(51, 51, 51);">spring.web.resources.cache.period=3600</font>`<font style="color:rgb(51, 51, 51);">或者</font>`<font style="color:rgb(51, 51, 51);">spring.web.resources.cache.period=1h</font>`
+    - 可以通过`application.properties`的来修改默认的过期时间，例如：`<font style="color:rgb(51, 51, 51);">spring.web.resources.cache.period=3600</font>`\<font style="color:rgb(51, 51, 51);"\>或者\</font\>`<font style="color:rgb(51, 51, 51);">spring.web.resources.cache.period=1h</font>`
 + registration.setCacheControl(this.resourceProperties.getCache().getCachecontrol().toHttpCacheControl());
     - 设置静态资源的 Cache-Control HTTP 响应头，告诉浏览器如何去缓存这些资源。
-    - `<font style="color:rgb(44, 44, 54);">Cache-Control</font>`<font style="color:rgb(44, 44, 54);"> HTTP 响应头   是HTTP响应协议的一部分内容。如下图响应协议的响应头信息中即可看到</font>`<font style="color:rgb(44, 44, 54);">Cache-Control</font>`<font style="color:rgb(44, 44, 54);">的字样：</font>
+    - `<font style="color:rgb(44, 44, 54);">Cache-Control</font>`\<font style="color:rgb(44, 44, 54);"\> HTTP 响应头   是HTTP响应协议的一部分内容。如下图响应协议的响应头信息中即可看到\</font\>`<font style="color:rgb(44, 44, 54);">Cache-Control</font>`\<font style="color:rgb(44, 44, 54);"\>的字样：\</font\>
 
 ![](./images/image_207.png)
 
-    - <font style="color:rgb(44, 44, 54);">常见的 Cache-Control 指令包括：</font>
-        * <font style="color:rgb(44, 44, 54);">max-age=<seconds>：表示响应在多少秒内有效。</font>
-        * <font style="color:rgb(44, 44, 54);">public：表示响应可以被任何缓存机制（如代理服务器）缓存。</font>
-        * <font style="color:rgb(44, 44, 54);">private：表示响应只能被用户的浏览器缓存。</font>
-        * <font style="color:rgb(44, 44, 54);">no-cache：表示在使用缓存的资源之前必须重新发送一次请求进行验证。</font>
-        * <font style="color:rgb(44, 44, 54);">no-store：表示不缓存任何响应的资源。</font>
+    - \<font style="color:rgb(44, 44, 54);"\>常见的 Cache-Control 指令包括：\</font\>
+        * \<font style="color:rgb(44, 44, 54);"\>max-age=\<seconds\>：表示响应在多少秒内有效。\</font\>
+        * \<font style="color:rgb(44, 44, 54);"\>public：表示响应可以被任何缓存机制（如代理服务器）缓存。\</font\>
+        * \<font style="color:rgb(44, 44, 54);"\>private：表示响应只能被用户的浏览器缓存。\</font\>
+        * \<font style="color:rgb(44, 44, 54);"\>no-cache：表示在使用缓存的资源之前必须重新发送一次请求进行验证。\</font\>
+        * \<font style="color:rgb(44, 44, 54);"\>no-store：表示不缓存任何响应的资源。\</font\>
     - 例如：max-age=3600, public：表示响应在 3600 秒内有效，并且可以被任何缓存机制缓存。
     - 可以通过`spring.web.resources.cache.cachecontrol.max-age=3600`以及`spring.web.resources.cache.cachecontrol.cache-public=true`进行重新配置。
 + registration.setUseLastModified(this.resourceProperties.getCache().isUseLastModified());
     - 设置静态资源在响应时，是否在响应头中添加资源的最后一次修改时间。SpringBoot默认配置的是：在响应头中添加响应资源的最后一次修改时间。
     - 浏览器发送请求时，会将缓存中的资源的最后修改时间和服务器端资源的最后一次修改时间进行比对，如果没有变化，仍然从缓存中获取。
     - 可以通过`spring.web.resources.cache.use-last-modified=false`来进行重新配置。
-
-
-
-![](./images/image_1.png)
 
 ### 静态资源缓存测试
 根据之前源码分析，得知`静态资源缓存`相关的配置应该使用`spring.web.resources.cache`：
@@ -5027,17 +4324,9 @@ SpringBoot对普通静态资源处理的规则是：
 
 ![](./images/image_209.png)
 
-![](./images/image_1.png)
-
 ![](./images/image_210.png)
 
 ![](./images/image_211.png)
-
-
-
-![](./images/image_1.png)
-
-
 
 在`application.properties`文件中对缓存进行如下的配置：
 
@@ -5053,17 +4342,9 @@ spring.web.resources.cache.use-last-modified=true
 spring.web.resources.add-mappings=true
 ```
 
-
-
 注意：`cachecontrol.max-age`配置的话，`period`会被覆盖。
 
 ![](./images/image_212.png)
-
-
-
-![](./images/image_1.png)
-
-
 
 启动服务器测试：看看是否在20秒内走缓存，20秒之后是不是就不走缓存了！！！
 
@@ -5075,17 +4356,11 @@ spring.web.resources.add-mappings=true
 
 ![](./images/image_214.png)
 
-![](./images/image_1.png)
-
 第三次访问：20秒后开启一个新的浏览器窗口，再次访问，发现重新请求服务器
 
 ![](./images/image_215.png)
 
 提示，为什么显示`304`，这是因为这个配置：`spring.web.resources.cache.use-last-modified=true`
-
-
-
-![](./images/image_1.png)
 
 ### web应用的欢迎页面
 #### 欢迎页测试
@@ -5098,10 +4373,6 @@ spring.web.resources.add-mappings=true
 测试一下，在`classpath:/static/`目录下新建`index.html`页面：
 
 ![](./images/image_216.png)
-
-
-
-![](./images/image_1.png)
 
 启动服务器，测试结果如下：
 
@@ -5119,10 +4390,6 @@ spring.web.resources.add-mappings=true
 
 ![](./images/image_220.png)
 
-
-
-![](./images/image_1.png)
-
 #### 欢迎页源码分析
 在`WebMvcAutoConfiguration`类中有一个内部类`EnableWebMvcConfiguration`，这个类中有这样一段代码：
 
@@ -5136,18 +4403,12 @@ spring.web.resources.add-mappings=true
 
 通过以上源码追踪，得出结论：只要请求路径是`/**`的，会依次去`{ "classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/" }`这四个位置找`index.html`页面作为欢迎页。
 
-
-
-![](./images/image_1.png)
-
 #### 一个小小的疑惑
 我们来看一下`WebMvcAutoConfiguration`的生效条件：
 
 ![](./images/image_225.png)
 
 上图红框内表示，要求Spring容器中缺失`WebMvcConfigurationSupport`这个Bean，`WebMvcAutoConfiguration`才会生效。
-
-![](./images/image_1.png)
 
 但是我们来看一下`EnableWebMvcConfiguration`的继承结构：
 
@@ -5159,13 +4420,11 @@ spring.web.resources.add-mappings=true
 
 原因是因为：`EnableWebMvcConfiguration`是`WebMvcAutoConfiguration`类的内部类。在`WebMvcAutoConfiguration`进行加载的时候，`EnableWebMvcConfiguration`这个内部类还没有加载。因此这个时候在容器中还不存在`WebMvcConfigurationSupport`的Bean，所以`WebMvcAutoConfiguration`仍然会生效。
 
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>以上所说的\</font\>**`**<font style="color:#DF2A3F;">WebMvcAutoConfiguration</font>**`**\<font style="color:#DF2A3F;"\>类中的内部类\</font\>**`**<font style="color:#DF2A3F;">EnableWebMvcConfiguration</font>**`**\<font style="color:#DF2A3F;"\>，是用来启用Web MVC默认配置的。\</font\>**
 
-**<font style="color:#DF2A3F;">以上所说的</font>**`**<font style="color:#DF2A3F;">WebMvcAutoConfiguration</font>**`**<font style="color:#DF2A3F;">类中的内部类</font>**`**<font style="color:#DF2A3F;">EnableWebMvcConfiguration</font>**`**<font style="color:#DF2A3F;">，是用来启用Web MVC默认配置的。</font>**
+**\<font style="color:#DF2A3F;"\>\</font\>**
 
-**<font style="color:#DF2A3F;"></font>**
-
-**<font style="color:#DF2A3F;">注意区分：WebMvcAutoConfiguration的两个内部类：</font>**
+**\<font style="color:#DF2A3F;"\>注意区分：WebMvcAutoConfiguration的两个内部类：\</font\>**
 
 + `WebMvcAutoConfigurationAdapter`作用是用来：修改配置的
 + `EnableWebMvcConfiguration`作用是用来：启用配置的
@@ -5175,8 +4434,6 @@ favicon（也称为“收藏夹图标”或“网站图标”）是大多数现�
 
 如果网站没有提供 favicon.ico 文件，浏览器可能会显示一个默认图标，或者根本不显示任何图标。为了确保良好的用户体验，网站开发者通常会在网站的根目录下放置一个 favicon.ico 文件。
 
-![](./images/image_1.png)
-
 Spring Boot项目中`favicon.ico`文件应该放在哪里呢？Spring Boot官方是这样说明的：
 
 ![](./images/image_227.png)
@@ -5185,17 +4442,11 @@ Spring Boot项目中`favicon.ico`文件应该放在哪里呢？Spring Boot官方
 
 与其他静态资源一样，Spring Boot 会在配置的静态内容位置检查是否存在 `favicon.ico`文件。如果存在这样的文件，它将自动作为应用程序的 favicon 使用。
 
-![](./images/image_1.png)
-
 以上官方说明的：将`favicon.ico`文件放到静态资源路径下即可。
-
-
 
 web站点没有提供`favicon.ico`时：
 
 ![](./images/image_228.png)
-
-
 
 我们在[https://www.iconfont.cn/](https://www.iconfont.cn/) （阿里巴巴提供的图标库）上随便找一个图标，然后将图片名字命名为`favicon.ico`，然后将其放到SpringBoot项目的静态资源路径下：
 
@@ -5204,10 +4455,6 @@ web站点没有提供`favicon.ico`时：
 启动服务器测试：记住（ctrl + F5强行刷新一下，避免影响测试效果）
 
 ![](./images/image_230.png)
-
-
-
-![](./images/image_1.png)
 
 # SpringBoot的web手动配置(静态资源处理)
 如果你对SpringBoot默认的静态资源处理方式不满意。可以通过两种方式来改变这些默认的配置：
@@ -5224,8 +4471,6 @@ web站点没有提供`favicon.ico`时：
 
 + 第二种：编写代码方式
     - SpringMVC框架为我们提供了`WebMvcConfigurer`接口，需要改变默认的行为，可以`编写一个类`实现`WebMvcConfigurer`接口，并`对应重写`接口中的方法即可改变默认的配置行为。
-
-![](./images/image_1.png)
 
 ## 配置文件方式
 要修改`访问静态资源URL的前缀`，这样配置：
@@ -5250,45 +4495,27 @@ spring.web.resources.static-locations=classpath:/static1/,classpath:/static2/
 2. 访问普通静态资源的请求路径应该是这样的：http://localhost:8080/static/....
 3. 普通静态资源的存放位置也应该放到`classpath:/static1/,classpath:/static2/`下面，其他位置无效。
 
-![](./images/image_1.png)
-
 **访问webjars测试结果如下：**
 
 ![](./images/image_234.png)
-
-
 
 **访问普通静态资源测试结果如下：**
 
 ![](./images/image_235.png)
 
-
-
-![](./images/image_1.png)
-
 ![](./images/image_236.png)
 
 ![](./images/image_237.png)
 
-
-
-![](./images/image_1.png)
-
 如果访问`dog2.jpg`，就无法访问了：
 
 ![](./images/image_238.png)
-
-
 
 但是，存储在`classpath:/META-INF/resources/`目录下的`dog1.jpg`仍然是可以访问的：
 
 ![](./images/image_239.png)
 
 因此，存储在`classpath:/META-INF/resources/`位置的静态资源会被默认加载，不受手动配置的影响。
-
-
-
-![](./images/image_1.png)
 
 ## 编写代码方式
 我们在前面提到过，想要定制Spring MVC的行为，也可以编写类实现Spring MVC框架提供的一个接口`WebMvcConfigurer`，想定制哪个行为就重写哪个方法即可。
@@ -5323,10 +4550,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 ![](./images/image_240.png)
 
-
-
-![](./images/image_1.png)
-
 启动服务器进行测试：
 
 ![](./images/image_241.png)
@@ -5339,15 +4562,11 @@ public class WebConfig implements WebMvcConfigurer {
 
 ![](./images/image_243.png)
 
-
-
-![](./images/image_1.png)
-
 我们可以看到，Spring Boot对Spring MVC的默认自动配置是生效的。
 
-**<font style="color:#DF2A3F;">因此，以上的方式只是在Spring MVC默认行为之外扩展行为。</font>**
+**\<font style="color:#DF2A3F;"\>因此，以上的方式只是在Spring MVC默认行为之外扩展行为。\</font\>**
 
-**<font style="color:#DF2A3F;"></font>**
+**\<font style="color:#DF2A3F;"\>\</font\>**
 
 如果你不想再继续使用SpringBoot提供的默认行为，可以使用`@EnableWebMvc`进行标注。例如：
 
@@ -5378,17 +4597,11 @@ public class WebConfig implements WebMvcConfigurer {
 
 可以看到，默认配置已经不再生效。
 
-
-
 再来看看，我们自己的配置是否仍然生效：
 
 ![](./images/image_245.png)
 
 仍然生效。
-
-
-
-![](./images/image_1.png)
 
 ### 第二种方式
 采用`@Bean`注解提供一个`WebMvcConfigurer`组件，代码如下：
@@ -5418,10 +4631,6 @@ public class WebConfig2 {
 
 ```
 
-![](./images/image_1.png)
-
-
-
 测试结果如下：
 
 ![](./images/image_246.png)
@@ -5432,13 +4641,7 @@ public class WebConfig2 {
 
 通过了测试，并且以上代码也是在原有配置基础上进行扩展。
 
-
-
 如果要弃用默认配置，仍然使用	`@EnableWebMvc`注解进行标注。自行测试！
-
-
-
-![](./images/image_1.png)
 
 ### 其他配置也这样做即可
 以上对`静态资源处理`进行了手动配置，也可以做其他配置，例如拦截器：
@@ -5506,22 +4709,14 @@ public class WebConfig2 {
 
 这说明拦截器生效。
 
-
-
-![](./images/image_1.png)
-
 ### 为什么只要容器中有`WebMvcConfigurer`组件即可呢
 源码分析：
-
-
 
 `WebMvcAutoConfiguration`部分源码：
 
 ![](./images/image_250.png)
 
 `WebMvcAutoConfiguration`类的内部类`EnableWebMvcConfiguration`，这个类继承了`DelegatingWebMvcConfiguration`（Delegating是委派的意思。）
-
-![](./images/image_1.png)
 
 `DelegatingWebMvcConfiguration`部分源码：
 
@@ -5532,8 +4727,6 @@ public class WebConfig2 {
 我们再次进入到`this.configurers.addWebMvcConfigurers(configurers);`方法中进一步查看源码：
 
 ![](./images/image_252.png)
-
-![](./images/image_1.png)
 
 对于`WebMvcConfigurerComposite`类的代码来说，它是一个非常典型的`**<font style="color:#DF2A3F;">组合模式</font>**`。
 
@@ -5552,11 +4745,9 @@ public class WebConfig2 {
 
 在`Spring Boot3`中，对web请求的路径匹配提供了两种规则：
 
-+ 第一种：AntPathMatcher（Ant风格）【**<font style="color:#DF2A3F;">较旧</font>**】
-+ 第二种：PathPatternParser（从Spring5.3中引入的。在SpringBoot2.4中引入的。）【**<font style="color:#DF2A3F;">较新：效率高</font>**】
-    - **<font style="color:#DF2A3F;">效率比Ant高，一般新项目中使用</font>**`**<font style="color:#DF2A3F;">PathPatternParser</font>**`
-
-![](./images/image_1.png)
++ 第一种：AntPathMatcher（Ant风格）【**\<font style="color:#DF2A3F;"\>较旧\</font\>**】
++ 第二种：PathPatternParser（从Spring5.3中引入的。在SpringBoot2.4中引入的。）【**\<font style="color:#DF2A3F;"\>较新：效率高\</font\>**】
+    - **\<font style="color:#DF2A3F;"\>效率比Ant高，一般新项目中使用\</font\>**`**<font style="color:#DF2A3F;">PathPatternParser</font>**`
 
 SpringBoot3中默认使用的是`PathPatternParser`，不需要任何配置。如果要使用`AntPathMatcher`，就需要进行如下的配置：
 
@@ -5567,17 +4758,15 @@ spring.mvc.pathmatch.matching-strategy=ant_path_matcher
 ## AntPathMatcher
 Ant风格的路径匹配规则回顾：
 
-**<font style="color:#DF2A3F;">*</font>**	匹配任意长度的任意字符序列（不包括路径分隔符）。示例：/foo/*.html 匹配 /foo/bar.html 和 /foo/baz.html。
+**\<font style="color:#DF2A3F;"\>*\</font\>**	匹配任意长度的任意字符序列（不包括路径分隔符）。示例：/foo/*.html 匹配 /foo/bar.html 和 /foo/baz.html。
 
-**<font style="color:#DF2A3F;">**</font>**	匹配任意数量的目录层级。示例：/foo/** 匹配 /foo/bar、/foo/bar/baz 和 /foo/bar/baz/qux。
+**\<font style="color:#DF2A3F;"\>**\</font\>**	匹配任意数量的目录层级。示例：/foo/** 匹配 /foo/bar、/foo/bar/baz 和 /foo/bar/baz/qux。
 
-**<font style="color:#DF2A3F;">?</font>****	**匹配**任意单个字符**。示例：/foo?bar 匹配 /foobar 和 /fooxbar。
+**\<font style="color:#DF2A3F;"\>?\</font\>****	**匹配**任意单个字符**。示例：/foo?bar 匹配 /foobar 和 /fooxbar。
 
-**<font style="color:#DF2A3F;">[]</font>****	**匹配指定范围内的单个字符。示例：/foo[a-z]bar 匹配 /fooabar、/foobbar 等。
+**\<font style="color:#DF2A3F;"\>[]\</font\>****	**匹配指定范围内的单个字符。示例：/foo[a-z]bar 匹配 /fooabar、/foobbar 等。
 
-**<font style="color:#DF2A3F;">{}</font>****	**路径变量，用于提取路径的一部分作为参数。示例：/users/{userId} 匹配 /users/123，提取 userId=123。
-
-![](./images/image_1.png)
+**\<font style="color:#DF2A3F;"\>{}\</font\>****	**路径变量，用于提取路径的一部分作为参数。示例：/users/{userId} 匹配 /users/123，提取 userId=123。
 
 如果在SpringBoot3中启用Ant风格，记得配置：
 
@@ -5609,8 +4798,6 @@ public class PathController {
 
 ![](./images/image_253.png)
 
-![](./images/image_1.png)
-
 ## PathPatternParser
 项目中不做配置，或者按照以下方式配置，都是`PathPatternParser`：
 
@@ -5619,8 +4806,6 @@ spring.mvc.pathmatch.matching-strategy=path_pattern_parser
 ```
 
 `PathPatternParser`风格是兼容Ant风格的。只有一个地方`PathPatternParser`不支持，Ant支持。在Ant风格中，`**`可以出现在任意位置。在`PathPatternParser`中只允许`**`出现在路径的末尾。
-
-![](./images/image_1.png)
 
 可以测试一下，将配置文件中的Ant风格注释掉，采用`PathPatternParser`风格。然后控制器代码如下：
 
@@ -5648,8 +4833,6 @@ public class PathController {
 
 提示你，如果在路径当中出现了`**`，需要将路径匹配规则替换为Ant风格。因此路径当中如果出现`**`，那么必须使用Ant风格。除此之外，`PathPatternParser`均可用。
 
-![](./images/image_1.png)
-
 我们再来测试一下，`**`放到末尾，对于`PathPatternParser`是否可用？
 
 ```java
@@ -5663,14 +4846,10 @@ public String path(HttpServletRequest request, @PathVariable String path){
 
 ![](./images/image_255.png)
 
-![](./images/image_1.png)
-
 ## 路径匹配相关源码
 底层选择路径匹配规则的源码是：
 
 ![](./images/image_256.png)
-
-![](./images/image_1.png)
 
 # 内容协商
 内容协商机制是Spring MVC框架提供的，接下来主要是学习在SpringBoot中是如何支持SpringMVC内容协商机制的。
@@ -5694,8 +4873,6 @@ public String path(HttpServletRequest request, @PathVariable String path){
 
 因此，在现代的开发中，不同的客户端可能需要后端系统返回不同格式的数据。总之后端应该满足这种多样化的需求。
 
-![](./images/image_1.png)
-
 ## 实现内容协商的两种方式
 通常通过HTTP请求头（如 Accept）或请求参数（如 format）来指定客户端偏好接收的内容类型（如JSON、XML等）。服务器会根据这些信息选择最合适的格式进行响应。
 
@@ -5703,8 +4880,6 @@ public String path(HttpServletRequest request, @PathVariable String path){
 SpringBoot框架中，在程序员不做任何配置的情况下，优先考虑的是这种方式。
 
 服务器会根据客户端发送请求时提交的请求头中的"Accept: application/json" 或 "Accept: application/xml" 或 "Accept: text/html"来决定响应什么格式的数据。
-
-
 
 客户端发送请求给服务器的时候，如何设置请求头的`Accept`？有以下几种常见实现方式：
 
@@ -5716,8 +4891,6 @@ SpringBoot框架中，在程序员不做任何配置的情况下，优先考虑�
 + 用工具
     - 接口测试工具，例如：Postman、Apifox等。
     - 命令行工具：curl
-
-![](./images/image_1.png)
 
 对于我们编写的以下Controller来说：
 
@@ -5774,8 +4947,6 @@ public class User {
 }
 ```
 
-![](./images/image_1.png)
-
 接下来，我们使用`curl`命令行工具，来模拟发送请求，并在请求头中设置`Accept`：
 
 ![](./images/image_257.png)
@@ -5785,14 +4956,12 @@ public class User {
 + `Accept: application/xml`则返回XML格式的数据
 + `Accept: application/json`则返回JSON格式的数据
 
-### <font style="color:rgb(44, 44, 54);">通过请求参数（如 </font>`<font style="color:rgb(44, 44, 54);">format</font>`<font style="color:rgb(44, 44, 54);">）</font>
+### \<font style="color:rgb(44, 44, 54);"\>通过请求参数（如 \</font\>`<font style="color:rgb(44, 44, 54);">format</font>`\<font style="color:rgb(44, 44, 54);"\>）\</font\>
 接下来我们使用请求参数的方式，来测试一下服务器的响应，注意：默认的请求参数名为`format`。
 
 我们仍然使用`curl`命令行工具进行测试：
 
 ![](./images/image_258.png)
-
-![](./images/image_1.png)
 
 我们可以看到，并没有达到我们想要的效果，这是因为`SpringBoot优先考虑的不是通过请求参数format方式`。如何优先考虑使用`format`方式呢？做如下配置：
 
@@ -5807,8 +4976,6 @@ spring.mvc.contentnegotiation.favor-parameter=true
 
 可以看到，现在SpringBoot已经优先考虑使用`请求参数format`方式了。
 
-
-
 当然，请求参数的名字可以不使用`format`吗？支持定制化吗？答案是支持的，例如你希望请求参数的名字为`type`，可以做如下配置：
 
 ```properties
@@ -5819,8 +4986,6 @@ spring.mvc.contentnegotiation.parameter-name=type
 再次使用`curl`工具进行测试：
 
 ![](./images/image_260.png)
-
-![](./images/image_1.png)
 
 ## HttpMessageConverter接口
 ### HttpMessageConverter的理解
@@ -5834,23 +4999,15 @@ spring.mvc.contentnegotiation.parameter-name=type
 
 在Spring MVC中提供了很多`HttpMessageConverter`接口的实现类，不同的`Http消息转换器`具有不同的转换效果，有的负责将Java对象转换为JSON格式的字符串，有的负责将Java对象转换成XML格式的字符串。
 
-
-
-![](./images/image_1.png)
-
 ### 常见的HttpMessageConverter
 内置的常见的`HttpMessageConverter`的实现类包括：
 
-+ <font style="color:#DF2A3F;">【请求】提交的表单（form）数据转换成Java对象的主要任务是由 FormHttpMessageConverter 消息转换器完成的</font>
-+ <font style="color:#DF2A3F;">【请求】提交的JSON数据转换成Java对象的主要任务是由 MappingJackson2HttpMessageConverter 消息转换器完成的。（我们通常使用的</font>`<font style="color:#DF2A3F;">@RequestBody</font>`<font style="color:#DF2A3F;">注解）</font>
++ \<font style="color:#DF2A3F;"\>【请求】提交的表单（form）数据转换成Java对象的主要任务是由 FormHttpMessageConverter 消息转换器完成的\</font\>
++ \<font style="color:#DF2A3F;"\>【请求】提交的JSON数据转换成Java对象的主要任务是由 MappingJackson2HttpMessageConverter 消息转换器完成的。（我们通常使用的\</font\>`<font style="color:#DF2A3F;">@RequestBody</font>`\<font style="color:#DF2A3F;"\>注解）\</font\>
 + 【响应】将Java对象转换成JSON格式的数据，并将其写入HTTP响应体的任务是由 MappingJackson2HttpMessageConverter 消息转换器完成。（我们通常使用的`@ResponseBody`注解)
 + 【响应】将Java对象转换成XML格式的数据，并将其写入HTTP响应体的任务通常由 Jaxb2RootElementHttpMessageConverter 消息转换器完成。
 + 【响应】将 String 直接写入到响应体的任务是由 StringHttpMessageConverter 消息转换器完成。
 + ......
-
-
-
-![](./images/image_1.png)
 
 ### 请求时通过哪些条件确定使用哪个转换器
 请求时通常根据以下条件来确定使用哪个消息转换器：
@@ -5862,10 +5019,6 @@ Spring MVC 会检查请求的 Content-Type 字段，以确定请求体的数据�
 2. 方法参数类型：
 
 控制器方法中接收请求体的参数类型（例如 @RequestBody）。
-
-
-
-![](./images/image_1.png)
 
 ### 响应时通过哪些条件确定使用哪个转换器
 响应时通常根据以下条件来确定使用哪个消息转换器：
@@ -5882,10 +5035,6 @@ Spring MVC 会检查客户端请求的 Accept 字段，以确定客户端期望�
 
 例如2：@ResponseBody + 控制器方法的返回值是User，则使用MappingJackson2HttpMessageConverter转换器。（将java对象转换成json格式的字符串写入到响应体）
 
-
-
-![](./images/image_1.png)
-
 ### 系统默认提供了哪些HttpMessageConverter
 查看源码：
 
@@ -5897,15 +5046,11 @@ WebMvcAutoConfiguration.EnableWebMvcConfiguration extends DelegatingWebMvcConfig
 
 `DelegatingWebMvcConfiguration`继承了`WebMvcConfigurationSupport`
 
-
-
 在`WebMvcConfigurationSupport`类中有这样一个方法：`addDefaultHttpMessageConverters()` 用来添加默认的`HttpMessageConverter`对象。
 
 通过断点调试，可以发现默认支持6个HttpMessageConverter，如下：
 
 ![](./images/image_261.png)
-
-![](./images/image_1.png)
 
 这6个`HttpMessageConverter`作用如下：
 
@@ -5933,8 +5078,6 @@ WebMvcAutoConfiguration.EnableWebMvcConfiguration extends DelegatingWebMvcConfig
 
 使用Jackson库来序列化和反序列化JSON数据。可以将Java对象转换为JSON格式的字符串，反之亦然。
 
-![](./images/image_1.png)
-
 另外，通过以下源码，也可以看到SpringBoot是根据类路径中是否存在某个类，而决定是否添加对应的消息转换器的：
 
 ![](./images/image_262.png)
@@ -5942,8 +5085,6 @@ WebMvcAutoConfiguration.EnableWebMvcConfiguration extends DelegatingWebMvcConfig
 ![](./images/image_263.png)
 
 因此，我们只要引入相关的依赖，让类路径存在某个类，则对应的消息转换器就会被加载。
-
-![](./images/image_1.png)
 
 ## 定义自己的HttpMessageConverter
 可以看到以上6个消息转换器中没有yaml相关的消息转换器，可见，如果要实现yaml格式的内容协商，yaml格式的消息转换器就需要我们自定义了。
@@ -5957,8 +5098,6 @@ WebMvcAutoConfiguration.EnableWebMvcConfiguration extends DelegatingWebMvcConfig
   <artifactId>jackson-dataformat-yaml</artifactId>
 </dependency>
 ```
-
-![](./images/image_1.png)
 
 编写测试程序，简单测试一下这个库的用法：
 
@@ -5989,8 +5128,6 @@ public class Jackson2YamlTest {
 执行结果如下：
 
 ![](./images/image_264.png)
-
-![](./images/image_1.png)
 
 ### 第二步：新增一种媒体类型yaml
 默认支持xml和json两种媒体类型，要支持yaml格式的，需要新增一个yaml媒体类型，在springboot的配置文件中进行如下配置：
@@ -6051,8 +5188,6 @@ public class YamlHttpMessageConverter extends AbstractHttpMessageConverter<Objec
 }
 ```
 
-![](./images/image_1.png)
-
 ### 第四步：配置消息转换器
 重写`WebMvcConfigurer`接口的`configureMessageConverters`方法：
 
@@ -6078,27 +5213,19 @@ public class WebConfig implements WebMvcConfigurer {
 
 ![](./images/image_265.png)
 
-![](./images/image_1.png)
-
 # SpringBoot整合Thymeleaf
 ## 传统web应用和前后端分离
 如果你是做前后端分离的项目，这一章节的内容将用不上。
 
 现代开发大部分应用都会采用前后端分离的方式进行开发，前端是一个独立的系统，后端也是一个独立的系统，后端系统只给前端系统提供数据（JSON数据），不需要后端解析模板页面，前端系统拿到后端提供的数据之后，前端负责填充数据即可。因此这一章节内容作为了解。
 
-
-
 传统的WEB应用（非前后端分离）：浏览器页面上展示成什么效果，后端服务器说了算，这是传统web应用最大的特点。
 
 ![](./images/image_266.png)
 
-![](./images/image_1.png)
-
 前后端分离的应用：前端是一个独立的系统，后端也是一个独立的系统，后端系统不再负责页面的渲染，后端系统只负责给前端系统提供开放的API接口，后端系统只负责数据的收集，然后将数据以JSON/XML等格式响应给前端系统。前端系统拿到接口返回的数据后，将数据填充到页面上。
 
 ![](./images/image_267.png)
-
-![](./images/image_1.png)
 
 前后端分离的好处：
 
@@ -6110,14 +5237,12 @@ public class WebConfig implements WebMvcConfigurer {
 + 性能优化：前后端可以独立优化，提升整体性能。
 + 易于测试：前后端接口明确，便于单元测试和集成测试。
 
-
-
 ## SpringBoot整合Thymeleaf
 Java的模板技术有很多，SpringBoot支持以下的模板技术：
 
 1. **Thymeleaf**：
     - **特点**：Thymeleaf 是一个现代的服务器端Java模板引擎，它支持HTML5，XML，TEXT，JAVASCRIPT，CSS等多种模板类型。它能够在浏览器中预览，这使得前端开发更加便捷。Thymeleaf 提供了一套强大的表达式语言，可以轻松地处理数据绑定、条件判断、循环等。
-    - **优势**：**<font style="color:#DF2A3F;">与Spring框架集成良好，也是SpringBoot官方推荐的</font>**。
+    - **优势**：**\<font style="color:#DF2A3F;"\>与Spring框架集成良好，也是SpringBoot官方推荐的\</font\>**。
 2. **FreeMarker**：
     - **特点**：FreeMarker 是一个用Java编写的模板引擎，主要用来生成文本输出，如HTML网页、邮件、配置文件等。它不依赖于Servlet容器，可以在任何环境中运行。
     - **优势**：模板语法丰富，灵活性高，支持宏和函数定义，非常适合需要大量定制化的项目。
@@ -6133,15 +5258,7 @@ Java的模板技术有很多，SpringBoot支持以下的模板技术：
 
 这些模板技术各有千秋，选择哪一种取决于项目的具体需求和个人偏好。Spring Boot 对这些模板引擎都提供了良好的支持，通常只需要在项目中添加相应的依赖，然后按照官方文档配置即可开始使用。
 
-
-
-![](./images/image_1.png)
-
-
-
-<font style="color:#DF2A3F;">提醒：SpringBoot内嵌了Servlet容器（例如：Tomcat、Jetty等），使用SpringBoot不太适合使用JSP模板技术，因为SpringBoot项目最终打成jar包之后，放在jar包中的jsp文件不能被Servlet容器解析。</font>
-
-
+\<font style="color:#DF2A3F;"\>提醒：SpringBoot内嵌了Servlet容器（例如：Tomcat、Jetty等），使用SpringBoot不太适合使用JSP模板技术，因为SpringBoot项目最终打成jar包之后，放在jar包中的jsp文件不能被Servlet容器解析。\</font\>
 
 要在SpringBoot中整合Thymeleaf，按照以下步骤操作：
 
@@ -6154,7 +5271,7 @@ Java的模板技术有很多，SpringBoot支持以下的模板技术：
 </dependency>
 ```
 
-第二步：编写配置文件，指定前缀和后缀（**<font style="color:#DF2A3F;">默认不配置就是以下配置</font>**）
+第二步：编写配置文件，指定前缀和后缀（**\<font style="color:#DF2A3F;"\>默认不配置就是以下配置\</font\>**）
 
 ```properties
 spring.thymeleaf.prefix=classpath:/templates/
@@ -6185,8 +5302,6 @@ public class HelloController {
 }
 ```
 
-![](./images/image_1.png)
-
 第四步：编写thymeleaf模板页面
 
 ```html
@@ -6206,8 +5321,6 @@ public class HelloController {
 
 ![](./images/image_268.png)
 
-![](./images/image_1.png)
-
 ## Thymeleaf的自动配置
 Thymeleaf的自动配置类：`ThymeleafAutoConfiguration`
 
@@ -6223,13 +5336,9 @@ Thymeleaf的自动配置类：`ThymeleafAutoConfiguration`
 
 也就是说，默认情况下，只要放在`classpath:/templates/`目录下的`xxx.html`会被自动当做为thymeleaf的模板文件被thymeleaf模板引擎解析。因此放在`classpath:/templates/`目录下的`html`文件不是静态页面，而是动态的thymeleaf模板页面。
 
-
-
-![](./images/image_1.png)
-
 ## Thymeleaf核心语法
 ### th:text 替换标签体内容
-注意：在根标签<html>中引入 xmlns:th="[http://www.thymeleaf.org"](http://www.thymeleaf.org")，在编写`th:`语法时有智能提示。
+注意：在根标签\<html\>中引入 xmlns:th="[http://www.thymeleaf.org"](http://www.thymeleaf.org")，在编写`th:`语法时有智能提示。
 
 `th:text`用来替换标签体内容的，例如：
 
@@ -6241,12 +5350,6 @@ th:text 语法：替换标签体中的内容
 运行效果：
 
 ![](./images/image_272.png)
-
-
-
-![](./images/image_1.png)
-
-
 
 提示：标签体中的内容即使是一段HTML代码，也只是会被当做普通文本对待。例如我们让存储在域中的文本内容是一段HTML代码：
 
@@ -6274,10 +5377,6 @@ th:utext 语法：替换标签体中的内容
 
 ![](./images/image_274.png)
 
-
-
-![](./images/image_1.png)
-
 ### th:任意属性名 动态替换该属性的值
 例如：我们向域中存储以下数据
 
@@ -6297,10 +5396,6 @@ th:任意属性名 语法：动态替换属性值
 测试结果：
 
 ![](./images/image_275.png)
-
-
-
-![](./images/image_1.png)
 
 ### th:attr 属性合并设置
 + 分开设置：
@@ -6329,8 +5424,6 @@ model.addAttribute("style", "color:red");
 <a th:attr="href=${hrefValue},style=${style}">动力节点</a>
 ```
 
-![](./images/image_1.png)
-
 ### th:指令
 指令非常多，具有代表性的例如：`th:if`，该指令用来控制元素`隐藏`和`显示`。
 
@@ -6350,16 +5443,10 @@ model.addAttribute("style", "color:red");
 
 如果`th:if`的值修改为`false`，我们会发现隐藏了。
 
-
-
-![](./images/image_1.png)
-
 ### @{} 表达式
 `${}`表达式语法是专门用来获取`model`中绑定的数据的。
 
 `@{}`表达式语法是专门用来维护URL请求路径的。它可以动态设置项目的根路径。
-
-
 
 SpringBoot中默认的项目根路径是：`/`
 
@@ -6379,8 +5466,6 @@ model.addAttribute("imgUrl", "/dog1.jpg");
 
 ![](./images/image_279.png)
 
-![](./images/image_1.png)
-
 此时是可以正常显示的，但如果我们将web应用的根路径进行了修改，将其配置为：`/myweb`
 
 ```properties
@@ -6393,8 +5478,6 @@ server.servlet.context-path=/myweb
 
 ![](./images/image_280.png)
 
-
-
 此时我们将模板代码进行如下修改，将`${}`修改为`@{}`：
 
 ```html
@@ -6405,14 +5488,10 @@ server.servlet.context-path=/myweb
 
 ![](./images/image_281.png)
 
-![](./images/image_1.png)
-
 ### thymeleaf的内置工具
 内置工具很多，可以参考官方文档：[https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#strings](https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#strings)
 
 ![](./images/image_282.png)
-
-![](./images/image_1.png)
 
 例如我们要完成这样一个效果，用户提交用户名时，如果名字中含有`jack`则显示`狗狗图片`，否则不显示。
 
@@ -6430,8 +5509,6 @@ server.servlet.context-path=/myweb
 
 ![](./images/image_284.png)
 
-![](./images/image_1.png)
-
 ### thymeleaf也支持运算符
 例如`>`运算符，我们实现这样一个功能，如果提供的用户名长度大于6，则显示狗狗图片：
 
@@ -6447,8 +5524,6 @@ server.servlet.context-path=/myweb
 
 ![](./images/image_286.png)
 
-![](./images/image_1.png)
-
 另外thymeleaf也支持三目运算符：
 
 ```html
@@ -6457,11 +5532,7 @@ server.servlet.context-path=/myweb
 
 如果性别是true，则显示男，false，则显示女。
 
-
-
 还有很多其他的运算符，可参考thymeleaf官方文档。
-
-
 
 ### thymeleaf的字符串拼接
 第一种方式：使用加号 `+`
@@ -6473,8 +5544,6 @@ server.servlet.context-path=/myweb
 测试结果：
 
 ![](./images/image_287.png)
-
-![](./images/image_1.png)
 
 第二种方式：使用竖线 `||`
 
@@ -6503,8 +5572,6 @@ server.servlet.context-path=/myweb
 + user：代表集合中的每个元素
 + ${user.name}：元素的name属性值
 
-![](./images/image_1.png)
-
 遍历时也可以添加状态对象，代码示例：
 
 ```html
@@ -6529,11 +5596,7 @@ server.servlet.context-path=/myweb
 </tr>
 ```
 
-
-
 注意：以上`[[${state.index}]]`这种语法属于thymeleaf中的`内联表达式`写法。也可以写成：`[(${state.index})]`
-
-![](./images/image_1.png)
 
 另外，状态对象`state`的属性包括：
 
@@ -6549,11 +5612,9 @@ server.servlet.context-path=/myweb
 ### 条件判断th:if
 th:if 语法用来决定元素是否显示：true显示。false隐藏。
 
-<div th:if="true">我是一个div元素</div>，则显示该div
+\<div th:if="true"\>我是一个div元素\</div\>，则显示该div
 
-<div th:if="false">我也是一个div元素</div>，则隐藏该div
-
-
+\<div th:if="false"\>我也是一个div元素\</div\>，则隐藏该div
 
 实现这样一个功能：用户如果没有留下简介，则显示`你比较懒没有留下任何介绍信息`，如果留下了简介，则显示具体的简介信息。
 
@@ -6574,8 +5635,6 @@ th:if 语法用来决定元素是否显示：true显示。false隐藏。
   <span th:case="*">未知</span>
 </td>
 ```
-
-![](./images/image_1.png)
 
 ### thymeleaf属性优先级
 thymeleaf的属性优先级非常重要，因为它直接决定了模板的解析和执行顺序。
@@ -6606,9 +5665,6 @@ thymeleaf的属性优先级非常重要，因为它直接决定了模板的解�
 | 20 | `th:include` | 包含一个模板片段的内容。 |
 | 21 | `th:block` | 用于逻辑分组，不产生任何HTML输出。 |
 
-
-![](./images/image_1.png)
-
 对于thymeleaf属性优先级，我总结了以下一段话，把它记住即可：
 
 **“先控制，再遍历，后操作，末内容。”**
@@ -6623,18 +5679,12 @@ thymeleaf的属性优先级非常重要，因为它直接决定了模板的解�
 ### *{...} 表达式
 `*{...}` 主要用于在上下文中访问对象的属性。这种表达式通常在表单处理和对象绑定场景中使用。
 
-
-
-**语法**：`*{property}`：访问当前**<font style="color:#DF2A3F;">上下文</font>**对象的某个属性。
-
-
+**语法**：`*{property}`：访问当前**\<font style="color:#DF2A3F;"\>上下文\</font\>**对象的某个属性。
 
 **使用场景**
 
 + 表单绑定：在表单中绑定对象的属性。
 + 对象属性访问：在模板中访问对象的属性，特别是当对象是当前上下文的一部分时。
-
-![](./images/image_1.png)
 
 **示例**
 
@@ -6657,8 +5707,6 @@ thymeleaf的属性优先级非常重要，因为它直接决定了模板的解�
 + `th:object="${user}"` 将 `user` 对象设置为当前上下文对象。
 + `th:field="*{name}"` 和 `th:field="*{age}"` 分别绑定到 `user` 对象的 `name` 和 `age` 属性。
 
-
-
 2. **对象属性访问**
 
 假设你有一个 `User` 对象，包含 `name` 和 `age` 属性，你可以在模板中使用 `*{...}` 表达式来访问这些属性：
@@ -6676,8 +5724,6 @@ thymeleaf的属性优先级非常重要，因为它直接决定了模板的解�
 + `th:object="${user}"` 将 `user` 对象设置为当前上下文对象。
 + `*{name}` 和 `*{age}` 分别访问 `user` 对象的 `name` 和 `age` 属性。
 
-![](./images/image_1.png)
-
 **与 **`**${...}**`** 的区别**
 
 + `${...}`：标准表达式，用于访问模型中的变量和执行简单的表达式。
@@ -6685,8 +5731,6 @@ thymeleaf的属性优先级非常重要，因为它直接决定了模板的解�
 
 ### 代码片段共享
 片段是Thymeleaf中用于代码复用的基本机制。你可以将共享的部分提取到单独的HTML文件中，然后在其他模板中引用这些片段。
-
-
 
 页面中公共的header.html
 
@@ -6708,8 +5752,6 @@ thymeleaf的属性优先级非常重要，因为它直接决定了模板的解�
   <p>&copy; 2024 北京动力节点</p>
 </footer>
 ```
-
-![](./images/image_1.png)
 
 在`a.html`中包含以上两个公共部分：
 
@@ -6754,16 +5796,12 @@ thymeleaf的属性优先级非常重要，因为它直接决定了模板的解�
 </html>
 ```
 
-![](./images/image_1.png)
-
 主要作用是代码复用。实现此功能的主要代码：
 
 + 在公共代码部分使用`th:fragment="片段名称"`来声明公共代码片段的名字。
 + 在需要引入的地方使用`th:replace="~{文件名去掉后缀 :: 片段名称}"`来引入。
 
-
-
-**<font style="color:#DF2A3F;">小插曲：在springboot中如何实现：直接将请求路径映射到特定的视图，而不需要编写controller？</font>**
+**\<font style="color:#DF2A3F;"\>小插曲：在springboot中如何实现：直接将请求路径映射到特定的视图，而不需要编写controller？\</font\>**
 
 + 第一步：视图解析器配置
 
@@ -6793,8 +5831,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 ```
 
-![](./images/image_1.png)
-
 ## thymeleaf页面修改如何立即生效
 第一步：引入springboot提供的`dev tools`
 
@@ -6815,13 +5851,7 @@ spring.devtools.restart.enabled=false
 
 第三步：修改代码后在IDEA中按组合键`ctrl+f9`
 
-
-
 以上三步配合即可。
-
-
-
-![](./images/image_1.png)
 
 # 异常处理
 在controller层如果程序出现了异常，并且这个异常未被捕获，springboot提供的异常处理机制将生效。
@@ -6840,14 +5870,10 @@ springboot会根据请求头的Accept字段来决定错误的响应格式。
 
 ![](./images/image_289.png)
 
-![](./images/image_1.png)
-
 ![](./images/image_290.png)
 
-![](./images/image_1.png)
-
 ## SpringMVC的错误处理方案
-**<font style="color:#DF2A3F;">重点：如果程序员使用了SpringMVC的错误处理方案，SpringBoot的错误处理方案不生效。</font>**
+**\<font style="color:#DF2A3F;"\>重点：如果程序员使用了SpringMVC的错误处理方案，SpringBoot的错误处理方案不生效。\</font\>**
 
 ### 局部控制 @ExceptionHandler
 在控制器当中编写一个方法，方法使用@ExceptionHandler注解进行标注，凡是**这个控制器**当中出现了**对应的异常**，则走这个方法来进行异常的处理。局部生效。
@@ -6879,8 +5905,6 @@ public class UserController {
 
 ```
 
-![](./images/image_1.png)
-
 可以再编写一个OtherController，让它也发生`IllegalArgumentException`异常，看看它会不会走局部的错误处理机制。
 
 ```java
@@ -6904,8 +5928,6 @@ public class OtherController {
 ```
 
 通过测试，确实局部生效。
-
-![](./images/image_1.png)
 
 ### 全局控制 @ControllerAdvice + @ExceptionHandler
 也可以把以上局部生效的方法单独放到一个类当中，这个类使用@ControllerAdvice注解标注，凡是**任何控制器**当中出现了**对应的异常**，则走这个方法来进行异常的处理。全局生效。
@@ -6933,10 +5955,8 @@ public class GlobalExceptionHandler {
 
 通过测试，确实全局生效。
 
-![](./images/image_1.png)
-
 ## SpringBoot的错误处理方案
-**<font style="color:#DF2A3F;">重点：如果SpringMVC没有对应的处理方案，会开启SpringBoot默认的错误处理方案。</font>**
+**\<font style="color:#DF2A3F;"\>重点：如果SpringMVC没有对应的处理方案，会开启SpringBoot默认的错误处理方案。\</font\>**
 
 SpringBoot默认的错误处理方案如下：
 
@@ -6959,19 +5979,13 @@ Spring Boot 默认会在模型Model中放置以下信息：
 
 在thymeleaf中使用 `${message}`即可取出信息。
 
-
-
-注意：**<font style="color:#DF2A3F;">springboot3.3.5</font>**版本默认只向Model对象中绑定了`timestamp``status``error`。如果要保存`exception``message``trace`，需要开启以下三个配置：
+注意：**\<font style="color:#DF2A3F;"\>springboot3.3.5\</font\>**版本默认只向Model对象中绑定了`timestamp``status``error`。如果要保存`exception``message``trace`，需要开启以下三个配置：
 
 ```plain
 server.error.include-stacktrace=always
 server.error.include-exception=true
 server.error.include-message=always
 ```
-
-
-
-![](./images/image_1.png)
 
 ## 前后端分离项目的错误处理方案
 统一使用SpringMVC的错误处理方案，定义全局的异常处理机制：@ControllerAdvice + @ExceptionHandler
@@ -6988,8 +6002,6 @@ server.error.include-message=always
     1. 在程序中处理具体的业务异常，自己通过程序来决定跳转到哪个错误页面。
 3. 建议提供`classpath:/templates/error.html`来处理通用错误。
 
-![](./images/image_1.png)
-
 # 国际化（了解）
 在Spring Boot中实现国际化（i18n）是一个常见的需求，它允许应用程序根据用户的语言和地区偏好显示不同的文本。
 
@@ -7000,10 +6012,6 @@ server.error.include-message=always
 + `messages.properties` (默认语言，如英语)
 + `messages_zh_CN.properties` (简体中文)
 + `messages_fr.properties` (法语)
-
-
-
-![](./images/image_1.png)
 
 每个文件都应包含相同的消息键，但值应对应于相应的语言。例如：
 
@@ -7025,10 +6033,6 @@ welcome.message=欢迎来到我们的应用！
 welcome.message=Bienvenue dans notre application !
 ```
 
-
-
-![](./images/image_1.png)
-
 ### 第二步：在模板文件中取出消息
 语法格式为：#{welcome.message}
 
@@ -7045,21 +6049,15 @@ welcome.message=Bienvenue dans notre application !
 </html>
 ```
 
-![](./images/image_1.png)
-
 **测试1：浏览器默认的语言环境是中文时**
 
 ![](./images/image_291.png)
-
-
 
 **测试2：将浏览器默认语言环境修改为法文**
 
 ![](./images/image_292.png)
 
 ![](./images/image_293.png)
-
-![](./images/image_1.png)
 
 ## 国际化实现原理
 做国际化的自动配置类是：`MessageSourceAutoConfiguration`
@@ -7080,10 +6078,6 @@ spring.messages.encoding=UTF-8
 
 注意：标准标识符：en_US 和 zh_CN 这样的标识符是固定的，不能更改。可以设置的是basename。
 
-
-
-![](./images/image_1.png)
-
 ## 在程序当中如何获取国际化信息
 在国际化自动配置类中可以看到这样一个Bean：MessageSource，它是专门用来处理国际化的。我们可以将它注入到我们的程序中，然后调用相关方法在程序中获取国际化信息。
 
@@ -7103,8 +6097,6 @@ public class MyController {
     }
 }
 ```
-
-![](./images/image_1.png)
 
 # 定制web容器
 ## web服务器切换为jetty
@@ -7156,8 +6148,6 @@ springboot默认嵌入的web服务器是Tomcat，如何切换到jetty服务器�
 
 得知web服务器的配置都是以`server`开头的。
 
-
-
 那么如果要配置tomcat服务器怎么办？要配置jetty服务器怎么办？请看一下源码
 
 ![](./images/image_299.png)
@@ -7167,8 +6157,6 @@ springboot默认嵌入的web服务器是Tomcat，如何切换到jetty服务器�
 通过以上源码得知，如果要对tomcat服务器进行配置，前缀为：`server.tomcat`
 
 如果要对jetty服务器进行配置，前缀为：`server.jetty`。
-
-
 
 在以后的开发中关于tomcat服务器的常见优化配置有：
 
@@ -7211,13 +6199,9 @@ server.tomcat.uri-encoding=UTF-8
 server.tomcat.basedir=.
 ```
 
-
-
 ---
 
 ## 第6章 SpringBoot实用技术整合
-
-![](./images/image_1.png)
 
 # logo设置
 ## 关闭logo图标
@@ -7225,8 +6209,6 @@ server.tomcat.basedir=.
 ```properties
 spring.main.banner-mode=off
 ```
-
-![](./images/image_1.png)
 
 ### 代码方式
 第一种代码：
@@ -7242,8 +6224,6 @@ public class Springboot322WebServerApplication {
 }
 ```
 
-![](./images/image_1.png)
-
 第二种代码：流式编程/链式编程
 
 ```java
@@ -7252,8 +6232,6 @@ new SpringApplicationBuilder()
                 .bannerMode(Banner.Mode.OFF)
                 .run(args);
 ```
-
-![](./images/image_1.png)
 
 ## 修改logo图标
 在`src/main/resources`目录下存放一个`banner.txt`文件。文件名固定。
@@ -7268,8 +6246,6 @@ new SpringApplicationBuilder()
 
 获取图标粘贴到`banner.txt`文件中运行程序即可。
 
-![](./images/image_1.png)
-
 # PageHelper整合
 官网地址：[https://pagehelper.github.io/](https://pagehelper.github.io/)
 
@@ -7281,8 +6257,6 @@ new SpringApplicationBuilder()
     <version>2.1.0</version>
 </dependency>
 ```
-
-![](./images/image_1.png)
 
 ## 编写代码
 ```java
@@ -7303,8 +6277,6 @@ public class VipController {
     }
 }
 ```
-
-![](./images/image_1.png)
 
 # web层响应结果封装
 对于前后端分离的系统来说，为了降低沟通成本，我们有必要给前端系统开发人员返回统一格式的JSON数据。多数开发团队一般都会封装一个`R`对象来解决统一响应格式的问题。
@@ -7374,12 +6346,8 @@ public class R<T> {
 
 ```
 
-![](./images/image_1.png)
-
 ## 改进R对象
 以上`R`对象存在的问题是，难以维护，项目中可能会出现很多这样的代码：R.FAIL(400, "修改失败")。
-
-
 
 引入枚举类型进行改进：
 
@@ -7406,8 +6374,6 @@ public enum CodeEnum {
 
 }
 ```
-
-![](./images/image_1.png)
 
 改进R：
 
@@ -7458,8 +6424,6 @@ public class R<T> {
 
 ```
 
-![](./images/image_1.png)
-
 # 事务管理
 SpringBoot中的事务管理仍然使用的Spring框架中的事务管理机制，在代码实现上更为简单了。不需要手动配置事务管理器，SpringBoot自动配置完成了。我们只需要使用`@Transactional`注解标注需要控制事务的方法即可。另外事务的特性等仍然延用Spring框架。大家可以在老杜发布的Spring视频教程中详细学习事务管理机制。以下代码是在SpringBoot框架中进行的事务控制：
 
@@ -7494,8 +6458,6 @@ public class AccountServiceImpl implements AccountService {
 
 我们只需要在需要控制事务的方法上，或者类上，使用`@Transactional`注解进行标注即可。然后事务的特性和之前Spring中是完全相同的。最重要的是其他的配置我们一律是不需要的。
 
-![](./images/image_1.png)
-
 # SpringBoot打war包
 第一步：将打包方式设置为war
 
@@ -7518,8 +6480,6 @@ public class AccountServiceImpl implements AccountService {
     </exclusions>
 </dependency>
 ```
-
-![](./images/image_1.png)
 
 第三步：添加servlet api依赖（引入tomcat，但scope设置为provided，这样这个tomcat服务器就不会打入war包了）
 
@@ -7551,11 +6511,7 @@ public class Springboot324TransactionApplication extends SpringBootServletInitia
 }
 ```
 
-![](./images/image_1.png)
-
 第五步：执行package命令打war包
 
 第六步：配置tomcat环境，将war包放入到webapps目录下，启动tomcat服务器，并访问。
-
-
-
+

@@ -6,7 +6,7 @@
 
 ### Pod结构
 
-<img src="./assets/image-20200407121501907.png" alt="image-20200407121501907" style="zoom:80%;" />
+\<img src="./assets/image-20200407121501907.png" alt="image-20200407121501907" style="zoom:80%;" />
 
 每个Pod中都可以包含一个或者多个容器，这些容器可以分为两类：
 
@@ -161,7 +161,7 @@ FIELDS:
 
 - containers   <[]Object>       容器列表，用于定义容器的详细信息 
 - nodeName \<String>           根据nodeName的值将pod调度到指定的Node节点上
-- nodeSelector   <map[]>      根据NodeSelector中定义的信息选择将该Pod调度到包含这些label的Node 上
+- nodeSelector   \<map[]>      根据NodeSelector中定义的信息选择将该Pod调度到包含这些label的Node 上
 - hostNetwork  \<boolean>    是否使用主机网络模式，默认为false，如果设置为true，表示使用宿主机网络
 - volumes      <[]Object>       存储卷，用于定义Pod上面挂在的存储信息 
 - restartPolicy	\<string>       重启策略，表示Pod在遇到故障的时候的处理策略
@@ -530,7 +530,7 @@ Warning  FailedScheduling  <unknown>  default-scheduler  0/2 nodes are available
 
 - pod终止过程
 
-<img src="./assets/image-20200412111402706.png" alt="image-20200412111402706" style="border:solid 1px" />
+\<img src="./assets/image-20200412111402706.png" alt="image-20200412111402706" style="border:solid 1px" />
 
 
 在整个生命周期中，Pod会出现5种**状态**（**相位**），分别如下：
@@ -557,7 +557,7 @@ Warning  FailedScheduling  <unknown>  default-scheduler  0/2 nodes are available
 
 6. apiServer将接收到的pod状态信息存入etcd中
 
-   <img src="./assets/image-20200406184656917.png" alt="image-20200406184656917" style="zoom:100%;" />
+   \<img src="./assets/image-20200406184656917.png" alt="image-20200406184656917" style="zoom:100%;" />
 
 
 **pod的终止过程**
@@ -1487,7 +1487,7 @@ pod-podantiaffinity-required   1/1     Running   0          30s   10.244.1.96   
 - NoSchedule：kubernetes将不会把Pod调度到具有该污点的Node上，但不会影响当前Node上已存在的Pod
 - NoExecute：kubernetes将不会把Pod调度到具有该污点的Node上，同时也会将Node上已存在的Pod驱离
 
-<img src="./assets/image-20200605021831545.png" alt="image-20200605021606508" style="border:1px solid" />
+\<img src="./assets/image-20200605021831545.png" alt="image-20200605021606508" style="border:1px solid" />
 
 使用kubectl设置和去除污点的命令示例如下：
 

@@ -776,21 +776,21 @@ x // 5
 
 这个运算符的主要用途是浏览器的书签工具（Bookmarklet），以及在超级链接中插入代码防止网页跳转。
 请看下面的代码。
-<script>
+\<script>
 function f() {
   console.log('Hello World');
 }
-</script>
-<a href="http://example.com" onclick="f(); return false;">点击</a>
+\</script>
+\<a href="http://example.com" onclick="f(); return false;">点击\</a>
 
 上面代码中，点击链接后，会先执行onclick的代码，由于onclick返回false，所以浏览器不会跳转到 example.com。
 void运算符可以取代上面的写法。
-<a href="javascript: void(f())">文字</a>
+\<a href="javascript: void(f())">文字\</a>
 
 下面是一个更实际的例子，用户点击链接提交表单，但是不产生页面跳转。
-<a href="javascript: void(document.form.submit())">
+\<a href="javascript: void(document.form.submit())">
   提交
-</a>
+\</a>
 
 逗号运算符
 逗号运算符用于对两个表达式求值，并返回后一个表达式的值。

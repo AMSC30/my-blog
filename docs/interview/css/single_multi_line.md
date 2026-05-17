@@ -185,6 +185,6 @@ $(function(){
 
 ## 参考文献
 
-- <https://www.zoo.team/article/text-overflow>
+- \<https://www.zoo.team/article/text-overflow>
 
-- <https://segmentfault.com/a/1190000017078153>
+- \<https://segmentfault.com/a/1190000017078153>

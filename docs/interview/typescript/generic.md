@@ -182,4 +182,4 @@ class Demo<T extends ChildInterface> {
 
 ## 参考文献
 
-- <https://www.tslang.cn/docs/handbook/generics.html>
+- \<https://www.tslang.cn/docs/handbook/generics.html>
