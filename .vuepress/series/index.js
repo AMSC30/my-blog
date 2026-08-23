@@ -23,9 +23,10 @@ import java from './backend-base/java'
 import thread from './backend-base/thread'
 import mysql from './backend-base/mysql'
 import mybatis from './backend-base/mybatis'
-import k8s from "./backend-base/k8s"
-import spring from "./backend-base/spring"
-import vibeCoding   from "./AI/vibe-coding";
+import k8s from './backend-base/k8s'
+import spring from './backend-base/spring'
+import nginx from './backend-base/nginx'
+import vibeCoding from './AI/vibe-coding'
 
 export default {
     '/docs/interview/vue/': vue,
@@ -54,6 +55,7 @@ export default {
     '/docs/backend-base/mysql/': mysql,
     '/docs/backend-base/mybatis/': mybatis,
     '/docs/backend-base/k8s/': k8s,
-    '/docs/backend-base/spring/':spring,
-    "/docs/AI/vibe-coding/":vibeCoding
+    '/docs/backend-base/spring/': spring,
+    '/docs/backend-base/nginx/': nginx,
+    '/docs/AI/vibe-coding/': vibeCoding,
 }
