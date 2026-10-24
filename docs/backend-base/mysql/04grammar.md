@@ -1,4 +1,4 @@
-# MySQL语法
+# 04MySQL语法
 
 ## DDL语句
 

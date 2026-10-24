@@ -1,4 +1,4 @@
-# 初识MySQL
+# 01初识MySQL
 
 mysql是一种关系型数据库
 
