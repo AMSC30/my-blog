@@ -18,7 +18,7 @@
 
 ### 基础架构
 
-![docker简易架构](./images//iShot_2025-12-20_22.43.40.png)
+![docker简易架构](../images//iShot_2025-12-20_22.43.40.png)
 
 docker是一个c/s架构的系统，docker守护进程运行在主机上，客户端可以通过socket连接到主机，通过发送命令到docker主机来管理docker资源
 
