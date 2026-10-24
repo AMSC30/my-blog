@@ -13,7 +13,6 @@
 } */
 
 * {
-    /* font-family: '阿里妈妈方圆体 VF Regular' !important; */
     font-family: 'MyWebFont' !important;
     font-variation-settings: 'BEVL' 80, 'wght' 100;
     font-display: swap;
@@ -102,3 +101,6 @@ h6 {
 /* background-color: rgb(248 248 248) / var(--tw-bg-opacity) !important; */
 /* color: rgb(68 68 68) / var(--tw-text-opacity) !important; */
 /* } */
+.series-container a.series-item{
+    font-weight: bold;
+}
