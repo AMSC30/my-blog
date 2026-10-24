@@ -5,6 +5,8 @@ npm run build
 
 cd .vuepress/dist
 
+touch .nojekyll
+
 git init
 git add .
 git commit -m 'publish'
