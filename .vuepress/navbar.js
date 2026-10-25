@@ -69,7 +69,7 @@ export default [
             { text: 'Java', link: '/docs/backend-base/java/DOS.md' },
             { text: '并发编程', link: '/docs/backend-base/thread/base.md' },
             { text: 'Maven', link: '/docs/backend-base/maven/maven-base.md' },
-            { text: 'MySQL', link: '/docs/backend-base/mysql/01base.md' },
+            { text: 'MySQL', link: '/docs/backend-base/mysql/base.md' },
             { text: 'MyBatis', link: '/docs/backend-base/mybatis/mapper.md' },
             { text: 'Spring', link: '/docs/backend-base/spring/spring.md' },
             { text: 'Redis', link: '/docs/backend-base/redis/redis-base.md' },

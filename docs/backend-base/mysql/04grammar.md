@@ -8,7 +8,7 @@
 
 - 查询所有数据库: show databases
 - 查询当前使用的数据库：select database()
-- 创建数据库：create database [if not exists] 数据库名 [default charset 字符集]
+- 创建数据库：create database [if not exists] 数据库名 [default charset 字符集] [default collate 字符集排序规则]
 - 删除数据库：drop database [if exists] 数据库名
 - 使用数据库：use 数据库名
 
