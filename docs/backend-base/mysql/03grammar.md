@@ -1,4 +1,4 @@
-# 04MySQL语法
+# 03基本语法
 
 ## DDL语句
 
@@ -15,7 +15,7 @@
 ### 表操作
 
 - 创建表：create table 表名(字段1 字段1类型 [约束] [comment  字段1注释 ],字段2  字段2类型 [约束]  [comment  字段2注释 ],......字段n  字段n类型 [约束]  [comment  字段n注释 ]) [ comment  表注释 ] ;
-- 创建包含外键的表：create table (字段名 字段类型 字段约束 字段注释, ..., [constraint] [外键名称] foreign key (外键字段名) references 主表 主表(字段名))
+- 创建包含外键的表：create table 表名(字段名 字段类型 字段约束 字段注释, ..., [constraint] [外键名称] foreign key (外键字段名) references 主表 主表(字段名))
 - 删除表：drop table [if exists] 表名;
 - 修改表名: rename table 表名 to 新表名;
 - 查询表结构：desc 表名;
@@ -96,13 +96,13 @@ where与having的区别：
 - where是在分组之前使用，是对分组前的数据进行过滤，符合条件的才参与分组；having是对分组后的数据进行过滤
 - where不能对聚合函数进行判断，having可以
 
-```bash
+```text
 聚合函数：将一列的数据作为一个整体，进行纵向计算。进行计算时，所有的null值不参与计算
-- count：统计查询结果的数量
-- min：统计某一列的最小值
-- max：统计某一列的最大值
-- avg：统计某一列的平均值
-- sum：统计某一列的总和
+count：统计查询结果的数量
+min：统计某一列的最小值
+max：统计某一列的最大值
+avg：统计某一列的平均值
+sum：统计某一列的总和
 ```
 
 ### 排序查询
