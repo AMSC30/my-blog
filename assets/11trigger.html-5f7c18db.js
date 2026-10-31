@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-a50b0590","path":"/docs/backend-base/mysql/11trigger.html","title":"11触发器","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1792840864000,"updatedTime":1792840864000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/backend-base/mysql/11trigger.md"}');export{e as data};

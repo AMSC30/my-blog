@@ -1,0 +1,1 @@
+import{_ as e,p as s,q as c,s as t}from"./framework-e1bed10d.js";const _={},o=t("p",null,"css",-1),n=[o];function r(a,l){return s(),c("div",null,n)}const f=e(_,[["render",r],["__file","css.html.vue"]]);export{f as default};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-f54ea08a","path":"/docs/frontend-base/javascript/dom.html","title":"DOM","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1687943022000,"updatedTime":1687943022000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/frontend-base/javascript/dom.md"}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-4adb56d3","path":"/docs/vue2/vue/component/register.html","title":"组件注册","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1680592401000,"updatedTime":1680592401000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/vue2/vue/component/register.md"}');export{e as data};
