@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-33c0d288","path":"/docs/frontend-advanced/webpack/config.html","title":"webpack","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1687943022000,"updatedTime":1687943022000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/frontend-advanced/webpack/config.md"}');export{e as data};

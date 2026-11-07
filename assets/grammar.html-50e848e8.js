@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-98deaef4","path":"/docs/frontend-advanced/es6/grammar.html","title":"ES6","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1687943022000,"updatedTime":1687943022000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/frontend-advanced/es6/grammar.md"}');export{e as data};
