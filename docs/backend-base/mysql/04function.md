@@ -8,7 +8,7 @@
 
 | 函数 | 说明 |
 | --- | --- |
-| count(字段/*) | 根据某个字段统计数量 |
+| count(字段) | 根据某个字段统计数量 |
 | max(字段) | 某个字段为表中最大值的数据 |
 | min(字段) | 某个字段为表中最小值的数据 |
 | avg(字段) | 计算某个字段的平均值 |
@@ -29,7 +29,7 @@
 | length(str) | 长度 |
 | lpad(str,len,s) | 用s左填充str到长度len |
 | rpad(str,len,s) | 用s右填充str到长度len |
-| substring(str,from,len) | 从str截取字符串str的len个字符 |
+| substring(str,from,len) | 从from截取字符串str的len个字符
 | soundex() | 转换为语音值 |
 
 ## 日期和时间处理

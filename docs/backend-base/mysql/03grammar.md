@@ -15,7 +15,7 @@
 ### 表操作
 
 - 创建表：create table 表名(字段1 字段1类型 [约束] [comment  字段1注释 ],字段2  字段2类型 [约束]  [comment  字段2注释 ],......字段n  字段n类型 [约束]  [comment  字段n注释 ]) [ comment  表注释 ] ;
-- 创建包含外键的表：create table 表名(字段名 字段类型 字段约束 字段注释, ..., [constraint] [外键名称] foreign key (外键字段名) references 主表 主表(字段名))
+- 创建包含外键的表：create table 表名(字段名 字段类型 字段约束 字段注释, ..., [constraint 外键名称] foreign key (外键字段名) references 主表(字段名))
 - 删除表：drop table [if exists] 表名;
 - 修改表名: rename table 表名 to 新表名;
 - 查询表结构：desc 表名;
@@ -25,11 +25,11 @@
 ### 字段操作
 
 - 添加字段：alter table 表名 add 字段名称 字段类型(长度) [comment 注释]  [约束]
-- 添加字段外键约束： alter table 表名 add [constraint] [外键名称] foreign key (外键字段名) references 主表 主表(字段名))
+- 添加字段外键约束： alter table 表名 add [constraint 外键名称] foreign key (外键字段名) references 主表(字段名)
 - 修改字段类型：alter table 表名 modify 字段名称 字段类型(长度) [comment 注释]  [约束]
 - 修改字段名称和类型：alter table 表名 change 旧名称字段 新名称字段 字段类型(长度) [comment 注释]  [约束]
 - 删除字段：alter table 表名 drop column 字段名称
-- 删除外键：alter table 表名 drop foreign key 字段名称
+- 删除外键：alter table 表名 drop foreign key 外键名称
 
 ### 字段约束
 
