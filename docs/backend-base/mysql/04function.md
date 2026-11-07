@@ -108,5 +108,5 @@
 | --- | --- |
 | if(value, t, f) | 如果value为true，则返回t，否则返回f |
 | ifnull(value1,value2) | 如果value1不为空则返回，否则返回value2 |
-| case when exp then res1,...else [default] end | 如果val1为true，则返回res1,..，否则返回default默认值，when和then可以有多个，以end结尾 |
-| case exp when val1 then res1,...else [default] end | 如果exp等于val1，则返回res1,...，否则返回default默认值，when和then可以有多个，以end结尾 |
+| case when exp1 then res1 when exp2 then res2...else val [default val] end | 如果val1为true，则返回res1,..，否则返回default默认值，when和then可以有多个，以end结尾 |
+| case exp when val1 then res1 when val2 then res2...else val [default val] end | 如果exp等于val1，则返回res1,...，否则返回default默认值，when和then可以有多个，以end结尾 |
