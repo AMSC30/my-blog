@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-77071b14","path":"/docs/frontend-base/javascript/grammar.html","title":"基础语法","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1687943022000,"updatedTime":1687943022000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/frontend-base/javascript/grammar.md"}');export{a as data};

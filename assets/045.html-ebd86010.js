@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-7ee8f833","path":"/docs/business/xindai-design/articles/045.html","title":"本章小结","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":null,"updatedTime":null,"contributors":[]},"filePathRelative":"docs/business/xindai-design/articles/045.md"}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-26e9c08a","path":"/docs/vue2/vue/entry/init.html","title":"initMixin流程","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1680592401000,"updatedTime":1779011207000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":4}]},"filePathRelative":"docs/vue2/vue/entry/init.md"}');export{e as data};

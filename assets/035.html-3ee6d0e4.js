@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-4a02bcf2","path":"/docs/business/xindai-design/articles/035.html","title":"新老系统切换：数据迁移与并行切流","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":null,"updatedTime":null,"contributors":[]},"filePathRelative":"docs/business/xindai-design/articles/035.md"}');export{e as data};
