@@ -27,6 +27,7 @@ import k8s from './backend-base/k8s'
 import spring from './backend-base/spring'
 import nginx from './backend-base/nginx'
 import vibeCoding from './AI/vibe-coding'
+import xindaiDesign from './business/xindai-design'
 
 export default {
     '/docs/interview/vue/': vue,
@@ -57,5 +58,6 @@ export default {
     '/docs/backend-base/k8s/': k8s,
     '/docs/backend-base/spring/': spring,
     '/docs/backend-base/nginx/': nginx,
+    '/docs/business/xindai-design/articles/': xindaiDesign,
     '/docs/AI/vibe-coding/': vibeCoding,
 }

@@ -85,6 +85,12 @@ export default [
         ],
     },
     {
+        text: '业务知识',
+        children: [
+            { text: '信贷系统设计-侃西东', link: '/docs/business/xindai-design/articles/001.md' },
+        ],
+    },
+    {
         text: 'harmonyOS',
         children: [
             { text: '程序包基础', link: '/docs/harmony-os/package/package.md' },
