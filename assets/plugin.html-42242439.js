@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-4c6253e2","path":"/docs/vue2/vue/expand/plugin.html","title":"Vue.use插件机制","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1680592401000,"updatedTime":1680592401000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/vue2/vue/expand/plugin.md"}');export{e as data};

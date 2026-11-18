@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-ab4b1468","path":"/docs/frontend-base/javascript/number.html","title":"number","lang":"en-US","frontmatter":{},"headers":[],"git":{"createdTime":1687943022000,"updatedTime":1687943022000,"contributors":[{"name":"zhengxixuan","email":"930042468@qq.com","commits":1}]},"filePathRelative":"docs/frontend-base/javascript/number.md"}');export{e as data};
